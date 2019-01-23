@@ -107,14 +107,13 @@
       }
     },
     "tembea-frontend-e2e": {
-      "root": "e2e/",
+      "root": "./",
       "projectType": "application",
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "ngx-cypress-builder:cypress",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
             "devServerTarget": "tembea-frontend:serve"
           },
           "configurations": {

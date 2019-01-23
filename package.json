@@ -35,6 +35,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "commitplease": "^3.2.0",
     "concurrently": "^4.1.0",
     "cypress": "^3.1.4",
     "jasmine-core": "~2.99.1",
@@ -44,9 +45,23 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.4.0",
+    "ngx-cypress-builder": "^1.0.2",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.1"
+  },
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore"
+    ],
+    "scope": "\\S+.*"
   }
 }
