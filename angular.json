@@ -78,7 +78,21 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "../jest.config.js"
+            "configPath": "../jest.config.js",
+            "collectCoverage": true,
+            "collectCoverageFrom": [
+              "src/**/*.ts",
+              "!**/*.spec.ts",
+              "!**/*.module.ts",
+              "!src/main.ts",
+              "!src/environments/*.ts",
+              "!**/__tests__/**/*.ts?(x)"
+            ],
+            "testMatch": [
+              "<rootDir>/src/**/__tests__/**/?(*.)(spec|test)ts",
+              "<rootDir>/src/**/?(*.)(spec|test).ts"
+            ],
+            "testEnvironment": "jsdom"
           }
         },
         "lint": {
