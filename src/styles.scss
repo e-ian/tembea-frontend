@@ -38,3 +38,12 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 .andela-dark-gray-background{
   background-color: #4F4F4F !important;
 }
+
+.toolbar-dropdown {
+  margin-top: .8em;
+  box-shadow: 0 3px 7px 0 rgba(128, 143, 163, 0.11);
+}
+
+.toolbar-dropdown .mat-menu-content:not(:empty) {
+  padding: 0 !important;
+}

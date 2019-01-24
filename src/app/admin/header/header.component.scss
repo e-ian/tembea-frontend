@@ -1,0 +1,129 @@
+
+.app-toolbar{
+  background-color: #ffffff;
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0;
+  z-index: 1000; /* Ensures app's content doesn't overlap the toolbar */
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 100px;
+}
+
+button:hover,
+    button:focus {
+    cursor: pointer;
+  }
+
+.tool-bar-button{
+  margin-top:1.2em;
+  margin-right:1.5em;
+}
+
+.action-button {
+  height: 46px;
+  min-width: 182px;
+  border: 1px solid rgba(128, 143, 163, 0.11);
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 7px 0 rgba(128, 143, 163, 0.11);
+  display: flex;
+  justify-content:space-between;
+  outline: none;
+  mat-icon{
+    padding-top: 5px;
+    color: #B9C5D1;
+   }
+}
+
+#menuToggle{
+  border: 0;
+  margin-right: 0.5em;
+  background: transparent;
+}
+
+span.welcome {
+  font-size:1.8rem;
+  color: #233539;
+  line-height: 38px;
+  letter-spacing: -1.46px;
+  padding-left: 1em;
+  margin-top: 2.6em;
+
+  @media screen and (max-width: 600px){
+    &{
+      margin-top: 0.2em;
+      padding-top:0;
+      padding-right: 0.7em;
+      padding-left: 0.2em;
+      display: inline-block;
+      font-size:1em;
+      white-space: normal;
+    }
+  }
+}
+
+.tool-bar-items{
+  padding-top:2em;
+  position: relative;
+  @media screen and (max-width: 600px){
+    &{
+    padding-top:0;
+    display: flex;
+    justify-content: space-between;
+    }
+  }
+}
+
+.upic {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  @media screen and (max-width: 600px){
+    &{
+    margin-top:0.2em;
+    margin-right: -12em;
+    padding-top:0;
+    }
+  }
+}
+
+.logout {
+  color: #ff5359;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 21px;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-red-pointer {
+  background: url(../../../assets/sidebar-icons/right-red-pointer.svg) no-repeat !important;
+}
+
+.right-arrow-icon-wrapper{
+  background-color: #FFE5E6;
+  height: 20px;
+  width: 20px;
+  margin-left: .5em;
+  border-radius: 50%;
+}
+
+.button-icon-size{
+  height: 10px;
+  width: 10px;
+  margin: 5px;
+}
+
+span.too-bar-username{
+  padding-top: 6px;
+  padding-right: 1px;
+  padding-left: 6px;
+  padding-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 21px;
+  color: #4F4F4F;
+}

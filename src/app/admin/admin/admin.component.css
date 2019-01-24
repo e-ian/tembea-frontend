@@ -69,5 +69,10 @@ a:hover {
 }
 
 .logout-divider {
-  margin: 2em auto;
+  margin: 0.5em auto;
+}
+
+mat-icon.logout-icon{
+  margin-right:0.5em;
+  color: #FF5359;
 }

@@ -1,0 +1,35 @@
+<mat-toolbar class="app-toolbar">
+  <mat-toolbar-row>
+    <button (click)="toggleSideNav()" id="menuToggle" mat-icon-button fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="tool-bar-items">
+
+      <span class="welcome">Welcome, User</span>
+      <!-- visible on xs-devices -->
+      <img class="upic" fxHide.gt-xs src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+    </div>
+
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+
+      <div class="tool-bar-button">
+        <button [matMenuTriggerFor]="dropDown" class="action-button">
+          <img class="upic" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+          <span class="too-bar-username">Slim momoh</span>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #dropDown="matMenu" class="toolbar-dropdown">
+          <button class="action-button logout">
+            Logout
+            <div class="right-arrow-icon-wrapper">
+              <div class="right-red-pointer button-icon-size"></div>
+            </div>
+          </button>
+        </mat-menu>
+
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -10,13 +10,19 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { AngularMaterialModule } from '../../angular-material.module';
+import { HeaderComponent } from '../header/header.component';
+import { NavMenuService } from '../__services__/nav-menu.service';
 
 Object.defineProperty(window, 'matchMedia', {
   value: jest.fn(() => ({ matches: true }))
 });
 const sideNavMock = {
-  close: jest.fn()
+  setSidenav: jest.fn(),
+  open: jest.fn(),
+  close: jest.fn(),
+  toggle: jest.fn(),
 };
+
 
 describe('SideBarComponent', () => {
   let component: AdminComponent;
@@ -35,7 +41,7 @@ describe('SideBarComponent', () => {
         HttpClientModule,
         RouterTestingModule.withRoutes([
           { path: '', component: AdminComponent },
-          { path: 'trips/pending', component: AdminComponent },
+          { path: 'admin/trips/pending', component: AdminComponent },
         ]),
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -74,8 +80,8 @@ describe('SideBarComponent', () => {
   });
 
   describe('activeRoute', () => {
-    it('should change active route', () => {
-      fixture.ngZone.run(async () => {
+    it('should change active route', async () => {
+      await fixture.ngZone.run(async () => {
         expect(component.activeRoute).toEqual('');
 
         await router.navigate(['admin/trips/pending']);
@@ -96,30 +102,31 @@ describe('SideBarComponent on small devices', () => {
 
     // setup component
     TestBed.configureTestingModule({
-      declarations: [AdminComponent],
+      declarations: [AdminComponent, HeaderComponent],
       imports: [
         NoopAnimationsModule,
         AngularMaterialModule,
         HttpClientModule,
         RouterTestingModule],
       providers: [
-        { provide: MediaObserver, useValue: mediaObserverMock }
+        { provide: MediaObserver, useValue: mediaObserverMock },
+        { provide: NavMenuService, useValue: sideNavMock }
       ]
     })
       .compileComponents();
 
     fixture = TestBed.createComponent(AdminComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
   it('should change menu orientation if screen size is small', () => {
     // assert
-    expect(component.position).toEqual('over');
+    expect(component.position).toEqual('side');
   });
 
   describe('menuClicked on a small screen device', () => {
     it('should call sideNav.close when clicked', () => {
 
+      component.position = 'over';
       component.menuClicked(true);
 
       expect(component.sidenav.opened).toBeFalsy();
