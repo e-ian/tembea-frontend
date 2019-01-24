@@ -1,12 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {AngularMaterialModule} from './angular-material.module';
+import {HttpClientModule} from '@angular/common/http';
+
+Object.defineProperty(window, 'matchMedia', {
+  value: jest.fn(() => ({ matches: true }))
+});
 import { HomeComponent } from './home/home.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
+        AngularMaterialModule,
+        HttpClientModule,
         RouterTestingModule
       ],
       declarations: [
