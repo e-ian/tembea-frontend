@@ -1,20 +1,14 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { HomeRouteActivatorGuard } from './home-route-activator.guard';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth/__services__/auth.service';
 import { CookieService } from '../auth/ngx-cookie-service.service';
 import { Router } from '@angular/router';
+import { authServiceMock } from '../auth/__mocks__/authService.mock';
+import { MatDialog } from '@angular/material';
+import { matDialogMock } from './__mocks__/matDialog.mock';
 
 describe('HomeRouteActivatorGuard', () => {
-  let homeRouteActivatorGuard: HomeRouteActivatorGuard;
-  let authService: AuthService;
-  let cookieService: CookieService;
-  let router: Router;
-
-  const mockAuthService = {
-    isAuthorized: true,
-    isAuthenticated: false
-  };
 
   const mockCookieService = {
     get: () => 'token'
@@ -29,8 +23,9 @@ describe('HomeRouteActivatorGuard', () => {
       providers: [
         HomeRouteActivatorGuard,
         { provide: Router, useValue: mockRouter },
-        { provide: AuthService, useValue: mockAuthService },
+        { provide: AuthService, useValue: authServiceMock },
         { provide: CookieService, useValue: mockCookieService },
+        { provide: MatDialog, useValue: matDialogMock }
       ]
     });
   });

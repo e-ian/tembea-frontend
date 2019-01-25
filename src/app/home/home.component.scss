@@ -3,7 +3,7 @@
   height: 100vh;
   padding: 20px 5%;
   box-sizing: border-box;
-  font-family: "DIN Pro Extlight";
+  font-weight: 200;
   .logo {
     height: 60px;
     margin: 100px auto auto 5%;
@@ -34,6 +34,7 @@
     transform: translateY(-50%);
     border: none;
     box-shadow: 0 1px 80px 35px rgba(255,255,255,.5);
+    line-height: 66px;
     .mantra {
       p {
         color: #3A3D40;
@@ -49,7 +50,6 @@
       p {
         font-size: 1.7rem;
         font-weight: bold;
-        font-family: "DIN Pro", sans-serif;
         color: #808FA3;
       }
     }
@@ -60,8 +60,7 @@
       	height: 51px;
       	width: 270px;
         color: #000000;
-        font-family: "DIN Pro", sans-serif;
-        font-size: 20px;
+        font-size: 1.125rem;
       	border: 1px solid #E9EFF4;
         padding: 0;
         outline: none;
@@ -72,6 +71,8 @@
         box-sizing: border-box;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+        display: inline-block;
+        vertical-align: middle;
         .google-login-icon {
           background-image: url("/assets/images/icons/google-login-icon.svg");
           background-size: contain;

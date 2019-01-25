@@ -170,5 +170,10 @@
       }
     }
   },
-  "defaultProject": "tembea-frontend"
+  "defaultProject": "tembea-frontend",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

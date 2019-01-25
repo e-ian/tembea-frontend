@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import {HomeComponent} from './home/home.component';
-import { LoginRedirectComponent } from './login/login-redirect/login-redirect.component';
+import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.component';
 import { HomeRouteActivatorGuard } from './home/home-route-activator.guard';
 
 const routes: Routes = [

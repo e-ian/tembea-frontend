@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatExpansionModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import {
+  MatExpansionModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatDialogModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -10,7 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatListModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   exports: [
     MatToolbarModule,
@@ -19,7 +22,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatListModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ]
 })
 export class AngularMaterialModule { }

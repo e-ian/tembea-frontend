@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../__services__/auth.service';
 import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -50,7 +50,6 @@ export class LoginRedirectComponent implements OnInit {
     if (err instanceof HttpErrorResponse && err.status === 401 || err.status === 500 ) {
       return this.unAuthorizeUser();
     }
-    this.authService.isAuthorized = false;
     this.toastr.error('Something went wrong! try again');
     this.router.navigate(['/']);
   }

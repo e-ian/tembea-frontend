@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 
 import { LoginRedirectComponent } from './login-redirect.component';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 

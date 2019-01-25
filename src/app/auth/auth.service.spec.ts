@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http/testing';
 import { environment } from 'src/environments/environment';
 
-import { AuthService } from './auth.service';
+import { AuthService } from './__services__/auth.service';
 
 describe('AuthService', () => {
   let authService: AuthService;
