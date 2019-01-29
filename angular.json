@@ -86,6 +86,7 @@
               "!**/*.spec.ts",
               "!**/*.module.ts",
               "!src/main.ts",
+              "!src/polyfills.ts",
               "!src/environments/*.ts",
               "!**/__tests__/**/*.ts?(x)"
             ],
