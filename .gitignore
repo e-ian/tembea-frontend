@@ -128,3 +128,4 @@ dist/
 package-lock.json
 excel.xlsx
 cypress/videos/*
+cypress/screenshots/*
