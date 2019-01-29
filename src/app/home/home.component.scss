@@ -10,16 +10,6 @@
     img {
       height: 100%;
     }
-    @media screen and (max-width: 600px) {
-      margin: 30px auto;
-      text-align: center;
-    }
-    @media screen and (max-width: 500px) {
-      margin: 10px auto 20px auto;
-    }
-    @media screen and (max-width: 500px) {
-      height: 40px;
-    }
   }
   .home-image {
     position: fixed;
@@ -34,14 +24,6 @@
       img {
         width: 100%;
       }
-      @media screen and (max-width: 500px) {
-        width: 100%;
-        height: unset;
-      }
-    }
-    @media screen and (max-width: 500px) {
-      position: static;
-      height: unset;
     }
   }
   .home-text {
@@ -60,26 +42,6 @@
         font-weight: 300;
         margin: auto;
         box-sizing: border-box;
-        @media (max-width: 500px) {
-          width: 100%;
-          font-size: 2.5rem;
-        }
-        @media (max-width: 390px) {
-          font-size: 2.3rem;
-        }
-        @media (max-width: 345px) {
-          font-size: 2rem;
-        }
-        @media (max-width: 320px) {
-          font-size: 1.8rem;
-        }
-      }
-      @media (max-width: 500px) {
-        padding: 0 20px;
-        text-align: center;
-      }
-      @media (max-width: 390px) {
-        padding: 0 20px;
       }
     }
     .sub-mantra {
@@ -89,22 +51,6 @@
         font-weight: bold;
         font-family: "DIN Pro";
         color: #808FA3;
-        @media screen and (max-width: 500px) {
-          font-size: 1.2rem;
-        }
-        @media (max-width: 375px) {
-          font-size: 1rem;
-        }
-        @media (max-width: 340px) {
-          font-size: 1rem;
-        }
-        @media (max-width: 320px) {
-          font-size: 1rem;
-        }
-      }
-      @media screen and (max-width: 500px) {
-        margin-bottom: 60px;
-        text-align: center;
       }
     }
     .login-button {
@@ -134,10 +80,6 @@
           width: 20px;
           height: 20px;
           margin: auto 10px -2px auto;
-          @media screen and (max-width: 500px) {
-            width: 15px;
-            height: 15px;
-          }
         }
         &:focus {
           outline: none;
@@ -146,24 +88,34 @@
           margin: 2px 0 0 0;
           box-shadow: 0 0 2px 0 rgba(83,89,98,0);
         }
-        @media screen and (max-width: 500px) {
-          font-size: 17px;
-          height: 40px;
-        	width: 230px;
-        }
-        @media screen and (max-width: 340px) {
-          font-size: 15px;
-        	width: 200px;
-        }
-      }
-      @media screen and (max-width: 500px) {
-        text-align: center;
       }
     }
-    @media screen and (max-width: 600px) {
+  }
+  
+  @media screen and (max-width: 600px) {
+    .logo {
+      margin: 30px auto;
       text-align: center;
     }
-    @media screen and (max-width: 500px) {
+    .home-text {
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    padding: 20px 0;
+    .logo {
+      margin: 10px auto 20px auto;
+      height: 40px;
+    }
+    .home-image {
+      position: static;
+      height: unset;
+      .image-wrapper {
+        width: 100%;
+        height: unset;
+      }
+    }
+    .home-text {
       background-color: white;
       position: static;
       box-shadow: none;
@@ -171,15 +123,99 @@
       padding: 10px 0 0;
       transform: translateY(-30%);
       box-shadow: -3px 0 30px 20px white;
-    }
-    @media screen and (max-height: 740px) {
-      transform: translateY(-40%);
-    }
-    @media screen and (max-height: 700px) {
-      transform: translateY(-50%);
+      .mantra {
+        padding: 0 20px;
+        text-align: center;
+        p {
+          width: 100%;
+          font-size: 2.5rem;
+        }
+      }
+      .subMantra {
+        margin-bottom: 60px;
+        text-align: center;
+        p {
+          font-size: 1.2rem;
+        }
+      }
+      .login-button {
+        text-align: center;
+        button {
+          font-size: 17px;
+          height: 40px;
+          width: 230px;
+          .google-login-icon {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 390px) {
+    .mantra {
+      p {
+        font-size: 2.3rem;
+      }
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .home-text {
+      .subMantra {
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 345px) {
+    .mantra {
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+  @media screen and (max-width: 340px) {
     padding: 20px 0;
+    .logo {
+      margin: 10px auto 20px auto;
+      height: 40px;
+    }
+    .home-image {
+      position: static;
+      height: unset;
+      .image-wrapper {
+        width: 100%;
+        height: unset;
+      }
+    }
+    .home-text {
+      .mantra {
+        p {
+          font-size: 1.8rem;
+        }
+      }
+      .subMantra {
+        p {
+          font-size: 1rem;
+        }
+      }
+      button {
+        font-size: 15px;
+        width: 200px;
+      }
+    }
+  }
+
+  @media screen and (max-height: 740px) {
+    .home-text {
+      transform: translateY(-40%);
+    }
+  }
+  @media screen and (max-height: 700px) {
+    .home-text {
+      transform: translateY(-50%);
+    }
   }
 }
