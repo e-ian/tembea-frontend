@@ -8,8 +8,8 @@ import { CreateRouteComponent } from './routes/create-route/create-route.compone
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TripsComponent } from './trips/trips.component';
+import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from './admin/admin.component';
-import {HeaderComponent} from './header/header.component';
 import { AngularMaterialModule } from '../angular-material.module';
 
 @NgModule({

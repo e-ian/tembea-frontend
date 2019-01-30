@@ -35,8 +35,10 @@ export class LoginRedirectComponent implements OnInit {
   authorizeUser(response: any) {
     this.authService.isAuthorized = true;
     this.authService.isAuthenticated = true;
-    this.authService.currentUser = response;
+    this.authService.setCurrentUser(response);
     this.toastr.success('Login Successful');
+    AuthService.lastActiveTime = Date.now();
+    this.authService.initClock();
     return this.router.navigate(['/admin']);
   }
 

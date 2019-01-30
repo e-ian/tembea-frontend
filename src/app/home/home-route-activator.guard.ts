@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CookieService } from '../auth/ngx-cookie-service.service';
+import { CookieService } from '../auth/__services__/ngx-cookie-service.service';
 import { AuthService } from '../auth/__services__/auth.service';
 import { MatDialog } from '@angular/material';
 import { UnauthorizedLoginComponent } from '../auth/unauthorized-login/unauthorized-login.component';

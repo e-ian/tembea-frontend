@@ -9,7 +9,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent,
+  {
+    path: '', component: AdminComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [] },
       { path: 'routes/create', component: CreateRouteComponent, canActivate: [] },

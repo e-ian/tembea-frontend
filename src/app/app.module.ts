@@ -5,9 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component';
+import { ClockService } from './auth/__services__/clock.service';
+import { ActiveTimeDirective } from './active-time.directive';
 import { HomeComponent } from './home/home.component';
 import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
-import { CookieService } from './auth/ngx-cookie-service.service';
+import { CookieService } from './auth/__services__/ngx-cookie-service.service';
 import { UnauthorizedLoginComponent } from './auth/unauthorized-login/unauthorized-login.component';
 import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.component';
 import { AuthService } from './auth/__services__/auth.service';
@@ -17,26 +20,28 @@ const toastr: Toastr = window['toastr'];
 
 @NgModule({
   declarations: [
+    ActiveTimeDirective,
     AppComponent,
     HomeComponent,
     UnauthorizedLoginComponent,
     LoginRedirectComponent
   ],
   imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+    BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AngularMaterialModule
   ],
   providers: [
     AuthService,
     CookieService,
+    ClockService,
     { provide: TOASTR_TOKEN, useValue: toastr }
   ],
   entryComponents: [
-    UnauthorizedLoginComponent
+    UnauthorizedLoginComponent,
+    LogoutModalComponent
   ],
   bootstrap: [AppComponent],
 })

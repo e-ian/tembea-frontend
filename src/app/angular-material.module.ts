@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import {
-  MatExpansionModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatDialogModule
+  MatExpansionModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatDialogModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component';
 
 @NgModule({
   imports: [
+    FlexLayoutModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
@@ -23,7 +31,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     FlexLayoutModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+  ],
+  declarations: [
+    LogoutModalComponent
   ]
 })
 export class AngularMaterialModule { }

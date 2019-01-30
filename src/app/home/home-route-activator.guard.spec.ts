@@ -2,7 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 
 import { HomeRouteActivatorGuard } from './home-route-activator.guard';
 import { AuthService } from '../auth/__services__/auth.service';
-import { CookieService } from '../auth/ngx-cookie-service.service';
+import { CookieService } from '../auth/__services__/ngx-cookie-service.service';
 import { Router } from '@angular/router';
 import { authServiceMock } from '../auth/__mocks__/authService.mock';
 import { MatDialog } from '@angular/material';

@@ -21,4 +21,5 @@ describe('Landing Page Tests', () => {
   it('should display Login button with the text "Login to Get Started"', () => {
     loginButton().contains('Login to Get Started');
   });
+  beforeEach(() => cy.visit('http://localhost:4200'));
 });
