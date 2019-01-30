@@ -28,9 +28,13 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/fonts/fonts.scss"
+              "src/assets/fonts/fonts.scss",
+              "node_modules/toastr/build/toastr.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/toastr/build/toastr.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -38,6 +42,30 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
                 }
               ],
               "optimization": true,
@@ -67,6 +95,9 @@
           "configurations": {
             "production": {
               "browserTarget": "tembea-frontend:build:production"
+            },
+            "staging": {
+              "browserTarget": "tembea-frontend:build:staging"
             }
           }
         },
