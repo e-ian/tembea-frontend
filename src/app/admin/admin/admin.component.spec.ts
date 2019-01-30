@@ -8,8 +8,8 @@ import { MediaObserver } from '@angular/flex-layout';
 import { of } from 'rxjs';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {AdminComponent} from './admin.component';
-import {AngularMaterialModule} from '../../../angular-material.module';
+import { AdminComponent } from './admin.component';
+import { AngularMaterialModule } from '../../angular-material.module';
 
 Object.defineProperty(window, 'matchMedia', {
   value: jest.fn(() => ({ matches: true }))

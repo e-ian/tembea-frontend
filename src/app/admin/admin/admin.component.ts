@@ -1,10 +1,10 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatIconRegistry, MatSidenav} from '@angular/material';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatIconRegistry, MatSidenav } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Event as RouterEvent, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs'
-import {NavMenuService} from '../../__services__/nav-menu.service';
+import { NavMenuService } from '../__services__/nav-menu.service';
 
 @Component({
   selector: 'app-admin',
