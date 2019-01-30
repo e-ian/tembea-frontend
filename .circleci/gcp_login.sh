@@ -5,8 +5,6 @@ ROOT_DIR=$(pwd)
 generateServiceAccount() {
   touch $ROOT_DIR/shared/account.json
   echo ${SERVICE_ACCOUNT} > $ROOT_DIR/shared/account.json
-  ls -la
-  pwd
 }
 
 activateServiceAccount() {
@@ -17,7 +15,7 @@ activateServiceAccount() {
   gcloud --quiet config set compute/zone ${COMPUTE_ZONE}
   if [ "${CIRCLE_BRANCH}" = "master" ]; then
     gcloud --quiet container clusters get-credentials ${PROD_CLUSTER_NAME}
-  elif [[ "${CIRCLE_BRANCH}" = "master" || "${CIRCLE_BRANCH}" =~ "circleci" ]]; then
+  elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
     gcloud --quiet container clusters get-credentials ${STAGING_CLUSTER_NAME}
   fi
   gcloud config list
