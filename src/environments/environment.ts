@@ -9,6 +9,7 @@ export const environment = {
   tembeaBackEndUrl: 'http://localhost:5000',
   tembeaFrontEndUrl: 'http://localhost:4200',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
+  teamUrl: 'iyikuyoro.slack.com'
 };
 
 /*

@@ -7,6 +7,7 @@ export const environment = {
   tembeaBackEndUrl: 'https://tembea-staging-api.andela.com',
   tembeaFrontEndUrl: 'https://tembea-staging.andela.com',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
+  teamUrl: 'andela-tembea.slack.com'
 };
 
 /*

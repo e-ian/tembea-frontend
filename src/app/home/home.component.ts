@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   initializeLogin() {
     const { andelaAuthServiceUrl, tembeaFrontEndUrl } = environment;

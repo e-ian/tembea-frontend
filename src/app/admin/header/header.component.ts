@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.dialog.open(LogoutModalComponent, {
       width: '592px',
-      backdropClass: 'logout-modal-backdrop',
+      backdropClass: 'modal-backdrop',
       panelClass: 'logout-modal-panel-class'
     });
   }

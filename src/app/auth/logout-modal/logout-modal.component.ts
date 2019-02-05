@@ -4,7 +4,6 @@ import { AuthService } from '../../auth/__services__/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-modal',
   templateUrl: './logout-modal.component.html',
   styleUrls: ['./logout-modal.component.scss']
 })

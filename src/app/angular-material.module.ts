@@ -14,7 +14,6 @@ import {
   MatGridListModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component';
 
 @NgModule({
   imports: [
@@ -47,7 +46,6 @@ import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component
     MatTabsModule,
     MatBadgeModule,
     MatGridListModule
-  ],
-  declarations: [LogoutModalComponent],
+  ]
 })
 export class AngularMaterialModule {}

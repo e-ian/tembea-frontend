@@ -1,9 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+
 import {RouteRequestService} from '../../__services__/route-request.service';
 import {RouteRequest} from '../../../shared/models/route-request.model';
 import {Subscription} from 'rxjs';
 import { IUser } from 'src/app/shared/models/user.model';
 import {AuthService} from '../../../auth/__services__/auth.service';
+import { RouteApproveDeclineModalComponent } from '../route-approve-decline-modal/route-approve-decline-modal.component';
+import { IRouteApprovalDeclineInfo } from 'src/app/shared/models/route-approve-decline-info.model';
 
 @Component({
   selector: 'app-route-requests',
@@ -11,13 +15,13 @@ import {AuthService} from '../../../auth/__services__/auth.service';
   styleUrls: ['./route-requests.component.scss']
 })
 export class RouteRequestsComponent implements OnInit, OnDestroy {
-
   routesSubscription: Subscription;
   routes: RouteRequest[] = [];
   user: IUser;
 
   constructor(
     public routeService: RouteRequestService,
+    public dialog: MatDialog,
     private authService: AuthService
   ) {
     this.user = this.authService.getCurrentUser();
@@ -47,5 +51,19 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
 
   getCurrentRoute(): RouteRequest {
     return RouteRequestService.activeRouteRequest;
+  }
+
+  decline(): void {
+    const routesRequests = this.getCurrentRoute();
+    RouteRequestService.approvalDeclineDialog = this.dialog.open(RouteApproveDeclineModalComponent, {
+      width: '592px',
+      backdropClass: 'modal-backdrop',
+      panelClass: 'route-decline-modal-panel-class',
+      data: <IRouteApprovalDeclineInfo>{
+        status: 1,
+        requesterFirstName: routesRequests.engagement.fellow.name,
+        routeRequestId: routesRequests.id
+      }
+    });
   }
 }

@@ -3,15 +3,27 @@ import {inject, TestBed} from '@angular/core/testing';
 import { RouteRequestService } from './route-request.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import getAllResponseMock from '../routes/route-requests/__mocks__/get-all-response.mock';
+import { MatDialogRef } from '@angular/material';
+import { RouteApproveDeclineModalComponent } from '../routes/route-approve-decline-modal/route-approve-decline-modal.component';
+import { AuthService } from 'src/app/auth/__services__/auth.service';
+import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 
 describe('RoutesService', () => {
   let service: RouteRequestService;
   let httpMock: HttpTestingController;
   let routes = [];
+  const mockAuthService = {};
+  const mockToastr = {
+    success: () => {}
+  };
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
-    providers: [RouteRequestService]
+    providers: [
+      RouteRequestService,
+      { provide: AuthService, useValue: mockAuthService },
+      { provide: TOASTR_TOKEN, useValue: mockToastr }
+    ]
   }));
 
   beforeEach(inject([RouteRequestService, HttpTestingController], (_service, _httpMock) => {
@@ -41,5 +53,48 @@ describe('RoutesService', () => {
 
     expect(routes.length).toBe(3);
     done();
+  });
+
+  describe('declineRequest', () => {
+    it('should call handleDeclineResponse', (done) => {
+      jest.spyOn(service, 'handleDeclineResponse').mockImplementation();
+      service.declineRequest(1, 'some comment', 'test@email.com');
+
+      const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
+      expect(request.request.method).toEqual('PUT');
+
+      request.flush({
+        success: true,
+        message: 'This route request has been updated',
+        data: {
+          id: 1
+        }
+      });
+
+      expect(service.handleDeclineResponse).toHaveBeenCalledTimes(1);
+      jest.restoreAllMocks();
+      done();
+    });
+  });
+
+  describe('handleDeclineResponse', () => {
+    it('should delete the route request', (done) => {
+      const data = {
+        success: true,
+        message: 'This route request has been updated',
+        data: {
+          id: 1
+        }
+      };
+      RouteRequestService.approvalDeclineDialog = <MatDialogRef<RouteApproveDeclineModalComponent>>{
+        close: () => {}
+      };
+
+      service.handleDeclineResponse(data);
+      service.routesRequests.subscribe(routeRequest => {
+        expect(routeRequest).toEqual([]);
+        done();
+      });
+    });
   });
 });

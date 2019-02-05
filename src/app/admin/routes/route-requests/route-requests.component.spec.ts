@@ -2,6 +2,7 @@ import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import { RouteRequestsComponent } from './route-requests.component';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { MatDialog } from '@angular/material';
 import {AngularMaterialModule} from '../../../angular-material.module';
 import {RouteRequestService} from '../../__services__/route-request.service';
 import getAllResponseMock from './__mocks__/get-all-response.mock';
@@ -33,6 +34,7 @@ describe('RouteRequestsComponent', () => {
       name: 'string',
       picture: 'string'}))
   };
+  const mockMatDialog = {};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -47,6 +49,7 @@ describe('RouteRequestsComponent', () => {
         CookieService,
         ClockService,
         { provide: TOASTR_TOKEN, useValue: toastr },
+        { provide: MatDialog, useValue: mockMatDialog },
         { provide: AuthService, useValue: authMock }
       ]
     })

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <button class="close-button button-hover" (click)="closeDialog()">
+    &#x2715;
+  </button>
+</div>
+<div class=form-container>
+  <form #declineForm="ngForm" (ngSubmit)="decline(declineForm.value)" *ngIf="data.status === 1" novalidate>
+    <h1>Decline {{data.requesterFirstName | titlecase}}'s Route Request</h1>
+    <p class="message">Hi {{firstName | titlecase}}, why are you declining?</p>
+    <textarea required (ngModel)="comment" name="comment" class="decline-comment"></textarea>
+    <button type="submit" [disabled]="declineForm.invalid || loading" class="submit-btn button-hover">
+      <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin"></i>
+      SUBMIT
+    </button>
+  </form>
+  <div *ngIf="data.status === 0">
+    <h1>Approve {{data.requesterFirstName}}'s Route Request</h1>
+  </div>
+</div>

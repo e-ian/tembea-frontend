@@ -1,0 +1,84 @@
+// form container
+.form-container {
+  margin: 0 50px 50px 50px;
+}
+
+// Close Button
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.close-button {
+  background-color: #ffffff;
+  margin: 0;
+  margin-right: 25px;
+  border: none;
+  color: #808FA3;
+}
+
+.close-button:hover {
+  color: #3359DB;
+  outline: 0;
+  cursor: pointer;
+}
+
+.close-button:focus {
+  color: #3359DB;
+  outline: 0;
+}
+
+// Title
+h1 {
+  margin: 0;
+  font-weight: normal;
+  color: #39434D;
+  font-size: 24px;
+  line-height: 31px;
+}
+
+// message
+.message {
+  height: 17px;
+  color: #7A8691;
+  font-size: 13px;
+  margin: 28px 0 0 0;
+}
+
+.decline-comment {
+  outline: 0;
+  margin: 10.5px 0 0 0;
+  box-sizing: border-box;
+  height: 136px;
+  width: 100%;
+  border: 1px solid #E9EFF4;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+}
+
+.decline-comment:focus {
+  padding: 10px;
+  border: 1px solid #3359DB;
+}
+
+// Submit Button
+.submit-btn {
+  height: 46px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background-color: #3359DB;
+  color: white;
+  margin: 39.5px 0 0 0;
+  outline: 0;
+}
+
+.button-hover:hover {
+  cursor: pointer;
+}
+
+.submit-btn:disabled{
+  background-color: #808FA3;
+  cursor: default;
+}

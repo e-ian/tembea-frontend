@@ -20,6 +20,7 @@ export class AuthService {
   private currentUser: IUser;
   isAuthenticated = false;
   isAuthorized = true;
+  token: string;
   clockSubscription: Subscription;
 
   constructor(

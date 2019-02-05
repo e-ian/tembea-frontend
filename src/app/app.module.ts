@@ -16,6 +16,8 @@ import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.com
 import { AuthService } from './auth/__services__/auth.service';
 import { AngularMaterialModule } from './angular-material.module';
 import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
+import { RouteApproveDeclineModalComponent } from './admin/routes/route-approve-decline-modal/route-approve-decline-modal.component';
+import { FormsModule } from '@angular/forms';
 
 const toastr: Toastr = window['toastr'];
 
@@ -25,9 +27,12 @@ const toastr: Toastr = window['toastr'];
     AppComponent,
     HomeComponent,
     UnauthorizedLoginComponent,
-    LoginRedirectComponent
+    LoginRedirectComponent,
+    LogoutModalComponent,
+    RouteApproveDeclineModalComponent
   ],
   imports: [
+    FormsModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -41,7 +46,11 @@ const toastr: Toastr = window['toastr'];
     { provide: TOASTR_TOKEN, useValue: toastr },
     { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
   ],
-  entryComponents: [UnauthorizedLoginComponent, LogoutModalComponent],
+  entryComponents: [
+    UnauthorizedLoginComponent,
+    LogoutModalComponent,
+    RouteApproveDeclineModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
