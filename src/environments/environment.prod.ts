@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  tembeaBackEndUrl: '',
-  tembeaFrontEndUrl: '',
+  tembeaBackEndUrl: 'https://tembea-api.andela.com',
+  tembeaFrontEndUrl: 'https://tembea.andela.com',
   andelaAuthServiceUrl: 'https://api-prod.andela.com/login?redirect_url',
 };

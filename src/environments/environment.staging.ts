@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  tembeaBackEndUrl: '',
-  tembeaFrontEndUrl: '',
+  tembeaBackEndUrl: 'https://tembea-staging-api.andela.com',
+  tembeaFrontEndUrl: 'https://tembea-staging.andela.com',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
 };
 

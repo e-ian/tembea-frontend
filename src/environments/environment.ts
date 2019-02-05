@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// Always update the other envs for all new values you are adding
+// Do not change the andelaAuthServiceUrl
 export const environment = {
   production: false,
   tembeaBackEndUrl: 'http://localhost:5000',
