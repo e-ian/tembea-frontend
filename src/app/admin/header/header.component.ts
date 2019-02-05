@@ -8,9 +8,9 @@ import { Title } from '@angular/platform-browser';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import {IUser} from '../../shared/user.model';
 import {RouteRequestService} from '../__services__/route-request.service';
 import {RouteRequest} from '../../shared/models/route-request.model';
+import {IUser} from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-header',

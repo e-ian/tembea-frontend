@@ -10,7 +10,8 @@ import {
   MatCardModule,
   MatButtonModule,
   MatTabsModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatGridListModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component';
@@ -29,7 +30,8 @@ import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component
     MatCardModule,
     MatButtonModule,
     MatTabsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatGridListModule,
   ],
   exports: [
     MatToolbarModule,
@@ -43,10 +45,9 @@ import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component
     MatCardModule,
     MatButtonModule,
     MatTabsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatGridListModule
   ],
-  declarations: [
-    LogoutModalComponent
-  ]
+  declarations: [LogoutModalComponent],
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

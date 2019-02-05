@@ -13,6 +13,7 @@ import {CookieService} from '../../../auth/__services__/ngx-cookie-service.servi
 import {ClockService} from '../../../auth/__services__/clock.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Toastr, TOASTR_TOKEN} from '../../../shared/toastr.service';
+import {AuthService} from '../../../auth/__services__/auth.service';
 
 const toastr: Toastr = window['toastr'];
 
@@ -21,6 +22,17 @@ describe('RouteRequestsComponent', () => {
   let fixture: ComponentFixture<RouteRequestsComponent>;
   let httpMock: HttpTestingController;
   let service: RouteRequestService;
+
+  let authMock = {
+    getCurrentUser: jest.fn(() => ({
+      firstName: 'name',
+      first_name: 'string',
+      lastName: 'string',
+      last_name: 'string',
+      email: 'string',
+      name: 'string',
+      picture: 'string'}))
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,12 +46,23 @@ describe('RouteRequestsComponent', () => {
       providers: [
         CookieService,
         ClockService,
-        { provide: TOASTR_TOKEN, useValue: toastr }
+        { provide: TOASTR_TOKEN, useValue: toastr },
+        { provide: AuthService, useValue: authMock }
       ]
     })
     .compileComponents();
     fixture = TestBed.createComponent(RouteRequestsComponent);
     component = fixture.componentInstance;
+    component.user = {
+      id: '2',
+      firstName: 'name',
+      first_name: 'string',
+      lastName: 'string',
+      last_name: 'string',
+      email: 'string',
+      name: 'string',
+      picture: 'string',
+      roles: []};
     fixture.detectChanges();
   }));
 

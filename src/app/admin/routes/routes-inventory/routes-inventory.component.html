@@ -1,3 +1,86 @@
-<p>
-  Routes Inventory Works
-</p>
+<div *ngIf="routes.length === 0">
+<app-empty-page [text]="'No new route requests.'"></app-empty-page>
+<div class="bottom-image"></div>
+</div>
+
+
+<div *ngIf="routes.length > 0">
+
+<div class="buttons-wrapper flex routes-table">
+  <button class="search-wrapper"></button>
+  <button class="upload-wrapper flex-right"></button>
+</div>
+
+<div class="routes-table">
+<mat-grid-list cols="8" rowHeight="3:1">
+  <mat-grid-tile>Route</mat-grid-tile>
+  <mat-grid-tile>Batch</mat-grid-tile>
+  <mat-grid-tile>Take-off</mat-grid-tile>
+  <mat-grid-tile>Capacity</mat-grid-tile>
+  <mat-grid-tile>In-Use</mat-grid-tile>
+  <mat-grid-tile>Vehicle</mat-grid-tile>
+  <mat-grid-tile>Status</mat-grid-tile>
+  <mat-grid-tile>Actions
+    <div class="actions-icon"></div>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list *ngFor='let route of routes' cols="8" rowHeight="3:1">
+  <mat-grid-tile>{{ route.name }}</mat-grid-tile>
+  <mat-grid-tile>{{ route.batch }}</mat-grid-tile>
+  <mat-grid-tile>{{ route.takeOff }}</mat-grid-tile>
+  <mat-grid-tile>{{ route.capacity }}</mat-grid-tile>
+  <mat-grid-tile>{{ route.inUse }}</mat-grid-tile>
+  <mat-grid-tile>{{ route.regNumber }}</mat-grid-tile>
+
+  <mat-grid-tile *ngIf='route.status === "Active" ; else inactive'>
+      <button class="active-status-button">
+        <div class="green-radio-wrapper">
+          <div class="green-radio">
+          </div>
+        </div>
+        <div class="status-active">active</div>
+      </button>
+    </mat-grid-tile>
+<ng-template #inactive><mat-grid-tile>
+  <button class="inactive-status-button">
+    <div class="white-radio-wrapper">
+      <div class="white-radio">
+      </div>
+    </div>
+    <div class="status-inactive">inactive</div>
+  </button>
+</mat-grid-tile></ng-template>
+<mat-grid-tile>
+  <div class="flex">
+  <button class='edit-action-button'>
+    <div class="edit-icon"></div>
+  </button>
+  <button class='duplicate-action-button'>
+    <div class="duplicate-icon"></div>
+  </button>
+  <button class='decline-action-button'>
+    <div class="decline-icon"></div>
+  </button>
+  </div>
+</mat-grid-tile>
+</mat-grid-list>
+</div>
+
+<div *ngIf='totalPages > 1' class="navigation-wrapper flex routes-table">
+  <div class="nav-buttons flex-right">
+  <button *ngIf='currentPageGroup > 0' (click)='prevGroup()' class="arrow-icon-button">
+    <div class="arrow-icon-back"></div>
+  </button>
+  <div *ngFor='let page of pages[currentPageGroup]'  >
+  <button *ngIf='page === pageNo ; else unselected' class="selected-page-number"> {{ page }} </button>
+  <ng-template #unselected>
+    <button (click)='setPage(page)' class="page-number"> {{ page }}</button>
+  </ng-template>
+</div>
+<button *ngIf='currentPageGroup !== pages.length - 1' class="page-number">...</button>
+<button *ngIf='currentPageGroup !== pages.length - 1 ' (click)='nextGroup()' class="arrow-icon-button">
+  <div class="arrow-icon"></div>
+</button>
+</div>
+</div>
+</div>

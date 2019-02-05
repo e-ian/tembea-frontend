@@ -30,6 +30,16 @@ p {
   font-size: 1rem;
 }
 
+
+button:hover,
+button:focus {
+  cursor: pointer;
+  outline: none;
+}
+button:hover {
+  box-shadow: none;
+}
+
 .andela-blue-color{
   color: #3359DB !important;
 }

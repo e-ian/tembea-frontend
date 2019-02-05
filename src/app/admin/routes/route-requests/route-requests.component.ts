@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RouteRequestService} from '../../__services__/route-request.service';
 import {RouteRequest} from '../../../shared/models/route-request.model';
 import {Subscription} from 'rxjs';
-import {IUser} from '../../../shared/user.model';
+import { IUser } from 'src/app/shared/models/user.model';
 import {AuthService} from '../../../auth/__services__/auth.service';
 
 @Component({
