@@ -5,17 +5,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from './angular-material.module';
 import {HttpClientModule} from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-
 import { HomeComponent } from './home/home.component';
-
-Object.defineProperty(window, 'matchMedia', {
-  value: jest.fn(() => ({ matches: true }))
-});
-
-
-Object.defineProperty(window, 'matchMedia', {
-  value: jest.fn(() => ({ matches: true }))
-});
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

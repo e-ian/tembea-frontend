@@ -23,11 +23,9 @@ mat-toolbar {
 }
 
 mat-sidenav-content > .mat-sidenav-content-div{
+  background-color: #ffffff;
   padding: 1em;
-  display: flex;
   height: 100%;
-  align-items: center;
-  justify-content: center;
 }
 
 mat-expansion-panel,

@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/normalize';
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .logout-modal-backdrop {
   background-color: rgba($color: #4F4F4F, $alpha: 0.8);
@@ -95,7 +94,7 @@ p {
       text-align: center;
       border-radius: 50%;
       border: none;
-      background-color: #E0E8EA;          
+      background-color: #E0E8EA;
       font-size: 13px;
       font-weight: bold;
       color: #808FA3;

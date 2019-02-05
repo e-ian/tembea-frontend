@@ -16,9 +16,6 @@ import {CookieService} from '../../auth/__services__/ngx-cookie-service.service'
 import {ClockService} from '../../auth/__services__/clock.service';
 import {Toastr, TOASTR_TOKEN} from '../../shared/toastr.service';
 
-Object.defineProperty(window, 'matchMedia', {
-  value: jest.fn(() => ({ matches: true }))
-});
 const sideNavMock = {
   setSidenav: jest.fn(),
   open: jest.fn(),

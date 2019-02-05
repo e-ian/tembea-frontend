@@ -5,6 +5,7 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Event as RouterEvent, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs'
 import { NavMenuService } from '../__services__/nav-menu.service';
+import * as mainRoutes from './main-routes.json';
 
 @Component({
   selector: 'app-admin',
@@ -16,34 +17,7 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   watcher: Subscription;
   activeRoute = '';
 
-  routes = [
-    { name: 'Dashboard', iconActive: 'dashboard', iconInActive: 'dashboard-inactive', link: 'dashboard', pages: [] },
-    {
-      name: 'Routes', iconActive: 'routes', iconInActive: 'routes-inactive', link: 'routes', pages: [
-        { name: 'Create Route', link: 'routes/create', id: 'create-routes' },
-        { name: 'Inventory', link: 'routes/inventory', id: 'inventory-routes' }
-      ]
-    },
-    {
-      name: 'Trips', iconActive: 'trips', iconInActive: 'trips-inactive', link: 'trips', pages: [
-        { name: 'Pending Requests', link: 'trips/pending', id: 'pending-trips' },
-        { name: 'Trip History', link: 'trips/history', id: 'history-trips' },
-        { name: 'Trip Itinerary', link: 'trips/itinerary', id: 'itinerary-trips' }
-      ]
-    },
-    {
-      name: 'Cabs', iconActive: 'cabs', iconInActive: 'cabs-inactive', link: 'cabs', pages: [
-        { name: 'Pending Requests', link: 'cabs/pending', id: 'pending-cabs' },
-        { name: 'Trip History', link: 'cabs/itinerary', id: 'itinerary-cabs' }
-      ]
-    },
-    {
-      name: 'Settings', iconActive: 'settings', iconInActive: 'settings-inactive', link: 'settings', pages: [
-        { name: 'Fellows', link: 'settings/fellows', id: 'fellows-settings' },
-        { name: 'Departments', link: 'settings/departments', id: 'department-settings' },
-      ]
-    }
-  ];
+  routes = mainRoutes.routes;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 

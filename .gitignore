@@ -132,3 +132,4 @@ package-lock.json
 excel.xlsx
 cypress/videos/*
 cypress/screenshots/*
+my-test-data.ts

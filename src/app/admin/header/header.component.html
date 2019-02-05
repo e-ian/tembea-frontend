@@ -23,7 +23,18 @@
         {{ headerTitle }} {{ user.firstName }}
       </span>
       <ng-template #showTitleOnly>
-        <span class="header-title">{{ headerTitle }}</span>
+        <span *ngIf="!isCurrentRouteForRouteRequests" class="header-title">
+          {{ headerTitle }}
+        </span>
+        <span
+          *ngIf="isCurrentRouteForRouteRequests"
+          class="header-title"
+          [matBadge]="'+ ' + routes.length"
+          [matBadgeHidden]="routes.length == 0"
+          matBadgeColor="primary"
+          matBadgeSize="medium">
+          {{ headerTitle }}
+        </span>
       </ng-template>
       <!-- visible on xs-devices -->
       <img class="upic" fxHide.gt-xs [src]="user.picture" alt="profile picture" />

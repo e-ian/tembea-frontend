@@ -11,6 +11,9 @@ import { TripsComponent } from './trips/trips.component';
 import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from './admin/admin.component';
 import { AngularMaterialModule } from '../angular-material.module';
+import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
+import { EmptyPageComponent } from './empty-page/empty-page.component';
+import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { AngularMaterialModule } from '../angular-material.module';
     RoutesInventoryComponent,
     SettingsComponent,
     TripsComponent,
-    HeaderComponent
+    HeaderComponent,
+    RouteRequestsComponent,
+    EmptyPageComponent,
+    CustomTitlecasePipe
   ],
   imports: [
     CommonModule,

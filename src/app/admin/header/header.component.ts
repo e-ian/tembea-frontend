@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavMenuService } from '../__services__/nav-menu.service';
 import { MatDialog } from '@angular/material';
 import { LogoutModalComponent } from '../../auth/logout-modal/logout-modal.component';
@@ -9,6 +9,8 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import {IUser} from '../../shared/user.model';
+import {RouteRequestService} from '../__services__/route-request.service';
+import {RouteRequest} from '../../shared/models/route-request.model';
 
 @Component({
   selector: 'app-header',
@@ -16,20 +18,10 @@ import {IUser} from '../../shared/user.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  private userClass: IUser = new class implements IUser {
-    email: string;
-    firstName: string;
-    first_name: string;
-    id: string;
-    lastName: string;
-    last_name: string;
-    name: string;
-    picture: string;
-    roles: Array<string>;
-  };
-
   public headerTitle: string;
-  user: IUser = this.userClass;
+  user: IUser;
+  routes: RouteRequest[] = [];
+  isCurrentRouteForRouteRequests = false;
 
   constructor(
     private navItem: NavMenuService,
@@ -37,15 +29,21 @@ export class HeaderComponent implements OnInit {
     private auth: AuthService,
     private titleService: Title,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private routeService: RouteRequestService
+  ) { }
 
   ngOnInit() {
-    this.user = this.auth.getCurrentUser() || this.userClass;
+    this.routeService.routesRequests.subscribe((val) => {
+      this.routes = val;
+    });
+    this.user = this.auth.getCurrentUser();
+    this.isCurrentRouteForRouteRequests = this.router.url.includes('/routes/requests');
 
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         let route = this.activatedRoute.firstChild;
+        this.isCurrentRouteForRouteRequests = this.router.url.includes('/routes/requests');
 
         while (route.firstChild) {
           route = route.firstChild;

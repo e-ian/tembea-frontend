@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  tembeaBackEndUrl: 'https://a625d740.ngrok.io',
+  tembeaBackEndUrl: 'https://d9b2767f.ngrok.io',
   tembeaFrontEndUrl: 'http://localhost:4200',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url'
 };

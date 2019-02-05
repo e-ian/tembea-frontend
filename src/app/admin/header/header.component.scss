@@ -125,3 +125,14 @@ span.too-bar-username {
   line-height: 21px;
   color: #4f4f4f;
 }
+
+::ng-deep .mat-badge-content {
+  right: -51px !important;
+  top: unset !important;
+  bottom: 0;
+  font-size: 16px;
+  background-color: #FFAF30;
+  width: 39px !important;
+  height: 39px !important;
+  line-height: 39px !important;
+}
