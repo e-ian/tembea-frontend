@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CabsComponent } from './cabs/cabs.component'
+import { CabsComponent } from './cabs/cabs.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
 import { TripsComponent } from './trips/trips.component';
@@ -10,24 +10,76 @@ import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent,
+    path: '',
+    component: AdminComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent, canActivate: [] },
-      { path: 'routes/create', component: CreateRouteComponent, canActivate: [] },
-      { path: 'routes/inventory', component: RoutesInventoryComponent, canActivate: [] },
-      { path: 'trips/pending', component: TripsComponent, canActivate: [] },
-      { path: 'trips/history', component: TripsComponent, canActivate: [] },
-      { path: 'trips/itinerary', component: TripsComponent, canActivate: [] },
-      { path: 'cabs/pending', component: CabsComponent, canActivate: [] },
-      { path: 'cabs/itinerary', component: CabsComponent, canActivate: [] },
-      { path: 'settings/fellows', component: SettingsComponent, canActivate: [] },
-      { path: 'settings/departments', component: SettingsComponent, canActivate: [] },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [],
+        data: { title: 'Welcome' }
+      },
+      {
+        path: 'routes/create',
+        component: CreateRouteComponent,
+        canActivate: [],
+        data: { title: 'Create Route' }
+      },
+      {
+        path: 'routes/inventory',
+        component: RoutesInventoryComponent,
+        canActivate: [],
+        data: { title: 'Routes Inventory' }
+      },
+      {
+        path: 'trips/pending',
+        component: TripsComponent,
+        canActivate: [],
+        data: { title: 'Pending Trips' }
+      },
+
+      {
+        path: 'trips/history',
+        component: TripsComponent,
+        canActivate: [],
+        data: { title: 'Trip History' }
+      },
+      {
+        path: 'trips/itinerary',
+        component: TripsComponent,
+        canActivate: [],
+        data: { title: 'All Trips' }
+      },
+      {
+        path: 'cabs/pending',
+        component: CabsComponent,
+        canActivate: [],
+        data: { title: 'Pending Cab Requests' }
+      },
+      {
+        path: 'cabs/itinerary',
+        component: CabsComponent,
+        canActivate: [],
+        data: { title: 'All Cabs' }
+      },
+      {
+        path: 'settings/fellows',
+        component: SettingsComponent,
+        canActivate: [],
+        data: { title: 'Fellows' }
+      },
+      {
+        path: 'settings/departments',
+        component: SettingsComponent,
+        canActivate: [],
+        data: { title: 'Departments' }
+      }
     ]
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

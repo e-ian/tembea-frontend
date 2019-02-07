@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/__services__/auth.service';
 import { CookieService } from '../auth/__services__/ngx-cookie-service.service';
@@ -12,12 +17,12 @@ export class UniversalRouteActivatorGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cookieService: CookieService,
-  ) { }
+    private cookieService: CookieService
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.checkLogin();
   }
@@ -44,7 +49,9 @@ export class UniversalRouteActivatorGuard implements CanActivate {
 
     this.deleteTokenIfExpired(isTokenExpired);
 
-    return this.authService.isAuthenticated && !isTokenExpired ? true : this.redirectHome()
+    return this.authService.isAuthenticated && !isTokenExpired
+      ? true
+      : this.redirectHome();
   }
 
   deleteTokenIfExpired(isTokenExpired: boolean) {
@@ -55,6 +62,6 @@ export class UniversalRouteActivatorGuard implements CanActivate {
 
   redirectHome(): boolean {
     this.router.navigate(['/']);
-    return false
+    return false;
   }
 }

@@ -13,15 +13,18 @@ import { IUser } from 'src/app/shared/user.model';
 import { Subscription, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
-import { mockRouter, mockToastr, mockCookieService } from 'src/app/shared/__mocks__/mockData';
-
+import {
+  mockRouter,
+  mockToastr,
+  mockCookieService
+} from 'src/app/shared/__mocks__/mockData';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let httpTestingController: HttpTestingController;
 
-  const response = { id: '121', name: 'james' }
-  const { tembeaBackEndUrl } = environment
+  const response = { id: '121', name: 'james' };
+  const { tembeaBackEndUrl } = environment;
 
   beforeEach(() => {
     const mockClockService = {
@@ -96,12 +99,13 @@ describe('AuthService', () => {
   });
 
   it('should GET login info', () => {
-    authService.login()
-      .subscribe(data => {
-        expect(data).toEqual(response);
-      });
+    authService.login().subscribe(data => {
+      expect(data).toEqual(response);
+    });
 
-    const loginRequest: TestRequest = httpTestingController.expectOne(`${tembeaBackEndUrl}/api/v1/auth/verify`);
+    const loginRequest: TestRequest = httpTestingController.expectOne(
+      `${tembeaBackEndUrl}/api/v1/auth/verify`
+    );
 
     expect(loginRequest.request.method).toEqual('GET');
 
@@ -129,7 +133,9 @@ describe('AuthService', () => {
     const res = { userInfo: { firstName: 'boy' }, token };
     const toastrSpy = jest.spyOn(authService.toastr, 'success');
     const cookieSpy = jest.spyOn(authService.cookieService, 'set');
-    const initClockSpy = jest.spyOn(authService, 'initClock').mockImplementation(() => {});
+    const initClockSpy = jest
+      .spyOn(authService, 'initClock')
+      .mockImplementation(() => {});
     authService.authorizeUser(res);
 
     expect(authService.isAuthorized).toEqual(true);
@@ -146,5 +152,5 @@ describe('AuthService', () => {
     authService.unAuthorizeUser();
 
     expect(authService.isAuthorized).toEqual(false);
-  })
+  });
 });

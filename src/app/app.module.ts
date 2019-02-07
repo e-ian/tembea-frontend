@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -41,10 +41,7 @@ const toastr: Toastr = window['toastr'];
     { provide: TOASTR_TOKEN, useValue: toastr },
     { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
   ],
-  entryComponents: [
-    UnauthorizedLoginComponent,
-    LogoutModalComponent
-  ],
+  entryComponents: [UnauthorizedLoginComponent, LogoutModalComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

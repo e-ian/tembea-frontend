@@ -12,6 +12,9 @@ import { AdminComponent } from './admin.component';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { HeaderComponent } from '../header/header.component';
 import { NavMenuService } from '../__services__/nav-menu.service';
+import {CookieService} from '../../auth/__services__/ngx-cookie-service.service';
+import {ClockService} from '../../auth/__services__/clock.service';
+import {Toastr, TOASTR_TOKEN} from '../../shared/toastr.service';
 
 Object.defineProperty(window, 'matchMedia', {
   value: jest.fn(() => ({ matches: true }))
@@ -94,6 +97,9 @@ describe('SideBarComponent', () => {
 describe('SideBarComponent on small devices', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
+
+  const toastr: Toastr = window['toastr'];
+
   beforeEach(() => {
     // create mock
     const mediaObserverMock = {
@@ -109,6 +115,9 @@ describe('SideBarComponent on small devices', () => {
         HttpClientModule,
         RouterTestingModule],
       providers: [
+        CookieService,
+        ClockService,
+        { provide: TOASTR_TOKEN, useValue: toastr },
         { provide: MediaObserver, useValue: mediaObserverMock },
         { provide: NavMenuService, useValue: sideNavMock }
       ]

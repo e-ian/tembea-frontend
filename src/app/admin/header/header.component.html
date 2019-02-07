@@ -1,22 +1,39 @@
 <mat-toolbar class="app-toolbar">
   <mat-toolbar-row>
-    <button (click)="toggleSideNav()" id="menuToggle" mat-icon-button fxHide.gt-sm>
+    <button
+      (click)="toggleSideNav()"
+      id="menuToggle"
+      mat-icon-button
+      fxHide.gt-sm
+    >
       <mat-icon>menu</mat-icon>
     </button>
 
-    <div class="tool-bar-items">
-
-      <span class="welcome">Welcome, User</span>
+    <div *ngIf="!headerTitle" class="tool-bar-items">
+      <span class="header-title"> Welcome {{ user.firstName }}</span>
       <!-- visible on xs-devices -->
-      <img class="upic" fxHide.gt-xs src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
+      <img class="upic" fxHide.gt-xs [src]="user.picture" alt="profile picture" />
+    </div>
+
+    <div class="tool-bar-items">
+      <span
+        *ngIf="headerTitle === 'Welcome'; else showTitleOnly"
+        class="header-title"
+      >
+        {{ headerTitle }} {{ user.firstName }}
+      </span>
+      <ng-template #showTitleOnly>
+        <span class="header-title">{{ headerTitle }}</span>
+      </ng-template>
+      <!-- visible on xs-devices -->
+      <img class="upic" fxHide.gt-xs [src]="user.picture" alt="profile picture" />
     </div>
 
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-
       <div class="tool-bar-button">
         <button [matMenuTriggerFor]="dropDown" class="action-button">
-          <img class="upic" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" />
-          <span class="too-bar-username">Slim momoh</span>
+          <img class="upic" [src]="user.picture" alt="profile picture" />
+          <span class="too-bar-username">{{ user.firstName }} {{ user.lastName }}</span>
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
 
@@ -28,7 +45,6 @@
             </div>
           </button>
         </mat-menu>
-
       </div>
     </div>
   </mat-toolbar-row>

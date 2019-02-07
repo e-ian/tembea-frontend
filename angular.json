@@ -125,7 +125,8 @@
               "<rootDir>/src/**/__tests__/**/?(*.)(spec|test)ts",
               "<rootDir>/src/**/?(*.)(spec|test).ts"
             ],
-            "testEnvironment": "jsdom"
+            "testEnvironment": "jsdom",
+            "setupFiles": ["<rootDir>/src/app/__mocks__/match-media.mock.ts"]
           }
         },
         "lint": {

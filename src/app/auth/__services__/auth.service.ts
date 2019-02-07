@@ -78,8 +78,6 @@ export class AuthService {
     return this.router.navigate(['/admin']);
   }
 
-
-
   public setupClock(): void {
     AuthService.lastActiveTime = Date.now();
     this.initClock();
