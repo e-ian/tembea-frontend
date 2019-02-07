@@ -37,12 +37,12 @@ const toastr: Toastr = window['toastr'];
     AuthService,
     CookieService,
     ClockService,
-    { provide: TOASTR_TOKEN, useValue: toastr }
+    { provide: TOASTR_TOKEN, useValue: toastr },
   ],
   entryComponents: [
     UnauthorizedLoginComponent,
     LogoutModalComponent
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

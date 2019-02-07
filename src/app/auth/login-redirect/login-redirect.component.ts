@@ -21,36 +21,20 @@ export class LoginRedirectComponent implements OnInit {
     const token = this.route.snapshot.queryParams.token;
     this.authService.andelaAuthServiceToken = token;
     if (!token) {
-      return this.unAuthorizeUser();
+      return this.authService.unAuthorizeUser();
     }
     this.authService.login()
     .subscribe(data => {
       const { data: response } = data;
       if (response.isAuthorized) {
-        return this.authorizeUser(response);
+        return this.authService.authorizeUser(response);
       }
     }, (err: any) => this.handleEventError(err))
   }
 
-  authorizeUser(response: any) {
-    this.authService.isAuthorized = true;
-    this.authService.isAuthenticated = true;
-    this.authService.setCurrentUser(response);
-    this.toastr.success('Login Successful');
-    AuthService.lastActiveTime = Date.now();
-    this.authService.initClock();
-    return this.router.navigate(['/admin']);
-  }
-
-  unAuthorizeUser() {
-    this.authService.isAuthorized = false;
-    this.toastr.error('Unauthorized access');
-    this.router.navigate(['/']);
-  }
-
   handleEventError(err: any) {
     if (err instanceof HttpErrorResponse && err.status === 401 || err.status === 500 ) {
-      return this.unAuthorizeUser();
+      return this.authService.unAuthorizeUser();
     }
     this.toastr.error('Something went wrong! try again');
     this.router.navigate(['/']);

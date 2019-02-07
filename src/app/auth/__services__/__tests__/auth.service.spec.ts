@@ -5,13 +5,16 @@ import {
   TestRequest
 } from '@angular/common/http/testing';
 
-import { AuthService } from '../__services__/auth.service';
-import { CookieService } from '../__services__/ngx-cookie-service.service';
-import { ClockService } from '../__services__/clock.service';
+import { AuthService } from '../auth.service';
+import { CookieService } from '../ngx-cookie-service.service';
+import { ClockService } from '../clock.service';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/user.model';
 import { Subscription, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
+import { mockRouter, mockToastr, mockCookieService } from 'src/app/shared/__mocks__/mockData';
+
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -26,19 +29,14 @@ describe('AuthService', () => {
         return of(6000000000);
       }
     };
-    const mockCookieService = {
-      delete: () => {}
-    };
-    const mockRouter = {
-      navigate: () => {}
-    };
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         { provide: CookieService, useValue: mockCookieService },
         { provide: ClockService, useValue: mockClockService },
-        { provide: Router, useValue: mockRouter }
+        { provide: Router, useValue: mockRouter },
+        { provide: TOASTR_TOKEN, useValue: mockToastr }
       ]
     });
 
@@ -84,7 +82,8 @@ describe('AuthService', () => {
     service.clockSubscription = new Subscription();
     jest.spyOn(service.cookieService, 'delete').mockImplementation(() => {});
     service.logout();
-    expect(service.cookieService.delete).toHaveBeenCalledTimes(1);
+    expect(service.cookieService.delete).toHaveBeenCalledTimes(2);
+    expect(service.isAuthenticated).toEqual(false);
   });
 
   it('should init the clock', () => {
@@ -102,10 +101,50 @@ describe('AuthService', () => {
         expect(data).toEqual(response);
       });
 
-    const loginRequest: TestRequest = httpTestingController.expectOne(`${tembeaBackEndUrl}/api/v1/auth/login/verify`);
+    const loginRequest: TestRequest = httpTestingController.expectOne(`${tembeaBackEndUrl}/api/v1/auth/verify`);
 
     expect(loginRequest.request.method).toEqual('GET');
 
     loginRequest.flush(response);
   });
+
+  it('should test authorize user method', () => {
+    const token = 'token';
+    const res = { userInfo: { firstName: 'boy' }, token };
+    const toastrSpy = jest.spyOn(authService.toastr, 'success');
+    const cookieSpy = jest.spyOn(authService.cookieService, 'set');
+    authService.authorizeUser(res);
+
+    expect(authService.isAuthorized).toEqual(true);
+    expect(authService.isAuthenticated).toEqual(true);
+    expect(authService.tembeaToken).toEqual(token);
+    expect(toastrSpy).toHaveBeenCalledTimes(1);
+    expect(toastrSpy).toHaveBeenCalledWith('Login Successful');
+    expect(cookieSpy).toHaveBeenCalledTimes(1);
+    expect(cookieSpy).toHaveBeenCalledWith('tembea_token', token, 0.125, '/');
+  });
+
+  it('should authorize a user', () => {
+    const token = 'token';
+    const res = { userInfo: { firstName: 'boy' }, token };
+    const toastrSpy = jest.spyOn(authService.toastr, 'success');
+    const cookieSpy = jest.spyOn(authService.cookieService, 'set');
+    const initClockSpy = jest.spyOn(authService, 'initClock').mockImplementation(() => {});
+    authService.authorizeUser(res);
+
+    expect(authService.isAuthorized).toEqual(true);
+    expect(authService.isAuthenticated).toEqual(true);
+    expect(authService.tembeaToken).toEqual(token);
+    expect(toastrSpy).toHaveBeenCalledTimes(1);
+    expect(toastrSpy).toHaveBeenCalledWith('Login Successful');
+    expect(cookieSpy).toHaveBeenCalledTimes(1);
+    expect(cookieSpy).toHaveBeenCalledWith('tembea_token', token, 0.125, '/');
+    expect(initClockSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should set the user as unAuthorized', () => {
+    authService.unAuthorizeUser();
+
+    expect(authService.isAuthorized).toEqual(false);
+  })
 });

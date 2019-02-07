@@ -25,14 +25,20 @@ export class HomeRouteActivatorGuard implements CanActivate {
       this.dialog.open(UnauthorizedLoginComponent,
         {panelClass: 'tembea-modal', backdropClass: 'tembea-backdrop'});
     }
-    if (isAuthenticated) {
+
+    const andelaToken = this.cookieService.get('jwt_token');
+    const tembeaToken = this.cookieService.get('tembea_token');
+
+    if (tembeaToken) {
+      this.router.navigate(['/admin']);
       return true;
     }
-    const token = this.cookieService.get('jwt_token');
-    if (isAuthorized && token) {
-      this.router.navigate([`/login/redirect`], { queryParams: { token } });
+
+    if (!isAuthenticated && isAuthorized && andelaToken) {
+      this.router.navigate([`/login/redirect`], { queryParams: { token: andelaToken } });
       return false;
     }
+
     return true;
   }
 }

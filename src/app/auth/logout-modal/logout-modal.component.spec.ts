@@ -4,6 +4,7 @@ import { LogoutModalComponent } from './logout-modal.component';
 import { AuthService } from '../../auth/__services__/auth.service';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { mockRouter } from 'src/app/shared/__mocks__/mockData';
 
 describe('LogoutModalComponent', () => {
   let fixture: ComponentFixture<LogoutModalComponent>;
@@ -20,9 +21,6 @@ describe('LogoutModalComponent', () => {
   };
   const mockMatDialogRef = {
     close: () => {}
-  };
-  const mockRouter = {
-    navigate: () => {}
   };
 
   beforeEach(async(() => {
