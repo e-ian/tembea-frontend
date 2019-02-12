@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { HomeRouteActivatorGuard } from './home-route-activator.guard';
 import { AuthService } from '../auth/__services__/auth.service';

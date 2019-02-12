@@ -14,6 +14,7 @@ export const mockAuthService = {
   andelaAuthServiceToken: '',
   isAuthorized: '',
   isAuthenticated: '',
+  tembeaToken: '',
   currentUser: {},
   login: (): Observable<any> => {
     return of({
@@ -26,5 +27,5 @@ export const mockAuthService = {
   initClock: (): void => { },
   authorizeUser: (): void => { },
   unAuthorizeUser: (): void => { },
-  setupClock: (): void => { }
+  setupClock: (): void => { },
 };

@@ -1,12 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../shared/user.model';
 import { CookieService } from './ngx-cookie-service.service';
 import { ClockService } from './clock.service';
-import { Router } from '@angular/router';
 import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { LoginRedirectComponent } from './login-redirect.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';

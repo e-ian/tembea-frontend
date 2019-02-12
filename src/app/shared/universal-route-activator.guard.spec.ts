@@ -15,8 +15,9 @@ describe('UniversalRouteActivatorGuard', () => {
   let cookieService: CookieService;
 
   const mockCookieService = {
-    get: () => 'token'
-  }
+    get: () => 'token',
+    delete: () => {}
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,7 +39,7 @@ describe('UniversalRouteActivatorGuard', () => {
     jest.restoreAllMocks();
   })
 
-  it('should ...', inject([UniversalRouteActivatorGuard], (guard: UniversalRouteActivatorGuard) => {
+  it('should initiate guard', inject([UniversalRouteActivatorGuard], (guard: UniversalRouteActivatorGuard) => {
     expect(guard).toBeTruthy();
   }));
 
@@ -88,6 +89,16 @@ describe('UniversalRouteActivatorGuard', () => {
       expect(routeGuard.redirectHome).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('deleteTokenIfExpires', () => {
+    it('should call method to delete token if expired', () => {
+      const deleteMock = jest.spyOn(cookieService, 'delete').mockImplementation();
+
+      routeGuard.deleteTokenIfExpired(true);
+      expect(deleteMock).toHaveBeenCalledTimes(1);
+      expect(deleteMock).toHaveBeenCalledWith('tembea_token');
+    })
+  })
 
   describe('redirectHome', () => {
     it('should return false and call method to navigate to the landing page', () => {

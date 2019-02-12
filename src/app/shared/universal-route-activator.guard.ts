@@ -23,23 +23,34 @@ export class UniversalRouteActivatorGuard implements CanActivate {
   }
 
   checkLogin(): boolean {
-    const { isAuthenticated, setCurrentUser, setupClock } = this.authService;
+    const { isAuthenticated } = this.authService;
     const token = this.cookieService.get('tembea_token');
     const helper = new JwtHelperService();
+    const isTokenExpired = helper.isTokenExpired(token);
 
-    if (!isAuthenticated && token && !helper.isTokenExpired(token)) {
+    if (!isAuthenticated && token && !isTokenExpired) {
       try {
         const decoded = helper.decodeToken(token);
-        setCurrentUser(decoded.userInfo);
-        setupClock();
+        this.authService.setCurrentUser(decoded.userInfo);
+        this.authService.tembeaToken = token;
+        this.authService.setupClock();
         this.authService.isAuthenticated = true;
+        this.authService.isAuthorized = true;
       } catch (err) {
         console.log(err.message);
         return this.redirectHome();
       }
     }
 
-    return this.authService.isAuthenticated ? true : this.redirectHome()
+    this.deleteTokenIfExpired(isTokenExpired);
+
+    return this.authService.isAuthenticated && !isTokenExpired ? true : this.redirectHome()
+  }
+
+  deleteTokenIfExpired(isTokenExpired: boolean) {
+    if (isTokenExpired) {
+      this.cookieService.delete('tembea_token');
+    }
   }
 
   redirectHome(): boolean {

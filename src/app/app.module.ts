@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { UnauthorizedLoginComponent } from './auth/unauthorized-login/unauthoriz
 import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.component';
 import { AuthService } from './auth/__services__/auth.service';
 import { AngularMaterialModule } from './angular-material.module';
+import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
 
 const toastr: Toastr = window['toastr'];
 
@@ -38,6 +39,7 @@ const toastr: Toastr = window['toastr'];
     CookieService,
     ClockService,
     { provide: TOASTR_TOKEN, useValue: toastr },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
   ],
   entryComponents: [
     UnauthorizedLoginComponent,
