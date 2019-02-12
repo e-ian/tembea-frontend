@@ -1,13 +1,23 @@
-FROM node:10
+#  label STAGE 1 as ‘builder’
+FROM node:8-alpine as builder
 
 LABEL application="tembea-frontend"
-
 ENV TERM=xterm-256color NODE_ENV=$NODE_ENV
+
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
-
+COPY . .
 RUN npm install -g yarn@1.12.x && rm -rf package-lock.json
-COPY package.json yarn.lock dist/tembea-frontend/ /usr/app/
-COPY cypress /usr/app/cypress
-RUN ls -la
 RUN yarn install
+RUN npm rebuild node-sass --force
+RUN $(npm bin)/ng build --prod
+
+# STAGE 2:
+FROM nginx:1.15.8-alpine
+
+### setup nginx configurations
+COPY nginx/default.conf /etc/nginx/conf.d/
+
+# From ‘builder’ stage copy the artifacts in dist/ to the default nginx public folder
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /usr/app/dist /usr/share/nginx/html
