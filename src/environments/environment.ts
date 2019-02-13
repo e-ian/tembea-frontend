@@ -6,10 +6,11 @@
 // Do not change the andelaAuthServiceUrl
 export const environment = {
   production: false,
-  tembeaBackEndUrl: 'https://43c939fe.ngrok.io',
+  tembeaBackEndUrl: 'http://localhost:5000',
   tembeaFrontEndUrl: 'http://localhost:4200',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
-  teamUrl: 'andela-tembea.slack.com'
+  teamUrl: 'andela-tembea.slack.com',
+  googMapsAPIKey: 'AIzaSyDT1bJDksmdUa0221cLtjq36p9GidNa110'
 };
 
 /*

@@ -1,5 +1,5 @@
 
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-sidenav-container, mat-sidenav {
   height: 100%;
 }
 
@@ -23,9 +23,8 @@ mat-toolbar {
 }
 
 mat-sidenav-content > .mat-sidenav-content-div{
-  background-color: #ffffff;
-  padding: 1em;
-  height: 100%;
+  padding: 1em 3em 0 3em;
+  box-sizing: border-box;
 }
 
 mat-expansion-panel,
@@ -73,4 +72,11 @@ a:hover {
 mat-icon.logout-icon{
   margin-right:0.5em;
   color: #FF5359;
+}
+
+@media screen and (max-width: 500px) {
+  mat-sidenav-content > .mat-sidenav-content-div{
+    padding: 1em 1em 0 1em;
+    box-sizing: border-box;
+  }
 }

@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+import { FormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -16,6 +20,11 @@ import { EmptyPageComponent } from './empty-page/empty-page.component';
 import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
 import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
 import { AlertService } from '../shared/alert.service';
+import { GoogleMapsService } from '../shared/googlemaps.service';
+import { RouteService } from './routes/route.service';
+import { CreateRouteHelper } from './routes/create-route/create-route.helper';
+
+import { environment } from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,9 +43,16 @@ import { AlertService } from '../shared/alert.service';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     AdminRoutingModule,
+    FormsModule,
     AngularMaterialModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googMapsAPIKey,
+      libraries: ["places"]
+    }),
+    AgmDirectionModule
   ],
-  providers: [ AlertService ]
+  providers: [AlertService, GoogleMapsService, RouteService, CreateRouteHelper]
 })
 export class AdminModule { }
