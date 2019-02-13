@@ -14,6 +14,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 import { EmptyPageComponent } from './empty-page/empty-page.component';
 import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
+import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
     HeaderComponent,
     RouteRequestsComponent,
     EmptyPageComponent,
-    CustomTitlecasePipe
+    CustomTitlecasePipe,
+    ConvertTimePipe
   ],
   imports: [
     CommonModule,

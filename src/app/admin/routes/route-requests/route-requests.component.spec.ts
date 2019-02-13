@@ -15,6 +15,8 @@ import {ClockService} from '../../../auth/__services__/clock.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Toastr, TOASTR_TOKEN} from '../../../shared/toastr.service';
 import {AuthService} from '../../../auth/__services__/auth.service';
+import { ConvertTimePipe } from 'src/app/admin/__pipes__/convert-time.pipe';
+import {AisService} from '../../__services__/ais.service';
 
 const toastr: Toastr = window['toastr'];
 
@@ -24,7 +26,7 @@ describe('RouteRequestsComponent', () => {
   let httpMock: HttpTestingController;
   let service: RouteRequestService;
 
-  let authMock = {
+  const authMock = {
     getCurrentUser: jest.fn(() => ({
       firstName: 'name',
       first_name: 'string',
@@ -36,9 +38,13 @@ describe('RouteRequestsComponent', () => {
   };
   const mockMatDialog = {};
 
+  const AisMock = {
+    getResponse: () => ({ subscribe: () => ({ picture: ''})})
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RouteRequestsComponent, EmptyPageComponent, CustomTitlecasePipe ],
+      declarations: [ RouteRequestsComponent, EmptyPageComponent, CustomTitlecasePipe, ConvertTimePipe  ],
       imports: [
         NoopAnimationsModule,
         HttpClientTestingModule,
@@ -50,7 +56,8 @@ describe('RouteRequestsComponent', () => {
         ClockService,
         { provide: TOASTR_TOKEN, useValue: toastr },
         { provide: MatDialog, useValue: mockMatDialog },
-        { provide: AuthService, useValue: authMock }
+        { provide: AuthService, useValue: authMock },
+        { provide: AisService, useValue: AisMock }
       ]
     })
     .compileComponents();
@@ -65,7 +72,8 @@ describe('RouteRequestsComponent', () => {
       email: 'string',
       name: 'string',
       picture: 'string',
-      roles: []};
+      roles: []
+    };
     fixture.detectChanges();
   }));
 

@@ -33,28 +33,81 @@
 
       <mat-card-content>
         <mat-tab-group>
-          <mat-tab label="Request">
-            <img
-              class="map-image"
-              [src]="getCurrentRoute().routeImageUrl ||
-              'https://via.placeholder.com/500?text=We could not load the map for this route'"
-              [alt]="getCurrentRoute().distance" />
+          <mat-tab class="pending-routes" label="Request">
+            <img class="map-image"
+                 [src]="getCurrentRoute().routeImageUrl ||
+                  'https://via.placeholder.com/500?text=We could not load the map for this route'"
+                 [alt]="getCurrentRoute().busStop.address" />
           </mat-tab>
-          <mat-tab label="View Details">Content 2</mat-tab>
+          <mat-tab label="View Details">
+              <div class=view-details-wrapper>
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                      <div class='view-details details-label'>
+                        Fellow Name
+                      </div>
+                      <div class='view-details details-value'>
+                          {{getCurrentRoute().engagement.fellow.name}}
+                      </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class='view-details details-label'>
+                            Manager Name
+                          </div>
+                          <div class='view-details details-value'>
+                              {{getCurrentRoute().manager.name}}
+                          </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class='view-details details-label'>
+                            Partner Name
+                          </div>
+                          <div class='view-details details-value'>
+                              {{getCurrentRoute().engagement.partner.name}}
+                          </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class='view-details details-label'>
+                            Partner Duration
+                          </div>
+                          <div class='view-details details-value'>
+                              {{getCurrentRoute().engagement.startDate | date: 'dd-MM-yy'}} 
+                              <span class='text-in-value'> to </span> 
+                              {{getCurrentRoute().engagement.endDate | date: 'dd-MM-yy'}} 
+                          </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class='view-details details-label'>
+                            Working Hours
+                          </div>
+                          <div class='view-details details-value'
+                          [innerHTML]="getCurrentRoute().engagement.workHours | convertTime"
+                          >
+                          </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class='view-details details-label'>
+                            Distance from Bustop to Home
+                          </div>
+                          <div class='view-details details-value'>
+                              {{getCurrentRoute().busStopDistance}} km
+                          </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+              </div>
+          </mat-tab>
         </mat-tab-group>
       </mat-card-content>
 
       <mat-card-footer>
         <div class="footer-text">
-          <img matCardAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-          <span>
-            {{ getCurrentRoute().engagement.fellow.name }} is requesting a route - {{ getCurrentRoute().busStop.address }}
-          </span>
+          <img matCardAvatar [src]="requesterData?.picture || '/assets/images/default_avatar.png'" alt={{getCurrentRoute().engagement.fellow.name}}>
+          <span>{{getCurrentRoute().engagement.fellow.name}} is requesting a route - {{ getCurrentRoute().busStop.address }}</span>
         </div>
-        <div class="mat-card-action-buttons">
-          <button class="accept-button"><span class="accept">ACCEPT</span></button>
-          <button (click)="decline()" class="reject-button"><span class="reject">REJECT</span></button>
-        </div>
+        <mat-card-actions>
+          <button class="accept-button">ACCEPT</button>
+          <button class="reject-button">REJECT</button>
+        </mat-card-actions>
       </mat-card-footer>
 
     </mat-card>

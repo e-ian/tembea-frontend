@@ -8,6 +8,8 @@ import { IUser } from 'src/app/shared/models/user.model';
 import {AuthService} from '../../../auth/__services__/auth.service';
 import { RouteApproveDeclineModalComponent } from '../route-approve-decline-modal/route-approve-decline-modal.component';
 import { IRouteApprovalDeclineInfo } from 'src/app/shared/models/route-approve-decline-info.model';
+import { AisService } from '../../__services__/ais.service';
+import { AISData } from 'src/app/shared/models/ais.model';
 
 @Component({
   selector: 'app-route-requests',
@@ -18,19 +20,26 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
   routesSubscription: Subscription;
   routes: RouteRequest[] = [];
   user: IUser;
+  requesterData: AISData;
 
   constructor(
     public routeService: RouteRequestService,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private userData: AisService
   ) {
     this.user = this.authService.getCurrentUser();
   }
 
   ngOnInit() {
+    let routeRequest: RouteRequest
     this.routesSubscription = this.routeService.getAllRequests();
     this.routeService.routesRequests.subscribe((val) => {
       this.routes = val;
+      routeRequest = this.routes[0];
+      if (routeRequest) {
+        this.getRequesterData(routeRequest.engagement.fellow.email);
+      }
     });
   }
 
@@ -43,6 +52,7 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
   onClickRouteBox = (index, route: RouteRequest) => {
     RouteRequestService.activeRouteIndex = index;
     RouteRequestService.activeRouteRequest = route;
+    this.getRequesterData(route.engagement.fellow.email);
   };
 
   isRouteActive(idx: number): Boolean {
@@ -66,4 +76,10 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
       }
     });
   }
+  getRequesterData(email: string) {
+    this.userData.getResponse(email)
+    .subscribe(data => {
+      this.requesterData = data;
+    }
+  )}
 }
