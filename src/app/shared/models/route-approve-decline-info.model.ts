@@ -8,3 +8,7 @@ export interface IRouteApprovalDeclineInfo {
   routeRequestId: number;
   requesterFirstName: string;
 }
+
+export interface IRouteDetails {
+  [key: string]: any;
+}

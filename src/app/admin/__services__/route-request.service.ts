@@ -81,4 +81,35 @@ export class RouteRequestService {
     RouteRequestService.approvalDeclineDialog.close();
     this.toastr.error('Could not decline request');
   }
+
+  approveRequest(routeRequestId, comment, routeDetails, email): void {
+    this.http.put(`${this.routesUrl}/requests/status/${routeRequestId}`, {
+      newOpsStatus: 'approve',
+      comment: comment,
+      reviewerEmail: email,
+      teamUrl: environment.teamUrl,
+      routeName: routeDetails.routeName,
+      takeOff: routeDetails.takeOff,
+      cabRegNumber: routeDetails.cabRegNumber,
+      capacity: routeDetails.capacity.toString(),
+    })
+    .pipe(catchError(this.handleError<IRouteApprovalDeclineInfo>('approveRequest')))
+    .subscribe(this.handleApproveResponse);
+  }
+
+  handleApproveResponse = (data) => {
+    if (data.success) {
+      let routesRequests;
+      this.routesRequestSubject.subscribe(currentValues => {
+        routesRequests = currentValues.filter(route => route.id !== data.data.id);
+      });
+      this.routesRequestSubject.next(routesRequests);
+      RouteRequestService.approvalDeclineDialog.close();
+      this.toastr.success('Route request Approved!');
+      return;
+    }
+
+    RouteRequestService.approvalDeclineDialog.close();
+    this.toastr.error('Could not approve request');
+  }
 }

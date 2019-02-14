@@ -97,4 +97,54 @@ describe('RoutesService', () => {
       });
     });
   });
+
+  describe('approveRequest', () => {
+    it('should call handleApproveResponse', (done) => {
+      jest.spyOn(service, 'handleApproveResponse').mockImplementation();
+      const routeDetails = {};
+      routeDetails['routeName'] = 'Some route name';
+      routeDetails['takeoff'] = '2:30';
+      routeDetails['cabRegNumber'] = 'KXXX XX0';
+      routeDetails['capacity'] = '1';
+
+      service.approveRequest(1, 'some comment', routeDetails, 'some@email.com' );
+
+      const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
+      expect(request.request.method).toEqual('PUT');
+
+      request.flush({
+        success: true,
+        message: 'This route request has been updated',
+        data: {
+          id: 1
+        }
+      });
+
+      expect(service.handleApproveResponse).toHaveBeenCalledTimes(1);
+      jest.restoreAllMocks();
+      done();
+    });
+  });
+
+  describe('handleApproveResponse', () => {
+    it('should create the route request', (done) => {
+      const data = {
+        success: true,
+        message: 'This route request has been updated',
+        data: {
+          id: 1
+        }
+      };
+      RouteRequestService.approvalDeclineDialog = <MatDialogRef<RouteApproveDeclineModalComponent>>{
+        close: () => {}
+      };
+
+      service.handleApproveResponse(data);
+      service.routesRequests.subscribe(routeRequest => {
+        expect(routeRequest).toEqual([]);
+        done();
+      });
+    });
+  });
+
 });

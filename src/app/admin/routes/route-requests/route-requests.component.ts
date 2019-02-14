@@ -76,6 +76,21 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  approve(): void {
+    const routesRequests = this.getCurrentRoute();
+    RouteRequestService.approvalDeclineDialog = this.dialog.open(RouteApproveDeclineModalComponent, {
+      width: '592px',
+      backdropClass: 'modal-backdrop',
+      panelClass: 'route-decline-modal-panel-class',
+      data: <IRouteApprovalDeclineInfo>{
+        status: 0,
+        requesterFirstName: routesRequests.engagement.fellow.name,
+        routeRequestId: routesRequests.id
+      }
+    });
+  }
+
   getRequesterData(email: string) {
     this.userData.getResponse(email)
     .subscribe(data => {
