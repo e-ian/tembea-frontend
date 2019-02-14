@@ -2,7 +2,8 @@
 FROM node:8-alpine as builder
 
 LABEL application="tembea-frontend"
-ENV TERM=xterm-256color NODE_ENV=$NODE_ENV
+ARG NODE_ENV=$NODE_ENV
+ENV TERM=xterm-256color NODE_ENV="${NODE_ENV}"
 
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
@@ -10,7 +11,7 @@ COPY . .
 RUN npm install -g yarn@1.12.x && rm -rf package-lock.json
 RUN yarn install
 RUN npm rebuild node-sass --force
-RUN $(npm bin)/ng build --prod
+RUN $(npm bin)/ng build -c=$NODE_ENV
 
 # STAGE 2:
 FROM nginx:1.15.8-alpine

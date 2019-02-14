@@ -44,7 +44,13 @@ cmd_build_and_push_docker: &cmd_build_and_push_docker
       export IMG_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
       echo $IMG_TAG
       docker login -u _json_key -p "$(echo $SERVICE_ACCOUNT)" https://gcr.io
-      docker build -t gcr.io/${GCP_PROJECT_ID}/${PROJECT_NAME}:${IMG_TAG} -f docker/release/Dockerfile .
+      if [ "${CIRCLE_BRANCH}" = "master" ]; then
+        export NODE_ENV="production"
+        docker build --build-arg NODE_ENV=${NODE_ENV} -t gcr.io/${GCP_PROJECT_ID}/${PROJECT_NAME}:${IMG_TAG} -f docker/release/Dockerfile .
+      elif [[ "${CIRCLE_BRANCH}" = "develop" || "${CIRCLE_BRANCH}" =~ "deployment" ]]; then
+        export NODE_ENV="staging"
+        docker build --build-arg NODE_ENV=${NODE_ENV} -t gcr.io/${GCP_PROJECT_ID}/${PROJECT_NAME}:${IMG_TAG} -f docker/release/Dockerfile .
+      fi
       docker push gcr.io/${GCP_PROJECT_ID}/${PROJECT_NAME}:${IMG_TAG}
 
 filters: &filters
