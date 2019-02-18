@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 import { IRouteInventory } from 'src/app/shared/models/route-inventory.model';
+import { AlertService } from '../../../shared/alert.service';
 
 @Component({
   selector: 'app-inventory',
@@ -10,15 +11,18 @@ import { IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 export class RoutesInventoryComponent implements OnInit {
   routes: IRouteInventory[] = [];
   totalPages: number;
-  pageNo: number = 1;
-  pageSize: number = 10;
+  pageNo = 1;
+  pageSize = 10;
   pages: number[] = [];
-  sort: string = 'name,asc';
-  groupSize: number = 4;
-  currentPageGroup: number = 0;
+  sort = 'name,asc';
+  groupSize = 4;
+  currentPageGroup = 0;
   errorMessage: string;
 
-  constructor(private routeService: RoutesInventoryService) {}
+  constructor(
+    private routeService: RoutesInventoryService,
+    private alert: AlertService
+  ) {}
 
   ngOnInit() {
     this.getRoutesInventory();
@@ -36,15 +40,15 @@ export class RoutesInventoryComponent implements OnInit {
 
   getPages(): any {
     const pages = [];
-    const groupededPages = [];
+    const groupedPages = [];
 
     for (let i = 1; i <= this.totalPages; i++) {
       pages.push(i);
     }
     while (pages.length) {
-      groupededPages.push(pages.splice(0, this.groupSize));
+      groupedPages.push(pages.splice(0, this.groupSize));
     }
-    return groupededPages;
+    return groupedPages;
   }
 
   setPage(page: number): void {
@@ -58,5 +62,24 @@ export class RoutesInventoryComponent implements OnInit {
 
   prevGroup(): void {
     this.currentPageGroup -= 1;
+  }
+
+  changeRouteStatus(id: number, status: string) {
+    this.routeService.changeRouteStatus(id, { status })
+      .subscribe((response) => {
+        if (response.success) {
+          this.updateRoutesData(id, status);
+        }
+      }, (err: any) => this.alert.error('Something went wrong! try again'))
+  }
+
+  updateRoutesData(id: number, status: string): void {
+    const newData = this.routes.map((route) => {
+      if (route.id === id) {
+        route = { ...route, status }
+      }
+      return route
+    });
+    this.routes = newData;
   }
 }

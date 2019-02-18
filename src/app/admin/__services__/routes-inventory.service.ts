@@ -9,12 +9,18 @@ import 'rxjs/add/operator/map';
   providedIn: 'root',
 })
 export class RoutesInventoryService {
-  routesUrl: string = `${environment.tembeaBackEndUrl}/api/v1/routes`;
+  routesUrl = `${environment.tembeaBackEndUrl}/api/v1/routes`;
+  teamUrl = environment.teamUrl;
+
   constructor(private http: HttpClient) {}
 
   getRoutes(size: number, page: number, sort: string): Observable<RouteInventoryModel> {
     return this.http.get<any>(`${this.routesUrl}?sort=${sort}&size=${size}&page=${page}`).map(routes => {
       return new RouteInventoryModel().deserialize(routes.data);
     });
+  }
+
+  changeRouteStatus(id: number, data: Object): Observable<any> {
+    return this.http.put(`${this.routesUrl}/${id}`, { ...data, teamUrl: this.teamUrl });
   }
 }

@@ -9,7 +9,7 @@
     "build": "ng build",
     "build:staging": "ng build -c=staging",
     "build:prod": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test --runInBand -w=1",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "concurrently \"ng serve\" \"cypress open\""

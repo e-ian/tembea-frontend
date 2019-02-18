@@ -33,7 +33,7 @@
   <mat-grid-tile>{{ route.regNumber }}</mat-grid-tile>
 
   <mat-grid-tile *ngIf='route.status === "Active" ; else inactive'>
-      <button class="active-status-button">
+      <button class="active-status-button" (click)="changeRouteStatus(route.id, 'Inactive')">
         <div class="green-radio-wrapper">
           <div class="green-radio">
           </div>
@@ -42,7 +42,7 @@
       </button>
     </mat-grid-tile>
 <ng-template #inactive><mat-grid-tile>
-  <button class="inactive-status-button">
+  <button class="inactive-status-button" (click)="changeRouteStatus(route.id, 'Active')">
     <div class="white-radio-wrapper">
       <div class="white-radio">
       </div>

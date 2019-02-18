@@ -15,6 +15,7 @@ import { RouteRequestsComponent } from './routes/route-requests/route-requests.c
 import { EmptyPageComponent } from './empty-page/empty-page.component';
 import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
 import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
+import { AlertService } from '../shared/alert.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
   ],
+  providers: [ AlertService ]
 })
 export class AdminModule { }
