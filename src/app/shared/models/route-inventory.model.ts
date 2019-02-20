@@ -3,7 +3,7 @@ import { IPageMeta } from './page-meta.model';
 
 export class RouteInventoryModel implements Deserializable<RouteInventoryModel> {
   routes: IRouteInventory[] = [];
-  pageMeta: IPageMeta;
+  pageMeta?: IPageMeta;
 
   deserialize(input: any): RouteInventoryModel {
     Object.assign(this, input);
@@ -12,17 +12,17 @@ export class RouteInventoryModel implements Deserializable<RouteInventoryModel> 
 }
 
 export interface IRouteInventory {
-  id: number;
+  id?: number;
   status: string;
   takeOff: string;
   capacity: number;
   batch: string;
-  comments: string;
+  comments?: string;
   inUse: number;
   name: string;
-  destination: string;
-  driverName: string;
-  driverPhoneNo: string;
+  destination?: string;
+  driverName?: string;
+  driverPhoneNo?: string;
   regNumber: string;
 }
 

@@ -27,7 +27,7 @@ export class RoutesInventoryService {
   }
 
   changeRouteStatus(id: number, data: Object): Observable<any> {
-    return this.http.put(`${this.routesUrl}/${id}`, { ...data, teamUrl: this.teamUrl });
+    return this.http.put(`${this.routesUrl}/${id}`, { ...data, teamUrl: this.teamUrl })
   }
 
   deleteRouteBatch(id: number) {

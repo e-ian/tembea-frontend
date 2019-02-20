@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 import { IRouteInventory, IDeleteRouteResponse } from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
@@ -6,13 +6,15 @@ import { ITEMS_PER_PAGE } from '../../../app.constants';
 import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import RenameRouteBatch from './routes-inventory.helper';
+import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
+import { AppEventService } from 'src/app/shared/app-events.service';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './routes-inventory.component.html',
   styleUrls: ['./routes-inventory.component.scss'],
 })
-export class RoutesInventoryComponent implements OnInit {
+export class RoutesInventoryComponent implements OnInit, OnDestroy {
   routes: IRouteInventory[] = [];
   pageNo: number;
   pageSize: number;
@@ -20,11 +22,13 @@ export class RoutesInventoryComponent implements OnInit {
   totalItems: number;
   lastBatchLetter = 'A';
   lastRouteName: string;
+  updateSubscription: any;
 
   constructor(
     private routeService: RoutesInventoryService,
     private alert: AlertService,
-    private dialog: MatDialog,
+    public dialog: MatDialog,
+    private appEventsService: AppEventService
   ) {
     this.pageNo = 1;
     this.sort = 'name,asc,batch,asc';
@@ -33,6 +37,10 @@ export class RoutesInventoryComponent implements OnInit {
 
   ngOnInit() {
     this.getRoutesInventory();
+    this.updateSubscription = this.appEventsService.subscribe('updateRouteInventory', () => {
+      this.getRoutesInventory()
+    })
+
   }
 
   getRoutesInventory = () => {
@@ -101,5 +109,26 @@ export class RoutesInventoryComponent implements OnInit {
     dialogRef.componentInstance.executeFunction.subscribe(() => {
       this.deleteRoute(routeBatchId, ind)
     })
+  }
+  editRoute(index): void {
+    this.dialog.open(RoutesInventoryEditModalComponent, {
+      data: <IRouteInventory>{
+        id: this.routes[index].id,
+        status: this.routes[index].status,
+        takeOff: this.routes[index].takeOff,
+        capacity: this.routes[index].capacity,
+        batch: this.routes[index].batch,
+        inUse: this.routes[index].inUse,
+        name: this.routes[index].name,
+        regNumber: this.routes[index].regNumber
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe()
+    }
+
   }
 }

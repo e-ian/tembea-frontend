@@ -19,6 +19,8 @@ import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
 import { RouteApproveDeclineModalComponent } from './admin/routes/route-approve-decline-modal/route-approve-decline-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from './shared/alert.service';
+import { RoutesInventoryEditModalComponent
+} from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 
 const toastr: Toastr = window['toastr'];
 
@@ -30,7 +32,8 @@ const toastr: Toastr = window['toastr'];
     UnauthorizedLoginComponent,
     LoginRedirectComponent,
     RouteApproveDeclineModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    RoutesInventoryEditModalComponent
   ],
   imports: [
     FormsModule,
@@ -52,7 +55,8 @@ const toastr: Toastr = window['toastr'];
   entryComponents: [
     UnauthorizedLoginComponent,
     ConfirmModalComponent,
-    RouteApproveDeclineModalComponent
+    RouteApproveDeclineModalComponent,
+    RoutesInventoryEditModalComponent
   ],
   bootstrap: [AppComponent]
 })

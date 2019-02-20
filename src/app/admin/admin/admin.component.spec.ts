@@ -57,6 +57,10 @@ describe('SideBarComponent', () => {
     fixture.detectChanges();
   }));
 
+  beforeEach(() => {
+    jest.setTimeout(10000)
+  })
+
   it('should create sideNav Component', () => {
     expect(component).toBeTruthy();
   });

@@ -49,7 +49,7 @@ describe('CreateRouteComponent', () => {
   it('should update Destination form Field with coordinates address when the map marker is dragged', async () => {
     const updateRoute = jest.spyOn(component, 'updateRouteDisplay');
     const getAddress = jest.spyOn(component.googleMapsService,
-      'getLocationAddressFromCoordinates').mockResolvedValue(mockAddress);
+      'getLocationAddressFromCoordinates').mockReturnValue(Promise.resolve(mockAddress));
 
     await component.updateDestinationFieldOnMarkerDrag('Marker', mockCoordinates);
 
@@ -120,7 +120,7 @@ describe('CreateRouteComponent', () => {
     component.destinationCoordinates = mockCoordinates;
     const formValues = { someProp: 'someValue' };
 
-    const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockResolvedValue({});
+    const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockResolvedValue(Promise.resolve());
     const validator = jest.spyOn(component.createRouteHelper, 'validateFormEntries')
       .mockReturnValue([]);
     const createObj = jest.spyOn(component.createRouteHelper, 'createNewRouteRequestObject')

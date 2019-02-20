@@ -1,3 +1,6 @@
+import getRoutesResponseMock from './get-routes-response.mock';
+import { of } from 'rxjs';
+
 export const routesMock = [
   {
     id: 1,
@@ -28,3 +31,16 @@ export const routesMock = [
     regNumber: 'WEK123'
   }
 ]
+
+export const editMockPayload = {
+  success: true,
+  route: {
+    batch: 'A',
+    capacity: 22,
+    inUse: 10,
+    name: 'Grace Islands',
+    regNumber: 'SMK 319 JK',
+    status: 'Inactive',
+    takeOff: '22:00'
+  }
+}

@@ -72,7 +72,7 @@ describe('HomeRouteActivatorGuard', () => {
 
     it('should navigate the user to the loginRedirect route when andela_token exists and user isn\'t authenticated',
       inject([HomeRouteActivatorGuard], (guard: HomeRouteActivatorGuard) => {
-      const mockCookie = jest.spyOn(cookieService, 'get').mockImplementation((prop) => prop === 'jwt_token' ? 'token' : false)
+      const mockCookie = jest.spyOn(cookieService, 'get').mockImplementation((prop) => prop === 'jwt_token' ? 'token' : '')
       const routerMock = jest.spyOn(router, 'navigate');
 
       authService.isAuthorized = true;
@@ -87,7 +87,7 @@ describe('HomeRouteActivatorGuard', () => {
 
     it('should allow user navigate to the landing page',
       inject([HomeRouteActivatorGuard], (guard: HomeRouteActivatorGuard) => {
-      const mockCookie = jest.spyOn(cookieService, 'get').mockReturnValue(false)
+      const mockCookie = jest.spyOn(cookieService, 'get').mockReturnValue('');
       const routerMock = jest.spyOn(router, 'navigate');
 
       authService.isAuthorized = true;

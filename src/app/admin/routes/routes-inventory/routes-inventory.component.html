@@ -53,7 +53,7 @@
       </ng-template>
       <mat-grid-tile>
         <div class="flex">
-          <button class='edit-action-button'>
+          <button (click)="editRoute(ind)" class='edit-action-button'>
             <span class="edit-icon"></span>
           </button>
           <button class='duplicate-action-button'>
@@ -68,5 +68,3 @@
     <div class="pagination">
       <app-pagination *ngIf='totalItems > 1' [totalItems]="totalItems" (pageChange)="setPage($event)" [pageSize]="pageSize"></app-pagination>
     </div>
-  </div>
-</div>

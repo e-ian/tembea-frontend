@@ -28,10 +28,10 @@ export class CreateRouteComponent implements AfterViewInit {
   mouseoverCreateButton
 
   constructor(
-    private googleMapsService: GoogleMapsService,
-    private routeService: RouteService,
-    private createRouteHelper: CreateRouteHelper,
-    private router: Router
+    public googleMapsService: GoogleMapsService,
+    public routeService: RouteService,
+    public createRouteHelper: CreateRouteHelper,
+    public router: Router
   ) { }
 
   ngAfterViewInit() {
