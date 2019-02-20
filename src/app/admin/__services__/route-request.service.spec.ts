@@ -6,23 +6,21 @@ import getAllResponseMock from '../routes/route-requests/__mocks__/get-all-respo
 import { MatDialogRef } from '@angular/material';
 import { RouteApproveDeclineModalComponent } from '../routes/route-approve-decline-modal/route-approve-decline-modal.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
-import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
+import { AlertService } from '../../shared/alert.service';
+import { toastrMock } from '../routes/__mocks__/create-route';
 
 describe('RoutesService', () => {
   let service: RouteRequestService;
   let httpMock: HttpTestingController;
   let routes = [];
   const mockAuthService = {};
-  const mockToastr = {
-    success: () => {}
-  };
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
     providers: [
       RouteRequestService,
       { provide: AuthService, useValue: mockAuthService },
-      { provide: TOASTR_TOKEN, useValue: mockToastr }
+      { provide: AlertService, useValue: toastrMock }
     ]
   }));
 

@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { takeOffTimeFormat } from './createRouteUtils';
-import { Toastr, TOASTR_TOKEN } from '../../../shared/toastr.service';
+import { AlertService } from '../../../shared/alert.service';
 
 @Injectable()
 export class CreateRouteHelper {
 
-  constructor(@Inject(TOASTR_TOKEN) private toastr: Toastr) { }
+  constructor(private toastr: AlertService) { }
 
   incrementCapacity(fieldValue) {
     const newValue = parseInt(fieldValue, 10) + 1;

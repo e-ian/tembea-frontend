@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavMenuService } from '../__services__/nav-menu.service';
 import { MatDialog } from '@angular/material';
-import { LogoutModalComponent } from '../../auth/logout-modal/logout-modal.component';
+import { ConfirmModalComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -84,10 +84,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
 
   logout() {
-    this.dialog.open(LogoutModalComponent, {
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
+
+  showLogoutModal() {
+    const firstName = this.auth.getCurrentUser().firstName;
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '592px',
       backdropClass: 'modal-backdrop',
-      panelClass: 'logout-modal-panel-class'
+      panelClass: 'confirm-modal-panel-class',
+      data: {
+        displayText: `logout, ${firstName}`,
+        confirmText: 'logout'
+      }
     });
+    dialogRef.componentInstance.executeFunction.subscribe(() => {
+      this.logout()
+    })
   }
 }

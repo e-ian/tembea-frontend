@@ -25,3 +25,8 @@ export interface IRouteInventory {
   driverPhoneNo: string;
   regNumber: string;
 }
+
+export interface IDeleteRouteResponse {
+  success: boolean,
+  message: string
+}

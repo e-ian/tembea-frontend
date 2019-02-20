@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../__services__/auth.service';
-import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from 'src/app/shared/alert.service';
 
 @Component({
   selector: 'app-login-redirect',
@@ -14,7 +14,7 @@ export class LoginRedirectComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
-    @Inject(TOASTR_TOKEN) private toastr: Toastr
+    private toastr: AlertService
   ) {}
 
   ngOnInit() {

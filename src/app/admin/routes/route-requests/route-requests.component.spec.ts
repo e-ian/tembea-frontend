@@ -13,12 +13,11 @@ import { CustomTitlecasePipe } from '../../__pipes__/custom-titlecase.pipe';
 import { CookieService } from '../../../auth/__services__/ngx-cookie-service.service';
 import { ClockService } from '../../../auth/__services__/clock.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Toastr, TOASTR_TOKEN } from '../../../shared/toastr.service';
 import { AuthService } from '../../../auth/__services__/auth.service';
 import { ConvertTimePipe } from 'src/app/admin/__pipes__/convert-time.pipe';
 import { AisService } from '../../__services__/ais.service';
+import { AlertService } from 'src/app/shared/alert.service';
 
-const toastr: Toastr = window['toastr'];
 
 describe('RouteRequestsComponent', () => {
   let component: RouteRequestsComponent;
@@ -38,6 +37,11 @@ describe('RouteRequestsComponent', () => {
   };
   const mockMatDialog = {};
 
+  const alertServiceMock = {
+    success: jest.fn(),
+    error: jest.fn()
+  }
+
   const AisMock = {
     getResponse: () => ({ subscribe: () => ({ picture: ''})})
   };
@@ -54,10 +58,10 @@ describe('RouteRequestsComponent', () => {
       providers: [
         CookieService,
         ClockService,
-        { provide: TOASTR_TOKEN, useValue: toastr },
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: AuthService, useValue: authMock },
-        { provide: AisService, useValue: AisMock }
+        { provide: AisService, useValue: AisMock },
+        { provide: AlertService, useValue: alertServiceMock }
       ]
     })
     .compileComponents();

@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { IUser } from '../../shared/models/user.model';
 import { CookieService } from './ngx-cookie-service.service';
 import { ClockService } from './clock.service';
-import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
+import { AlertService } from '../../shared/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class AuthService {
     public cookieService: CookieService,
     private clock: ClockService,
     private router: Router,
-    @Inject(TOASTR_TOKEN) public toastr: Toastr
+    public toastr: AlertService
   ) {}
 
   getCurrentUser(): IUser {

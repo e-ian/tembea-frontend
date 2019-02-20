@@ -3,13 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Subscription, Observable, of} from 'rxjs';
 import {RouteRequest} from '../../shared/models/route-request.model';
 import {environment} from '../../../environments/environment';
-import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 import {retry} from 'rxjs/operators';
 import 'rxjs-compat/add/operator/map';
 import { catchError } from 'rxjs/operators';
 import { IRouteApprovalDeclineInfo } from '../../shared/models/route-approve-decline-info.model';
 import { MatDialogRef } from '@angular/material';
 import { RouteApproveDeclineModalComponent } from '../routes/route-approve-decline-modal/route-approve-decline-modal.component';
+import { AlertService } from '../../shared/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class RouteRequestService {
 
   constructor(
     private http: HttpClient,
-    @Inject(TOASTR_TOKEN) public toastr: Toastr
+    public toastr: AlertService
   ) { }
 
   private handleError<T> (operation = 'operation', result?: T) {

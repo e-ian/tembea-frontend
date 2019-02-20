@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/models/user.model';
 import { Subscription, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TOASTR_TOKEN } from 'src/app/shared/toastr.service';
+import { AlertService } from '../../../shared/alert.service';
 import {
   mockRouter,
   mockToastr,
@@ -39,7 +39,7 @@ describe('AuthService', () => {
         { provide: CookieService, useValue: mockCookieService },
         { provide: ClockService, useValue: mockClockService },
         { provide: Router, useValue: mockRouter },
-        { provide: TOASTR_TOKEN, useValue: mockToastr }
+        { provide: AlertService, useValue: mockToastr }
       ]
     });
 

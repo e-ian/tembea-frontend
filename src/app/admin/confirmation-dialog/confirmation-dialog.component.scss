@@ -30,7 +30,8 @@ p {
   color: #808FA3;
 }
 
-.close-button:hover, :focus {
+.close-button:hover,
+:focus {
   background-color: #E1E6FA;
   outline: 0;
   cursor: pointer;
@@ -52,10 +53,10 @@ p {
 .action-buttons {
   width: 182px;
   height: 50px;
-  border: 1px solid rgba(128,143,163,0.11);
+  border: 1px solid rgba(128, 143, 163, 0.11);
   border-radius: 6px;
   background-color: #ffffff;
-  box-shadow: 0 3px 7px 0 rgba(128,143,163,0.11);
+  box-shadow: 0 3px 7px 0 rgba(128, 143, 163, 0.11);
   font-family: "DIN Pro";
   font-size: 16px;
   font-weight: bold;
@@ -73,7 +74,7 @@ p {
   cursor: pointer;
 }
 
-.logout {
+.confirm {
   color: #FF5359;
 }
 

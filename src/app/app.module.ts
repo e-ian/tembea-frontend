@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component';
+import { ConfirmModalComponent } from './admin/confirmation-dialog/confirmation-dialog.component';
 import { ClockService } from './auth/__services__/clock.service';
 import { ActiveTimeDirective } from './active-time.directive';
 import { HomeComponent } from './home/home.component';
@@ -18,6 +18,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
 import { RouteApproveDeclineModalComponent } from './admin/routes/route-approve-decline-modal/route-approve-decline-modal.component';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from './shared/alert.service';
 
 const toastr: Toastr = window['toastr'];
 
@@ -28,8 +29,8 @@ const toastr: Toastr = window['toastr'];
     HomeComponent,
     UnauthorizedLoginComponent,
     LoginRedirectComponent,
-    LogoutModalComponent,
     RouteApproveDeclineModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     FormsModule,
@@ -41,14 +42,16 @@ const toastr: Toastr = window['toastr'];
   ],
   providers: [
     AuthService,
+    AlertService,
     CookieService,
     ClockService,
     { provide: TOASTR_TOKEN, useValue: toastr },
+    { provide: AlertService, useValue: toastr },
     { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
   ],
   entryComponents: [
     UnauthorizedLoginComponent,
-    LogoutModalComponent,
+    ConfirmModalComponent,
     RouteApproveDeclineModalComponent
   ],
   bootstrap: [AppComponent]

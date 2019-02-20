@@ -5,16 +5,23 @@ import { RoutesInventoryService } from '../routes-inventory.service';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import getRoutesResponseMock from '../../routes/routes-inventory/__mocks__/get-routes-response.mock';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 describe('RoutesInventoryService', () => {
   let service: RoutesInventoryService;
   let httpMock: HttpTestingController;
   const { tembeaBackEndUrl } = environment;
+  const deleteResponseMock = {
+    success: true,
+    message: 'route batch deleted successfully'
+  }
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RoutesInventoryService],
+      providers: [
+        RoutesInventoryService,
+        ],
     })
   );
 
@@ -54,4 +61,13 @@ describe('RoutesInventoryService', () => {
       expect(changeStatusRequest.request.method).toEqual('PUT');
       changeStatusRequest.flush(response);
   });
+  it('should make http request to delete route batch by Id', () => {
+    const spy = jest.spyOn(HttpClient.prototype, 'delete');
+    spy.mockReturnValue(of(deleteResponseMock));
+    const result = service.deleteRouteBatch(1)
+    result.subscribe(data => {
+        expect(data).toEqual(deleteResponseMock);
+    });
+    expect(JSON.stringify(result)).toEqual(JSON.stringify(of(deleteResponseMock)));
+  })
 });

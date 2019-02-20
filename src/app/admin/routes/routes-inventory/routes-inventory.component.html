@@ -23,7 +23,7 @@
         <div class="actions-icon"></div>
       </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list *ngFor='let route of routes' cols="8" rowHeight="3:1">
+    <mat-grid-list *ngFor='let route of routes; index as ind' cols="8" rowHeight="3:1">
       <mat-grid-tile>{{ route.name }}</mat-grid-tile>
       <mat-grid-tile>{{ route.batch }}</mat-grid-tile>
       <mat-grid-tile>{{ route.takeOff }}</mat-grid-tile>
@@ -60,14 +60,13 @@
             <span class="duplicate-icon"></span>
           </button>
           <button class='decline-action-button'>
-            <span class="decline-icon"></span>
+            <span class="decline-icon" (click)='showDeleteModal(route.id, ind)'></span>
           </button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
     <div class="pagination">
-      <app-pagination *ngIf='totalItems > 1' [totalItems]="totalItems" (pageChange)="setPage($event)"
-                      [pageSize]="pageSize"></app-pagination>
+      <app-pagination *ngIf='totalItems > 1' [totalItems]="totalItems" (pageChange)="setPage($event)" [pageSize]="pageSize"></app-pagination>
     </div>
   </div>
 </div>

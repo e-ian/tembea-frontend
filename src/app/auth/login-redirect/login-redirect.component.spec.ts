@@ -4,7 +4,7 @@ import { of, throwError } from 'rxjs';
 import { LoginRedirectComponent } from './login-redirect.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TOASTR_TOKEN, Toastr } from 'src/app/shared/toastr.service';
+import { Toastr } from 'src/app/shared/toastr.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { mockAuthService } from '../__mocks__/authService.mock';
 import {
@@ -12,6 +12,7 @@ import {
   mockRouter,
   mockToastr
 } from 'src/app/shared/__mocks__/mockData';
+import { AlertService } from 'src/app/shared/alert.service';
 
 describe('LoginRedirectComponent', () => {
   let component: LoginRedirectComponent;
@@ -24,7 +25,7 @@ describe('LoginRedirectComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: Router, useValue: mockRouter },
-        { provide: TOASTR_TOKEN, useValue: mockToastr }
+        { provide: AlertService, useValue: mockToastr }
       ]
     }).compileComponents();
   }));
@@ -92,7 +93,7 @@ describe('LoginRedirectComponent', () => {
     it('should call unAuthorizeUser method', () => {
       const service: AuthService = TestBed.get(AuthService);
       const router: Router = TestBed.get(Router);
-      const toastr: Toastr = TestBed.get(TOASTR_TOKEN);
+      const toastr: Toastr = TestBed.get(AlertService);
       const errorMock = new HttpErrorResponse({
         error: 'Server Error',
         headers: null,
@@ -112,7 +113,7 @@ describe('LoginRedirectComponent', () => {
     it('should call the toastr and navigate method', () => {
       const service: AuthService = TestBed.get(AuthService);
       const router: Router = TestBed.get(Router);
-      const toastr: Toastr = TestBed.get(TOASTR_TOKEN);
+      const toastr: Toastr = TestBed.get(AlertService);
       const errorMock = new Error('Login failed');
       jest.spyOn(service, 'unAuthorizeUser');
       jest.spyOn(router, 'navigate');

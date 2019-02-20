@@ -38,14 +38,14 @@
 
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
       <div class="tool-bar-button">
-        <button [matMenuTriggerFor]="dropDown" class="action-button">
+        <button id="drop-down-button" [matMenuTriggerFor]="dropDown" class="action-button">
           <img class="upic" [src]="user.picture" alt="profile picture" />
           <span class="too-bar-username">{{ user.firstName }} {{ user.lastName }}</span>
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
 
         <mat-menu #dropDown="matMenu" class="toolbar-dropdown">
-          <button class="action-button logout" (click)="logout()">
+          <button id="logout" class="action-button logout" (click)="showLogoutModal()">
             Logout
             <span class="right-arrow-icon-wrapper">
               <span class="right-red-pointer button-icon-size"></span>

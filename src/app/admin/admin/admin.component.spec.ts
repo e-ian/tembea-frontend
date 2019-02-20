@@ -14,7 +14,8 @@ import { HeaderComponent } from '../header/header.component';
 import { NavMenuService } from '../__services__/nav-menu.service';
 import {CookieService} from '../../auth/__services__/ngx-cookie-service.service';
 import {ClockService} from '../../auth/__services__/clock.service';
-import {Toastr, TOASTR_TOKEN} from '../../shared/toastr.service';
+import { toastrMock } from '../routes/__mocks__/create-route';
+import { AlertService } from '../../shared/alert.service';
 
 const sideNavMock = {
   setSidenav: jest.fn(),
@@ -95,8 +96,6 @@ describe('SideBarComponent on small devices', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
 
-  const toastr: Toastr = window['toastr'];
-
   beforeEach(() => {
     // create mock
     const mediaObserverMock = {
@@ -114,7 +113,7 @@ describe('SideBarComponent on small devices', () => {
       providers: [
         CookieService,
         ClockService,
-        { provide: TOASTR_TOKEN, useValue: toastr },
+        { provide: AlertService, useValue: toastrMock },
         { provide: MediaObserver, useValue: mediaObserverMock },
         { provide: NavMenuService, useValue: sideNavMock }
       ]
