@@ -26,6 +26,7 @@ import { CreateRouteHelper } from './routes/create-route/create-route.helper';
 import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.component';
 
 import { environment } from '../../environments/environment';
+import { DepartmentsComponent } from './settings/departments/departments.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { environment } from '../../environments/environment';
     EmptyPageComponent,
     CustomTitlecasePipe,
     ConvertTimePipe,
-    AppPaginationComponent
+    AppPaginationComponent,
+    DepartmentsComponent
   ],
   imports: [
     CommonModule,

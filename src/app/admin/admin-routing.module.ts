@@ -1,3 +1,4 @@
+import { DepartmentsComponent } from './settings/departments/departments.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -8,6 +9,7 @@ import { TripsComponent } from './trips/trips.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
+
 
 const routes: Routes = [
   {
@@ -77,7 +79,7 @@ const routes: Routes = [
       },
       {
         path: 'settings/departments',
-        component: SettingsComponent,
+        component: DepartmentsComponent,
         canActivate: [],
         data: { title: 'Departments' }
       }

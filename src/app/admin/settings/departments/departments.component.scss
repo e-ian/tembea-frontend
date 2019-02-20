@@ -1,0 +1,43 @@
+.departments-table {
+  width: 100%;
+  margin-bottom: 2rem;
+  .mat-grid-tile .mat-figure{
+    justify-content: start;
+  }
+  .department-align-cell{
+    position: absolute;
+    left: 30px;
+  }
+}
+.buttons-wrapper{
+  width: 100%;
+  margin-left: 0rem;
+}
+.table-header{
+  font-weight: bold;
+}
+
+/* Mobile in portrait and landscape mode*/
+@media all and (max-width: 752px) {
+  .buttons-wrapper{
+    margin: 0rem auto 1rem;
+  }
+  .departments-container{
+    width: 100%;
+    overflow-x: scroll;
+  }
+  .departments-table{
+    margin: 0 auto;
+    width: 600px;
+  }
+  mat-grid-list {
+    height: 50px;
+    padding: 1rem 0.2rem;
+  }
+  mat-grid-tile{
+    padding: 2rem 0rem;
+  }
+  .nav-buttons {
+    margin-top: 1rem;
+  }
+}

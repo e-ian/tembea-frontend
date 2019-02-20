@@ -1,0 +1,82 @@
+<div>
+    <div class="loader" *ngIf="isLoading === true"></div>
+
+    <div *ngIf="departments.length === 0 && isLoading === false">
+        <app-empty-page [text]="'No Departments Created.'"></app-empty-page>
+        <div class="bottom-image"></div>
+        </div>
+        <div *ngIf="departments.length > 0 && isLoading === false">
+        
+        <div class="buttons-wrapper flex routes-table">
+          <button aria-label="Search Departments" class="search-wrapper"></button>
+          <button aria-label="upload departments" class="upload-wrapper flex-right"></button>
+        </div>
+        <div class="departments-container">
+            <div class="departments-table">
+                <mat-grid-list role="list" cols="5" rowHeight="3:1" class="table-header" >
+                  <mat-grid-tile tabindex="0"><div class="department-align-cell">Department</div></mat-grid-tile>
+                  <mat-grid-tile tabindex="0">Location</mat-grid-tile>
+                  <mat-grid-tile tabindex="0"><div class="department-align-cell">Lead</div></mat-grid-tile>
+                  <mat-grid-tile tabindex="0">Status</mat-grid-tile>
+                  <mat-grid-tile tabindex="0">Actions
+                    <div class="actions-icon"></div>
+                  </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list *ngFor='let department of departments' cols="5" rowHeight="3:1">
+                  <mat-grid-tile tabindex="0"><div class="department-align-cell">{{ department.name }}</div></mat-grid-tile>
+                  <mat-grid-tile tabindex="0">Nairobi</mat-grid-tile>
+                  <mat-grid-tile tabindex="0"><div class="department-align-cell">{{ department['head.name']}}</div></mat-grid-tile>
+                  <mat-grid-tile *ngIf='department.status === "Active" ; else inactive'>
+                      <button class="active-status-button">
+                        <div class="green-radio-wrapper">
+                          <div class="green-radio">
+                          </div>
+                        </div>
+                        <div class="status-active">active</div>
+                      </button>
+                    </mat-grid-tile>
+                <ng-template #inactive><mat-grid-tile>
+                  <button class="inactive-status-button">
+                    <div class="white-radio-wrapper">
+                      <div class="white-radio">
+                      </div>
+                    </div>
+                    <div class="status-inactive">inactive</div>
+                  </button>
+                </mat-grid-tile></ng-template>
+                <mat-grid-tile>
+                  <div class="flex">
+                  <button aria-label="Edit" class='edit-action-button'>
+                    <div class="edit-icon"></div>
+                  </button>
+                  <button aria-label="Copy" class='duplicate-action-button'>
+                    <div class="duplicate-icon"></div>
+                  </button>
+                  <button aria-label="Delete" class='decline-action-button'>
+                    <div class="decline-icon"></div>
+                  </button>
+                  </div>
+                </mat-grid-tile>
+                </mat-grid-list>
+                </div>
+                <div *ngIf='totalPages > 1' class="navigation-wrapper flex departments-table">
+                    <div class="nav-buttons flex-right">
+                    <button *ngIf='currentPageGroup > 0' (click)='prevGroup()' class="arrow-icon-button">
+                      <div class="arrow-icon-back"></div>
+                    </button>
+                    <div *ngFor='let page of pages[currentPageGroup]'  >
+                    <button *ngIf='page === pageNo ; else unselected' class="selected-page-number"> {{ page }} </button>
+                    <ng-template #unselected>
+                      <button (click)='setPage(page)' class="page-number"> {{ page }}</button>
+                    </ng-template>
+                  </div>
+                  <button *ngIf='currentPageGroup !== pages.length - 1' class="page-number">...</button>
+                  <button *ngIf='currentPageGroup !== pages.length - 1 ' (click)='nextGroup()' class="arrow-icon-button">
+                    <div class="arrow-icon"></div>
+                  </button>
+                  </div>
+                  </div>
+        </div>
+        
+      </div>
+</div>

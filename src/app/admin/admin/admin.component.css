@@ -25,6 +25,7 @@ mat-toolbar {
 mat-sidenav-content > .mat-sidenav-content-div{
   padding: 1em 3em 0 3em;
   box-sizing: border-box;
+  background-color: #ffffff;
 }
 
 mat-expansion-panel,
