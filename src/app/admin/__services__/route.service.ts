@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable({
   providedIn: 'root',
 })
-export class RoutesInventoryService {
+export class RouteService {
   routesUrl = `${environment.tembeaBackEndUrl}/api/v1/routes`;
   teamUrl = environment.teamUrl;
   httpOptions = {
@@ -32,5 +32,12 @@ export class RoutesInventoryService {
 
   deleteRouteBatch(id: number) {
     return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/routes/${id}`, this.httpOptions)
+  }
+
+  createRoute(data): any {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http
+      .post(this.routesUrl, data, options)
+      .toPromise();
   }
 }
