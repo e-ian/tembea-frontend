@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable({
   providedIn: 'root',
 })
-export class RouteService {
+export class RoutesInventoryService {
   routesUrl = `${environment.tembeaBackEndUrl}/api/v1/routes`;
   teamUrl = environment.teamUrl;
   httpOptions = {

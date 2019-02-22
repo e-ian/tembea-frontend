@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
+
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 import { IDeleteRouteResponse, IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
@@ -9,6 +11,8 @@ import RenameRouteBatch from './routes-inventory.helper';
 import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { AppHeaderService } from '../../header/header.service';
+import { GoogleMapsService } from '../../../shared/googlemaps.service';
+import { CreateRouteHelper } from '../create-route/create-route.helper';
 
 @Component({
   selector: 'app-inventory',
@@ -24,17 +28,26 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   lastBatchLetter = 'A';
   lastRouteName: string;
   updateSubscription: any;
+  navigationSubscription;
 
   constructor(
     private routeService: RoutesInventoryService,
     private alert: AlertService,
     private headerService: AppHeaderService,
-    private dialog: MatDialog,
-    private appEventsService: AppEventService
+    private appEventsService: AppEventService,
+    public dialog: MatDialog,
+    private googleMapsService: GoogleMapsService,
+    private createRouteHelper: CreateRouteHelper,
+    private router: Router
   ) {
     this.pageNo = 1;
     this.sort = 'name,asc,batch,asc';
     this.pageSize = ITEMS_PER_PAGE;
+    this.navigationSubscription = this.router.events.subscribe((routerEvent: Event) => {
+     if (routerEvent instanceof NavigationEnd) {
+       this.initializeRoutesInventory();
+     }
+   });
   }
 
   ngOnInit() {
@@ -43,6 +56,11 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       this.getRoutesInventory()
     })
 
+    this.googleMapsService.loadGoogleMaps();
+  }
+
+  initializeRoutesInventory() {
+   this.getRoutesInventory();
   }
 
   getRoutesInventory = () => {
@@ -61,6 +79,35 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     this.lastRouteName = name;
     this.lastBatchLetter = batch;
     return renamedBatches;
+  }
+
+  async copyRoute(route: any) {
+    const { destination } = route;
+    const {lat, lng} = await this.googleMapsService
+      .getLocationCoordinatesFromAddress(destination);
+    const data = this.refactoryRouteObject(route);
+    data["destinationCoordinates"] = `${lat},${lng}`;
+    return this.sendRequestToServer(data);
+  }
+
+  refactoryRouteObject(routeObject): object{
+    const newRouteObject = {
+      routeName: routeObject.name,
+      capacity: routeObject.capacity,
+      vehicleRegNumber: routeObject.regNumber,
+      takeOffTime: routeObject.takeOff
+    }
+    return newRouteObject;
+  }
+
+  async sendRequestToServer(data) {
+    try {
+      const response = await this.routeService.createRoute(data);
+      this.createRouteHelper.notifyUser([`Copied ${response.name} route`], 'success');
+      this.router.navigate(['/admin/routes/inventory']);
+    } catch (e) {
+      this.createRouteHelper.notifyUser([e.error.message || 'An error occurred.']);
+    }
   }
 
   setPage(page: number): void {
@@ -132,6 +179,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     if (this.updateSubscription) {
       this.updateSubscription.unsubscribe()
     }
-
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 }

@@ -23,7 +23,6 @@ import { AlertService } from '../shared/alert.service';
 import { ShortenNamePipe } from './__pipes__/shorten-name.pipe';
 import { TableActionToolComponent } from './layouts/table-action-tool/table-action-tool.component';
 import { GoogleMapsService } from '../shared/googlemaps.service';
-import { RouteService } from './routes/route.service';
 import { CreateRouteHelper } from './routes/create-route/create-route.helper';
 import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.component';
 
@@ -64,6 +63,6 @@ import { PendingRequestComponent } from './trips/pending-request/pending-request
     }),
     AgmDirectionModule
   ],
-  providers: [AlertService, GoogleMapsService, RouteService, CreateRouteHelper]
+  providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
 export class AdminModule { }

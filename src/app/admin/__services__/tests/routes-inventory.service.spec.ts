@@ -1,29 +1,33 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
 
-import { RouteService } from '../route.service';
+import { RoutesInventoryService } from '../routes-inventory.service';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import getRoutesResponseMock from '../../routes/routes-inventory/__mocks__/get-routes-response.mock';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
-describe('RouteService', () => {
-  let service: RouteService;
+describe('RoutesInventoryService', () => {
+  let service: RoutesInventoryService;
   let httpMock: HttpTestingController;
   const { tembeaBackEndUrl } = environment;
   const deleteResponseMock = {
     success: true,
     message: 'route batch deleted successfully'
   }
+  
+  const mockData = {
+    someProp: 'someValue'
+  }
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RouteService],
+      providers: [RoutesInventoryService],
     })
   );
 
-  beforeEach(inject([RouteService, HttpTestingController], (_service, _httpMock) => {
+  beforeEach(inject([RoutesInventoryService, HttpTestingController], (_service, _httpMock) => {
     service = _service;
     httpMock = _httpMock;
   }));
@@ -68,4 +72,11 @@ describe('RouteService', () => {
     });
     expect(JSON.stringify(result)).toEqual(JSON.stringify(of(deleteResponseMock)));
   })
+
+  it('should call post method', () => {
+    const toPromise = { toPromise: () => { } }
+    const postMethod = jest.spyOn(service.http, 'post').mockReturnValue(toPromise);
+    service.createRoute(mockData)
+    expect(postMethod).toBeCalled();
+  });
 });

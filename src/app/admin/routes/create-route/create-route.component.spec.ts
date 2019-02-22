@@ -46,6 +46,16 @@ describe('CreateRouteComponent', () => {
     expect(updateRoute).toHaveBeenCalled();
   });
 
+  it('should throw an error if location does not exist', async () => {
+    const updateRoute = jest.spyOn(component, 'updateRouteDisplay');
+    const getCoordinates = jest.spyOn(component.googleMapsService,
+      'getLocationCoordinatesFromAddress').mockRejectedValue('Location not found');
+    const notifyUser = jest.spyOn(component.createRouteHelper, 'notifyUser');
+
+    await component.showRouteDirectionOnClick();
+    expect(notifyUser).toHaveBeenCalledWith(['Location not found']);
+  });
+
   it('should update Destination form Field with coordinates address when the map marker is dragged', async () => {
     const updateRoute = jest.spyOn(component, 'updateRouteDisplay');
     const getAddress = jest.spyOn(component.googleMapsService,

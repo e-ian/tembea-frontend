@@ -23,6 +23,7 @@ describe('CreateRouteComponent', () => {
   });
 
   it('should initialize googlemaps', () => {
+    const element = { nativeElement: { value: 'someValue' } };
     const geocoder = jest.spyOn(window.google.maps, 'Geocoder');
     const autocomplete = jest.spyOn(window.google.maps.places, 'Autocomplete');
     element = null;

@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { GoogleMapsService } from '../../../shared/googlemaps.service';
 import { Location } from '../../../shared/location.model';
-import { RouteService } from '../route.service';
 import { CreateRouteHelper } from './create-route.helper';
+import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 
 @Component({
   selector: 'app-create',
@@ -28,10 +28,10 @@ export class CreateRouteComponent implements AfterViewInit {
   mouseoverCreateButton
 
   constructor(
-    public googleMapsService: GoogleMapsService,
-    public routeService: RouteService,
-    public createRouteHelper: CreateRouteHelper,
-    public router: Router
+    private googleMapsService: GoogleMapsService,
+    private routeService: RoutesInventoryService,
+    private createRouteHelper: CreateRouteHelper,
+    private router: Router
   ) { }
 
   ngAfterViewInit() {
@@ -40,10 +40,14 @@ export class CreateRouteComponent implements AfterViewInit {
   }
 
   async showRouteDirectionOnClick() {
-    const addressInput = this.destinationInputElement.nativeElement.value;
-    const coordinates = await this.googleMapsService
+    try {
+      const addressInput = this.destinationInputElement.nativeElement.value;
+      const coordinates = await this.googleMapsService
       .getLocationCoordinatesFromAddress(addressInput);
-    this.updateRouteDisplay(coordinates);
+      this.updateRouteDisplay(coordinates);
+    } catch (error) {
+      this.createRouteHelper.notifyUser(['Location not found']);
+    }
   }
 
   async updateDestinationFieldOnMarkerDrag(marker, $event) {

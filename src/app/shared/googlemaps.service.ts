@@ -11,10 +11,12 @@ export class GoogleMapsService {
 
   initLibraries(element: ElementRef) {
     this.geocoder = new google.maps.Geocoder();
-   return new google.maps.places.Autocomplete(element, { types: ['address'] });
+    if(element) {
+      new google.maps.places.Autocomplete(element, { types: ["address"] });
+    }
   }
 
-  async loadGoogleMaps(element: ElementRef) {
+  async loadGoogleMaps(element?: ElementRef) {
     await this.mapLoader.load();
     this.initLibraries(element);
   }
