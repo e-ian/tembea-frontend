@@ -1,18 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import { Router } from "@angular/router";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { throwError } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 import { RoutesInventoryComponent } from './routes-inventory.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
+import { GoogleMapsService } from '../../../shared/googlemaps.service';
+import { CreateRouteHelper } from '../create-route/create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 import getRoutesResponseMock from './__mocks__/get-routes-response.mock';
 import { EmptyPageComponent } from '../../empty-page/empty-page.component';
-import { throwError } from 'rxjs';
 import { routesMock } from './__mocks__/route-inventory.mock';
 import { AlertService } from '../../../shared/alert.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
@@ -21,6 +26,38 @@ describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
   let fixture: ComponentFixture<RoutesInventoryComponent>;
   let getRoutesSpy;
+  const routeObject = {
+    destination: 'EPIC Tower',
+    capacity: 1,
+    name: 'Yaba',
+    regNumber: 'JKD 839',
+    takeOff: '12:00'
+  }
+
+  const data = {
+    capacity: 1,
+    destination: {
+      address: 'EPIC Tower',
+      coordinates: { lat: -1.87637, lng: 36.89373 },
+    },
+    routeName: 'Yaba',
+    takeOffTime: '12:00',
+    vehicle: 'JKD 839'
+  }
+
+  const googleServiceMock = {
+    loadGoogleMaps: jest.fn(),
+    getLocationCoordinatesFromAddress: jest.fn()
+  };
+
+  const createRouteHelperMock = {
+    notifyUser: () => { }
+  };
+
+  const router = {
+    navigate: () => { },
+    events: { subscribe: jest.fn() }
+  };
 
   const alert = {
     success: jest.fn(),
@@ -34,37 +71,44 @@ describe('RoutesInventoryComponent', () => {
     },
   };
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     getRoutesSpy = jest.spyOn(RoutesInventoryService.prototype, 'getRoutes');
     getRoutesSpy.mockReturnValue(of(getRoutesResponseMock));
 
     TestBed.configureTestingModule({
-      declarations: [RoutesInventoryComponent, EmptyPageComponent, ConfirmModalComponent, AppPaginationComponent],
+      declarations: [
+        RoutesInventoryComponent,
+        EmptyPageComponent,
+        ConfirmModalComponent,
+        AppPaginationComponent
+      ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: AlertService, useValue: alert },
-        {
-          provide: MAT_DIALOG_DATA, useValue: {
-            data: {
-              displayText: 'display data',
-              confirmText: 'yes'
-            }
-          }
-        }
+        { provide: GoogleMapsService, useValue: googleServiceMock },
+        { provide: CreateRouteHelper, useValue: createRouteHelperMock },
+        { provide: MAT_DIALOG_DATA, useValue: {data: {
+          displayText: 'display data',
+          confirmText: 'yes'
+        }} },
+        { provide: Router, useValue: router }
       ],
-      imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
-
-    }).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [ConfirmModalComponent]
-      }
+      imports: [
+        HttpClientTestingModule,
+        AngularMaterialModule,
+        BrowserAnimationsModule
+      ],
     })
+      .overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ConfirmModalComponent]}
+      })
       .compileComponents();
 
     fixture = TestBed.createComponent(RoutesInventoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   afterEach(() => {
     jest.resetAllMocks();
@@ -95,7 +139,7 @@ describe('RoutesInventoryComponent', () => {
   }));
 
   describe('getRoutesInventory', () => {
-    it('should load all route', (() => {
+    it('should load all route', () => {
       const pageNo = 1;
       const sort = 'name,asc,batch,asc';
       const pageSize = ITEMS_PER_PAGE;
@@ -104,7 +148,7 @@ describe('RoutesInventoryComponent', () => {
       fixture.detectChanges();
       expect(component.routes).toEqual(getRoutesResponseMock.routes);
       expect(getRoutesSpy).toHaveBeenCalledWith(pageSize, pageNo, sort);
-    }));
+    });
   });
 
   describe('ngOnInit', () => {
@@ -129,6 +173,82 @@ describe('RoutesInventoryComponent', () => {
       expect(component.pageNo).toEqual(20);
       expect(component.getRoutesInventory).toHaveBeenCalled();
     }));
+  });
+
+  describe('showCopyConfirmModal', () => {
+    it('should open copy modal when copy icon is clicked', () => {
+      const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
+      component.getRoutesInventory();
+      fixture.detectChanges();
+      const buttons = fixture.debugElement.queryAll(By.css('.duplicate-icon'));
+      buttons[0].triggerEventHandler('click', null);
+
+      expect(dialogSpy).toBeCalledTimes(1);
+    });
+  });
+
+  describe('Copy Route', () => {
+    it('should duplicate a route when copy is successful', async () => {
+      const getCoordinates = jest.spyOn(component.googleMapsService, 'getLocationCoordinatesFromAddress')
+        .mockResolvedValue(data.destination.coordinates);
+      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockResolvedValue({});
+
+      await component.copyRoute(routeObject);
+
+      expect(getCoordinates).toHaveBeenCalledWith(routeObject.destination);
+      expect(sendRequestToServer).toHaveBeenCalledWith(data);
+    });
+
+    it('should return an error when coordinate is not found', async () => {
+      const getCoordinates = jest.spyOn(component.googleMapsService, 'getLocationCoordinatesFromAddress')
+        .mockRejectedValue('Location not found');
+      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer');
+
+      await component.copyRoute(routeObject);
+
+      expect(getCoordinates).toHaveBeenCalled();
+      expect(sendRequestToServer).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Send Request to Server', () => {
+    it('should display a success message if copy request is successful', async () => {
+      const response = { data: { name: 'Yaba' }};
+      const notifyUser = jest.spyOn(component.createRouteHelper, 'notifyUser');
+      const navigate = jest.spyOn(component.router, 'navigate');
+      const routeService = jest.spyOn(component.routeService, 'createRoute')
+        .mockReturnValue(response);
+
+      await component.sendRequestToServer(data);
+
+      expect(routeService).toHaveBeenCalledWith(data, 'duplicate');
+      expect(notifyUser).toHaveBeenCalledWith(['Copied Yaba route'], 'success');
+      expect(navigate).toHaveBeenCalledWith(['/admin/routes/inventory']);
+    });
+
+    it('should display an error message if request is unsuccessful', async () => {
+      const response = { error: { message: 'some server error' } };
+      const notifyUser = jest.spyOn(component.createRouteHelper, 'notifyUser');
+      const navigate = jest.spyOn(component.router, 'navigate');
+      const routeService = jest.spyOn(component.routeService, 'createRoute')
+        .mockRejectedValue(response);
+
+      await component.sendRequestToServer(data);
+
+      expect(routeService).toHaveBeenCalledWith(data, 'duplicate');
+      expect(notifyUser).toHaveBeenCalledWith([response.error.message]);
+      expect(navigate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('initializeRoutesInventory', () => {
+    it('It should get all routes inventory', () => {
+      component.initializeRoutesInventory();
+      fixture.detectChanges();
+
+      expect(getRoutesSpy).toHaveBeenCalled();
+      expect(component.routes).toEqual(getRoutesResponseMock.routes);
+    });
   });
 
   describe('Change Route Status', () => {

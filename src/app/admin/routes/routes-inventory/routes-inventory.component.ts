@@ -12,6 +12,8 @@ import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { AppHeaderService } from '../../header/header.service';
 import { GoogleMapsService } from '../../../shared/googlemaps.service';
+import { MatDialog } from '@angular/material';
+import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 
 @Component({
@@ -28,6 +30,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   lastBatchLetter = 'A';
   lastRouteName: string;
   updateSubscription: any;
+  duplicate: string = 'duplicate';
   navigationSubscription;
 
   constructor(
@@ -82,31 +85,54 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   }
 
   async copyRoute(route: any) {
-    const { destination } = route;
-    const {lat, lng} = await this.googleMapsService
-      .getLocationCoordinatesFromAddress(destination);
-    const data = this.refactoryRouteObject(route);
-    data["destinationCoordinates"] = `${lat},${lng}`;
-    return this.sendRequestToServer(data);
+    try {
+      const { destination } = route;
+      const coordinates = await this.googleMapsService
+        .getLocationCoordinatesFromAddress(destination);
+      const data = this.refactoryRouteObject(route, coordinates);
+      return this.sendRequestToServer(data);
+    } catch (error) {
+      this.createRouteHelper.notifyUser(['Location not found']);
+    }
   }
 
-  refactoryRouteObject(routeObject): object{
+  showCopyConfirmModal(route: any) {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      width: '592px',
+      backdropClass: 'modal-backdrop',
+      panelClass: 'confirm-modal-panel-class',
+      data: {
+        confirmText: 'Yes',
+        displayText: 'copy this route'
+      }
+    });
+    dialogRef.componentInstance.executeFunction.subscribe(() => {
+      this.copyRoute(route);
+    });
+  }
+
+  refactoryRouteObject(routeObject, coordinates) {
+    const { destination, capacity, name, regNumber, takeOff } = routeObject;
     const newRouteObject = {
-      routeName: routeObject.name,
-      capacity: routeObject.capacity,
-      vehicleRegNumber: routeObject.regNumber,
-      takeOffTime: routeObject.takeOff
+      routeName: name,
+      capacity,
+      vehicle: regNumber,
+      takeOffTime: takeOff,
+      destination: {
+        address: destination,
+        coordinates
+      }
     }
     return newRouteObject;
   }
 
   async sendRequestToServer(data) {
     try {
-      const response = await this.routeService.createRoute(data);
-      this.createRouteHelper.notifyUser([`Copied ${response.name} route`], 'success');
+      const { data: { name } } = await this.routeService.createRoute(data, this.duplicate);
+      this.createRouteHelper.notifyUser([`Copied ${name} route`], 'success');
       this.router.navigate(['/admin/routes/inventory']);
-    } catch (e) {
-      this.createRouteHelper.notifyUser([e.error.message || 'An error occurred.']);
+    } catch (error) {
+      this.createRouteHelper.notifyUser([error.error.message || 'An error occurred.']);
     }
   }
 

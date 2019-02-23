@@ -57,7 +57,7 @@
             <span class="edit-icon"></span>
           </button>
           <button class='duplicate-action-button'>
-            <span class="duplicate-icon"></span>
+            <span class="duplicate-icon" (click)="showCopyConfirmModal(route)"></span>
           </button>
           <button class='decline-action-button'>
             <span class="decline-icon" (click)='showDeleteModal(route.id, ind)'></span>

@@ -34,10 +34,9 @@ export class RoutesInventoryService {
     return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/routes/${id}`, this.httpOptions)
   }
 
-  createRoute(data): any {
-    const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  createRoute(data, duplicate?: string): any {
     return this.http
-      .post(this.routesUrl, data, options)
+      .post(`${this.routesUrl}?duplicate=${duplicate}`, data, this.httpOptions)
       .toPromise();
   }
 }
