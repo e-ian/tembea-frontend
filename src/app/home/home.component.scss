@@ -29,7 +29,7 @@
   .home-text {
     background-color: rgba(255,255,255,.48);
     position: absolute;
-    top: 50%;
+    top: 400px;
     left: 10%;
     transform: translateY(-50%);
     border: none;
@@ -219,3 +219,12 @@
     }
   }
 }
+/* very large screen devices */
+@media all and (min-width: 1400px) {
+  .cover{
+    .home-text {
+      top: 520px;
+    }
+  }
+}
+
