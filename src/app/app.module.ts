@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { LogoutModalComponent } from './auth/logout-modal/logout-modal.component
 import { ClockService } from './auth/__services__/clock.service';
 import { ActiveTimeDirective } from './active-time.directive';
 import { HomeComponent } from './home/home.component';
-import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
+import { Toastr, TOASTR_TOKEN } from './shared/toastr.service';
 import { CookieService } from './auth/__services__/ngx-cookie-service.service';
 import { UnauthorizedLoginComponent } from './auth/unauthorized-login/unauthorized-login.component';
 import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.component';
@@ -29,7 +29,7 @@ const toastr: Toastr = window['toastr'];
     UnauthorizedLoginComponent,
     LoginRedirectComponent,
     LogoutModalComponent,
-    RouteApproveDeclineModalComponent
+    RouteApproveDeclineModalComponent,
   ],
   imports: [
     FormsModule,

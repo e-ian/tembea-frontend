@@ -23,14 +23,10 @@
         {{ headerTitle }} {{ user.firstName }}
       </span>
       <ng-template #showTitleOnly>
-        <span *ngIf="!isCurrentRouteForRouteRequests" class="header-title">
-          {{ headerTitle }}
-        </span>
         <span
-          *ngIf="isCurrentRouteForRouteRequests"
           class="header-title"
-          [matBadge]="'+ ' + routes.length"
-          [matBadgeHidden]="routes.length == 0"
+          [matBadge]="'+ ' + badgeSize"
+          [matBadgeHidden]="badgeSize == 0"
           matBadgeColor="primary"
           matBadgeSize="medium">
           {{ headerTitle }}
@@ -51,9 +47,9 @@
         <mat-menu #dropDown="matMenu" class="toolbar-dropdown">
           <button class="action-button logout" (click)="logout()">
             Logout
-            <div class="right-arrow-icon-wrapper">
-              <div class="right-red-pointer button-icon-size"></div>
-            </div>
+            <span class="right-arrow-icon-wrapper">
+              <span class="right-red-pointer button-icon-size"></span>
+            </span>
           </button>
         </mat-menu>
       </div>

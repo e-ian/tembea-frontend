@@ -1,9 +1,9 @@
-import {Deserializable} from './deserializable.model';
-import {Location} from './location.model';
-import {Engagement} from './engagement.model';
-import {Users} from './users.model';
+import { Deserializable } from './deserializable.model';
+import { Location } from './location.model';
+import { Engagement } from './engagement.model';
+import { Users } from './users.model';
 
-export class RouteRequest implements Deserializable {
+export class RouteRequest implements Deserializable<RouteRequest> {
   id: number | string;
   distance: number | string;
   opsComment: string;
@@ -22,7 +22,7 @@ export class RouteRequest implements Deserializable {
   busStop: Location;
   home: Location;
 
-  deserialize(input: any): this {
+  deserialize(input: any): RouteRequest {
     Object.assign(this, input);
     this.engagement = new Engagement().deserialize(input.engagement);
     this.manager = new Users().deserialize(input.manager);

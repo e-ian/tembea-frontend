@@ -14,7 +14,7 @@ export class CreateRouteHelper {
 
   decrementCapacity(fieldValue) {
     const value = parseInt(fieldValue, 10);
-    if(value < 2) return 1;
+    if (value < 2) { return 1; }
 
     const newValue = value - 1;
     return newValue;
@@ -38,12 +38,12 @@ export class CreateRouteHelper {
   }
 
   validateInputFormat(value: string, regex, field: string): string[] {
-    if (!regex.test(value)) return [ `${field} is invalid`];
+    if (!regex.test(value)) { return [ `${field} is invalid`]; }
     return [];
   }
 
   validateCapacity(value: string, field): string[] {
-    if (parseInt(value, 10) < 1) return [`${field} must be an integer greater than zero`];
+    if (parseInt(value, 10) < 1) { return [`${field} must be an integer greater than zero`]; }
     return []
   }
 

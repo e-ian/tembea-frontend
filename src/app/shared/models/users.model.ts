@@ -1,6 +1,6 @@
-import {Deserializable} from './deserializable.model';
+import { Deserializable } from './deserializable.model';
 
-export class Users implements Deserializable {
+export class Users implements Deserializable<Users> {
   id: number | string;
   name:  string;
   slackId: string;
@@ -10,7 +10,7 @@ export class Users implements Deserializable {
   createdAt: Date | string;
   updatedAt: Date | string;
 
-  deserialize(input: any): this {
+  deserialize(input: any): Users {
     Object.assign(this, input);
     return this;
   }

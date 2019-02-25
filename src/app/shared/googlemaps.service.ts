@@ -9,9 +9,9 @@ export class GoogleMapsService {
 
   constructor(private mapLoader: MapsAPILoader) {}
 
-  initLibraries(element: ElementRef): void {
+  initLibraries(element: ElementRef) {
     this.geocoder = new google.maps.Geocoder();
-    new google.maps.places.Autocomplete(element, { types: ["address"] });
+   return new google.maps.places.Autocomplete(element, { types: ['address'] });
   }
 
   async loadGoogleMaps(element: ElementRef) {
@@ -34,7 +34,7 @@ export class GoogleMapsService {
   lookUpAddressOrCoordinates(location, lookUpType) {
     return new Promise((resolve, reject) => {
       this.geocoder.geocode({ [lookUpType]: location }, (response, status) => {
-        if (status == google.maps.GeocoderStatus.OK) {
+        if (status === google.maps.GeocoderStatus.OK) {
           resolve(response[0]);
         } else {
           reject('Location not found');

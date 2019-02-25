@@ -1,6 +1,6 @@
 import { Deserializable } from './deserializable.model';
 
-export class AISData implements Deserializable {
+export class AISData implements Deserializable<AISData> {
   email: 'test.user@test.com';
   first_name: 'Test';
   last_name: 'User';

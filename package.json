@@ -10,7 +10,8 @@
     "build:staging": "ng build -c=staging",
     "build:prod": "ng build --prod",
     "test": "ng test --runInBand -w=1",
-    "lint": "ng lint",
+    "pretest": "npm run lint --fix",
+    "lint": "ng lint --exclude 'src/**/*.json'",
     "e2e": "ng e2e",
     "cypress:open": "concurrently \"ng serve\" \"cypress open\""
   },

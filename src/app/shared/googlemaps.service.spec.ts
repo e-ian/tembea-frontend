@@ -25,7 +25,7 @@ describe('CreateRouteComponent', () => {
   it('should initialize googlemaps', () => {
     const geocoder = jest.spyOn(window.google.maps, 'Geocoder');
     const autocomplete = jest.spyOn(window.google.maps.places, 'Autocomplete');
-
+    element = null;
     component.initLibraries(element);
 
     expect(geocoder).toHaveBeenCalled();

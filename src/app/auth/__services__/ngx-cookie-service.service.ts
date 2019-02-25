@@ -30,7 +30,7 @@ export class CookieService {
 
   /**
    * @param name Cookie name
-   * @returns {boolean}
+   * @returns true if the cookie exists
    */
   check( name: string ): boolean {
     if ( !this.documentIsAccessible ) {
@@ -47,7 +47,7 @@ export class CookieService {
 
   /**
    * @param name Cookie name
-   * @returns {any}
+   * @returns returns decoded uri from the cookie
    */
   get( name: string ): string {
     if ( this.documentIsAccessible && this.check( name ) ) {
@@ -63,7 +63,7 @@ export class CookieService {
   }
 
   /**
-   * @returns {}
+   * @returns all stored cookies
    */
   getAll(): {} {
     if ( !this.documentIsAccessible ) {
@@ -173,7 +173,7 @@ export class CookieService {
 
   /**
    * @param name Cookie name
-   * @returns {RegExp}
+   * @returns regex for the validating cookie name
    */
   private getCookieRegExp( name: string ): RegExp {
     const escapedName: string = name.replace( /([\[\]\{\}\(\)\|\=\;\+\?\,\.\*\^\$])/ig, '\\$1' );

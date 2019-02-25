@@ -12,9 +12,9 @@ import { CreateRouteHelper } from './create-route.helper';
   styleUrls: ['./create-route.component.scss']
 })
 export class CreateRouteComponent implements AfterViewInit {
-  lat: number = -1.219539;
-  lng: number = 36.886215;
-  zoom: number = 8;
+  lat = -1.219539;
+  lng = 36.886215;
+  zoom = 8;
   destinationIsDojo = true;
   origin = { lat: this.lat, lng: this.lng }
   destination: Location = { lat: this.lat, lng: this.lng };
@@ -73,7 +73,7 @@ export class CreateRouteComponent implements AfterViewInit {
   }
 
   createRoute(formValues) {
-    if(!this.destinationCoordinates) {
+    if (!this.destinationCoordinates) {
       return this.createRouteHelper.notifyUser(
         ['Click the search icon to confirm destination']
       );
@@ -84,7 +84,7 @@ export class CreateRouteComponent implements AfterViewInit {
     );
 
     const errors = this.createRouteHelper.validateFormEntries(routeRequest);
-    if(errors.length) {
+    if (errors.length) {
       return this.createRouteHelper.notifyUser(errors);
     }
 

@@ -5,13 +5,13 @@ import { of } from 'rxjs';
 import { MediaObserver } from '@angular/flex-layout';
 import { By } from '@angular/platform-browser';
 import { NavMenuService } from '../__services__/nav-menu.service';
-import {HttpClientModule} from '@angular/common/http';
-import {CookieService} from '../../auth/__services__/ngx-cookie-service.service';
-import {ClockService} from '../../auth/__services__/clock.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Toastr, TOASTR_TOKEN} from '../../shared/toastr.service';
-import {NavigationEnd, Router, RouterModule} from '@angular/router';
-import {AdminComponent} from '../admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from '../../auth/__services__/ngx-cookie-service.service';
+import { ClockService } from '../../auth/__services__/clock.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Toastr, TOASTR_TOKEN } from '../../shared/toastr.service';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { AdminComponent } from '../admin/admin.component';
 
 const toastr: Toastr = window['toastr'];
 

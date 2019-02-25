@@ -221,7 +221,7 @@ describe('CreateRoute Helper Component', () => {
     const inputValidator = jest.spyOn(component, 'validateInputFormat')
       .mockReturnValue(['error made']);
     const capacityValidator = jest.spyOn(component, 'validateCapacity')
-      .mockReturnValue(['error made again']);;
+      .mockReturnValue(['error made again']); ;
 
     const errors = component.validateFormEntries(formValues);
     expect(inputValidator).toHaveBeenCalled();
@@ -234,7 +234,7 @@ describe('CreateRoute Helper Component', () => {
     const inputValidator = jest.spyOn(component, 'validateInputFormat')
       .mockReturnValue(['error made']);
     const capacityValidator = jest.spyOn(component, 'validateCapacity')
-      .mockReturnValue(['error made again']);;
+      .mockReturnValue(['error made again']); ;
 
     const errors = component.validateFormEntries(formValues);
     expect(inputValidator).toHaveBeenCalled();

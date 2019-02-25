@@ -1,11 +1,11 @@
 import { Deserializable } from './deserializable.model';
 import { IPageMeta } from './page-meta.model';
 
-export class RouteInventoryModel implements Deserializable {
+export class RouteInventoryModel implements Deserializable<RouteInventoryModel> {
   routes: IRouteInventory[] = [];
   pageMeta: IPageMeta;
 
-  deserialize(input: any) {
+  deserialize(input: any): RouteInventoryModel {
     Object.assign(this, input);
     return this;
   }
