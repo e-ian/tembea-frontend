@@ -1,26 +1,26 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { RouteRequestsComponent } from './route-requests.component';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material';
-import {AngularMaterialModule} from '../../../angular-material.module';
-import {RouteRequestService} from '../../__services__/route-request.service';
+import { AngularMaterialModule } from '../../../angular-material.module';
+import { RouteRequestService } from '../../__services__/route-request.service';
 import getAllResponseMock from './__mocks__/get-all-response.mock';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {By} from '@angular/platform-browser';
-import {EmptyPageComponent} from '../../empty-page/empty-page.component';
-import {CustomTitlecasePipe} from '../../__pipes__/custom-titlecase.pipe';
-import {CookieService} from '../../../auth/__services__/ngx-cookie-service.service';
-import {ClockService} from '../../../auth/__services__/clock.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Toastr, TOASTR_TOKEN} from '../../../shared/toastr.service';
-import {AuthService} from '../../../auth/__services__/auth.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { EmptyPageComponent } from '../../empty-page/empty-page.component';
+import { CustomTitlecasePipe } from '../../__pipes__/custom-titlecase.pipe';
+import { CookieService } from '../../../auth/__services__/ngx-cookie-service.service';
+import { ClockService } from '../../../auth/__services__/clock.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Toastr, TOASTR_TOKEN } from '../../../shared/toastr.service';
+import { AuthService } from '../../../auth/__services__/auth.service';
 import { ConvertTimePipe } from 'src/app/admin/__pipes__/convert-time.pipe';
-import {AisService} from '../../__services__/ais.service';
+import { AisService } from '../../__services__/ais.service';
 
 const toastr: Toastr = window['toastr'];
 
-describe.skip('RouteRequestsComponent', () => {
+describe('RouteRequestsComponent', () => {
   let component: RouteRequestsComponent;
   let fixture: ComponentFixture<RouteRequestsComponent>;
   let httpMock: HttpTestingController;

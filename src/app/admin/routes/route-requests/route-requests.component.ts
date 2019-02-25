@@ -32,7 +32,7 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let routeRequest: RouteRequest
+    let routeRequest: RouteRequest;
     this.routesSubscription = this.routeService.getAllRequests();
     this.routeService.routesRequests.subscribe((val) => {
       this.routes = val;

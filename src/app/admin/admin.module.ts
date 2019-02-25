@@ -23,6 +23,7 @@ import { AlertService } from '../shared/alert.service';
 import { GoogleMapsService } from '../shared/googlemaps.service';
 import { RouteService } from './routes/route.service';
 import { CreateRouteHelper } from './routes/create-route/create-route.helper';
+import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.component';
 
 import { environment } from '../../environments/environment';
 
@@ -39,7 +40,8 @@ import { environment } from '../../environments/environment';
     RouteRequestsComponent,
     EmptyPageComponent,
     CustomTitlecasePipe,
-    ConvertTimePipe
+    ConvertTimePipe,
+    AppPaginationComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,7 @@ import { environment } from '../../environments/environment';
     AngularMaterialModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googMapsAPIKey,
-      libraries: ["places"]
+      libraries: ['places']
     }),
     AgmDirectionModule
   ],

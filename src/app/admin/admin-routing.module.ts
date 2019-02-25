@@ -7,7 +7,7 @@ import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inven
 import { TripsComponent } from './trips/trips.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
-import {RouteRequestsComponent} from './routes/route-requests/route-requests.component';
+import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 
 const routes: Routes = [
   {

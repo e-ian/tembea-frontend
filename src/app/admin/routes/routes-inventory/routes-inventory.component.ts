@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 import { IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
+import { ITEMS_PER_PAGE } from '../../../app.constants';
 
 @Component({
   selector: 'app-inventory',
@@ -10,19 +11,19 @@ import { AlertService } from '../../../shared/alert.service';
 })
 export class RoutesInventoryComponent implements OnInit {
   routes: IRouteInventory[] = [];
-  totalPages: number;
-  pageNo = 1;
-  pageSize = 10;
-  pages: number[] = [];
-  sort = 'name,asc';
-  groupSize = 4;
-  currentPageGroup = 0;
-  errorMessage: string;
+  pageNo: number;
+  pageSize: number;
+  sort: string;
+  totalItems: number;
 
   constructor(
     private routeService: RoutesInventoryService,
     private alert: AlertService
-  ) {}
+  ) {
+    this.pageNo = 1;
+    this.sort = 'name,asc,batch,asc';
+    this.pageSize = ITEMS_PER_PAGE;
+  }
 
   ngOnInit() {
     this.getRoutesInventory();
@@ -32,36 +33,13 @@ export class RoutesInventoryComponent implements OnInit {
     this.routeService.getRoutes(this.pageSize, this.pageNo, this.sort).subscribe(routesData => {
       const { routes, pageMeta } = routesData;
       this.routes = routes;
-      this.totalPages = pageMeta.totalPages;
-      this.pageSize = pageMeta.pageSize;
-      this.pages = this.getPages();
+      this.totalItems = pageMeta.totalResults;
     });
   };
-
-  getPages(): any {
-    const pages = [];
-    const groupedPages = [];
-
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    while (pages.length) {
-      groupedPages.push(pages.splice(0, this.groupSize));
-    }
-    return groupedPages;
-  }
 
   setPage(page: number): void {
     this.pageNo = page;
     this.getRoutesInventory();
-  }
-
-  nextGroup(): void {
-    this.currentPageGroup += 1;
-  }
-
-  prevGroup(): void {
-    this.currentPageGroup -= 1;
   }
 
   changeRouteStatus(id: number, status: string) {
@@ -70,16 +48,15 @@ export class RoutesInventoryComponent implements OnInit {
         if (response.success) {
           this.updateRoutesData(id, status);
         }
-      }, (err: any) => this.alert.error('Something went wrong! try again'))
+      }, () => this.alert.error('Something went wrong! try again'));
   }
 
   updateRoutesData(id: number, status: string): void {
-    const newData = this.routes.map((route) => {
+    this.routes = this.routes.map((route) => {
       if (route.id === id) {
-        route = { ...route, status }
+        route = { ...route, status };
       }
-      return route
+      return route;
     });
-    this.routes = newData;
   }
 }

@@ -1,6 +1,5 @@
 import { RouteService } from './route.service';
 import { httpMock } from './__mocks__/create-route';
-import { environment } from '../../../environments/environment';
 
 describe('CreateRouteComponent', () => {
   let component: RouteService;
