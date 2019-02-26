@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
-import { IRouteInventory, IDeleteRouteResponse } from 'src/app/shared/models/route-inventory.model';
+import { IDeleteRouteResponse, IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
 import { MatDialog } from '@angular/material';
@@ -8,6 +8,7 @@ import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-di
 import RenameRouteBatch from './routes-inventory.helper';
 import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { AppEventService } from 'src/app/shared/app-events.service';
+import { AppHeaderService } from '../../header/header.service';
 
 @Component({
   selector: 'app-inventory',
@@ -27,7 +28,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   constructor(
     private routeService: RoutesInventoryService,
     private alert: AlertService,
-    public dialog: MatDialog,
+    private headerService: AppHeaderService,
+    private dialog: MatDialog,
     private appEventsService: AppEventService
   ) {
     this.pageNo = 1;
@@ -48,6 +50,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       const { routes, pageMeta } = routesData;
       this.routes = this.renameRouteBatches(routes);
       this.totalItems = pageMeta.totalResults;
+      this.headerService.updateBadgeSize(this.totalItems);
     });
   };
 
@@ -93,7 +96,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
           routes.splice(ind, 1);
           this.routes = this.renameRouteBatches(routes);
         } else { this.alert.error(message) }
-      }, (error: any) => this.alert.error('Something went wrong! try again'))
+      }, () => this.alert.error('Something went wrong! try again'))
   }
 
   showDeleteModal(routeBatchId: number, ind: number): void {

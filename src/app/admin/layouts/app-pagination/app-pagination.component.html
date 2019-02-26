@@ -8,7 +8,7 @@
     </button>
 
     <div *ngFor='let hPage of btnGroup'>
-      <button (click)="changePage(hPage)"
+      <button (click)="changePage(hPage, null)"
               [ngClass]="{'page-number': true, selected: hPage === currPage}"> {{ hPage }} </button>
     </div>
 

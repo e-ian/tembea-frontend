@@ -1,6 +1,6 @@
 import { DepartmentsComponent } from './settings/departments/departments.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CabsComponent } from './cabs/cabs.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
@@ -9,6 +9,8 @@ import { TripsComponent } from './trips/trips.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
+import { PagingParamsResolver } from '../shared/paging-params.resolver';
+import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
 
 
 const routes: Routes = [
@@ -42,7 +44,10 @@ const routes: Routes = [
       },
       {
         path: 'trips/pending',
-        component: TripsComponent,
+        component: PendingRequestComponent,
+        resolve: {
+          pagingParams: PagingParamsResolver
+        },
         canActivate: [],
         data: { title: 'Pending Trips' }
       },

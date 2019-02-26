@@ -14,7 +14,7 @@ export const routeServiceMock: any = {
   http: {},
   createRoute() {},
   handleError() {}
-}
+};
 
 export const createRouteHelperMock: any = {
   incrementCapacity: _ => {},

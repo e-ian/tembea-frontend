@@ -1,8 +1,7 @@
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { RoutesInventoryComponent } from './routes-inventory.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
@@ -12,12 +11,11 @@ import { EmptyPageComponent } from '../../empty-page/empty-page.component';
 import { throwError } from 'rxjs';
 import { routesMock } from './__mocks__/route-inventory.mock';
 import { AlertService } from '../../../shared/alert.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
-import { RouteInventoryModel } from '../../../shared/models/route-inventory.model';
 
 describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
@@ -29,32 +27,38 @@ describe('RoutesInventoryComponent', () => {
     info: jest.fn(),
     warning: jest.fn(),
     error: jest.fn()
-  }
+  };
 
   const mockMatDialogRef = {
-    close: () => {},
+    close: () => {
+    },
   };
 
   beforeEach(async(() => {
-    getRoutesSpy = jest.spyOn(RoutesInventoryService.prototype, 'getRoutes')
-    getRoutesSpy.mockReturnValue(of(getRoutesResponseMock)),
+    getRoutesSpy = jest.spyOn(RoutesInventoryService.prototype, 'getRoutes');
+    getRoutesSpy.mockReturnValue(of(getRoutesResponseMock));
 
     TestBed.configureTestingModule({
       declarations: [RoutesInventoryComponent, EmptyPageComponent, ConfirmModalComponent, AppPaginationComponent],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: AlertService, useValue: alert },
-        { provide: MAT_DIALOG_DATA, useValue: {data: {
-          displayText: 'display data',
-          confirmText: 'yes'
-        }} }
+        {
+          provide: MAT_DIALOG_DATA, useValue: {
+            data: {
+              displayText: 'display data',
+              confirmText: 'yes'
+            }
+          }
+        }
       ],
       imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
 
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ConfirmModalComponent]}
-      })
+        entryComponents: [ConfirmModalComponent]
+      }
+    })
       .compileComponents();
 
     fixture = TestBed.createComponent(RoutesInventoryComponent);
@@ -65,7 +69,7 @@ describe('RoutesInventoryComponent', () => {
   afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
-  })
+  });
 
   it('should create RouteInventoryComponent', () => {
     expect(component).toBeTruthy();
@@ -131,13 +135,13 @@ describe('RoutesInventoryComponent', () => {
     let changeStatusSpy;
 
     beforeEach(() => {
-      changeStatusSpy = jest.spyOn(RoutesInventoryService.prototype, 'changeRouteStatus')
-    })
+      changeStatusSpy = jest.spyOn(RoutesInventoryService.prototype, 'changeRouteStatus');
+    });
 
     afterEach(() => {
       jest.resetAllMocks();
       jest.restoreAllMocks();
-    })
+    });
 
     it('should call the method to update routes data', () => {
       const statusMock = { success: true };
@@ -166,7 +170,7 @@ describe('RoutesInventoryComponent', () => {
 
   describe('update routes data', () => {
     it('should return the updated routes ', () => {
-      component.routes = routesMock
+      component.routes = routesMock;
 
       component.updateRoutesData(1, 'Active');
       expect(component.routes).not.toEqual(routesMock);
@@ -180,11 +184,11 @@ describe('RoutesInventoryComponent', () => {
 
       component.getRoutesInventory();
       fixture.detectChanges();
-      const buttons = fixture.debugElement.queryAll(By.css('.decline-icon'))
-      buttons[0].triggerEventHandler('click', null)
+      const buttons = fixture.debugElement.queryAll(By.css('.decline-icon'));
+      buttons[0].triggerEventHandler('click', null);
       expect(dialogSpy).toBeCalledTimes(1);
-    })
-  })
+    });
+  });
 
   describe('deleteRoute', () => {
     let deleteSpy;
@@ -196,7 +200,7 @@ describe('RoutesInventoryComponent', () => {
     afterEach(() => {
       jest.resetAllMocks();
       jest.restoreAllMocks();
-    })
+    });
 
     it('should delete a route batch on success response from http call', () => {
       deleteSpy.mockReturnValue(of({

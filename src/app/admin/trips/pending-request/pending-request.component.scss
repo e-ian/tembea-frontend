@@ -1,0 +1,32 @@
+.trip-table {
+  width: 94%;
+  margin-left: 2em;
+  font-size: 13px;
+
+  .items {
+    color: #4f0c05;
+
+    .time {
+      padding: 5px;
+
+      span:nth-child(2) {
+        color: #808FA3;
+      }
+    }
+
+    mat-grid-list {
+      color: #39434D;
+    }
+
+    mat-grid-tile {
+      &.center {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.pagination {
+  width: 90%;
+  margin: 0 0 0 auto;
+}

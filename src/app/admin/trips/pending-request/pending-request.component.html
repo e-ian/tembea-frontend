@@ -1,0 +1,70 @@
+<div *ngIf="tripRequests.length === 0">
+  <app-empty-page [text]="'No pending requests.'"></app-empty-page>
+  <div class="bottom-image"></div>
+</div>
+
+<div *ngIf="tripRequests.length > 0">
+  <div class="buttons-wrapper flex routes-table">
+    <button class="search-wrapper"></button>
+    <button class="upload-wrapper flex-right"></button>
+  </div>
+
+  <div class="trip-table">
+    <mat-grid-list cols="9" rowHeight="2:1">
+      <mat-grid-tile>Requested On</mat-grid-tile>
+      <mat-grid-tile>Departing On</mat-grid-tile>
+      <mat-grid-tile>Pickup</mat-grid-tile>
+      <mat-grid-tile>Destination</mat-grid-tile>
+      <mat-grid-tile>Requested By</mat-grid-tile>
+      <mat-grid-tile>Department</mat-grid-tile>
+      <mat-grid-tile>Rider</mat-grid-tile>
+      <mat-grid-tile>Approved By</mat-grid-tile>
+      <mat-grid-tile>Actions
+        <div class="actions-icon"></div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div *ngFor='let trip of tripRequests' class="items">
+      <mat-grid-list cols="9" rowHeight="2:1">
+        <mat-grid-tile>
+          <div class="time">
+            <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
+            <span>
+              <span>&nbsp;by&nbsp;</span>
+              <span>{{ trip.requestedOn | date:'shortTime' }}</span>
+            </span>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="time">
+            <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
+            <span>
+              <span>&nbsp;by&nbsp;</span>
+              <span>{{ trip.departureTime | date:'shortTime' }}</span>
+            </span>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="center">{{ trip.pickup}}</mat-grid-tile>
+        <mat-grid-tile class="center">{{ trip.destination}}</mat-grid-tile>
+        <mat-grid-tile><span>{{ trip.requester.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
+        <mat-grid-tile>{{ trip.department}}</mat-grid-tile>
+        <mat-grid-tile><span>{{ trip.rider.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
+        <mat-grid-tile><span>{{ trip.approvedBy.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
+        <mat-grid-tile>
+          <div class="flex">
+            <button class='edit-action-button'>
+              <span class="edit-icon"></span>
+            </button>
+            <button class='decline-action-button'>
+              <span class="decline-icon"></span>
+            </button>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div class="pagination">
+      <app-pagination [totalItems]="totalItems"
+                      (pageChange)="updatePage($event)"
+                      [pageSize]="pageSize"></app-pagination>
+    </div>
+  </div>
+</div>

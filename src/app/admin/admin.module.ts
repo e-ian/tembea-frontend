@@ -20,6 +20,8 @@ import { EmptyPageComponent } from './empty-page/empty-page.component';
 import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
 import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
 import { AlertService } from '../shared/alert.service';
+import { ShortenNamePipe } from './__pipes__/shorten-name.pipe';
+import { TableActionToolComponent } from './layouts/table-action-tool/table-action-tool.component';
 import { GoogleMapsService } from '../shared/googlemaps.service';
 import { RouteService } from './routes/route.service';
 import { CreateRouteHelper } from './routes/create-route/create-route.helper';
@@ -27,6 +29,7 @@ import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.
 
 import { environment } from '../../environments/environment';
 import { DepartmentsComponent } from './settings/departments/departments.component';
+import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +40,16 @@ import { DepartmentsComponent } from './settings/departments/departments.compone
     RoutesInventoryComponent,
     SettingsComponent,
     TripsComponent,
+    PendingRequestComponent,
     HeaderComponent,
     RouteRequestsComponent,
     EmptyPageComponent,
     CustomTitlecasePipe,
     ConvertTimePipe,
+    ShortenNamePipe,
+    TableActionToolComponent,
     AppPaginationComponent,
+    ConvertTimePipe,
     DepartmentsComponent
   ],
   imports: [
