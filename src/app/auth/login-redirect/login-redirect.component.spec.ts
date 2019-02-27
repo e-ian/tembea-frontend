@@ -34,7 +34,10 @@ describe('LoginRedirectComponent', () => {
     fixture = TestBed.createComponent(LoginRedirectComponent);
     component = fixture.componentInstance;
   });
-
+  afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
   it('should create component', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
@@ -104,13 +107,12 @@ describe('LoginRedirectComponent', () => {
       });
       jest.spyOn(service, 'unAuthorizeUser');
       jest.spyOn(router, 'navigate');
-      jest.spyOn(toastr, 'error');
 
       component.handleEventError(errorMock);
 
       expect(service.unAuthorizeUser).toHaveBeenCalledTimes(1);
-      expect(toastr.error).toHaveBeenCalledTimes(0);
-      expect(router.navigate).toHaveBeenCalledTimes(0);
+      expect(toastr.error).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
     });
 
     it('should call the toastr and navigate method', () => {

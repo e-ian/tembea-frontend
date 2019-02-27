@@ -1,54 +1,59 @@
-import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-  TestRequest
-} from '@angular/common/http/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 
 import { AuthService } from '../auth.service';
 import { CookieService } from '../ngx-cookie-service.service';
 import { ClockService } from '../clock.service';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/models/user.model';
-import { Subscription, Observable, of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AlertService } from '../../../shared/alert.service';
-import {
-  mockRouter,
-  mockToastr,
-  mockCookieService
-} from 'src/app/shared/__mocks__/mockData';
+import { SpyObject } from '../../../__mocks__/SpyObject';
+import { mockToastr } from '../../../shared/__mocks__/mockData';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let httpTestingController: HttpTestingController;
+  let injector;
+
+  let mockRouter;
+  let mockClockService;
+  let mockCookieService;
 
   const response = { id: '121', name: 'james' };
   const { tembeaBackEndUrl } = environment;
 
   beforeEach(() => {
-    const mockClockService = {
-      getClock: (): Observable<number> => {
-        return of(6000000000);
-      }
-    };
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        { provide: CookieService, useValue: mockCookieService },
-        { provide: ClockService, useValue: mockClockService },
-        { provide: Router, useValue: mockRouter },
+        { provide: CookieService, useValue: new SpyObject(CookieService) },
+        { provide: ClockService,  useValue: new SpyObject(ClockService) },
+        { provide: Router,  useValue: new SpyObject(Router) },
         { provide: AlertService, useValue: mockToastr }
       ]
     });
 
-    authService = TestBed.get(AuthService);
+    injector = getTestBed();
+    authService = injector.get(AuthService);
     httpTestingController = TestBed.get(HttpTestingController);
+  });
+
+  beforeEach(() => {
+    mockClockService = injector.get(ClockService);
+    mockRouter = injector.get(Router);
+    mockCookieService = injector.get(CookieService);
+
+    mockCookieService.delete.mockReturnValue({});
+    mockClockService.getClock.mockReturnValue(of(6000000000));
+    mockRouter.navigate.mockResolvedValue({});
   });
 
   afterEach(() => {
     httpTestingController.verify();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   it('should be created', () => {
@@ -83,7 +88,6 @@ describe('AuthService', () => {
   it('should log user out', () => {
     const service: AuthService = TestBed.get(AuthService);
     service.clockSubscription = new Subscription();
-    jest.spyOn(service.cookieService, 'delete').mockImplementation(() => {});
     service.logout();
     expect(service.cookieService.delete).toHaveBeenCalledTimes(2);
     expect(service.isAuthenticated).toEqual(false);
@@ -115,8 +119,8 @@ describe('AuthService', () => {
   it('should test authorize user method', () => {
     const token = 'token';
     const res = { userInfo: { firstName: 'boy' }, token };
-    const toastrSpy = jest.spyOn(authService.toastr, 'success');
-    const cookieSpy = jest.spyOn(authService.cookieService, 'set');
+    const toastrSpy = authService.toastr.success;
+    const cookieSpy = authService.cookieService.set;
     authService.authorizeUser(res);
 
     expect(authService.isAuthorized).toEqual(true);
@@ -131,11 +135,12 @@ describe('AuthService', () => {
   it('should authorize a user', () => {
     const token = 'token';
     const res = { userInfo: { firstName: 'boy' }, token };
-    const toastrSpy = jest.spyOn(authService.toastr, 'success');
-    const cookieSpy = jest.spyOn(authService.cookieService, 'set');
+    const toastrSpy = authService.toastr.success;
+    const cookieSpy = authService.cookieService.set;
     const initClockSpy = jest
       .spyOn(authService, 'initClock')
-      .mockImplementation(() => {});
+      .mockImplementation(() => {
+      });
     authService.authorizeUser(res);
 
     expect(authService.isAuthorized).toEqual(true);

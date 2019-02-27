@@ -10,8 +10,6 @@ import { Subscription } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-
-import { RouteRequestService } from '../__services__/route-request.service';
 import { IUser } from '../../shared/models/user.model';
 import { AppHeaderService } from './header.service';
 
@@ -33,9 +31,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private routeService: RouteRequestService,
     private appHeaderService: AppHeaderService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
@@ -79,6 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.updateHeaderSubscription.unsubscribe();
     }
   }
+
   toggleSideNav = () => {
     this.navItem.toggle();
   };

@@ -4,18 +4,27 @@ export const mockActivatedRoute = {
       token: 'authToken'
     }
   }
-}
+};
 
 export const mockRouter = {
-  navigate: () => { }
-}
+  navigate: () => {
+  }
+};
 
 export const mockToastr = {
-  success: () => { },
-  error: () => { }
-}
+  // @ts-ignore
+  success: jest.fn(),
+  // @ts-ignore
+  warning: jest.fn(),
+  // @ts-ignore
+  info: jest.fn(),
+  // @ts-ignore
+  error: jest.fn()
+};
 
 export const mockCookieService = {
-  delete: () => { },
-  set: () => { }
+  delete: () => {
+  },
+  set: () => {
+  }
 };

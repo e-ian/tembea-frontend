@@ -1,43 +1,50 @@
 import { NgModule } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthService } from '../auth/__services__/auth.service';
-import { MockAuthService, MockClockService, MockCookieService } from '../auth/__services__/__mocks__';
 import { ClockService } from '../auth/__services__/clock.service';
 import { CookieService } from '../auth/__services__/ngx-cookie-service.service';
 import { TOASTR_TOKEN } from '../shared/toastr.service';
 import { mockToastr } from '../shared/__mocks__/mockData';
 import { SpyObject } from '../__mocks__/SpyObject';
 import { MatDialogRef } from '@angular/material';
-
-
-export class MockMatDialogRef extends SpyObject {
-  constructor() {
-    super(MatDialogRef);
-  }
-}
+import { Router } from '@angular/router';
+import { AisService } from '../admin/__services__/ais.service';
+import { AlertService } from '../shared/alert.service';
 
 @NgModule({
   providers: [
     {
       provide: AuthService,
-      useClass: MockAuthService
+      useValue: new SpyObject(AuthService)
+    },
+    {
+      provide: AisService,
+      useValue: new SpyObject(AisService)
     },
     {
       provide: ClockService,
-      useClass: MockClockService
+      useValue: new SpyObject(ClockService)
     },
     {
       provide: MatDialogRef,
-      useClass: MockMatDialogRef
+      useValue: new SpyObject(MatDialogRef)
     },
     {
-      provide: MockCookieService,
-      useClass: CookieService
+      provide: CookieService,
+      useValue: new SpyObject(CookieService)
+    },
+    {
+      provide: Router,
+      useValue: new SpyObject(Router)
+    },
+    {
+      provide: AlertService,
+      useValue: new SpyObject(AlertService)
     },
     {
       provide: TOASTR_TOKEN,
       useValue: mockToastr
-    }
+    },
   ],
   imports: [HttpClientTestingModule]
 })

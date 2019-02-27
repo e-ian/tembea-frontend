@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { GoogleMapsService } from '../../../shared/googlemaps.service';
@@ -7,13 +7,13 @@ import { CreateRouteHelper } from './create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 
 class RouteModel {
-  constructor(public routeName: string,
-    public destination: string,
-    public takeOffTime: string,
-    public capacity: number,
-    public vehicle: string,
-    public marker: string,
-    public destinationInputField: string) { }
+  constructor(public routeName?: string,
+    public destination?: string,
+    public takeOffTime?: string,
+    public capacity?: number,
+    public vehicle?: string,
+    public marker?: string,
+    public destinationInputField?: string) { }
 }
 
 @Component({
@@ -43,7 +43,9 @@ export class CreateRouteComponent implements AfterViewInit {
     private routeService: RoutesInventoryService,
     private createRouteHelper: CreateRouteHelper,
     private router: Router
-  ) { }
+  ) {
+    this.model = new RouteModel();
+  }
 
   ngAfterViewInit() {
     this.googleMapsService

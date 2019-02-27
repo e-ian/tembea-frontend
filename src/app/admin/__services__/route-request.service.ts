@@ -1,89 +1,44 @@
-import { Injectable, Inject } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Subscription, Observable, of} from 'rxjs';
-import {RouteRequest} from '../../shared/models/route-request.model';
-import {environment} from '../../../environments/environment';
-import {retry} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { RouteRequest } from '../../shared/models/route-request.model';
+import { environment } from '../../../environments/environment';
+import { map, retry, tap } from 'rxjs/operators';
 import 'rxjs-compat/add/operator/map';
-import { catchError } from 'rxjs/operators';
-import { IRouteApprovalDeclineInfo } from '../../shared/models/route-approve-decline-info.model';
-import { MatDialogRef } from '@angular/material';
-import { RouteApproveDeclineModalComponent } from '../routes/route-approve-decline-modal/route-approve-decline-modal.component';
+import { IRouteDetails } from '../../shared/models/route-approve-decline-info.model';
 import { AlertService } from '../../shared/alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouteRequestService {
-
-  static activeRouteRequest: RouteRequest = new RouteRequest();
-  static activeRouteIndex = 0;
-  static approvalDeclineDialog: MatDialogRef<RouteApproveDeclineModalComponent>;
   routesUrl = `${environment.tembeaBackEndUrl}/api/v1/routes`;
-
-  private routesRequestSubject: BehaviorSubject<RouteRequest[]> = new BehaviorSubject([]);
-  routesRequests = this.routesRequestSubject.asObservable();
 
   constructor(
     private http: HttpClient,
     public toastr: AlertService
-  ) { }
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.toastr.error('Something did not work right there.');
-      RouteRequestService.approvalDeclineDialog.close();
-      return of(result as T);
-    };
+  ) {
   }
 
-  getAllRequests(): Subscription {
+  getAllRequests(): Observable<RouteRequest[]> {
     return this.http.get<{ routes: RouteRequest[] }>(`${this.routesUrl}/requests`)
       .pipe(
         retry(3),
-      ).map(this.handleRoutesRequests)
-      .subscribe();
+        map((data) => data.routes.map(value => new RouteRequest().deserialize(value)))
+      );
   }
 
-  private handleRoutesRequests = (routesList: { routes: Array<any> }): RouteRequest[] => {
-    const routesRequests = routesList.routes.map(value => new RouteRequest().deserialize(value));
-    RouteRequestService.activeRouteRequest = routesRequests[RouteRequestService.activeRouteIndex] || new RouteRequest();
-
-    this.routesRequestSubject.next(routesRequests);
-    return routesRequests;
-  };
-
-  declineRequest(routeRequestId, comment, email): void {
-    this.http.put(`${this.routesUrl}/requests/status/${routeRequestId}`, {
-      newOpsStatus: 'decline',
-      comment: comment,
-      reviewerEmail: email,
-      teamUrl: environment.teamUrl,
+  declineRequest(id: number, comment: string, reviewerEmail: string): Observable<any> {
+    const newOpsStatus = 'decline';
+    const { teamUrl } = environment;
+    return this.http.put(`${this.routesUrl}/requests/status/${id}`, {
+      comment, reviewerEmail, newOpsStatus, teamUrl,
     })
-    .pipe(catchError(this.handleError<IRouteApprovalDeclineInfo>('declineRequest')))
-    .subscribe(this.handleDeclineResponse);
+      .pipe(tap((data) => this.handleResponse(data, 'decline'), this.handleError));
   }
 
-  handleDeclineResponse = (data) => {
-    if (data.success) {
-      let routesRequests;
-      this.routesRequestSubject.subscribe(currentValues => {
-        routesRequests = currentValues.filter(route => route.id !== data.data.id);
-      });
-      this.routesRequestSubject.next(routesRequests);
-      RouteRequestService.activeRouteIndex = 0;
-      RouteRequestService.activeRouteRequest = routesRequests[0];
-      RouteRequestService.approvalDeclineDialog.close();
-      this.toastr.success('Route request declined!');
-      return;
-    }
-
-    RouteRequestService.approvalDeclineDialog.close();
-    this.toastr.error('Could not decline request');
-  }
-
-  approveRequest(routeRequestId, comment, routeDetails, email): void {
-    this.http.put(`${this.routesUrl}/requests/status/${routeRequestId}`, {
+  approveRequest(id: number, comment: string, routeDetails: IRouteDetails, email: string): Observable<any> {
+    return this.http.put(`${this.routesUrl}/requests/status/${id}`, {
       newOpsStatus: 'approve',
       comment: comment,
       reviewerEmail: email,
@@ -93,23 +48,18 @@ export class RouteRequestService {
       cabRegNumber: routeDetails.cabRegNumber,
       capacity: routeDetails.capacity.toString(),
     })
-    .pipe(catchError(this.handleError<IRouteApprovalDeclineInfo>('approveRequest')))
-    .subscribe(this.handleApproveResponse);
+      .pipe(tap((data) => this.handleResponse(data, 'approve'), this.handleError));
   }
 
-  handleApproveResponse = (data) => {
+  handleError = () => {
+    this.toastr.error('Something did not work right there.');
+  };
+
+  handleResponse = (data, status: 'approve' | 'decline') => {
     if (data.success) {
-      let routesRequests;
-      this.routesRequestSubject.subscribe(currentValues => {
-        routesRequests = currentValues.filter(route => route.id !== data.data.id);
-      });
-      this.routesRequestSubject.next(routesRequests);
-      RouteRequestService.approvalDeclineDialog.close();
-      this.toastr.success('Route request Approved!');
-      return;
+      this.toastr.success(`Route request ${status}d!`);
+    } else {
+      this.toastr.error(`Could not ${status} request`);
     }
-
-    RouteRequestService.approvalDeclineDialog.close();
-    this.toastr.error('Could not approve request');
-  }
+  };
 }
