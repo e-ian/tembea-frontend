@@ -9,9 +9,10 @@ import 'rxjs/add/operator/map';
   providedIn: 'root',
 })
 export class DepartmentsService {
-  departmentsUrl: string = `${environment.tembeaBackEndUrl}/api/v1/departments`;
-  constructor(private http: HttpClient) {}
-
+  departmentsUrl: string;
+  constructor(private http: HttpClient) {
+    this.departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
+  }
   getDepartments(size: number, page: number): Observable<DepartmentsModel> {
     return this.http.get<any>(`${this.departmentsUrl}?size=${size}&page=${page}`).map(departments => {
       return new DepartmentsModel().deserialize(departments);

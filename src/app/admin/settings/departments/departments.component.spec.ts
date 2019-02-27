@@ -9,6 +9,7 @@ import { AngularMaterialModule } from '../../../angular-material.module';
 import { environment } from '../../../../environments/environment';
 import getDepartmentsMock from './__mocks__/getDepartments.response.mock';
 import { DepartmentsService } from '../../__services__/departments.service';
+import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 
 describe('DepartmentsComponent', () => {
   let departmentComponent: DepartmentsComponent;
@@ -22,7 +23,7 @@ describe('DepartmentsComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DepartmentsComponent, EmptyPageComponent],
+      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent],
       imports: [HttpClientTestingModule, AngularMaterialModule],
       providers: [
         {
@@ -31,15 +32,14 @@ describe('DepartmentsComponent', () => {
         }
       ]
     });
-
     fixture = TestBed.createComponent(DepartmentsComponent);
     departmentComponent = fixture.componentInstance;
-
   }));
 
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   it('should Exist - DepartmentsComponent', async(() => {
     expect(departmentComponent).toBeTruthy();
   }));
@@ -47,9 +47,8 @@ describe('DepartmentsComponent', () => {
   it('should set departments correctly from the service', async(() => {
     service.getDepartments.mockReturnValue(of(getDepartmentsMock));
     fixture.detectChanges();
-    expect(fixture.componentInstance.departments.length).toBe(20);
+    expect(fixture.componentInstance.departments.length).toBe(4);
   }))
-
 
   it('should render actions button', async(() => {
     departmentComponent.getDepartments();
@@ -57,63 +56,18 @@ describe('DepartmentsComponent', () => {
     const button = fixture.debugElement.queryAll(By.css('.actions-icon'));
     expect(button.length).toEqual(1);
   }));
+
   it('should create one active button for each department', async(() => {
     service.getDepartments.mockReturnValue(of(getDepartmentsMock));
     fixture.detectChanges();
-    expect(fixture.debugElement.queryAll(By.css('.active-status-button')).length).toBe(20);
+    expect(fixture.debugElement.queryAll(By.css('.active-status-button')).length).toBe(4);
   }));
-
-  it('should change page upon clicking page number', async(() => {
-    jest.spyOn(service, 'getDepartments').mockReturnValue(of(getDepartmentsMock));
-    departmentComponent.getDepartments();
+  it('should update and load page', (() => {
+    jest.spyOn(departmentComponent, 'getDepartments');
+    expect(departmentComponent.pageNo).toEqual(1);
+    departmentComponent.setPage(2);
     fixture.detectChanges();
-    jest.spyOn(departmentComponent, 'setPage');
-
-    const button = fixture.debugElement.queryAll(By.css('.page-number'));
-    button[0].triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(departmentComponent.setPage).toHaveBeenCalled();
-  }));
-
-  it('should navigate to the prev group of pages', async(() => {
-    jest.spyOn(service, 'getDepartments').mockReturnValue(of(getDepartmentsMock));
-    departmentComponent.currentPageGroup = 1;
-    departmentComponent.getDepartments();
-    fixture.detectChanges();
-    jest.spyOn(departmentComponent, 'prevGroup');
-
-    const button = fixture.debugElement.queryAll(By.css('.arrow-icon-button'));
-    expect(button.length).toEqual(2);
-    expect(fixture.componentInstance.currentPageGroup).toEqual(1);
-
-    button[0].triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(departmentComponent.prevGroup).toHaveBeenCalled();
-  }));
-
-  it('should navigate to the next group of pages', async(() => {
-    jest.spyOn(service, 'getDepartments').mockReturnValue(of(getDepartmentsMock));
-    departmentComponent.currentPageGroup = 1;
-    departmentComponent.getDepartments();
-    fixture.detectChanges();
-    jest.spyOn(departmentComponent, 'nextGroup');
-
-    const button = fixture.debugElement.queryAll(By.css('.arrow-icon-button'));
-    expect(button.length).toEqual(2);
-    expect(fixture.componentInstance.currentPageGroup).toEqual(1);
-
-    button[1].triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(departmentComponent.nextGroup).toHaveBeenCalled();
-  }));
-
-  it('should run getRemainingItemsInDB() if numberOfPages is less than pageNo', async(() => {
-    jest.spyOn(service, 'getDepartments').mockReturnValue(of(getDepartmentsMock));
-    departmentComponent.pageNo = 4;
-    jest.spyOn(departmentComponent, 'getRemainingItemsInDB');
-
-    departmentComponent.getDepartments();
-    fixture.detectChanges();
-    expect(departmentComponent.getRemainingItemsInDB).toHaveBeenCalled();
+    expect(departmentComponent.pageNo).toEqual(2);
+    expect(departmentComponent.getDepartments).toHaveBeenCalled();
   }));
 });

@@ -1,20 +1,14 @@
 import { Deserializable } from './deserializable.model';
+import { IPageMeta } from './page-meta.model';
 
-export class DepartmentsModel implements Deserializable {
-  departments: IDepartmentsModel[] = []
-  pageMeta: IPageMeta
+export class DepartmentsModel implements Deserializable<DepartmentsModel> {
+  departments: IDepartmentsModel[] = [];
+  pageMeta: IPageMeta;
 
   deserialize(input: any) {
     Object.assign(this, input);
     return this;
   }
-}
-
-export interface IPageMeta {
-  totalPages: number
-  page: number
-  totalResults: number
-  pageSize: number
 }
 
 export interface IDepartmentsModel {
