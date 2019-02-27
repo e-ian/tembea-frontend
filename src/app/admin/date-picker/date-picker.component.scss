@@ -1,0 +1,46 @@
+
+.custom-date-picker {
+  margin-top: 10px;
+  box-sizing: border-box;
+
+  input {
+    height: 38px;
+    width: 160px;
+    outline: none;
+    border-radius: 5px 0px 0px 5px;
+    float: left;
+    text-align: center;
+    border: 1px solid #e9eff4;
+    border-right: none;
+    font-size: 14px;
+  }
+}
+
+.mat-datepicker-toggle {
+  height: 39px;
+  float: left;
+  border: 1px solid #e9eff4;
+  background: rgba(251, 252, 253, 0.49);
+  color: #929FB0;
+  border-radius: 0px 5px 5px 0px;;
+  cursor: pointer;
+}
+
+.mat-calendar-body-selected {
+  background-color: #3359DB;
+}
+
+.custom-date-picker .mat-icon-button {
+  position: relative;
+  .mat-button-wrapper {
+    background: url("../../../assets/images/icons/calendar-icon.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    transform: translate(-25%, -25%);
+    //display: inline-block;
+    & > svg {
+      display: none;
+    }
+  }
+}

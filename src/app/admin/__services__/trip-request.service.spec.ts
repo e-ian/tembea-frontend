@@ -4,6 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from '../../../environments/environment';
 import { TripRequestService } from './trip-request.service';
 import { tripRequestMock } from './__mocks__/trip-request.mock';
+import {DepartmentsModel} from 'src/app/shared/models/departments.model';
+import {department} from 'src/app/shared/__mocks__/department.mock';
 
 describe('Service Tests', () => {
   describe('Trip Request Service', () => {
@@ -41,8 +43,27 @@ describe('Service Tests', () => {
 
         req.flush({ data: returnedFromService });
       });
-
     });
+
+   it('should get all department', (done) => {
+       const departmentMock: DepartmentsModel = {department};
+
+     service.getDepartments()
+         .subscribe(result => {
+           expect(result).toBe(departmentMock.departments);
+           done();
+         });
+
+       const departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
+
+       const req = httpMock.expectOne(departmentsUrl);
+
+       expect(req.request.method).toEqual('GET');
+
+       req.flush(departmentMock);
+
+     httpMock.verify();
+   });
 
     afterEach(() => {
       httpMock.verify();

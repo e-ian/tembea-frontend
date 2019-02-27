@@ -5,12 +5,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CabsComponent } from './cabs/cabs.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
-import { TripsComponent } from './trips/trips.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 import { PagingParamsResolver } from '../shared/paging-params.resolver';
 import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
+import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
+import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
 
 
 const routes: Routes = [
@@ -55,13 +56,13 @@ const routes: Routes = [
 
       {
         path: 'trips/history',
-        component: TripsComponent,
+        component: TripHistoryComponent,
         canActivate: [],
         data: { title: 'Trip History' }
       },
       {
         path: 'trips/itinerary',
-        component: TripsComponent,
+        component: TripNavComponent,
         canActivate: [],
         data: { title: 'All Trips' }
       },

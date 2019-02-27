@@ -30,3 +30,20 @@
   width: 90%;
   margin: 0 0 0 auto;
 }
+
+
+.confirm-action-button {
+  border: none;
+  height: 20px;
+  width: 37px;
+  margin-top: 5px;
+
+  .confirm-icon {
+    background-color: #fff;
+    border: #fff;
+    background-image: url("/assets/images/icons/ic_confirm.svg");
+    height: 19px;
+    width: 19px;
+    display: inline-block;
+  }
+}

@@ -160,7 +160,7 @@ mat-grid-list:last-child {
     background-image: url("/assets/images/icons/edit-icon.svg");
     height: 30px;
     width: 31px;
-  display: inline-block;
+    display: inline-block;
   }
 }
 
@@ -175,7 +175,7 @@ mat-grid-list:last-child {
     background-image: url("/assets/images/icons/duplicate-icon.svg");
     height: 13px;
     width: 11px;
-  display: inline-block;
+    display: inline-block;
   }
 }
 
@@ -191,7 +191,6 @@ mat-grid-list:last-child {
     background-image: url("/assets/images/icons/decline-icon.svg");
     height: 19px;
     width: 19px;
-
     display: inline-block;
   }
 }

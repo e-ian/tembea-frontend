@@ -11,7 +11,6 @@ import { CabsComponent } from './cabs/cabs.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
 import { SettingsComponent } from './settings/settings.component';
-import { TripsComponent } from './trips/trips.component';
 import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from './admin/admin.component';
 import { AngularMaterialModule } from '../angular-material.module';
@@ -27,7 +26,12 @@ import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.
 
 import { environment } from '../../environments/environment';
 import { DepartmentsComponent } from './settings/departments/departments.component';
-import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
+import {TripItineraryComponent} from './trips/trip-itinerary/trip-itinerary.component';
+import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
+import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
+import {PendingRequestComponent} from './trips/pending-request/pending-request.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,6 @@ import { PendingRequestComponent } from './trips/pending-request/pending-request
     CreateRouteComponent,
     RoutesInventoryComponent,
     SettingsComponent,
-    TripsComponent,
     PendingRequestComponent,
     HeaderComponent,
     RouteRequestsComponent,
@@ -47,7 +50,13 @@ import { PendingRequestComponent } from './trips/pending-request/pending-request
     ShortenNamePipe,
     AppPaginationComponent,
     ConvertTimePipe,
-    DepartmentsComponent
+    DepartmentsComponent,
+    AppPaginationComponent,
+    TripItineraryComponent,
+    TripNavComponent,
+    TripHistoryComponent,
+    PendingRequestComponent,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +64,10 @@ import { PendingRequestComponent } from './trips/pending-request/pending-request
     AdminRoutingModule,
     FormsModule,
     AngularMaterialModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googMapsAPIKey,
       libraries: ['places']
