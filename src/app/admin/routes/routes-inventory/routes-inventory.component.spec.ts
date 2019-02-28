@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
@@ -32,7 +32,7 @@ describe('RoutesInventoryComponent', () => {
     name: 'Yaba',
     regNumber: 'JKD 839',
     takeOff: '12:00'
-  }
+  };
 
   const data = {
     capacity: 1,
@@ -43,7 +43,7 @@ describe('RoutesInventoryComponent', () => {
     routeName: 'Yaba',
     takeOffTime: '12:00',
     vehicle: 'JKD 839'
-  }
+  };
 
   const googleServiceMock = {
     loadGoogleMaps: jest.fn(),
@@ -87,23 +87,23 @@ describe('RoutesInventoryComponent', () => {
         { provide: AlertService, useValue: alert },
         { provide: GoogleMapsService, useValue: googleServiceMock },
         { provide: CreateRouteHelper, useValue: createRouteHelperMock },
-        { provide: MAT_DIALOG_DATA, useValue: {data: {
-          displayText: 'display data',
-          confirmText: 'yes'
-        }} },
+        {
+          provide: MAT_DIALOG_DATA, useValue: {
+            data: {
+              displayText: 'display data',
+              confirmText: 'yes'
+            }
+          }
+        },
         { provide: Router, useValue: router }
       ],
-      imports: [
-        HttpClientTestingModule,
-        AngularMaterialModule,
-        BrowserAnimationsModule
-      ],
+      imports: [ HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule ],
     })
-      .overrideModule(BrowserDynamicTestingModule, {
+    .overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ConfirmModalComponent]}
-      })
-      .compileComponents();
+        entryComponents: [ConfirmModalComponent]
+      }
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RoutesInventoryComponent);
     component = fixture.componentInstance;

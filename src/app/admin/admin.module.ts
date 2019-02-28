@@ -21,7 +21,6 @@ import { CustomTitlecasePipe } from './__pipes__/custom-titlecase.pipe';
 import { ConvertTimePipe } from './__pipes__/convert-time.pipe';
 import { AlertService } from '../shared/alert.service';
 import { ShortenNamePipe } from './__pipes__/shorten-name.pipe';
-import { TableActionToolComponent } from './layouts/table-action-tool/table-action-tool.component';
 import { GoogleMapsService } from '../shared/googlemaps.service';
 import { CreateRouteHelper } from './routes/create-route/create-route.helper';
 import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.component';
@@ -46,7 +45,6 @@ import { PendingRequestComponent } from './trips/pending-request/pending-request
     CustomTitlecasePipe,
     ConvertTimePipe,
     ShortenNamePipe,
-    TableActionToolComponent,
     AppPaginationComponent,
     ConvertTimePipe,
     DepartmentsComponent

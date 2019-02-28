@@ -1,6 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
-
 import { RoutesInventoryService } from '../routes-inventory.service';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import getRoutesResponseMock from '../../routes/routes-inventory/__mocks__/get-routes-response.mock';
@@ -14,11 +13,11 @@ describe('RoutesInventoryService', () => {
   const deleteResponseMock = {
     success: true,
     message: 'route batch deleted successfully'
-  }
-  
+  };
+
   const mockData = {
     someProp: 'someValue'
-  }
+  };
 
   beforeEach(() =>
     TestBed.configureTestingModule({

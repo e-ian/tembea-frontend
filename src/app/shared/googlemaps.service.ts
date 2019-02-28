@@ -11,8 +11,8 @@ export class GoogleMapsService {
 
   initLibraries(element: ElementRef) {
     this.geocoder = new google.maps.Geocoder();
-    if(element) {
-      new google.maps.places.Autocomplete(element, { types: ["address"] });
+    if (element) {
+      return new google.maps.places.Autocomplete(element, { types: ['address'] });
     }
   }
 

@@ -12,8 +12,6 @@ import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { AppHeaderService } from '../../header/header.service';
 import { GoogleMapsService } from '../../../shared/googlemaps.service';
-import { MatDialog } from '@angular/material';
-import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 
 @Component({
@@ -30,7 +28,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   lastBatchLetter = 'A';
   lastRouteName: string;
   updateSubscription: any;
-  duplicate: string = 'duplicate';
+  duplicate = 'duplicate';
   navigationSubscription;
 
   constructor(
@@ -186,6 +184,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       this.deleteRoute(routeBatchId, ind)
     })
   }
+
   editRoute(index): void {
     this.dialog.open(RoutesInventoryEditModalComponent, {
       data: <IRouteInventory>{
