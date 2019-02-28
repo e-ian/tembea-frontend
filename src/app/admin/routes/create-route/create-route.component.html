@@ -6,31 +6,31 @@
     <div class="create-route-form-wrapper">
       <form
         #createRouteForm="ngForm"
-        (ngSubmit)="createRoute(createRouteForm.value)"
+        (ngSubmit)="createRoute()"
         class="create-route-form"
         method="post"
         novalidate>
         <div class="label-input-wrapper">
-          <label for="routeName">Route name</label>
-          <em *ngIf="createRouteForm.controls.routeName?.invalid
-            && (createRouteForm.controls.routeName?.touched || mouseoverCreateButton)">Required</em>
+          <label for="">Route name</label>
+          <em *ngIf="routeName?.invalid
+            && (routeName?.touched || mouseoverCreateButton)">Required</em>
           <input
             type="text"
-            (ngModel)="routeName"
+            [(ngModel)]="model.routeName"
             name="routeName"
             placeholder="Give this route a name"
-            required>
+            required #routeName="ngModel">
         </div>
         <div class="label-input-wrapper">
           <label for="destination">Destination</label>
-          <em *ngIf="createRouteForm.controls.destination?.invalid
-            && (createRouteForm.controls.destination?.touched || mouseoverCreateButton)">Required</em>
+          <em *ngIf="destination?.invalid
+            && (destination?.touched || mouseoverCreateButton)">Required</em>
           <input #destinationFormInput type="text"
-            [(ngModel)]="destinationInputField"
+            [(ngModel)]="model.destinationInputField"
             (change)="clearDestinationCoordinates()"
             name="destination"
             placeholder="Where are we headed captain?"
-            required>
+            required #destination="ngModel">
           <div class="search-button">
             <button type="button" (click)="showRouteDirectionOnClick()" name="search" id="search">
               <span class="search-icon"></span>
@@ -39,28 +39,28 @@
         </div>
         <div class="label-input-wrapper">
           <label for="takeOffTime">Take-off Time</label>
-          <em *ngIf="(createRouteForm.controls.takeOffTime?.invalid
-            && (createRouteForm.controls.takeOffTime?.touched || mouseoverCreateButton))"
+          <em *ngIf="(takeOffTime?.invalid
+            && (takeOffTime?.touched || mouseoverCreateButton))"
           >Required</em>
           <input
             type="text"
-            (ngModel)="takeOffTime"
+            [(ngModel)]="model.takeOffTime"
             name="takeOffTime"
             placeholder="e.g 23:00"
-            required>
+            required #takeOffTime="ngModel">
         </div>
         <div class="label-input-wrapper">
           <label for="capacity">Capacity</label>
-          <em *ngIf="createRouteForm.controls.capacity?.invalid
-            && (createRouteForm.controls.capacity?.touched || mouseoverCreateButton)"
+          <em *ngIf="capacity?.invalid
+            && (capacity?.touched || mouseoverCreateButton)"
           >Required</em>
           <input
             type="number"
-            [(ngModel)]="capacity"
+            [(ngModel)]="model.capacity"
             name="capacity"
             min="1"
             value="1"
-            required>
+            required #capacity="ngModel">
           <div class="change-value-button">
             <div id="increment" (click)="changeCapacityValue('incrementCapacity', capacity)">
               <span class="increment-icon">+</span>
@@ -72,15 +72,15 @@
         </div>
         <div class="label-input-wrapper">
           <label for="vehicle">Vehicle</label>
-          <em *ngIf="createRouteForm.controls.vehicle?.invalid
-            && (createRouteForm.controls.vehicle?.touched || mouseoverCreateButton)"
+          <em *ngIf="vehicle?.invalid
+            && (vehicle?.touched || mouseoverCreateButton)"
           >Required</em>
           <input
             type="text"
-            (ngModel)="vehicle"
+            [(ngModel)]="model.vehicle"
             name="vehicle"
             placeholder="Vehicle registration number"
-            required>
+            required #vehicle="ngModel">
         </div>
         <div
           class="button-wrapper"
@@ -102,7 +102,7 @@
           [latitude]="lat"
           [longitude]="lng"
           [markerDraggable]="true"
-          (dragEnd)="updateDestinationFieldOnMarkerDrag(marker, $event)"></agm-marker>
+          (dragEnd)="updateDestinationFieldOnMarkerDrag(model.marker, $event)"></agm-marker>
         <agm-direction
           *ngIf="!destinationIsDojo"
           [origin]="origin"

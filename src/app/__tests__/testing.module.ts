@@ -10,7 +10,7 @@ import { SpyObject } from '../__mocks__/SpyObject';
 import { MatDialogRef } from '@angular/material';
 
 
-class MockMatDialogRef extends SpyObject {
+export class MockMatDialogRef extends SpyObject {
   constructor() {
     super(MatDialogRef);
   }

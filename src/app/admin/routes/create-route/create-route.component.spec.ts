@@ -119,7 +119,7 @@ describe('CreateRouteComponent', () => {
     const validator = jest.spyOn(component.createRouteHelper, 'validateFormEntries')
         .mockReturnValue(['fail validation', 'another failed validation']);
 
-    component.createRoute('formValues');
+    component.createRoute();
 
     expect(notifyUser).toHaveBeenCalled();
     expect(createObj).toHaveBeenCalled();
@@ -136,7 +136,7 @@ describe('CreateRouteComponent', () => {
     const createObj = jest.spyOn(component.createRouteHelper, 'createNewRouteRequestObject')
       .mockReturnValue(formValues);
 
-    await component.createRoute('formValues');
+    await component.createRoute();
 
     expect(createObj).toHaveBeenCalled();
     expect(validator).toHaveBeenCalled();

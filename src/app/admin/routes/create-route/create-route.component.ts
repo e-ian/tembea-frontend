@@ -6,6 +6,16 @@ import { Location } from '../../../shared/location.model';
 import { CreateRouteHelper } from './create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
 
+class RouteModel {
+  constructor(public routeName: string,
+    public destination: string,
+    public takeOffTime: string,
+    public capacity: number,
+    public vehicle: string,
+    public marker: string,
+    public destinationInputField: string) { }
+}
+
 @Component({
   selector: 'app-create',
   templateUrl: './create-route.component.html',
@@ -19,6 +29,7 @@ export class CreateRouteComponent implements AfterViewInit {
   origin = { lat: this.lat, lng: this.lng }
   destination: Location = { lat: this.lat, lng: this.lng };
   destinationCoordinates: Location;
+  model: RouteModel;
 
   @ViewChild('destinationFormInput') destinationInputElement: ElementRef;
 
@@ -76,7 +87,7 @@ export class CreateRouteComponent implements AfterViewInit {
     this.capacity = this.createRouteHelper[methodToCall](valueToIncrement);
   }
 
-  createRoute(formValues) {
+  async createRoute() {
     if (!this.destinationCoordinates) {
       return this.createRouteHelper.notifyUser(
         ['Click the search icon to confirm destination']
@@ -84,7 +95,7 @@ export class CreateRouteComponent implements AfterViewInit {
     }
 
     const routeRequest = this.createRouteHelper.createNewRouteRequestObject(
-      formValues, this.destinationInputField, this.destinationCoordinates
+      this.model, this.destinationInputField, this.destinationCoordinates
     );
 
     const errors = this.createRouteHelper.validateFormEntries(routeRequest);
@@ -99,6 +110,7 @@ export class CreateRouteComponent implements AfterViewInit {
     try {
       const response = await this.routeService.createRoute(data);
       this.createRouteHelper.notifyUser([response.message], 'success');
+      this.model = null;
       this.router.navigate(['/admin/routes/inventory']);
     } catch (e) {
       this.createRouteHelper.notifyUser([e.error.message || 'An error occurred.']);
