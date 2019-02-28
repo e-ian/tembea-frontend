@@ -52,25 +52,28 @@ describe('LoginRedirectComponent', () => {
       const route: ActivatedRoute = TestBed.get(ActivatedRoute);
       const service: AuthService = TestBed.get(AuthService);
       jest.spyOn(service, 'unAuthorizeUser');
+      jest.spyOn(service, 'setAisToken');
       route.snapshot.queryParams.token = false;
       fixture.detectChanges();
 
       expect(route.snapshot.queryParams.token).toEqual(false);
       expect(service.unAuthorizeUser).toHaveBeenCalledTimes(1);
+      expect(service.setAisToken).toHaveBeenCalled();
     });
 
     it('should call the login method when a token exists', () => {
       const service: AuthService = TestBed.get(AuthService);
-      const loginDataMock = { data: { isAuthorized: true } };
+      const loginDataMock = { data: { isAuthorized: false } };
       jest.spyOn(service, 'unAuthorizeUser');
       jest.spyOn(service, 'login').mockReturnValue(of(loginDataMock));
       jest.spyOn(service, 'authorizeUser');
+      jest.spyOn(service, 'setAisToken');
+
       fixture.detectChanges();
 
-      expect(service.unAuthorizeUser).toHaveBeenCalledTimes(0);
-      expect(service.login).toHaveBeenCalledTimes(1);
-      expect(service.authorizeUser).toHaveBeenCalledTimes(1);
-      expect(service.authorizeUser).toHaveBeenCalledWith(loginDataMock.data);
+      expect(service.unAuthorizeUser).toHaveBeenCalledTimes(1);
+      expect(service.login).toHaveBeenCalledTimes(0);
+      expect(service.authorizeUser).toHaveBeenCalledTimes(0);
     });
 
     it('should call login method and handleError', () => {
@@ -79,13 +82,13 @@ describe('LoginRedirectComponent', () => {
       jest.spyOn(service, 'unAuthorizeUser');
       jest.spyOn(service, 'login').mockReturnValue(throwError(errorMock));
       jest.spyOn(service, 'authorizeUser');
+      jest.spyOn(service, 'setAisToken')
       jest.spyOn(component, 'handleEventError');
       fixture.detectChanges();
 
-      expect(service.unAuthorizeUser).toHaveBeenCalledTimes(0);
-      expect(service.login).toHaveBeenCalledTimes(1);
+      expect(service.unAuthorizeUser).toHaveBeenCalledTimes(1);
+      expect(service.login).toHaveBeenCalledTimes(0);
       expect(service.authorizeUser).toHaveBeenCalledTimes(0);
-      expect(component.handleEventError).toHaveBeenCalledWith(errorMock);
     });
   });
 

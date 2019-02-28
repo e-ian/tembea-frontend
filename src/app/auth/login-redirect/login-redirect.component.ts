@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../__services__/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from 'src/app/shared/alert.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-redirect',
@@ -19,8 +20,9 @@ export class LoginRedirectComponent implements OnInit {
 
   ngOnInit() {
     const token = this.route.snapshot.queryParams.token;
-    this.authService.andelaAuthServiceToken = token;
-    if (!token) {
+    this.authService.setAisToken(token);
+
+    if (!this.authService.andelaAuthServiceToken) {
       return this.authService.unAuthorizeUser();
     }
     this.authService.login()

@@ -28,4 +28,5 @@ export const mockAuthService = {
   authorizeUser: (): void => { },
   unAuthorizeUser: (): void => { },
   setupClock: (): void => { },
+  setAisToken: (): void => { },
 };

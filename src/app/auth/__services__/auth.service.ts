@@ -79,6 +79,14 @@ export class AuthService {
     return this.router.navigate(['/admin']);
   }
 
+  setAisToken(token?: string) {
+    if (token) {
+      this.andelaAuthServiceToken = token;
+    } else {
+      this.andelaAuthServiceToken = this.cookieService.get('jwt_token');
+    }
+  }
+
   public setupClock(): void {
     AuthService.lastActiveTime = Date.now();
     this.initClock();
