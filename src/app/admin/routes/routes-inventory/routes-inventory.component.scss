@@ -28,6 +28,15 @@ mat-grid-list:last-child {
   width: 94%;
   margin-left: 2em;
   margin-bottom: 5rem;
+  .mat-grid-list{
+    align-items: center;
+    height: 15px; 
+    padding: 10px;
+  }
+  .route-name-align{
+    position: absolute;
+    left: 25px;
+  }
 }
 
 .active-status-button {

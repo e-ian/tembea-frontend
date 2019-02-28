@@ -25,8 +25,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   pageSize: number;
   sort: string;
   totalItems: number;
-  lastBatchLetter = 'A';
-  lastRouteName: string;
+  lastRoute
   updateSubscription: any;
   duplicate = true;
   navigationSubscription;
@@ -74,11 +73,9 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   };
 
   renameRouteBatches(routes) {
-    const renameBatchesObject = new RenameRouteBatch(routes, this.lastRouteName, this.lastBatchLetter);
+    const renameBatchesObject = new RenameRouteBatch(routes, this.lastRoute);
     const renamedBatches = renameBatchesObject.renameRouteBatches();
-    const { name, batch } = renamedBatches[renamedBatches.length - 1];
-    this.lastRouteName = name;
-    this.lastBatchLetter = batch;
+    this.lastRoute = renamedBatches[renamedBatches.length - 1];
     return renamedBatches;
   }
 

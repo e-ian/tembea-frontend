@@ -24,7 +24,9 @@
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list *ngFor='let route of routes; index as ind' cols="8" rowHeight="3:1">
-      <mat-grid-tile>{{ route.name }}</mat-grid-tile>
+      <mat-grid-tile class="route-name">
+        <div class="route-name-align">{{ route.name }}</div>
+      </mat-grid-tile>
       <mat-grid-tile>{{ route.batch }}</mat-grid-tile>
       <mat-grid-tile>{{ route.takeOff }}</mat-grid-tile>
       <mat-grid-tile>{{ route.capacity }}</mat-grid-tile>

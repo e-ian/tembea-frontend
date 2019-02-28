@@ -1,20 +1,19 @@
+import { IRouteInventory } from '../../../shared/models/route-inventory.model';
+
 class RenameRouteBatch {
   routesList: Array<any>
   renamedBatches = []
   sameRoute = []
   newCharArray = []
   batchLetter: string
-  lastRouteName: string
-  lastBatchLetter: string
+  lastRoute: IRouteInventory
 
   constructor(
     routes: Array<any>,
-    lastRouteName: string,
-    lastBatchLetter: string
+    lastRoute
   ) {
     this.routesList = [...routes]
-    this.lastRouteName = lastRouteName
-    this.lastBatchLetter = lastBatchLetter
+    this.lastRoute = lastRoute
   }
 
   nextLetter(letter) {
@@ -34,8 +33,15 @@ class RenameRouteBatch {
     return newBatchString;
   }
 
+  isSameBatch(sameBatch, routeBatch) {
+    if (routeBatch && (sameBatch.name === routeBatch.name)) {
+      return sameBatch.takeOff === routeBatch.takeOff
+    }
+    return false
+  }
+
   updateBatches() {
-    this.batchLetter = this.sameRoute[0].name === this.lastRouteName ? this.lastBatchLetter : 'A';
+    this.batchLetter = this.isSameBatch(this.sameRoute[0], this.lastRoute) ? this.lastRoute.batch : 'A';
     for (let k = 0; k < this.sameRoute.length; k++) {
       this.sameRoute[k].batch = this.batchLetter;
       this.batchLetter = this.incrementChar(this.batchLetter);
@@ -49,11 +55,9 @@ class RenameRouteBatch {
       this.sameRoute.push(this.routesList.shift());
       if (this.routesList.length === 0) {
         this.updateBatches();
-        this.lastBatchLetter = this.batchLetter;
-        this.lastRouteName = this.renamedBatches[this.renamedBatches.length - 1].name
         return this.renamedBatches;
       }
-      if (this.sameRoute[0].name !== this.routesList[0].name) {
+      if (!(this.isSameBatch(this.sameRoute[0], this.routesList[0]))) {
         this.updateBatches();
       }
     }

@@ -7,13 +7,17 @@ import { MatDialogRef } from '@angular/material';
 import { RouteApproveDeclineModalComponent } from '../routes/route-approve-decline-modal/route-approve-decline-modal.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { AlertService } from '../../shared/alert.service';
-import { toastrMock } from '../routes/__mocks__/create-route';
 
 describe('RoutesService', () => {
   let service: RouteRequestService;
   let httpMock: HttpTestingController;
   let routes = [];
   const mockAuthService = {};
+
+  const toastrMock = {
+    success: jest.fn(),
+    error: jest.fn()
+  }
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
@@ -73,6 +77,17 @@ describe('RoutesService', () => {
       jest.restoreAllMocks();
       done();
     });
+
+    it('should call toastr with an error if request failed', () => {
+      const data = { success: false };
+      RouteRequestService.approvalDeclineDialog = <MatDialogRef<RouteApproveDeclineModalComponent>>{
+        close: () => {}
+      };
+
+      service.handleDeclineResponse(data)
+
+      expect(toastrMock.error).toBeCalledWith('Could not decline request')
+    })
   });
 
   describe('handleDeclineResponse', () => {
