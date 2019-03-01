@@ -28,7 +28,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   lastBatchLetter = 'A';
   lastRouteName: string;
   updateSubscription: any;
-  duplicate = 'duplicate';
+  duplicate = true;
   navigationSubscription;
 
   constructor(
@@ -127,7 +127,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   async sendRequestToServer(data) {
     try {
       const { data: { name } } = await this.routeService.createRoute(data, this.duplicate);
-      this.createRouteHelper.notifyUser([`Copied ${name} route`], 'success');
+      this.createRouteHelper.notifyUser([`Successfully duplicated ${name.toLowerCase()} route`], 'success');
       this.router.navigate(['/admin/routes/inventory']);
     } catch (error) {
       this.createRouteHelper.notifyUser([error.error.message || 'An error occurred.']);
@@ -176,7 +176,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       backdropClass: 'modal-backdrop',
       panelClass: 'logout-modal-panel-class',
       data: {
-        confirmText: 'yes',
+        confirmText: 'Yes',
         displayText: 'delete this batch'
        }
     });

@@ -221,8 +221,8 @@ describe('RoutesInventoryComponent', () => {
 
       await component.sendRequestToServer(data);
 
-      expect(routeService).toHaveBeenCalledWith(data, 'duplicate');
-      expect(notifyUser).toHaveBeenCalledWith(['Copied Yaba route'], 'success');
+      expect(routeService).toHaveBeenCalledWith(data, true);
+      expect(notifyUser).toHaveBeenCalledWith(['Successfully duplicated yaba route'], 'success');
       expect(navigate).toHaveBeenCalledWith(['/admin/routes/inventory']);
     });
 
@@ -235,7 +235,7 @@ describe('RoutesInventoryComponent', () => {
 
       await component.sendRequestToServer(data);
 
-      expect(routeService).toHaveBeenCalledWith(data, 'duplicate');
+      expect(routeService).toHaveBeenCalledWith(data, true);
       expect(notifyUser).toHaveBeenCalledWith([response.error.message]);
       expect(navigate).not.toHaveBeenCalled();
     });

@@ -34,9 +34,9 @@ export class RoutesInventoryService {
     return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/routes/${id}`, this.httpOptions)
   }
 
-  createRoute(data, duplicate?: string): any {
+  createRoute(data, duplicate = false): any {
     return this.http
-      .post(`${this.routesUrl}?duplicate=${duplicate}`, data, this.httpOptions)
+      .post(`${this.routesUrl}?action=${duplicate ? 'duplicate' : ''}`, data, this.httpOptions)
       .toPromise();
   }
 }
