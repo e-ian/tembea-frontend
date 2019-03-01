@@ -23,14 +23,14 @@
         {{ headerTitle }} {{ user.firstName }}
       </span>
       <ng-template #showTitleOnly>
-        <span
-          class="header-title"
-          [matBadge]="'+ ' + badgeSize"
-          [matBadgeHidden]="badgeSize == 0"
-          matBadgeColor="primary"
-          matBadgeSize="medium">
-          {{ headerTitle }}
-        </span>
+        <div class="header">
+          <span class="title">
+            {{ headerTitle }}
+          </span>
+          <span *ngIf="badgeSize" class="badge">
+            {{badgeSize}}
+          </span>
+        </div>
       </ng-template>
       <!-- visible on xs-devices -->
       <img class="upic" fxHide.gt-xs [src]="user.picture" alt="profile picture" />

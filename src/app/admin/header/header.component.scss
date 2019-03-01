@@ -15,9 +15,11 @@ button:hover,
 button:focus {
   cursor: pointer;
 }
+
 button:hover {
   box-shadow: none;
 }
+
 .tool-bar-button {
   margin-right: 2.5em;
 }
@@ -33,6 +35,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   outline: none;
+
   mat-icon {
     color: #b9c5d1;
   }
@@ -44,13 +47,39 @@ button:hover {
   background: transparent;
 }
 
-.header-title {
-  font-size: 1.8rem;
-  color: #233539;
-  line-height: 38px;
-  letter-spacing: -1.46px;
-  padding-left: 1em;
-  font-weight: 400;
+.header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  & .title {
+    font-size: 1.875rem;
+    line-height: 38px;
+    letter-spacing: -1.46px;
+    padding-left: .5em;
+    font-weight: 400;
+    color: #39434D;
+    margin-right: 1rem;
+    font-family: "DIN Pro", Helvetica Neue, Helvetica, Arial, serif;
+  }
+
+  & .badge {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #F1F3F5;
+    background-color: #FFFFFF;
+    //box-shadow: 0 7px 44px 0 rgba(128, 143, 163, 0.27);
+    color: #808FA3;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
 
   @media screen and (max-width: 600px) {
     & {
