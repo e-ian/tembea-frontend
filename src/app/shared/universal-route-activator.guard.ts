@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/__services__/auth.service';
 import { CookieService } from '../auth/__services__/ngx-cookie-service.service';
@@ -42,7 +37,6 @@ export class UniversalRouteActivatorGuard implements CanActivate {
         this.authService.isAuthenticated = true;
         this.authService.isAuthorized = true;
       } catch (err) {
-        console.log(err.message);
         return this.redirectHome();
       }
     }

@@ -3,6 +3,13 @@
   margin-top: 10px;
   box-sizing: border-box;
 
+  input:first-child {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
   input {
     height: 38px;
     width: 160px;
@@ -32,6 +39,7 @@
 
 .custom-date-picker .mat-icon-button {
   position: relative;
+
   .mat-button-wrapper {
     background: url("../../../assets/images/icons/calendar-icon.svg") no-repeat;
     width: 24px;

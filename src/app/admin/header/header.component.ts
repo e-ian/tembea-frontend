@@ -11,7 +11,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import { IUser } from '../../shared/models/user.model';
-import { AppHeaderService } from './header.service';
+import { AppEventService } from '../../shared/app-events.service';
 
 @Component({
   selector: 'app-header',
@@ -31,8 +31,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private appHeaderService: AppHeaderService
-  ) {}
+    private appEventService: AppEventService
+  ) {
+  }
 
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
@@ -44,14 +45,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.updateHeaderSubscription = this.appHeaderService.update.subscribe(({headerTitle, badgeSize}) => {
+    this.updateHeaderSubscription = this.appEventService.subscribe('updateHeaderTitle', (data) => {
+      const { content: { headerTitle, badgeSize } } = data;
       if (headerTitle) {
         this.headerTitle = headerTitle;
       }
       if (badgeSize) {
         this.badgeSize = badgeSize;
       }
-    })
+    });
   }
 
   private getHeaderTitleFromRouteData() {
@@ -98,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.logout()
-    })
+      this.logout();
+    });
   }
 }

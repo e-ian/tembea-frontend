@@ -1,38 +1,37 @@
+<div class="top-filter">
+  <label>
+    From
+    <app-date-picker [placeholder]="'Departure Date'" (selectedDateChange)="setDateFilter('departureTime','after', $event)"></app-date-picker>
+  </label>
 
+  <label>
+    To
+    <app-date-picker [placeholder]="'Departure Date'" (selectedDateChange)="setDateFilter('departureTime', 'before', $event)"></app-date-picker>
+  </label>
 
-  <div class="top-filter">
-    <label>
-      From
-      <app-date-picker></app-date-picker>
-    </label>
-
-    <label>
-      To
-      <app-date-picker></app-date-picker>
-    </label>
-
-    <label>
-      Department
-      <app-custom-dropdown [dropdownItems] = 'departmentsRequest'  (handleSelected)="departmentSelected($event)"></app-custom-dropdown>
-      <div class="select-style" >
+  <label>
+    Department
+    <app-custom-dropdown [dropdownItems]='departmentsRequest'
+                         (handleSelected)="departmentSelected($event)"></app-custom-dropdown>
+  <div class="select-style" >
         <select matNativeControl class='input-style'>
           <option *ngFor='let department of departmentsRequest' value={{department.name}}>{{department.name}}</option>
         </select>
         <span class="down-arrow"></span>
       </div>
     </label>
-    <label>
-      Location
-      <input type="text" class='input-style' placeholder="Travel Ops">
-    </label>
-  </div>
+  <label>
+    Location
+    <input type="text" class='input-style' placeholder="Travel Ops">
+  </label>
+</div>
 
-  <div *ngIf="!tripRequests.length">
-    <app-empty-page [text]="'No trips yet.'"></app-empty-page>
-    <div class="bottom-image"></div>
-  </div>
+<div *ngIf="!tripRequests.length">
+  <app-empty-page [text]="'No trips yet.'"></app-empty-page>
+  <div class="bottom-image"></div>
+</div>
 
-  <div *ngIf="tripRequests.length">
+<div *ngIf="tripRequests.length">
 
 
   <div class="buttons-wrapper flex " >
@@ -73,10 +72,13 @@
     </mat-grid-tile>
     <mat-grid-tile tabindex="0">{{trip.pickup}}</mat-grid-tile>
     <mat-grid-tile tabindex="0">{{trip.destination}}</mat-grid-tile>
-    <mat-grid-tile tabindex="0">{{trip.requester.name}}</mat-grid-tile>
+    <mat-grid-tile tabindex="0">{{trip.requester.name | shortenName: { max: 10 } }}</mat-grid-tile>
     <mat-grid-tile tabindex="0">{{trip.department}}</mat-grid-tile>
-    <mat-grid-tile tabindex="0">{{trip.rider.name}}</mat-grid-tile>
-    <mat-grid-tile tabindex="0">{{trip.approvedBy.name || 'null'}} / {{trip.confirmedBy.name || 'null'}}</mat-grid-tile>
+    <mat-grid-tile tabindex="0">{{trip.rider.name | shortenName: { max: 10 } }}</mat-grid-tile>
+    <mat-grid-tile tabindex="0">
+      {{trip.approvedBy.name | shortenName: { max: 10 } }}
+      &nbsp;/&nbsp;
+      {{trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile>
   </mat-grid-list>
 
   <div class="pagination">

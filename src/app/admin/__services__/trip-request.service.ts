@@ -1,13 +1,14 @@
-import {environment} from 'src/environments/environment';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import {map, retry, filter} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {createRequestOption} from 'src/app/utils/request-util';
-import {IPageMeta} from '../../shared/models/page-meta.model';
-import {TripRequest} from 'src/app/shared/models/trip-request.model';
-import {DepartmentsModel} from 'src/app/shared/models/departments.model';
+import { map, retry } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
+import { createRequestOption } from 'src/app/utils/request-util';
+import { IPageMeta } from '../../shared/models/page-meta.model';
+import { TripRequest } from 'src/app/shared/models/trip-request.model';
+import { DepartmentsModel } from 'src/app/shared/models/departments.model';
 
 export interface TripResponseData {
   pageInfo: IPageMeta;
@@ -23,15 +24,16 @@ export class TripRequestService {
   }
 
   query(req?): Observable<TripResponseData> {
-    const params = createRequestOption(req);
+    const reqDate = this.flattenDateFilter(req);
+    const params = createRequestOption(reqDate);
     return this.http.get<any>(`${this.routesUrl}`, { params, observe: 'response' })
       .pipe(
-        retry(3),
+        retry(2),
         map((res) => {
           const { trips, pageMeta: pageInfo } = res.body.data;
           trips.forEach((trip: TripRequest) => {
-            trip.requestedOn = moment(trip.requestedOn )
-            trip.departureTime = moment(trip.departureTime)
+            trip.requestedOn = moment(trip.requestedOn);
+            trip.departureTime = moment(trip.departureTime);
           });
           return { trips, pageInfo };
         })
@@ -48,6 +50,20 @@ export class TripRequestService {
         })
       );
 
+  }
+
+  private flattenDateFilter(req: any) {
+    const { dateFilters, ...result } = req;
+    let flat = {};
+    if (dateFilters) {
+      const entries = Object.entries(dateFilters).map((entry) => {
+        const [key, value] = entry;
+        const modValue = Object.entries(value).map((item) => `${item[0]}:${item[1]}`).join(';');
+        return [key, modValue];
+      }) .filter(({1: val}) => val.length);
+      flat = entries.reduce((obj, { 0: key, 1: val }) => Object.assign(obj, { [key]: val }), {});
+    }
+    return { ...result, ...flat };
   }
 }
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
 import { throwError } from 'rxjs';
@@ -173,7 +173,7 @@ describe('RoutesInventoryComponent', () => {
 
   describe('Copy Route', () => {
     it('should duplicate a route when copy is successful', () => {
-      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockResolvedValue({});
+      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockImplementation();
 
       component.copyRoute(routeObject);
 
@@ -319,13 +319,9 @@ describe('RoutesInventoryComponent', () => {
       component.updateSubscription = {
         unsubscribe: jest.fn()
       }
-      component.navigationSubscription = {
-        unsubscribe: jest.fn()
-      }
       component.ngOnDestroy();
 
       expect(component.updateSubscription.unsubscribe).toBeCalledTimes(1);
-      expect(component.navigationSubscription.unsubscribe).toBeCalledTimes(1);
     })
   })
 });

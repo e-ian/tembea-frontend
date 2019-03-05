@@ -9,13 +9,13 @@ import { AngularMaterialModule } from '../../../angular-material.module';
 import { ActivatedRouteMock } from '../../../__mocks__/activated.router.mock';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { tripRequestMock } from '../../__services__/__mocks__/trip-request.mock';
-import { AppHeaderService } from '../../header/header.service';
+import { AppEventService } from '../../../shared/app-events.service';
 
 describe('PendingRequestComponent Unit Test', () => {
   let component: PendingRequestComponent;
   let fixture: ComponentFixture<PendingRequestComponent>;
   let tripRequestService: TripRequestService;
-  let headerService: AppHeaderService;
+  let appEventService: AppEventService;
   let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
@@ -37,7 +37,7 @@ describe('PendingRequestComponent Unit Test', () => {
     fixture = TestBed.createComponent(PendingRequestComponent);
     component = fixture.componentInstance;
     tripRequestService = fixture.debugElement.injector.get(TripRequestService);
-    headerService = fixture.debugElement.injector.get(AppHeaderService);
+    appEventService = fixture.debugElement.injector.get(AppEventService);
     activatedRoute = fixture.debugElement.injector.get(ActivatedRoute);
     fixture.detectChanges();
   });
@@ -51,7 +51,7 @@ describe('PendingRequestComponent Unit Test', () => {
     const pageInfo = {
       totalResults: 12,
     };
-    jest.spyOn(headerService, 'updateBadgeSize');
+    jest.spyOn(appEventService, 'broadcast');
     jest.spyOn(tripRequestService, 'query')
       .mockReturnValue(of({ trips: [trips], pageInfo }));
   });
@@ -62,7 +62,7 @@ describe('PendingRequestComponent Unit Test', () => {
       const pageInfo = {
         totalResults: 12,
       };
-      jest.spyOn(headerService, 'updateBadgeSize');
+      jest.spyOn(appEventService, 'broadcast');
       jest.spyOn(tripRequestService, 'query')
         .mockReturnValue(of({ trips: [trips], pageInfo }));
       component.pageSize = 100;
@@ -71,7 +71,7 @@ describe('PendingRequestComponent Unit Test', () => {
       component.ngOnInit();
 
       expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
-      expect(headerService.updateBadgeSize).toHaveBeenCalledWith(12);
+      expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });
 
@@ -81,7 +81,7 @@ describe('PendingRequestComponent Unit Test', () => {
       component.updatePage(123);
 
       expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Approved' });
-      expect(headerService.updateBadgeSize).toHaveBeenCalledWith(12);
+      expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });
 

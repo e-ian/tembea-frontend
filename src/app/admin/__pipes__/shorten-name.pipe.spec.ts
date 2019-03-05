@@ -8,10 +8,13 @@ describe('ShortenNamePipe', () => {
   it('should transform name', () => {
     const pipe = new ShortenNamePipe();
    let result = pipe.transform('', { max: 1 });
-   expect(result).toEqual('');
+   expect(result).toEqual('NA');
 
    result = pipe.transform('AAAAAA', { max: 8 });
    expect(result).toEqual('AAAAAA');
+
+   result = pipe.transform(null, { max: 8, fallbackText: 'yes' });
+   expect(result).toEqual('yes');
 
    result = pipe.transform('AAAAAAAAAA', { max: 8 });
    expect(result).toEqual('AAAAAAAA...');

@@ -1,15 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+export interface IShortenNameOption {
+  max?: number,
+  fallbackText?: string,
+}
+
 @Pipe({
   name: 'shortenName'
 })
 export class ShortenNamePipe implements PipeTransform {
+  defaultOption: IShortenNameOption = {
+    max: 8, fallbackText: 'NA'
+  };
 
-  transform(value: string, args?: any): string {
+  transform(value: string, args?: IShortenNameOption): string {
+    const { max, fallbackText } = { ...this.defaultOption, ...args };
     if (!value) {
-      return '';
+      return fallbackText;
     }
-    let { max } = args;
+    let maxTextLength = max;
     let result = value;
     if (value.indexOf(' ') > 0) {
       const regExp = /[\s]+/;
@@ -17,10 +26,10 @@ export class ShortenNamePipe implements PipeTransform {
       const last = splitStr.pop();
       const initials = splitStr.map((item) => item.charAt(0).toUpperCase()).join('.');
       result = `${initials}.${last}`;
-      max += splitStr.length - 1;
+      maxTextLength += splitStr.length - 1;
     }
-    const ellipse = result.length > max;
-    return `${result.substring(0, max)}${(ellipse) ? '...' : ''}`;
+    const ellipse = result.length > maxTextLength;
+    return `${result.substring(0, maxTextLength)}${(ellipse) ? '...' : ''}`;
   }
 
 }

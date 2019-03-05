@@ -1,13 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TripItineraryComponent } from './trip-itinerary.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {EmptyPageComponent} from '../../empty-page/empty-page.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {of} from 'rxjs';
-import {TripRequestService} from '../../__services__/trip-request.service';
-import {tripRequestMock} from '../../../shared/__mocks__/trip-request.mock';
-import {department} from '../../../shared/__mocks__/department.mock';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { EmptyPageComponent } from '../../empty-page/empty-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
+import { TripRequestService } from '../../__services__/trip-request.service';
+import { tripRequestMock } from '../../../shared/__mocks__/trip-request.mock';
+import { department } from '../../../shared/__mocks__/department.mock';
+import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
+import { AppTestModule } from '../../../__tests__/testing.module';
 
 describe('TripItineraryComponent', () => {
   let component: TripItineraryComponent;
@@ -16,8 +18,8 @@ describe('TripItineraryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TripItineraryComponent, EmptyPageComponent],
-      imports: [HttpClientTestingModule],
+      declarations: [ TripItineraryComponent, ShortenNamePipe, EmptyPageComponent],
+      imports: [HttpClientTestingModule, AppTestModule],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
@@ -60,7 +62,7 @@ describe('TripItineraryComponent', () => {
 
   describe('updatePage', () => {
     it('should get trips and department', () => {
-      jest.spyOn(component, 'getTrips')
+      jest.spyOn(component, 'getTrips');
 
       const page = 3;
       component.updatePage(page);

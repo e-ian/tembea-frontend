@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
@@ -10,7 +10,6 @@ import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-di
 import RenameRouteBatch from './routes-inventory.helper';
 import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { AppEventService } from 'src/app/shared/app-events.service';
-import { AppHeaderService } from '../../header/header.service';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 
 @Component({
@@ -27,21 +26,20 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   pageSize: number;
   sort: string;
   totalItems: number;
-  lastRoute
+  lastRoute;
   updateSubscription: any;
   duplicate = true;
   navigationSubscription;
   isLoading: boolean;
-  displayText = 'No new route requests.'
+  displayText = 'No new route requests.';
 
   constructor(
-    private routeService: RoutesInventoryService,
+    public routeService: RoutesInventoryService,
     private alert: AlertService,
-    private headerService: AppHeaderService,
     private appEventsService: AppEventService,
     public dialog: MatDialog,
-    private createRouteHelper: CreateRouteHelper,
-    private router: Router
+    public createRouteHelper: CreateRouteHelper,
+    public router: Router
   ) {
     this.pageNo = 1;
     this.sort = 'name,asc,batch,asc';
@@ -56,17 +54,17 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   }
 
   getRoutesInventory = () => {
-    this.isLoading = true
+    this.isLoading = true;
     this.routeService.getRoutes(this.pageSize, this.pageNo, this.sort).subscribe(routesData => {
       const { routes, pageMeta } = routesData;
       this.routes = this.renameRouteBatches(routes);
       this.totalItems = pageMeta.totalResults;
-      this.headerService.updateBadgeSize(this.totalItems);
+      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
       this.isLoading = false;
     },
     () => {
       this.isLoading = false;
-      this.displayText = `Ooops! We're having connection problems.`;
+      this.displayText = `Oops! We're having connection problems.`;
     });
   };
 

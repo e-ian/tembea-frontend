@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { TripRequest } from '../../../shared/models/trip-request.model';
-import { AppHeaderService } from '../../header/header.service';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
+import { AppEventService } from '../../../shared/app-events.service';
 
 @Component({
   selector: 'app-pending-request',
@@ -24,7 +24,7 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
 
   constructor(private tripRequestService: TripRequestService,
               private activatedRoute: ActivatedRoute,
-              private appHeaderService: AppHeaderService
+              private appEventService: AppEventService
   ) {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;
@@ -42,7 +42,7 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
     this.tripRequestService.query({ page, size, status: 'Approved' }).subscribe(tripData => {
       this.tripRequests = tripData.trips;
       this.totalItems = tripData.pageInfo.totalResults;
-      this.appHeaderService.updateBadgeSize(this.totalItems);
+      this.appEventService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: this.totalItems } });
     });
   }
 
