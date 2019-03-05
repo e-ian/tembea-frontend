@@ -41,7 +41,6 @@ const routes: Routes = [
         path: 'routes/inventory',
         component: RoutesInventoryComponent,
         canActivate: [],
-        runGuardsAndResolvers: 'always',
         data: { title: 'Routes Inventory' }
       },
       {

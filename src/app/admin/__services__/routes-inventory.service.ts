@@ -35,8 +35,10 @@ export class RoutesInventoryService {
   }
 
   createRoute(data, duplicate = false): any {
+    const queryParams = `${duplicate ? `?batchId=${data}&action=duplicate` : ''}`;
+    const body = duplicate ? {} : data;
     return this.http
-      .post(`${this.routesUrl}?action=${duplicate ? 'duplicate' : ''}`, data, this.httpOptions)
+      .post(`${this.routesUrl}${queryParams}`, body, this.httpOptions)
       .toPromise();
   }
 }
