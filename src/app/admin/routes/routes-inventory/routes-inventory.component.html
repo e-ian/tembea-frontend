@@ -1,4 +1,6 @@
-<div *ngIf="routes.length === 0">
+<div class="loader" *ngIf="isLoading === true"></div>
+
+<div *ngIf="routes.length === 0 && !isLoading">
   <app-empty-page [text]="'No new route requests.'"></app-empty-page>
   <div class="bottom-image"></div>
 </div>

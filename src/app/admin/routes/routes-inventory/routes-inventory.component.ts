@@ -17,7 +17,10 @@ import { CreateRouteHelper } from '../create-route/create-route.helper';
 @Component({
   selector: 'app-inventory',
   templateUrl: './routes-inventory.component.html',
-  styleUrls: ['./routes-inventory.component.scss'],
+  styleUrls: [
+    './routes-inventory.component.scss',
+    '../../../auth/login-redirect/login-redirect.component.scss'
+  ],
 })
 export class RoutesInventoryComponent implements OnInit, OnDestroy {
   routes: IRouteInventory[] = [];
@@ -29,6 +32,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   updateSubscription: any;
   duplicate = true;
   navigationSubscription;
+  isLoading: boolean;
 
   constructor(
     private routeService: RoutesInventoryService,
@@ -48,6 +52,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
        this.initializeRoutesInventory();
      }
    });
+   this.isLoading = true;
   }
 
   ngOnInit() {
@@ -64,11 +69,13 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   }
 
   getRoutesInventory = () => {
+    this.isLoading = true
     this.routeService.getRoutes(this.pageSize, this.pageNo, this.sort).subscribe(routesData => {
       const { routes, pageMeta } = routesData;
       this.routes = this.renameRouteBatches(routes);
       this.totalItems = pageMeta.totalResults;
       this.headerService.updateBadgeSize(this.totalItems);
+      this.isLoading = false;
     });
   };
 

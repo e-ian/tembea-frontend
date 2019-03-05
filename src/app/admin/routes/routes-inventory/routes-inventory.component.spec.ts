@@ -125,6 +125,7 @@ describe('RoutesInventoryComponent', () => {
     const button = fixture.debugElement.queryAll(By.css('.actions-icon'));
 
     expect(button.length).toEqual(1);
+    expect(component.isLoading).toBe(false);
   }));
 
   it('should call getRoutes and return list of routes', async(() => {
