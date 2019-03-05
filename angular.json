@@ -27,9 +27,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/toastr/build/toastr.min.css",
               "src/styles.scss",
-              "src/assets/fonts/fonts.scss",
-              "node_modules/toastr/build/toastr.min.css"
+              "src/assets/fonts/fonts.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
