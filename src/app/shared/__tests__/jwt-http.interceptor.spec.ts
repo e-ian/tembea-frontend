@@ -6,7 +6,7 @@ import { mockRouter, mockToastr } from '../__mocks__/mockData';
 import { JwtHttpInterceptor } from '../jwt-http.interceptor';
 import { HttpRequest } from '@angular/common/http';
 import { of } from 'rxjs';
-import { TOASTR_TOKEN } from '../toastr.service';
+import { AlertService } from '../alert.service';
 
 describe('JWTHttpInterceptor', () => {
   let interceptor: JwtHttpInterceptor;
@@ -19,7 +19,7 @@ describe('JWTHttpInterceptor', () => {
         JwtHttpInterceptor,
         { provide: Router, useValue: mockRouter },
         { provide: AuthService, useValue: mockAuthService },
-        { provide: TOASTR_TOKEN, useValue: mockToastr }
+        { provide: AlertService, useValue: mockToastr }
       ]
     });
 

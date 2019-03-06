@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { IDepartmentsModel } from 'src/app/shared/models/departments.model';
+import { AlertService } from 'src/app/shared/alert.service';
 
 @Component({
   selector: 'app-view-department',
@@ -17,8 +18,11 @@ export class DepartmentsComponent implements OnInit {
   pageNo: number;
   pageSize: number;
   isLoading: boolean;
+  displayText = 'No Departments Created';
 
-  constructor(private departmentService: DepartmentsService) {
+  constructor(
+    private departmentService: DepartmentsService,
+    private alert: AlertService) {
     this.pageNo = 1;
     this.pageSize = 10;
     this.isLoading = true;
@@ -39,9 +43,11 @@ export class DepartmentsComponent implements OnInit {
       const { departments, pageMeta} = departmentData;
       this.departments = departments;
       this.totalItems = pageMeta.totalResults;
-      if (this.isLoading) {
-        this.isLoading = false;
-      }
+      this.isLoading = false;
+    },
+    () => {
+      this.isLoading = false
+      this.displayText = `Ooops! We're having connection problems.`
     });
   };
 }

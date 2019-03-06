@@ -353,17 +353,20 @@ describe('RoutesInventoryComponent', () => {
       expect(alert.error).toBeCalledWith('something went wrong');
       expect(component.routes.length).toBe(5);
     });
-
-    it('should call an alert with error if error occurs when deleting', () => {
-      deleteSpy.mockReturnValue(throwError(new Error));
-
-      component.getRoutesInventory();
-      fixture.detectChanges();
-      component.deleteRoute(1, 1);
-
-      expect(deleteSpy).toHaveBeenCalled();
-      expect(alert.error).toBeCalledWith('Something went wrong! try again');
-      expect(component.routes.length).toBe(5);
-    });
   });
+
+  describe('ngOnDestroy', () => {
+    it('should unsubscribe from subscriptions on ngOnDestroy', () => {
+      component.updateSubscription = {
+        unsubscribe: jest.fn()
+      }
+      component.navigationSubscription = {
+        unsubscribe: jest.fn()
+      }
+      component.ngOnDestroy();
+
+      expect(component.updateSubscription.unsubscribe).toBeCalledTimes(1);
+      expect(component.navigationSubscription.unsubscribe).toBeCalledTimes(1);
+    })
+  })
 });

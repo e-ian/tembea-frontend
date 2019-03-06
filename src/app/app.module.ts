@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertService } from './shared/alert.service';
 import { RoutesInventoryEditModalComponent
 } from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
+import { errorHandlerFactory } from './shared/bugsnag.service';
 
 const toastr: Toastr = window['toastr'];
 
@@ -50,7 +51,8 @@ const toastr: Toastr = window['toastr'];
     ClockService,
     { provide: TOASTR_TOKEN, useValue: toastr },
     { provide: AlertService, useValue: toastr },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true },
+    { provide: ErrorHandler, useFactory: errorHandlerFactory }
   ],
   entryComponents: [
     UnauthorizedLoginComponent,

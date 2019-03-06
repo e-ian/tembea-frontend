@@ -33,6 +33,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   duplicate = true;
   navigationSubscription;
   isLoading: boolean;
+  displayText = 'No new route requests.'
 
   constructor(
     private routeService: RoutesInventoryService,
@@ -76,6 +77,10 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       this.totalItems = pageMeta.totalResults;
       this.headerService.updateBadgeSize(this.totalItems);
       this.isLoading = false;
+    },
+    () => {
+      this.isLoading = false;
+      this.displayText = `Ooops! We're having connection problems.`;
     });
   };
 
@@ -171,7 +176,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
           routes.splice(ind, 1);
           this.routes = this.renameRouteBatches(routes);
         } else { this.alert.error(message) }
-      }, () => this.alert.error('Something went wrong! try again'))
+      })
   }
 
   showDeleteModal(routeBatchId: number, ind: number): void {
