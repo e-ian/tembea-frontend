@@ -8,7 +8,6 @@ import { RoutesInventoryService } from '../../__services__/routes-inventory.serv
 
 class RouteModel {
   constructor(public routeName?: string,
-    public destination?: string,
     public takeOffTime?: string,
     public capacity?: number,
     public vehicle?: string,
@@ -29,22 +28,21 @@ export class CreateRouteComponent implements AfterViewInit {
   origin = { lat: this.lat, lng: this.lng }
   destination: Location = { lat: this.lat, lng: this.lng };
   destinationCoordinates: Location;
+
   model: RouteModel;
 
   @ViewChild('destinationFormInput') destinationInputElement: ElementRef;
 
-  // input fields
-  destinationInputField;
-  capacity = 1;
   mouseoverCreateButton
 
   constructor(
-    private googleMapsService: GoogleMapsService,
+    public googleMapsService: GoogleMapsService,
     private routeService: RoutesInventoryService,
-    private createRouteHelper: CreateRouteHelper,
+    public createRouteHelper: CreateRouteHelper,
     private router: Router
   ) {
     this.model = new RouteModel();
+    this.model.capacity = 1
   }
 
   ngAfterViewInit() {
@@ -55,18 +53,21 @@ export class CreateRouteComponent implements AfterViewInit {
   async showRouteDirectionOnClick() {
     try {
       const addressInput = this.destinationInputElement.nativeElement.value;
+
       const coordinates = await this.googleMapsService
       .getLocationCoordinatesFromAddress(addressInput);
       this.updateRouteDisplay(coordinates);
+
     } catch (error) {
       this.createRouteHelper.notifyUser(['Location not found']);
     }
   }
 
   async updateDestinationFieldOnMarkerDrag(marker, $event) {
+
     const locationAddress = await this.googleMapsService
       .getLocationAddressFromCoordinates($event.coords);
-    this.destinationInputField = locationAddress;
+    this.model.destinationInputField = locationAddress;
     this.updateRouteDisplay($event.coords);
   }
 
@@ -85,8 +86,8 @@ export class CreateRouteComponent implements AfterViewInit {
     this.destinationIsDojo = false;
   }
 
-  changeCapacityValue(methodToCall: string, valueToIncrement: any) {
-    this.capacity = this.createRouteHelper[methodToCall](valueToIncrement);
+  changeCapacityValue(methodToCall: string) {
+    this.model.capacity = this.createRouteHelper[methodToCall](this.model.capacity);
   }
 
   async createRoute() {
@@ -97,7 +98,7 @@ export class CreateRouteComponent implements AfterViewInit {
     }
 
     const routeRequest = this.createRouteHelper.createNewRouteRequestObject(
-      this.model, this.destinationInputField, this.destinationCoordinates
+      this.model, this.model.destinationInputField, this.destinationCoordinates
     );
 
     const errors = this.createRouteHelper.validateFormEntries(routeRequest);

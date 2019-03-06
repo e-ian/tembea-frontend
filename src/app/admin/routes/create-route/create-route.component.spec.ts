@@ -64,7 +64,7 @@ describe('CreateRouteComponent', () => {
     await component.updateDestinationFieldOnMarkerDrag('Marker', mockCoordinates);
 
     expect(getAddress).toHaveBeenCalled();
-    expect(component.destinationInputField).toEqual(mockAddress);
+    expect(component.model.destinationInputField).toEqual(mockAddress);
     expect(updateRoute).toHaveBeenCalled();
   });
 
@@ -94,12 +94,12 @@ describe('CreateRouteComponent', () => {
     const incrementer = jest.spyOn(component.createRouteHelper, 'incrementCapacity');
     const decrementer = jest.spyOn(component.createRouteHelper, 'decrementCapacity').mockReturnValue(2);
 
-    component.changeCapacityValue('incrementCapacity', 3);
-    component.changeCapacityValue('decrementCapacity', 3);
+    component.changeCapacityValue('incrementCapacity');
+    component.changeCapacityValue('decrementCapacity');
 
     expect(incrementer).toHaveBeenCalled();
     expect(decrementer).toHaveBeenCalled();
-    expect(component.capacity).toEqual(2);
+    expect(component.model.capacity).toEqual(2);
   });
 
   it('should display an error message if destination coordinates are not set.', () => {

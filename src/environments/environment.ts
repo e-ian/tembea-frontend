@@ -6,7 +6,7 @@
 // Do not change the andelaAuthServiceUrl
 export const environment = {
   production: false,
-  tembeaBackEndUrl: 'https://b6be4609.ngrok.io',
+  tembeaBackEndUrl: 'http://localhost:5000',
   tembeaFrontEndUrl: 'http://localhost:4200',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
   teamUrl: 'andela-tembea.slack.com',
