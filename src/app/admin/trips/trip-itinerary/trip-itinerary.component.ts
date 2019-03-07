@@ -22,6 +22,7 @@ export class TripItineraryComponent implements OnInit {
     departureTime: {},
   };
   departmentName: string;
+  filterParams: any;
 
 
   constructor(
@@ -72,6 +73,10 @@ export class TripItineraryComponent implements OnInit {
     this.getTrips();
   }
 
+  setFilterParams() {
+    const { dateFilters, departmentName } = this;
+    this.filterParams = {
+      dateFilters, department: departmentName
+    };
+  }
 }
-
-

@@ -6,7 +6,8 @@
 <div *ngIf="tripRequests.length > 0">
   <div class="buttons-wrapper flex routes-table">
     <button class="search-wrapper"></button>
-    <button class="upload-wrapper flex-right"></button>
+    <app-export-view [tableName]="'pendingRequests'" class="flex-right">
+    </app-export-view>
   </div>
 
   <div class="trip-table">

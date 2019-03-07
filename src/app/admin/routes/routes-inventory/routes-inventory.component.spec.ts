@@ -17,6 +17,7 @@ import { routesMock } from './__mocks__/route-inventory.mock';
 import { AlertService } from '../../../shared/alert.service';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
+import { ExportComponent } from '../../export-component/export.component';
 
 describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
@@ -67,7 +68,8 @@ describe('RoutesInventoryComponent', () => {
         RoutesInventoryComponent,
         EmptyPageComponent,
         ConfirmModalComponent,
-        AppPaginationComponent
+        AppPaginationComponent,
+        ExportComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },

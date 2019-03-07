@@ -33,6 +33,7 @@ import {PendingRequestComponent} from './trips/pending-request/pending-request.c
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule, MatButtonModule} from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
+import { ExportComponent } from './export-component/export.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdo
     TripHistoryComponent,
     PendingRequestComponent,
     DatePickerComponent,
-    CustomDropdownComponent
+    CustomDropdownComponent,
+    ExportComponent
   ],
   imports: [
     CommonModule,

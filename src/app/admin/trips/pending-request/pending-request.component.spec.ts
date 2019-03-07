@@ -85,24 +85,7 @@ describe('PendingRequestComponent Unit Test', () => {
 
       component.ngOnInit();
 
-      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
-    });
-
-    it('should load all trip request after reInitialize', () => {
-      const trips = Object.assign({}, tripRequestMock);
-      const pageInfo = {
-          totalResults: 12,
-      };
-      jest.spyOn(appEventService, 'broadcast');
-      jest.spyOn(tripRequestService, 'query')
-          .mockReturnValue(of({ trips: [trips], pageInfo }));
-      component.pageSize = 100;
-      component.page = 1;
-
-      component.ngOnInit();
-      appEventService.broadcast({ name: 'reInitializeTripRequest' });
-
-      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
+      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Pending' });
       expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });
@@ -111,7 +94,7 @@ describe('PendingRequestComponent Unit Test', () => {
     it('should update page', () => {
       component.updatePage(123);
 
-      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Approved' });
+      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Pending' });
       expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });

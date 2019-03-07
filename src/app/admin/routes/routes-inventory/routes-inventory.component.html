@@ -8,10 +8,12 @@
 
 
   <div *ngIf="routes.length > 0">
-    <div class="buttons-wrapper flex">
+    <div class="buttons-wrapper flex routes-table">
       <button class="search-wrapper"></button>
-      <button class="upload-wrapper flex-right"></button>
+      <app-export-view [tableName]="'routes'" [sort]="sort" class="flex-right">
+      </app-export-view>
     </div>
+
     <div class="routes-table-container">
       <div class="routes-table">
         <mat-grid-list cols="8" rowHeight="3:1">
@@ -35,7 +37,7 @@
           <mat-grid-tile>{{ route.capacity }}</mat-grid-tile>
           <mat-grid-tile>{{ route.inUse }}</mat-grid-tile>
           <mat-grid-tile>{{ route.regNumber }}</mat-grid-tile>
-  
+
           <mat-grid-tile *ngIf='route.status === "Active" ; else inactive'>
             <button class="active-status-button" (click)="changeRouteStatus(route.id, 'Inactive')">
               <span class="green-radio-wrapper">
@@ -71,7 +73,8 @@
           </mat-grid-tile>
         </mat-grid-list>
         <div class="pagination">
-          <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="setPage($event)" [pageSize]="pageSize"></app-pagination>
+          <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="setPage($event)"
+            [pageSize]="pageSize"></app-pagination>
         </div>
       </div>
     </div>

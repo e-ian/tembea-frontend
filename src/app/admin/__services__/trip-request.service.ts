@@ -18,14 +18,28 @@ export interface TripResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class TripRequestService {
-  tripUrl = `${environment.tembeaBackEndUrl}/api/v1/trips`;
-  private departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
 
   constructor(private http: HttpClient, public toastr: AlertService) {
   }
+    tripUrl = `${environment.tembeaBackEndUrl}/api/v1/trips`;
+    private departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
+
+  static flattenDateFilter(req: any) {
+    const { dateFilters, ...result } = req;
+    let flat = {};
+    if (dateFilters) {
+      const entries = Object.entries(dateFilters).map((entry) => {
+        const [key, value] = entry;
+        const modValue = Object.entries(value).map((item) => `${item[0]}:${item[1]}`).join(';');
+        return [key, modValue];
+      }) .filter(({1: val}) => val.length);
+      flat = entries.reduce((obj, { 0: key, 1: val }) => Object.assign(obj, { [key]: val }), {});
+    }
+    return { ...result, ...flat };
+  }
 
   query(req?): Observable<TripResponseData> {
-    const reqDate = this.flattenDateFilter(req);
+    const reqDate = TripRequestService.flattenDateFilter(req);
     const params = createRequestOption(reqDate);
     return this.http.get<any>(`${this.tripUrl}`, { params, observe: 'response' })
       .pipe(
@@ -69,20 +83,6 @@ export class TripRequestService {
       comment, slackUrl
     })
     .pipe(tap((data) => this.handleResponse(data, 'decline'), this.handleError));
-  }
-
-  private flattenDateFilter(req: any) {
-    const { dateFilters, ...result } = req;
-    let flat = {};
-    if (dateFilters) {
-      const entries = Object.entries(dateFilters).map((entry) => {
-        const [key, value] = entry;
-        const modValue = Object.entries(value).map((item) => `${item[0]}:${item[1]}`).join(';');
-        return [key, modValue];
-      }) .filter(({1: val}) => val.length);
-      flat = entries.reduce((obj, { 0: key, 1: val }) => Object.assign(obj, { [key]: val }), {});
-    }
-    return { ...result, ...flat };
   }
 
   handleError = () => {

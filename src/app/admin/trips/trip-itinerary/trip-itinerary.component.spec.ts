@@ -72,4 +72,35 @@ describe('TripItineraryComponent', () => {
       expect(component.getTrips).toHaveBeenCalled();
     });
   });
+
+  describe('setDateFilter', () => {
+    it('should set date filters and call getTrips()', () => {
+      const getTripsSpy = jest.spyOn(component, 'getTrips')
+      .mockImplementation(jest.fn());
+
+      component.setDateFilter('requestedOn', 'before', '2019-03-03');
+
+      expect(getTripsSpy).toBeCalledTimes(1);
+      expect(component.dateFilters.requestedOn).toEqual({before: '2019-03-03'})
+    })
+  })
+
+  describe('setFilterParams', () => {
+    it('should set filter parameters for exporting tables', () => {
+      component.departmentName = 'routes';
+      component.dateFilters = {
+        requestedOn: '2022-12-21',
+        departureTime: '2023-12-21'
+      };
+
+      component.setFilterParams();
+
+      expect(component.filterParams).toEqual({
+        department: 'routes',
+        dateFilters: {
+          requestedOn: '2022-12-21', departureTime: '2023-12-21'
+        }
+      })
+    })
+  })
 });

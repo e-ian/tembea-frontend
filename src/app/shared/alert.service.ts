@@ -10,7 +10,7 @@ export class AlertService {
     });
   }
   info(msg: string, title?: string) {
-    this.toastr.info(msg, title, {
+    return this.toastr.info(msg, title, {
       positionClass: 'toast-top-center'
     });
   }
@@ -23,5 +23,8 @@ export class AlertService {
     this.toastr.error(msg, title, {
       positionClass: 'toast-top-center'
     });
+  }
+  clear(toastr: Toastr) {
+    this.toastr.clear(toastr);
   }
 }

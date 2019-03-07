@@ -35,25 +35,27 @@ describe('Trip Request Service', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return a list of pending trips', (done) => {
-    const requestedOn = tripRequestMock.requestedOn.toISOString();
-    const departureTime = tripRequestMock.departureTime.toISOString();
-    const returnedFromService = {
-      pageMeta: { totalResults: 123 },
-      trips: [{ ...tripRequestMock, requestedOn, departureTime }]
-    };
-    service
-      .query({ status: 'Approved' })
-      .subscribe(result => {
-        expect(result.trips).toContainEqual(tripRequestMock);
-        done();
-      });
+  describe('Service methods', async () => {
+    it('should return a list of pending trips', (done) => {
+      const requestedOn = tripRequestMock.requestedOn.toISOString();
+      const departureTime = tripRequestMock.departureTime.toISOString();
+      const returnedFromService = {
+        pageMeta: { totalResults: 123 },
+        trips: [{ ...tripRequestMock, requestedOn, departureTime }]
+      };
+      service
+        .query({ status: 'Pending' })
+        .subscribe(result => {
+          expect(result.trips).toContainEqual(tripRequestMock);
+          done();
+        });
 
-    const url = `${environment.tembeaBackEndUrl}/api/v1/trips`;
-    const req = httpMock.expectOne({ method: 'GET' });
-    expect(req.request.url).toBe(url);
+      const url = `${environment.tembeaBackEndUrl}/api/v1/trips`;
+      const req = httpMock.expectOne({ method: 'GET' });
+      expect(req.request.url).toBe(url);
 
-    req.flush({ data: returnedFromService });
+      req.flush({ data: returnedFromService });
+    });
   });
 
   it('should get all department', (done) => {

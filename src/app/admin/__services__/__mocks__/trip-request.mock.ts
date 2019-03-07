@@ -11,7 +11,7 @@ const user = new Users().deserialize({
 export const tripRequestMock: TripRequest = new TripRequest().deserialize({
   'id': 1,
   'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
-  'status': TripStatus.APPROVED,
+  'status': TripStatus.PENDING,
   'arrivalTime': null,
   'type': 'Regular Trip',
   'departureTime': moment('2019-12-22T21:00:00.000Z'),

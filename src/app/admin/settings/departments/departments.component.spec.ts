@@ -11,8 +11,8 @@ import getDepartmentsMock from './__mocks__/getDepartments.response.mock';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { AlertService } from 'src/app/shared/alert.service';
-import { HttpClient } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { ExportComponent } from '../../export-component/export.component';
+
 
 describe('DepartmentsComponent', () => {
   let departmentComponent: DepartmentsComponent;
@@ -26,12 +26,13 @@ describe('DepartmentsComponent', () => {
   };
   const alertMockData = {
     error: jest.fn(),
-    success: jest.fn()
+    success: jest.fn(),
+    info: jest.fn()
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent],
+      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent, ExportComponent],
       imports: [HttpClientTestingModule, AngularMaterialModule],
       providers: [
         { provide: DepartmentsService, useValue: service },

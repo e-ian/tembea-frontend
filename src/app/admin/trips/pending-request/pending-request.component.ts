@@ -44,7 +44,7 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
 
   loadAll() {
     const { page, pageSize: size } = this;
-    this.tripRequestService.query({ page, size, status: 'Approved' }).subscribe(tripData => {
+    this.tripRequestService.query({ page, size, status: 'Pending' }).subscribe(tripData => {
       this.tripRequests = tripData.trips;
       this.totalItems = tripData.pageInfo.totalResults;
       this.appEventService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: this.totalItems } });

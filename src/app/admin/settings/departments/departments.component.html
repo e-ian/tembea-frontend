@@ -7,7 +7,10 @@
   <div *ngIf="departments.length > 0">
     <div class="buttons-wrapper flex">
       <button aria-label="Search Departments" class="search-wrapper"></button>
-      <button aria-label="upload departments" class="upload-wrapper flex-right"></button>
+      <app-export-view
+        [tableName]="'departments'"
+        class="flex-right">
+      </app-export-view>
     </div>
     <div class="departments-container">
       <div class="departments-table">
