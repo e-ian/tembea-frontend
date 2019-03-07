@@ -10,6 +10,13 @@
 .mat-toolbar-single-row {
   height: 100px;
 }
+.app-toolbar[_ngcontent-c10]{
+  padding: 0 16px;
+}
+
+.tool-bar-button[_ngcontent-c10] {
+  margin-right: 0.7em;
+}
 
 button:hover,
 button:focus {

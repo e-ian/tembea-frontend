@@ -7,7 +7,7 @@ import {ITEMS_PER_PAGE} from 'src/app/app.constants';
 @Component({
   selector: 'app-trip-itinerary',
   templateUrl: './trip-itinerary.component.html',
-  styleUrls: ['./trip-itinerary.component.scss', '../../routes/routes-inventory/routes-inventory.component.scss'],
+  styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss', ],
 })
 export class TripItineraryComponent implements OnInit {
   tripRequests: TripRequest[] = [];
