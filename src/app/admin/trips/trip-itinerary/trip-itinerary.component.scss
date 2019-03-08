@@ -12,7 +12,6 @@
   }
 }
 .trip-table-body  {
-  margin-bottom: 20px;
   mat-grid-tile >*{
     font-size: 14px !important;
     text-align: center;
@@ -39,56 +38,4 @@
   font-size: 14px;
 }
 
-.select-style {
-  position: relative;
-  float: left;
-  min-width: 200px;
-}
-
-.select-style:after {
-  content: '\f078';
-  font: normal normal normal 15px FontAwesome;
-  color: #e9eff4;
-  right: 17px;
-  height: 33px;
-  top: 10px;
-  padding: 10px 0px 0px 8px;
-  background-color: #ffffff;
-  position: absolute;
-  pointer-events: none;
-}
-.select-style:before {
-  content: '';
-  font: normal normal normal 15px FontAwesome;
-  color: #e9eff4;
-  right: 40px;
-  height: 33px;
-  top: 10px;
-  padding: 10px 0px 0px 8px;
-  border-left: 1px solid #e9eff4;
-  position: absolute;
-  pointer-events: none;
-}
-
-
-select::-ms-expand {
-  display: none;
-}
-
-.select-style select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: block;
-  width: 100%;
-  max-width: 200px;
-  height: 44px;
-  padding: 0 24px;
-  font-size: 16px;
-  line-height: 1.75;
-  background-image: none;
-  border: 1px solid #e9eff4;
-  -ms-word-break: normal;
-  word-break: normal;
-}
 

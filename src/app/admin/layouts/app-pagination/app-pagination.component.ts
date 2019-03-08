@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 type Position = 'left' | 'right';
 type Direction = 'prev' | 'next' | 'prev-ellipse' | 'next-ellipse';
@@ -8,7 +8,8 @@ type Direction = 'prev' | 'next' | 'prev-ellipse' | 'next-ellipse';
   templateUrl: './app-pagination.component.html',
   styleUrls: ['./app-pagination.component.scss']
 })
-export class AppPaginationComponent implements OnInit {
+export class AppPaginationComponent implements OnInit, OnChanges {
+
   private pTotalItems = null;
   private pPageSize: number;
 
@@ -46,6 +47,16 @@ export class AppPaginationComponent implements OnInit {
   public btnGroup: Array<number> = [];
 
   ngOnInit() {
+    this.initPagination();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.totalItems) {
+      this.initPagination();
+    }
+  }
+
+  initPagination() {
     this.currPage = this.page || 1;
     this.totalPages = Math.ceil(this.totalItems / this.pageSize) || 1;
     this.btnGroup = this.genBtnGroup(this.btnGroupSize, this.page, this.totalPages);

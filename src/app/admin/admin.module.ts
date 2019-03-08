@@ -32,6 +32,7 @@ import {TripHistoryComponent} from './trips/trip-history/trip-history.component'
 import {PendingRequestComponent} from './trips/pending-request/pending-request.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule} from '@angular/material';
+import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInput
     TripNavComponent,
     TripHistoryComponent,
     PendingRequestComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    CustomDropdownComponent
   ],
   imports: [
     CommonModule,

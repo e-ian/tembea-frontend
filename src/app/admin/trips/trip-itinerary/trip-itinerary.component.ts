@@ -15,6 +15,8 @@ export class TripItineraryComponent implements OnInit {
   page: number;
   pageSize: number;
   totalItems: number;
+  departmentName: string;
+
 
   constructor(private tripRequestService: TripRequestService) {
     this.pageSize = ITEMS_PER_PAGE;
@@ -29,9 +31,9 @@ export class TripItineraryComponent implements OnInit {
     this.tripRequestService.getDepartments().subscribe(departmentsData => this.departmentsRequest = departmentsData );
   }
 
-  getTrips() {
-    const { page, pageSize: size } = this;
-      this.tripRequestService.query({ page, size}).subscribe(tripData => {
+  getTrips(params?: object) {
+    const { page, pageSize: size} = this;
+      this.tripRequestService.query({ page, size, ...params}).subscribe(tripData => {
       const {pageInfo, trips} = tripData;
       this.tripRequests = trips;
       this.totalItems = pageInfo.totalResults;
@@ -41,6 +43,11 @@ export class TripItineraryComponent implements OnInit {
   updatePage(page) {
     this.page = page;
     this.getTrips();
+  }
+
+  departmentSelected($event) {
+    this.departmentName = $event;
+    this.getTrips({ department: this.departmentName });
   }
 
 }

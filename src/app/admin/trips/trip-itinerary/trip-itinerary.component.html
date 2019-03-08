@@ -1,9 +1,5 @@
-<div *ngIf="!tripRequests.length">
-  <app-empty-page [text]="'No trips yet.'"></app-empty-page>
-  <div class="bottom-image"></div>
-</div>
 
-<div *ngIf="tripRequests.length">
+
   <div class="top-filter">
     <label>
       From
@@ -17,18 +13,20 @@
 
     <label>
       Department
-      <div class="select-style">
-        <select matNativeControl class='input-style'>
-          <option *ngFor='let department of departmentsRequest' value={{department.name}}>{{department.name}}</option>
-        </select>
-        <span class="down-arrow"></span>
-      </div>
+      <app-custom-dropdown [dropdownItems] = 'departmentsRequest'  (handleSelected)="departmentSelected($event)"></app-custom-dropdown>
     </label>
     <label>
       Location
       <input type="text" class='input-style' placeholder="Travel Ops">
     </label>
   </div>
+
+  <div *ngIf="!tripRequests.length">
+    <app-empty-page [text]="'No trips yet.'"></app-empty-page>
+    <div class="bottom-image"></div>
+  </div>
+
+  <div *ngIf="tripRequests.length">
 
   <div class="buttons-wrapper flex ">
     <button class="search-wrapper"></button>
@@ -69,7 +67,7 @@
     <mat-grid-tile tabindex="1">{{trip.pickup}}</mat-grid-tile>
     <mat-grid-tile tabindex="1">{{trip.destination}}</mat-grid-tile>
     <mat-grid-tile tabindex="1">{{trip.requester.name}}</mat-grid-tile>
-    <mat-grid-tile tabindex="1">{{trip.department}}</mat-grid-tile>
+    <mat-grid-tile tabindex="">{{trip.department}}</mat-grid-tile>
     <mat-grid-tile tabindex="1">{{trip.rider.name}}</mat-grid-tile>
     <mat-grid-tile tabindex="1">{{trip.approvedBy.name || 'null'}} / {{trip.confirmedBy.name || 'null'}}</mat-grid-tile>
   </mat-grid-list>
