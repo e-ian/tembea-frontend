@@ -28,7 +28,6 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
   constructor(
     private tripRequestService: TripRequestService,
     private activatedRoute: ActivatedRoute,
-    private appHeaderService: AppHeaderService,
     public dialog: MatDialog,
     private appEventService: AppEventService,
   ) {
@@ -62,6 +61,10 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
 
   confirm(tripRequest): void {
     this.openDialogModal(tripRequest);
+  }
+
+  decline(tripRequest): void {
+    this.openDialogModal(tripRequest, true);
   }
 
   private openDialogModal(tripRequest, decline?: boolean) {

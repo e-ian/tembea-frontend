@@ -41,7 +41,7 @@ const toastr: Toastr = window['toastr'];
     TripApproveDeclineModalComponent
   ],
   imports: [
-    FormsModule,
+  FormsModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,

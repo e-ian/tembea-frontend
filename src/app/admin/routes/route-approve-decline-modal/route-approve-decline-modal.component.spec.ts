@@ -63,12 +63,6 @@ describe('RouteApproveDeclineModalComponent', () => {
     });
   });
 
-  describe('Initial load', () => {
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-  });
-
   describe('closeDialog', () => {
     it('should call dialogRef.close()', () => {
       component.closeDialog();

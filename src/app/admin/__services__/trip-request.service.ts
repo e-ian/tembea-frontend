@@ -62,6 +62,15 @@ export class TripRequestService {
       .pipe(tap((data) => this.handleResponse(data, 'confirm'), this.handleError));
   }
 
+  declineRequest(tripId: number, comment: string): Observable<any> {
+    const queryParam = 'decline'
+    const { teamUrl: slackUrl } = environment;
+    return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
+      comment, slackUrl
+    })
+    .pipe(tap((data) => this.handleResponse(data, 'decline'), this.handleError));
+  }
+
   private flattenDateFilter(req: any) {
     const { dateFilters, ...result } = req;
     let flat = {};
@@ -75,7 +84,7 @@ export class TripRequestService {
     }
     return { ...result, ...flat };
   }
-  
+
   handleError = () => {
     this.toastr.error('Something did not work right there.');
   };

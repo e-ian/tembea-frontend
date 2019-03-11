@@ -72,6 +72,55 @@ describe('Trip Request Service', () => {
     httpMock.verify();
   });
 
+  describe('declineRequest', () => {
+    it('should handle decline request', (done) => {
+      jest.spyOn(service, 'handleResponse').mockImplementation();
+      const comment = 'some comment';
+      const { teamUrl: slackUrl } = environment;
+      const mockResponse = {
+        success: true,
+        message: 'This trip request has been declined',
+        data: {
+          tripId: 1
+        }
+      };
+
+      service.declineRequest(1, comment)
+        .subscribe((result) => {
+          expect(result).toEqual(mockResponse);
+          expect(service.handleResponse).toHaveBeenCalledTimes(1);
+          expect(service.handleResponse).toHaveBeenCalledWith(mockResponse, 'decline');
+          done();
+        });
+
+      const request = httpMock.expectOne(`${service.tripUrl}/1?action=decline`);
+      expect(request.request.method).toEqual('PUT');
+      expect(request.request.body).toEqual({ comment, slackUrl });
+      request.flush(mockResponse);
+    });
+
+    it('should decline request error', (done) => {
+      const comment = 'some comment';
+      const { teamUrl: slackUrl } = environment;
+
+      service.declineRequest(1, comment)
+        .subscribe(null, (result) => {
+          expect(result.status).toEqual(400);
+          expect(result.statusText).toEqual('Bad Request');
+          expect(toastr.error).toHaveBeenCalledTimes(1);
+          done();
+        });
+
+      const request = httpMock.expectOne(`${service.tripUrl}/1?action=decline`);
+      expect(request.request.method).toEqual('PUT');
+      expect(request.request.body).toEqual({ comment, slackUrl });
+      request.flush('Server error', {
+        status: 400,
+        statusText: 'Bad Request'
+      });
+    });
+  });
+
   describe('confirmRequest', () => {
     const values = {
       driverName: 'Jack',

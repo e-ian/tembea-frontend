@@ -57,10 +57,10 @@ describe('TripItineraryComponent', () => {
    it('should get trips and department', () => {
      component.ngOnInit();
 
-     expect(tripRequestService.query).toHaveBeenCalled();
-     expect(tripRequestService.getDepartments).toHaveBeenCalled();
-   });
- });
+      expect(tripRequestService.query).toHaveBeenCalled();
+      expect(tripRequestService.getDepartments).toHaveBeenCalled();
+    });
+  });
 
   describe('updatePage', () => {
     it('should get trips and department', () => {

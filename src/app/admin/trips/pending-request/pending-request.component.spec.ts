@@ -10,7 +10,6 @@ import { AngularMaterialModule } from '../../../angular-material.module';
 import { ActivatedRouteMock } from '../../../__mocks__/activated.router.mock';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { tripRequestMock } from '../../__services__/__mocks__/trip-request.mock';
-import { AppHeaderService } from '../../header/header.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { SpyObject } from '../../../__mocks__/SpyObject';
 import { AppTestModule } from '../../../__tests__/testing.module';
@@ -23,7 +22,7 @@ describe('PendingRequestComponent Unit Test', () => {
   let activatedRoute: ActivatedRoute;
   let matDialog: any;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [PendingRequestComponent, EmptyPageComponent],
       imports: [HttpClientTestingModule, AngularMaterialModule, AppTestModule],
@@ -37,7 +36,7 @@ describe('PendingRequestComponent Unit Test', () => {
     })
     .overrideTemplate(PendingRequestComponent, `<div></div>`)
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PendingRequestComponent);
@@ -45,7 +44,6 @@ describe('PendingRequestComponent Unit Test', () => {
     tripRequestService = fixture.debugElement.injector.get(TripRequestService);
     appEventService = fixture.debugElement.injector.get(AppEventService);
     activatedRoute = fixture.debugElement.injector.get(ActivatedRoute);
-    appEventService = fixture.debugElement.injector.get(AppEventService);
     fixture.detectChanges();
   });
 
@@ -80,7 +78,6 @@ describe('PendingRequestComponent Unit Test', () => {
       const pageInfo = {
         totalResults: 12,
       };
-      jest.spyOn(headerService, 'updateBadgeSize');
       jest.spyOn(tripRequestService, 'query')
         .mockReturnValue(of({ trips: [trips], pageInfo }));
       component.pageSize = 100;
@@ -89,17 +86,16 @@ describe('PendingRequestComponent Unit Test', () => {
       component.ngOnInit();
 
       expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
-      expect(headerService.updateBadgeSize).toHaveBeenCalledWith(12);
     });
 
     it('should load all trip request after reInitialize', () => {
       const trips = Object.assign({}, tripRequestMock);
       const pageInfo = {
-        totalResults: 12,
+          totalResults: 12,
       };
       jest.spyOn(appEventService, 'broadcast');
       jest.spyOn(tripRequestService, 'query')
-        .mockReturnValue(of({ trips: [trips], pageInfo }));
+          .mockReturnValue(of({ trips: [trips], pageInfo }));
       component.pageSize = 100;
       component.page = 1;
 
@@ -113,7 +109,6 @@ describe('PendingRequestComponent Unit Test', () => {
 
   describe('updatePage', () => {
     it('should update page', () => {
-
       component.updatePage(123);
 
       expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Approved' });
@@ -138,6 +133,19 @@ describe('PendingRequestComponent Unit Test', () => {
       expect(matDialog.open).toHaveBeenCalled();
       expect(matDialog.open.mock.calls[0][1].data).toEqual({
         status: 0,
+        requesterFirstName: tripRequest.requester.name,
+        tripId: tripRequest.id
+      });
+    });
+  });
+
+  describe('decline trip', () => {
+    it('should handle decline', () => {
+      const tripRequest = tripRequestMock;
+      component.decline(tripRequest);
+      expect(matDialog.open).toHaveBeenCalled();
+      expect(matDialog.open.mock.calls[0][1].data).toEqual({
+        status: 1,
         requesterFirstName: tripRequest.requester.name,
         tripId: tripRequest.id
       });
