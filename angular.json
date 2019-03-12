@@ -91,7 +91,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tembea-frontend:build"
+            "browserTarget": "tembea-frontend:build",
+            "publicHost":"tembea-dev.andela.com:4200"
           },
           "configurations": {
             "production": {

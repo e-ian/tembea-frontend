@@ -12,17 +12,18 @@ import {environment} from '../../../environments/environment';
 })
 export class LoginRedirectComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
     private toastr: AlertService
   ) {}
 
   ngOnInit() {
-    const token = this.route.snapshot.queryParams.token;
-    this.authService.setAisToken(token);
+    // const token = this.route.snapshot.queryParams.token;
+    const loggedIn = this.authService.setAisToken()
+    // this.authService.setAisToken(token);
 
-    if (!this.authService.andelaAuthServiceToken) {
+    if (!loggedIn) {
       return this.authService.unAuthorizeUser();
     }
     this.authService.login()
