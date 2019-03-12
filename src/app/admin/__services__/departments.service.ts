@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 })
 export class DepartmentsService {
   departmentsUrl: string;
+  teamUrl = environment.teamUrl;
   constructor(private http: HttpClient) {
     this.departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
   }
@@ -17,5 +18,9 @@ export class DepartmentsService {
     return this.http.get<any>(`${this.departmentsUrl}?size=${size}&page=${page}`).map(departments => {
       return new DepartmentsModel().deserialize(departments);
     });
+  }
+
+  addDepartment(data: Object): Observable<any> {
+    return this.http.post<any>(this.departmentsUrl, {...data, slackUrl: this.teamUrl})
   }
 }

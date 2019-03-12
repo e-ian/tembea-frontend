@@ -31,7 +31,7 @@ import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
 import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
 import {PendingRequestComponent} from './trips/pending-request/pending-request.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule} from '@angular/material';
+import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule, MatButtonModule} from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 
 @NgModule({
@@ -70,6 +70,7 @@ import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdo
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatButtonModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googMapsAPIKey,
       libraries: ['places']

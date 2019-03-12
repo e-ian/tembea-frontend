@@ -22,6 +22,7 @@ import { AlertService } from './shared/alert.service';
 import { RoutesInventoryEditModalComponent
 } from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { errorHandlerFactory } from './shared/bugsnag.service';
+import { AddDepartmentsModalComponent } from './admin/settings/departments/add-departments-modal/add-departments-modal.component';
 
 const toastr: Toastr = window['toastr'];
 
@@ -34,7 +35,8 @@ const toastr: Toastr = window['toastr'];
     LoginRedirectComponent,
     RouteApproveDeclineModalComponent,
     ConfirmModalComponent,
-    RoutesInventoryEditModalComponent
+    RoutesInventoryEditModalComponent,
+    AddDepartmentsModalComponent
   ],
   imports: [
     FormsModule,
@@ -58,7 +60,8 @@ const toastr: Toastr = window['toastr'];
     UnauthorizedLoginComponent,
     ConfirmModalComponent,
     RouteApproveDeclineModalComponent,
-    RoutesInventoryEditModalComponent
+    RoutesInventoryEditModalComponent,
+    AddDepartmentsModalComponent
   ],
   bootstrap: [AppComponent]
 })

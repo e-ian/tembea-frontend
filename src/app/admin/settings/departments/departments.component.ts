@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { IDepartmentsModel } from 'src/app/shared/models/departments.model';
 import { AlertService } from 'src/app/shared/alert.service';
+import { MatDialog } from '@angular/material';
+import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
 
 @Component({
   selector: 'app-view-department',
@@ -22,7 +24,9 @@ export class DepartmentsComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentsService,
-    private alert: AlertService) {
+    public dialog: MatDialog,
+    private alert: AlertService
+    ) {
     this.pageNo = 1;
     this.pageSize = 10;
     this.isLoading = true;
@@ -50,4 +54,10 @@ export class DepartmentsComponent implements OnInit {
       this.displayText = `Ooops! We're having connection problems.`
     });
   };
+
+  addDepartment() {
+    this.dialog.open(AddDepartmentsModalComponent, {
+      data: <IDepartmentsModel>{}
+    })
+  }
 }

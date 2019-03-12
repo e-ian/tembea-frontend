@@ -9,6 +9,10 @@
     left: 30px;
   }
 }
+
+mat-icon {
+  color: white;
+}
 .buttons-wrapper{
   width: 100%;
   margin-left: 0rem;
@@ -40,4 +44,17 @@
   .nav-buttons {
     margin-top: 1rem;
   }
+}
+
+.fab {
+  position: fixed;
+  z-index: 1000;
+  background-color: #3359DB;
+  bottom: 0;
+  right: 0;
+  margin: 0 2em 2em 0;
+}
+
+.pagination {
+  margin-right: 3em;
 }
