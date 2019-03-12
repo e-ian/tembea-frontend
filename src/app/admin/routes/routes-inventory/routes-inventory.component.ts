@@ -29,7 +29,6 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   lastRoute;
   updateSubscription: any;
   duplicate = true;
-  navigationSubscription;
   isLoading: boolean;
   displayText = 'No new route requests.';
 

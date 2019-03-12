@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { TripRequest } from '../../../shared/models/trip-request.model';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
-import { AppEventService } from '../../../shared/app-events.service';
+import { TripApproveDeclineModalComponent } from '../trip-approve-decline-modal/trip-approve-decline-modal.component';
+import { AppEventService } from 'src/app/shared/app-events.service';
 
 @Component({
   selector: 'app-pending-request',
@@ -21,10 +23,14 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
   previousPage: any;
   pageSize: number;
   totalItems: number;
+  private approvalDeclineDialog: MatDialogRef<TripApproveDeclineModalComponent, any>;
 
-  constructor(private tripRequestService: TripRequestService,
-              private activatedRoute: ActivatedRoute,
-              private appEventService: AppEventService
+  constructor(
+    private tripRequestService: TripRequestService,
+    private activatedRoute: ActivatedRoute,
+    private appHeaderService: AppHeaderService,
+    public dialog: MatDialog,
+    private appEventService: AppEventService,
   ) {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;
@@ -48,6 +54,28 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
+    this.routeData = this.appEventService
+      .subscribe('reInitializeTripRequest', () => {
+        this.loadAll();
+      });
+  }
+
+  confirm(tripRequest): void {
+    this.openDialogModal(tripRequest);
+  }
+
+  private openDialogModal(tripRequest, decline?: boolean) {
+    const data = {
+      status: (decline) ? 1 : 0,
+      requesterFirstName: tripRequest.requester.name,
+      tripId: tripRequest.id
+    };
+    this.approvalDeclineDialog = this.dialog.open(TripApproveDeclineModalComponent, {
+      width: '592px',
+      backdropClass: 'modal-backdrop',
+      panelClass: 'route-decline-modal-panel-class',
+      data
+    });
   }
 
   ngOnDestroy(): void {

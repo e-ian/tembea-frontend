@@ -7,18 +7,20 @@ import { TripItineraryComponent } from '../trip-itinerary/trip-itinerary.compone
 import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
 import { AppTestModule } from '../../../__tests__/testing.module';
 
+
 describe('TripNavComponent', () => {
   let component: TripNavComponent;
   let fixture: ComponentFixture<TripNavComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [ TripNavComponent, ShortenNamePipe, TripItineraryComponent ],
       imports: [HttpClientTestingModule, AppTestModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
+    .overrideTemplate(TripNavComponent, `<div></div>`)
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TripNavComponent);

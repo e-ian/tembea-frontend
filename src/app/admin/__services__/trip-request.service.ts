@@ -1,14 +1,15 @@
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { map, retry } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
-import { createRequestOption } from 'src/app/utils/request-util';
-import { IPageMeta } from '../../shared/models/page-meta.model';
-import { TripRequest } from 'src/app/shared/models/trip-request.model';
-import { DepartmentsModel } from 'src/app/shared/models/departments.model';
+import {map, retry, filter, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {createRequestOption} from 'src/app/utils/request-util';
+import {IPageMeta} from '../../shared/models/page-meta.model';
+import {TripRequest} from 'src/app/shared/models/trip-request.model';
+import {DepartmentsModel} from 'src/app/shared/models/departments.model';
+import { AlertService } from '../../shared/alert.service';
 
 export interface TripResponseData {
   pageInfo: IPageMeta;
@@ -17,16 +18,16 @@ export interface TripResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class TripRequestService {
-  private routesUrl = `${environment.tembeaBackEndUrl}/api/v1/trips`;
+  tripUrl = `${environment.tembeaBackEndUrl}/api/v1/trips`;
   private departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public toastr: AlertService) {
   }
 
   query(req?): Observable<TripResponseData> {
     const reqDate = this.flattenDateFilter(req);
     const params = createRequestOption(reqDate);
-    return this.http.get<any>(`${this.routesUrl}`, { params, observe: 'response' })
+    return this.http.get<any>(`${this.tripUrl}`, { params, observe: 'response' })
       .pipe(
         retry(2),
         map((res) => {
@@ -49,7 +50,16 @@ export class TripRequestService {
           return departments;
         })
       );
+  }
 
+  confirmRequest(tripId: number, values: any): Observable<any> {
+    const queryParam = 'confirm'
+    const { teamUrl: slackUrl } = environment;
+    const { driverName, driverPhoneNo, regNumber, comment } = values;
+    return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
+      comment, driverName, driverPhoneNo, regNumber, slackUrl
+    })
+      .pipe(tap((data) => this.handleResponse(data, 'confirm'), this.handleError));
   }
 
   private flattenDateFilter(req: any) {
@@ -65,6 +75,18 @@ export class TripRequestService {
     }
     return { ...result, ...flat };
   }
+  
+  handleError = () => {
+    this.toastr.error('Something did not work right there.');
+  };
+
+  handleResponse = (data, status: 'confirm' | 'decline') => {
+    if (data.success) {
+      this.toastr.success(`Trip request ${status}d!`);
+    } else {
+      this.toastr.error(`Could not ${status} request`);
+    }
+  };
 }
 
 

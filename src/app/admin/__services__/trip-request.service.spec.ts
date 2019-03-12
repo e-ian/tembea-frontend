@@ -1,72 +1,141 @@
 /* tslint:disable max-line-length */
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment';
 import { TripRequestService } from './trip-request.service';
 import { tripRequestMock } from './__mocks__/trip-request.mock';
 import {DepartmentsModel} from 'src/app/shared/models/departments.model';
 import {department} from 'src/app/shared/__mocks__/department.mock';
+import { AlertService } from 'src/app/shared/alert.service';
+import { AppTestModule } from '../../__tests__/testing.module';
 
-describe('Service Tests', () => {
-  describe('Trip Request Service', () => {
-    let injector: TestBed;
-    let service: TripRequestService;
-    let httpMock: HttpTestingController;
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule]
+describe('Trip Request Service', () => {
+  let service: TripRequestService;
+  let httpMock: HttpTestingController;
+  let toastr: AlertService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [AppTestModule],
+      providers: []
+    });
+    const injector: TestBed = getTestBed();
+    service = injector.get(TripRequestService);
+    httpMock = injector.get(HttpTestingController);
+    toastr = injector.get(AlertService);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should return a list of pending trips', (done) => {
+    const requestedOn = tripRequestMock.requestedOn.toISOString();
+    const departureTime = tripRequestMock.departureTime.toISOString();
+    const returnedFromService = {
+      pageMeta: { totalResults: 123 },
+      trips: [{ ...tripRequestMock, requestedOn, departureTime }]
+    };
+    service
+      .query({ status: 'Approved' })
+      .subscribe(result => {
+        expect(result.trips).toContainEqual(tripRequestMock);
+        done();
       });
-      injector = getTestBed();
-      service = injector.get(TripRequestService);
-      httpMock = injector.get(HttpTestingController);
+
+    const url = `${environment.tembeaBackEndUrl}/api/v1/trips`;
+    const req = httpMock.expectOne({ method: 'GET' });
+    expect(req.request.url).toBe(url);
+
+    req.flush({ data: returnedFromService });
+  });
+
+  it('should get all department', (done) => {
+    const departmentMock: DepartmentsModel = {department};
+
+    service.getDepartments()
+      .subscribe(result => {
+        expect(result).toBe(departmentMock.departments);
+        done();
+      });
+
+    const departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
+    const req = httpMock.expectOne(departmentsUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(departmentMock);
+    httpMock.verify();
+  });
+
+  describe('confirmRequest', () => {
+    const values = {
+      driverName: 'Jack',
+      driverPhoneNo: '090837378373',
+      regNumber: 'JIE 930',
+      comment: 'This trip is confirm'
+    };
+    const mockResponse = {
+      success: true,
+      message: 'This trip request has been confirmed',
+      data: {
+        tripId: 1
+      }
+    };
+    const { teamUrl: slackUrl } = environment;
+    it('should handle confirm trip request', (done) => {
+      jest.spyOn(service, 'handleResponse').mockImplementation();
+
+      service.confirmRequest(1, values)
+        .subscribe((result) => {
+          expect(service.handleResponse).toHaveBeenCalledTimes(1);
+          expect(service.handleResponse).toHaveBeenCalledWith(result, 'confirm');
+          done();
+        });
+
+      const request = httpMock.expectOne(`${service.tripUrl}/1?action=confirm`);
+      expect(request.request.method).toEqual('PUT');
+      expect(request.request.body).toEqual({ ...values, slackUrl });
+      request.flush(mockResponse);
+      done();
     });
 
-    describe('Service methods', async () => {
+    it('should throw confirm request error', (done) => {
+      jest.spyOn(service, 'handleResponse').mockImplementation();
 
-      it('should return a list of pending trips', (done) => {
-        const requestedOn = tripRequestMock.requestedOn.toISOString();
-        const departureTime = tripRequestMock.departureTime.toISOString();
-        const returnedFromService = {
-          pageMeta: { totalResults: 123 },
-          trips: [{ ...tripRequestMock, requestedOn, departureTime }]
-        };
-        service
-          .query({ status: 'Approved' })
-          .subscribe(result => {
-            expect(result.trips).toContainEqual(tripRequestMock);
-            done();
-          });
+      service.confirmRequest(1, values)
+        .subscribe(null, (result) => {
+          expect(result.status).toEqual(400);
+          expect(result.statusText).toEqual('Bad Request');
+          expect(toastr.error).toHaveBeenCalledTimes(1);
+          done();
+        });
 
-        const url = `${environment.tembeaBackEndUrl}/api/v1/trips`;
-        const req = httpMock.expectOne({ method: 'GET' });
-        expect(req.request.url).toBe(url);
-
-        req.flush({ data: returnedFromService });
+      const request = httpMock.expectOne(`${service.tripUrl}/1?action=confirm`);
+      expect(request.request.method).toEqual('PUT');
+      expect(request.request.body).toEqual({ ...values, slackUrl });
+      request.flush('Server error', {
+        status: 400,
+        statusText: 'Bad Request'
       });
+      done();
     });
+  });
 
-   it('should get all department', (done) => {
-       const departmentMock: DepartmentsModel = {department};
-
-     service.getDepartments()
-         .subscribe(result => {
-           expect(result).toBe(departmentMock.departments);
-           done();
-         });
-
-       const departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
-
-       const req = httpMock.expectOne(departmentsUrl);
-
-       expect(req.request.method).toEqual('GET');
-
-       req.flush(departmentMock);
-
-     httpMock.verify();
-   });
-
-    afterEach(() => {
-      httpMock.verify();
+  describe('handleResponse', () => {
+    it('should confirm the trip request', () => {
+      service.handleResponse({ success: true }, 'confirm');
+      expect(toastr.success).toHaveBeenCalledTimes(1);
+      expect(toastr.success).toHaveBeenCalledWith('Trip request confirmd!');
+    });
+    it('should decline the trip request', () => {
+      service.handleResponse({ success: false }, 'decline');
+      expect(toastr.error).toHaveBeenCalledTimes(1);
+      expect(toastr.error).toHaveBeenCalledWith('Could not decline request');
     });
   });
 });

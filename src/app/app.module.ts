@@ -23,6 +23,7 @@ import { RoutesInventoryEditModalComponent
 } from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { errorHandlerFactory } from './shared/bugsnag.service';
 import { AddDepartmentsModalComponent } from './admin/settings/departments/add-departments-modal/add-departments-modal.component';
+import { TripApproveDeclineModalComponent } from './admin/trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 
 const toastr: Toastr = window['toastr'];
 
@@ -36,7 +37,8 @@ const toastr: Toastr = window['toastr'];
     RouteApproveDeclineModalComponent,
     ConfirmModalComponent,
     RoutesInventoryEditModalComponent,
-    AddDepartmentsModalComponent
+    AddDepartmentsModalComponent,
+    TripApproveDeclineModalComponent
   ],
   imports: [
     FormsModule,
@@ -61,7 +63,8 @@ const toastr: Toastr = window['toastr'];
     ConfirmModalComponent,
     RouteApproveDeclineModalComponent,
     RoutesInventoryEditModalComponent,
-    AddDepartmentsModalComponent
+    AddDepartmentsModalComponent,
+    TripApproveDeclineModalComponent
   ],
   bootstrap: [AppComponent]
 })

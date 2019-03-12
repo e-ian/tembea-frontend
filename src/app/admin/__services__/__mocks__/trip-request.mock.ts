@@ -9,6 +9,7 @@ const user = new Users().deserialize({
   'slackId': 'ZZZZZZ',
 });
 export const tripRequestMock: TripRequest = new TripRequest().deserialize({
+  'id': 1,
   'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
   'status': TripStatus.APPROVED,
   'arrivalTime': null,
