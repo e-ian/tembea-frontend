@@ -8,7 +8,8 @@ export const environment = {
   tembeaFrontEndUrl: 'https://tembea-staging.andela.com',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
   teamUrl: 'andela-tembea.slack.com',
-  googMapsAPIKey: ''
+  googMapsAPIKey: 'AIzaSyDT1bJDksmdUa0221cLtjq36p9GidNa110',
+  BUGSNAG_API_KEY: '710805426cc2698759ff88cdcbc91a0c'
 };
 
 /*
