@@ -68,9 +68,12 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   };
 
   renameRouteBatches(routes) {
-    const renameBatchesObject = new RenameRouteBatch(routes, this.lastRoute);
-    const renamedBatches = renameBatchesObject.renameRouteBatches();
-    this.lastRoute = renamedBatches[renamedBatches.length - 1];
+    let renamedBatches = routes;
+    if (routes.length > 0) {
+      const renameBatchesObject = new RenameRouteBatch(routes, this.lastRoute);
+      renamedBatches = renameBatchesObject.renameRouteBatches();
+      this.lastRoute = renamedBatches[renamedBatches.length - 1];
+    };
     return renamedBatches;
   }
 
