@@ -57,7 +57,9 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
   onClickRouteBox = (index, route: RouteRequest) => {
     this.activeRouteIndex = index;
     this.activeRouteRequest = route;
-    this.getRequesterData(route.engagement.fellow.email);
+    if (route) {
+      this.getRequesterData(route.engagement.fellow.email)
+    };
   };
 
   isRouteActive(idx: number): Boolean {
