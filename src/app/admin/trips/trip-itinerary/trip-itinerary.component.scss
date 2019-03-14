@@ -1,12 +1,16 @@
-
+.trip-itinerary-table{
+  margin-bottom: 5.0rem;
+}
 .trip-table-head {
   font-size: 14px;
   color: #808FA3;
   text-align: center;
   border-top-left-radius: .5em;
   border-top-right-radius: .5em; 
-
+  border-top: 1px solid rgba(0, 0, 0, .05);
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
+
 
 .time {
   padding: 5px;
@@ -15,9 +19,6 @@
   }
 }
 .trip-table-body  {
-  margin-bottom: 20px;
-  border-bottom-left-radius: .5em;
-  border-bottom-right-radius: .5em; 
 
   .mat-grid-tile {
     font-size: 14px;
@@ -25,12 +26,6 @@
     justify-content: start;
   }  
   text-align: left;
-}
-.mat-grid-list{
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-.trip-table-head {
-  border-bottom: none;
 }
 
 .top-filter{

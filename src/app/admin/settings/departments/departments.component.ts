@@ -4,6 +4,8 @@ import { IDepartmentsModel } from 'src/app/shared/models/departments.model';
 import { AlertService } from 'src/app/shared/alert.service';
 import { MatDialog } from '@angular/material';
 import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
+import {ITEMS_PER_PAGE} from 'src/app/app.constants';
+
 
 @Component({
   selector: 'app-view-department',
@@ -28,7 +30,7 @@ export class DepartmentsComponent implements OnInit {
     private alert: AlertService
     ) {
     this.pageNo = 1;
-    this.pageSize = 10;
+    this.pageSize = ITEMS_PER_PAGE;
     this.isLoading = true;
   }
 

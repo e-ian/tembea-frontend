@@ -7,21 +7,21 @@ mat-grid-list {
   overflow: hidden;
   border-right: 1px solid rgba(0, 0, 0, .05);
   border-left: 1px solid rgba(0, 0, 0, .05);
-  border-top: 1px solid rgba(0, 0, 0, .05);
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+
 }
 
 mat-grid-list:first-child {
   border-top-left-radius: .5em;
   border-top-right-radius: .5em;
   border: 1px solid rgba(0, 0, 0, .05);
-  border-bottom: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
   color: #808FA3;
 }
 
 mat-grid-list:last-child {
   border-bottom-left-radius: .5em;
   border-bottom-right-radius: .5em;
-  border: 1px solid rgba(0, 0, 0, .05);
 }
 
 .routes-table {
@@ -209,4 +209,28 @@ mat-grid-list:last-child {
 .pagination {
   width: 90%;
   margin: 0 0 0 auto;
+}
+
+@media all and (max-width: 752px) {
+  .buttons-wrapper{
+    margin: 0rem auto 1rem;
+  }
+  .routes-table-container {
+    width: 100%;
+    overflow-x: scroll;
+  }
+  .routes-table {
+    margin: 0 auto;
+    width: 700px;
+  }
+  mat-grid-list {
+    padding: 0rem 0.2rem;
+    padding-bottom: 2rem;
+  }
+  mat-grid-tile {
+    padding: 1.0rem 0rem;
+  }
+  .nav-buttons {
+    margin-top: 1rem;
+  }
 }
