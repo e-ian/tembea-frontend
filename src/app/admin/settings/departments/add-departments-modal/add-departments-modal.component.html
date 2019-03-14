@@ -13,8 +13,8 @@
                   <label for="name">What's the new department?</label>
                   <input
                   required
-                  [(ngModel)]="model.name"
-                  id="name"  
+                  [(ngModel)]="model.department"
+                  id="name"
                   name="name"
                   pattern="^[a-zA-Z0-9]+$"
                   [class.is_invalid]="name.invalid && name.touched"
@@ -29,8 +29,8 @@
         <div class="single-field">
           <div class="field single">
               <div class="input-group">
-                <label for="loaction">Where is it located?</label>
-                <input 
+                <label for="location">Where is it located?</label>
+                <input
                 id="location"
                 required
                 [(ngModel)]="model.location"
@@ -49,9 +49,9 @@
           <div class="field single">
               <div class="input-group">
                 <label for="location">What's your manager's email?</label>
-                <input 
+                <input
                 required
-                id="email"  
+                id="email"
                 name="email"
                 [(ngModel)]="model.email"
                 type="email"
@@ -65,11 +65,11 @@
             </div>
           </div>
       </div>
-      <button 
-      type="submit" 
+      <button
+      type="submit"
       [disabled]="addForm.invalid">
         <span>SUBMIT</span>
       </button>
     </form>
-  </div>      
+  </div>
 </div>
