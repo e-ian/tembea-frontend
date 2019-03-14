@@ -6,8 +6,6 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
 import { throwError } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 import { RoutesInventoryComponent } from './routes-inventory.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
@@ -19,12 +17,10 @@ import { routesMock } from './__mocks__/route-inventory.mock';
 import { AlertService } from '../../../shared/alert.service';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
-import { ITEMS_PER_PAGE } from '../../../app.constants';
 
 describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
   let fixture: ComponentFixture<RoutesInventoryComponent>;
-  let getRoutesSpy;
   const routeObject = {
     id: 1,
     destination: 'EPIC Tower',
@@ -35,12 +31,22 @@ describe('RoutesInventoryComponent', () => {
   };
 
   const createRouteHelperMock = {
-    notifyUser: () => { }
+    notifyUser: jest.fn()
+  };
+
+  const routesInventoryMock = {
+    createRoute: jest.fn().mockResolvedValue({ message: 'Successfully created'}),
+    getRoutes: () => of(getRoutesResponseMock),
+    changeRouteStatus: jest.fn().mockReturnValue(of({})),
+    deleteRouteBatch: jest.fn().mockReturnValue(of({
+      success: true,
+      message: 'batch deleted successfully'
+    }))
   };
 
   const router = {
-    navigate: () => { },
-    events: { subscribe: jest.fn() }
+    navigate: jest.fn(),
+    events: of({})
   };
 
   const alert = {
@@ -56,9 +62,6 @@ describe('RoutesInventoryComponent', () => {
   };
 
   beforeEach(async () => {
-    getRoutesSpy = jest.spyOn(RoutesInventoryService.prototype, 'getRoutes');
-    getRoutesSpy.mockReturnValue(of(getRoutesResponseMock));
-
     TestBed.configureTestingModule({
       declarations: [
         RoutesInventoryComponent,
@@ -70,6 +73,7 @@ describe('RoutesInventoryComponent', () => {
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: AlertService, useValue: alert },
         { provide: CreateRouteHelper, useValue: createRouteHelperMock },
+        { provide: RoutesInventoryService, useValue: routesInventoryMock },
         {
           provide: MAT_DIALOG_DATA, useValue: {
             data: {
@@ -91,6 +95,8 @@ describe('RoutesInventoryComponent', () => {
     fixture = TestBed.createComponent(RoutesInventoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    jest.spyOn(routesInventoryMock, 'getRoutes');
   });
 
   afterEach(() => {
@@ -115,25 +121,12 @@ describe('RoutesInventoryComponent', () => {
     component.getRoutesInventory();
     fixture.detectChanges();
 
-    expect(getRoutesSpy).toHaveBeenCalled();
     expect(component.routes).toEqual(getRoutesResponseMock.routes);
 
     const button = fixture.debugElement.queryAll(By.css('.arrow-icon-button'));
     expect(button.length).toEqual(2);
   }));
 
-  describe('getRoutesInventory', () => {
-    it('should load all route', () => {
-      const pageNo = 1;
-      const sort = 'name,asc,batch,asc';
-      const pageSize = ITEMS_PER_PAGE;
-
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(component.routes).toEqual(getRoutesResponseMock.routes);
-      expect(getRoutesSpy).toHaveBeenCalledWith(pageSize, pageNo, sort);
-    });
-  });
 
   describe('ngOnInit', () => {
     it('should update and load page', (() => {
@@ -173,7 +166,7 @@ describe('RoutesInventoryComponent', () => {
 
   describe('Copy Route', () => {
     it('should duplicate a route when copy is successful', () => {
-      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer').mockImplementation();
+      const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer');
 
       component.copyRoute(routeObject);
 
@@ -182,68 +175,53 @@ describe('RoutesInventoryComponent', () => {
   });
 
   describe('Send Request to Server', () => {
+    beforeEach(() => {
+      jest.spyOn(routesInventoryMock, 'createRoute').mockResolvedValue({ message: 'Successfully duplicated Yaba route'});
+    });
     it('should display a success message if copy request is successful', async () => {
-      const response = { message: `Successfully duplicated ${routeObject.name} route`};
-      const notifyUser = jest.spyOn(component.createRouteHelper, 'notifyUser');
-      const navigate = jest.spyOn(component.router, 'navigate');
-      const routeService = jest.spyOn(component.routeService, 'createRoute')
-        .mockReturnValue(response);
-
       await component.sendRequestToServer(routeObject.id);
 
-      expect(routeService).toHaveBeenCalledWith(routeObject.id, true);
-      expect(notifyUser).toHaveBeenCalledWith(['Successfully duplicated Yaba route'], 'success');
-      expect(navigate).toHaveBeenCalledWith(['/admin/routes/inventory']);
+      expect(routesInventoryMock.createRoute).toHaveBeenCalledWith(routeObject.id, true);
+      expect(createRouteHelperMock.notifyUser).toHaveBeenCalledWith(['Successfully duplicated Yaba route'], 'success');
+      expect(router.navigate).toHaveBeenCalledWith(['/admin/routes/inventory']);
     });
 
     it('should display an error message if request is unsuccessful', async () => {
       const response = { error: { message: 'some server error' } };
-      const notifyUser = jest.spyOn(component.createRouteHelper, 'notifyUser');
-      const navigate = jest.spyOn(component.router, 'navigate');
-      const routeService = jest.spyOn(component.routeService, 'createRoute')
+      jest.spyOn(routesInventoryMock, 'createRoute')
         .mockRejectedValue(response);
 
       await component.sendRequestToServer(routeObject.id);
 
-      expect(routeService).toHaveBeenCalledWith(routeObject.id, true);
-      expect(notifyUser).toHaveBeenCalledWith([response.error.message]);
-      expect(navigate).not.toHaveBeenCalled();
+      expect(routesInventoryMock.createRoute).toHaveBeenCalledWith(routeObject.id, true);
+      expect(createRouteHelperMock.notifyUser).toHaveBeenCalledWith([response.error.message]);
+      expect(router.navigate).not.toHaveBeenCalled();
     });
   });
 
   describe('Change Route Status', () => {
-    let changeStatusSpy;
-
-    beforeEach(() => {
-      changeStatusSpy = jest.spyOn(RoutesInventoryService.prototype, 'changeRouteStatus');
-    });
-
     afterEach(() => {
       jest.resetAllMocks();
-      jest.restoreAllMocks();
     });
 
     it('should call the method to update routes data', () => {
-      const statusMock = { success: true };
+      jest.spyOn(routesInventoryMock, 'changeRouteStatus').mockReturnValue(of({ success: true }));
       jest.spyOn(component, 'updateRoutesData').mockImplementation();
-      changeStatusSpy.mockReturnValue(of(statusMock));
 
       component.changeRouteStatus(1, 'Active');
-      expect(changeStatusSpy).toHaveBeenCalledTimes(1);
-      expect(changeStatusSpy).toHaveBeenCalledWith(1, { status: 'Active' });
+      expect(routesInventoryMock.changeRouteStatus).toHaveBeenCalledTimes(1);
+      expect(routesInventoryMock.changeRouteStatus).toHaveBeenCalledWith(1, { status: 'Active' });
       expect(component.updateRoutesData).toHaveBeenCalledTimes(1);
       expect(component.updateRoutesData).toHaveBeenCalledWith(1, 'Active');
     });
 
     it('should call the method to update routes data and catch all errors', () => {
-      const errorMock = new Error();
       jest.spyOn(component, 'updateRoutesData').mockImplementation();
-      changeStatusSpy.mockReturnValue(throwError(errorMock));
+      jest.spyOn(routesInventoryMock, 'changeRouteStatus').mockReturnValue(throwError(new Error()));
 
       component.changeRouteStatus(1, 'Active');
-      expect(changeStatusSpy).toHaveBeenCalledTimes(1);
-      expect(changeStatusSpy).toHaveBeenCalledWith(1, { status: 'Active' });
-      expect(component.updateRoutesData).not.toHaveBeenCalled();
+      expect(routesInventoryMock.changeRouteStatus).toHaveBeenCalledTimes(1);
+      expect(routesInventoryMock.changeRouteStatus).toHaveBeenCalledWith(1, { status: 'Active' });
       expect(alert.error).toHaveBeenCalledTimes(1);
     });
   });
@@ -271,10 +249,8 @@ describe('RoutesInventoryComponent', () => {
   });
 
   describe('deleteRoute', () => {
-    let deleteSpy;
-
     beforeEach(() => {
-      deleteSpy = jest.spyOn(RoutesInventoryService.prototype, 'deleteRouteBatch');
+      jest.spyOn(routesInventoryMock, 'deleteRouteBatch');
     });
 
     afterEach(() => {
@@ -283,23 +259,22 @@ describe('RoutesInventoryComponent', () => {
     });
 
     it('should delete a route batch on success response from http call', () => {
-      deleteSpy.mockReturnValue(of({
+      jest.spyOn(routesInventoryMock, 'deleteRouteBatch').mockReturnValue(of({
         success: true,
         message: 'batch deleted successfully'
       }));
-
       component.getRoutesInventory();
       fixture.detectChanges();
 
       component.deleteRoute(1, 1);
 
-      expect(deleteSpy).toHaveBeenCalled();
+      expect(routesInventoryMock.deleteRouteBatch).toHaveBeenCalled();
       expect(alert.success).toBeCalledWith('batch deleted successfully');
       expect(component.routes.length).toBe(4);
     });
 
     it('should show error alert route batch on failed response from http call', () => {
-      deleteSpy.mockReturnValue(of({
+      jest.spyOn(routesInventoryMock, 'deleteRouteBatch').mockReturnValue(of({
         success: false,
         message: 'something went wrong'
       }));
@@ -308,7 +283,7 @@ describe('RoutesInventoryComponent', () => {
       fixture.detectChanges();
       component.deleteRoute(1, 1);
 
-      expect(deleteSpy).toHaveBeenCalled();
+      expect(routesInventoryMock.deleteRouteBatch).toHaveBeenCalled();
       expect(alert.error).toBeCalledWith('something went wrong');
       expect(component.routes.length).toBe(5);
     });
