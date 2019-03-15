@@ -39,7 +39,6 @@ export class RoutesInventoryEditModalComponent implements OnInit {
       regNumber: data.regNumber,
       capacity: data.capacity,
       batch: data.batch,
-      inUse: data.inUse,
       status: data.status
     }
     this.routeService.changeRouteStatus(id, routeDetails).subscribe((res) => {

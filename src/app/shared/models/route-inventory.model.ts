@@ -18,7 +18,7 @@ export interface IRouteInventory {
   capacity: number;
   batch: string;
   comments?: string;
-  inUse: number;
+  inUse?: number;
   name: string;
   destination?: string;
   driverName?: string;
