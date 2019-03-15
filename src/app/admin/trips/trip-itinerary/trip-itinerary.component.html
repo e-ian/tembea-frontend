@@ -11,7 +11,8 @@
 
   <label>
     Department
-    <app-custom-dropdown [dropdownItems]='departmentsRequest' (handleSelected)="departmentSelected($event)"></app-custom-dropdown>
+    <app-custom-dropdown [dropdownItems]='departmentsRequest'
+                         (handleSelected)="departmentSelected($event)"></app-custom-dropdown>
     </label>
   <label>
     Location
@@ -30,7 +31,7 @@
       <button class="search-wrapper" aria-label="Search Trips"></button>
       <button class="upload-wrapper flex-right" aria-label="upload Trips"></button>
     </div>
-  
+
     <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head">
       <mat-grid-tile tabindex="0">Requested On</mat-grid-tile>
       <mat-grid-tile tabindex="0">Departing On</mat-grid-tile>
@@ -41,8 +42,8 @@
       <mat-grid-tile tabindex="0">Rider</mat-grid-tile>
       <mat-grid-tile tabindex="0"><p class="trip-itinerary-approved">Approved/Confirmed</p></mat-grid-tile>
     </mat-grid-list>
-  
-  
+
+
     <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="2:1" class="trip-table-body">
       <mat-grid-tile tabindex="0">
         <div class="time">
@@ -72,13 +73,13 @@
         &nbsp;/&nbsp;
         {{trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile>
     </mat-grid-list>
-  
+
     <div class="pagination">
-      <app-pagination *ngIf='totalItems > pageSize' 
+      <app-pagination *ngIf='totalItems > pageSize'
         [totalItems]="totalItems" (pageChange)="updatePage($event)" [pageSize]="pageSize">
       </app-pagination>
     </div>
-  
+
   </div>
-  
+
 </div>
