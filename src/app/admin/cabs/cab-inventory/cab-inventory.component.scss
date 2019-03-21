@@ -1,0 +1,152 @@
+mat-grid-tile {
+    background: white;
+    border-right: 1px solid white;
+}
+  
+mat-grid-list {
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, .05);
+    border-left: 1px solid rgba(0, 0, 0, .05);
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+  
+}
+  
+mat-grid-list:first-child {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    color: #808FA3;
+}
+  
+mat-grid-list:last-child {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+.bottom-image {
+  background-image: url("/assets/images/san-francisco.png");
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background-size: 600px 250px;
+  background-repeat: repeat-x;
+  position: fixed;
+}
+
+.buttons-wrapper {
+  margin-bottom: 2em;
+  margin-top: 2em;
+
+  .upload-wrapper {
+    background-image: url("/assets/images/icons/export-icon.svg");
+    height: 29px;
+    width: 29px;
+  }
+
+  .search-wrapper {
+    background-image: url("/assets/images/icons/search-icon.svg");
+    height: 29px;
+    width: 29px;
+  }
+
+  button {
+    border: none;
+  }
+}
+
+.cabs-table {
+    width: 100%;
+    margin-bottom: 2rem;
+    .mat-grid-list{
+      align-items: center;
+      height: 15px; 
+      padding: 10px;
+    }
+    .cab-align-cell{
+      position: absolute;
+      left: 30px;
+    }
+  }
+
+  .actions-icon {
+    background-image: url("/assets/images/icons/info-icon.svg");
+    height: 8.9px;
+    width: 10px;
+    margin-left: 4px;
+    margin-top: 3px;
+    justify-content: center;
+  }
+  
+  .edit-action-button {
+    border: none;
+    height: 30px;
+    width: 37px;
+  
+    .edit-icon {
+      background-color: #fff;
+      border: #fff;
+      margin: auto;
+      background-image: url("/assets/images/icons/edit-icon.svg");
+      height: 30px;
+      width: 31px;
+      display: inline-block;
+    }
+  }
+
+.delete-action-button {
+  border: none;
+  height: 20px;
+  width: 20px;
+  margin-top: 5px;
+
+  .delete-icon {
+    background-color: #fff;
+    border: #fff;
+    background-image: url("/assets/images/icons/decline-icon.svg");
+    height: 19px;
+    width: 19px;
+    display: inline-block;
+  }
+}
+
+.pagination {
+  width: 90%;
+  margin: 0 0 0 auto;
+}
+
+.cabs-table-head {
+  text-align: center;
+}
+
+.cabs-table .mat-grid-list {
+  align-items: center;
+  height: 15px;
+  padding: 10px;
+}
+
+@media all and (max-width: 752px) {
+  .buttons-wrapper{
+    margin: 0rem auto 1rem;
+  }
+  .cabs-table-container {
+    width: 100%;
+    overflow-x: scroll;
+  }
+  .cabs-table {
+    margin: 0 auto;
+    width: 700px;
+  }
+  mat-grid-list {
+    padding: 0rem 0.2rem;
+    padding-bottom: 2rem;
+  }
+  mat-grid-tile {
+    padding: 1.0rem 0rem;
+  }
+  .nav-buttons {
+    margin-top: 1rem;
+  }
+}

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CabsComponent } from './cabs/cabs.component';
+import { CabInventoryComponent } from './cabs/cab-inventory/cab-inventory.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -40,6 +41,7 @@ import { ExportComponent } from './export-component/export.component';
     DashboardComponent,
     AdminComponent,
     CabsComponent,
+    CabInventoryComponent,
     CreateRouteComponent,
     RoutesInventoryComponent,
     SettingsComponent,

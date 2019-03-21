@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CabsComponent } from './cabs/cabs.component';
+import { CabInventoryComponent } from './cabs/cab-inventory/cab-inventory.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -76,6 +77,12 @@ const routes: Routes = [
         component: CabsComponent,
         canActivate: [],
         data: { title: 'All Cabs' }
+      },
+      {
+        path: 'cabs/inventory',
+        component: CabInventoryComponent,
+        canActivate: [],
+        data: { title: 'Cabs Inventory' }
       },
       {
         path: 'settings/fellows',
