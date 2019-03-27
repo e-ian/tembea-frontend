@@ -85,7 +85,7 @@ describe('PendingRequestComponent Unit Test', () => {
 
       component.ngOnInit();
 
-      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Pending' });
+      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
       expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });
@@ -94,7 +94,7 @@ describe('PendingRequestComponent Unit Test', () => {
     it('should update page', () => {
       component.updatePage(123);
 
-      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Pending' });
+      expect(tripRequestService.query).toHaveBeenCalledWith({ page: 123, size: 20, status: 'Approved' });
       expect(appEventService.broadcast).toHaveBeenCalled();
     });
   });
