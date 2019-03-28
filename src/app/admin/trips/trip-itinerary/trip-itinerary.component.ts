@@ -12,6 +12,7 @@ import { AlertService } from '../../../shared/alert.service';
   styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss', ],
 })
 export class TripItineraryComponent implements OnInit {
+  tripType: string;
   tripRequests: TripRequest[] = [];
   departmentsRequest: any = [];
   page: number;
@@ -32,6 +33,7 @@ export class TripItineraryComponent implements OnInit {
   ) {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;
+    this.tripType = 'Regular Trip'
   }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class TripItineraryComponent implements OnInit {
 
   getTrips() {
     const { page, pageSize: size, departmentName: department, dateFilters } = this;
-    this.tripRequestService.query({ page, size, status: 'Confirmed', department, dateFilters })
+    this.tripRequestService.query({ page, size, status: 'Confirmed', department, type: this.tripType, dateFilters })
       .subscribe(tripData => {
         const { pageInfo, trips } = tripData;
         this.tripRequests = trips;

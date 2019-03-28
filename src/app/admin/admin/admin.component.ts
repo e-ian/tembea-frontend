@@ -61,6 +61,8 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
       { name: 'routes-inactive', url: 'assets/sidebar-icons/ic_inactive_routes.svg' },
       { name: 'trips', url: 'assets/sidebar-icons/ic_active_location.svg' },
       { name: 'trips-inactive', url: 'assets/sidebar-icons/ic_inactive_location.svg' },
+      { name: 'travel', url: 'assets/sidebar-icons/ic_active_travel.svg' },
+      { name: 'travel-inactive', url: 'assets/sidebar-icons/ic_inactive_travel.svg' },
       { name: 'cabs', url: 'assets/sidebar-icons/ic_active_cabs.svg' },
       { name: 'cabs-inactive', url: 'assets/sidebar-icons/ic_inactive_cabs.svg' },
       { name: 'settings', url: 'assets/sidebar-icons/ic_active_settings.svg' },

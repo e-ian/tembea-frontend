@@ -1,0 +1,113 @@
+<div class="top-filter">
+  <label>
+    From
+    <app-date-picker
+      [placeholder]="'Departure Date'"
+      (selectedDateChange)="setDateFilter('departureTime', 'after', $event)"
+    ></app-date-picker>
+  </label>
+
+  <label>
+    To
+    <app-date-picker
+      [placeholder]="'Departure Date'"
+      (selectedDateChange)="setDateFilter('departureTime', 'before', $event)"
+    ></app-date-picker>
+  </label>
+
+  <label>
+    Department
+    <app-custom-dropdown
+      [dropdownItems]="departmentsRequest"
+      (handleSelected)="departmentSelected($event)"
+    ></app-custom-dropdown>
+  </label>
+  <label>
+    Location
+    <input type="text" class="input-style" placeholder="Travel Ops" />
+  </label>
+</div>
+
+<div *ngIf="!tripRequests.length">
+  <app-empty-page [text]="'No trips yet.'"></app-empty-page>
+  <div class="bottom-image"></div>
+</div>
+
+<div class="trip-itinerary-table">
+  <div *ngIf="tripRequests.length">
+    <div class="buttons-wrapper flex">
+      <button class="search-wrapper" aria-label="Search Trips"></button>
+      <button
+        class="upload-wrapper flex-right"
+        aria-label="upload Trips"
+      ></button>
+    </div>
+
+    <mat-grid-list cols="9" rowHeight="2:1" class="trip-table-head">
+      <mat-grid-tile tabindex="0">Requested On</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Departing On</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Pickup</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Destination</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Requested-By</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Flight Number</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Department</mat-grid-tile>
+      <mat-grid-tile tabindex="0">Rider</mat-grid-tile>
+      <mat-grid-tile tabindex="0"
+        ><p class="trip-itinerary-approved">
+          Approved/Confirmed
+        </p></mat-grid-tile
+      >
+    </mat-grid-list>
+
+    <mat-grid-list
+      *ngFor="let trip of tripRequests"
+      cols="9"
+      rowHeight="2:1"
+      class="trip-table-body"
+    >
+      <mat-grid-tile tabindex="0">
+        <div class="time">
+          <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
+          <span>
+            <span>&nbsp;by&nbsp;</span>
+            <span>{{ trip.requestedOn | date: 'shortTime' }}</span>
+          </span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="time">
+          <span>{{ trip.departureTime | date: 'dd-MM-yy' }}</span>
+          <span>
+            <span>&nbsp;by&nbsp;</span>
+            <span>{{ trip.departureTime | date: 'shortTime' }}</span>
+          </span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{ trip.pickup }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{ trip.destination }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{
+        trip.requester.name | shortenName: { max: 10 }
+      }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{ trip.flightNumber }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{ trip.department }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">{{
+        trip.rider.name | shortenName: { max: 10 }
+      }}</mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        {{ trip.approvedBy.name | shortenName: { max: 10 } }}
+        &nbsp;/&nbsp;
+        {{ trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile
+      >
+    </mat-grid-list>
+
+    <div class="pagination">
+      <app-pagination
+        *ngIf="totalItems > pageSize"
+        [totalItems]="totalItems"
+        (pageChange)="updatePage($event)"
+        [pageSize]="pageSize"
+      >
+      </app-pagination>
+    </div>
+  </div>
+</div>

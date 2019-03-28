@@ -16,6 +16,12 @@
   ]
   },
   {
+    "name": "Travel", "iconActive": "travel", "iconInActive": "travel-inactive", "link": "travel", "pages": [
+    { "name": "Airport Transfers", "link": "travel/airport-transfers", "id": "airport-transfer-trips" },
+    { "name": "Embassy Visits", "link": "travel/embassy-visits", "id": "embassy-visit-trips" }
+  ]
+  },
+  {
     "name": "Cabs", "iconActive": "cabs", "iconInActive": "cabs-inactive", "link": "cabs", "pages": [
     { "name": "Pending Requests", "link": "cabs/pending", "id": "pending-cabs" },
     { "name": "Trip History", "link": "cabs/itinerary", "id": "itinerary-cabs" },

@@ -35,6 +35,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule, MatButtonModule} from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 import { ExportComponent } from './export-component/export.component';
+import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
+import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { ExportComponent } from './export-component/export.component';
     PendingRequestComponent,
     DatePickerComponent,
     CustomDropdownComponent,
-    ExportComponent
+    ExportComponent,
+    EmbassyVisitsComponent,
+    AirportTransfersComponent
   ],
   imports: [
     CommonModule,

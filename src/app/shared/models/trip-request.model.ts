@@ -20,6 +20,7 @@ export class TripRequest  implements Deserializable<TripRequest>  {
     public departureTime?: Moment,
     public requestedOn?: Moment,
     public rider?: Users,
+    public flightNumber?: string,
     public requester?: Users,
     public approvedBy?: Users,
     public confirmedBy?: Users,

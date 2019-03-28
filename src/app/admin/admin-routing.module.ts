@@ -13,6 +13,8 @@ import { PagingParamsResolver } from '../shared/paging-params.resolver';
 import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
 import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
 import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
+import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
+import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
 
 
 const routes: Routes = [
@@ -65,6 +67,18 @@ const routes: Routes = [
         component: TripNavComponent,
         canActivate: [],
         data: { title: 'All Trips' }
+      },
+      {
+        path: 'travel/embassy-visits',
+        component: EmbassyVisitsComponent,
+        canActivate: [],
+        data: { title: 'Embassy Visits' }
+      },
+      {
+        path: 'travel/airport-transfers',
+        component: AirportTransfersComponent,
+        canActivate: [],
+        data: { title: 'Airport Transfers' }
       },
       {
         path: 'cabs/pending',
