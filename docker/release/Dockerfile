@@ -8,9 +8,9 @@ ENV TERM=xterm-256color NODE_ENV="${NODE_ENV}"
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
 COPY . .
-RUN npm install -g yarn@1.12.x && rm -rf package-lock.json
-RUN yarn install
-RUN npm rebuild node-sass --force
+RUN npm install -g yarn@1.12.x @angular/cli npm-snapshot && rm -rf package-lock.json
+RUN npm cache clean --force
+RUN npm install && npm rebuild node-sass
 RUN $(npm bin)/ng build -c=$NODE_ENV
 
 # STAGE 2:
