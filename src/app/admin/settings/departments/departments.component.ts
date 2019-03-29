@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/shared/alert.service';
 import { MatDialog } from '@angular/material';
 import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
 import {ITEMS_PER_PAGE} from 'src/app/app.constants';
+import { AppEventService } from 'src/app/shared/app-events.service';
 
 
 @Component({
@@ -23,11 +24,13 @@ export class DepartmentsComponent implements OnInit {
   pageSize: number;
   isLoading: boolean;
   displayText = 'No Departments Created';
+  updateSubscription: any;
 
   constructor(
     private departmentService: DepartmentsService,
     public dialog: MatDialog,
-    private alert: AlertService
+    private alert: AlertService,
+    private appEventService: AppEventService,
     ) {
     this.pageNo = 1;
     this.pageSize = ITEMS_PER_PAGE;
@@ -36,6 +39,7 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit() {
     this.getDepartments();
+    this.updateSubscription = this.appEventService.subscribe('newDepartment', () => this.getDepartments());
   }
 
   setPage(page: number): void {

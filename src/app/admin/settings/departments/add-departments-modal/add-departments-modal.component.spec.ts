@@ -67,7 +67,6 @@ describe('AddDepartmentsModalComponent', () => {
 });
 
 describe('addDepartment', () => {
-
   it('should call addDepartment', () => {
     mockDepartmentService.addDepartment.mockReturnValue(of(responseMock))
     component.addDepartment();
@@ -95,6 +94,15 @@ describe('addDepartment', () => {
     jest.spyOn(component.alert, 'error');
     component.addDepartment();
     expect(component.alert.error).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call AlertService.error upon other error status codes', () => {
+    const error = new MockError(400, 'something went wrong');
+    mockDepartmentService.addDepartment.mockReturnValue(throwError(error));
+    jest.spyOn(component.alert, 'error');
+    component.addDepartment();
+    expect(component.alert.error).toHaveBeenCalledTimes(1);
+    expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again');
   });
 })
 });

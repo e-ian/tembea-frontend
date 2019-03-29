@@ -13,15 +13,15 @@
                   <label for="name">What's the new department?</label>
                   <input
                   required
-                  [(ngModel)]="model.department"
+                  [(ngModel)]="model.name"
                   id="name"
                   name="name"
-                  pattern="^[a-zA-Z0-9]+$"
+                  pattern="^[a-zA-Z0-9\s,+-]+$"
                   [class.is_invalid]="name.invalid && name.touched"
                   #name="ngModel"/>
                   <div *ngIf="name.errors && (name.touched && name.invalid)">
                     <small class="text-danger" *ngIf="name?.errors.required">name field is required</small>
-                    <small class="text-danger" *ngIf="name?.errors.pattern">please provide a valid name field.</small>
+                    <small class="text-danger" *ngIf="name?.errors.pattern">please provide a valid department name</small>
                   </div>
               </div>
             </div>
@@ -35,12 +35,12 @@
                 required
                 [(ngModel)]="model.location"
                 name="location"
-                pattern="^[a-zA-Z]+$"
+                pattern="^[a-zA-Z\s+-]+$"
                 [class.is_invalid]="location.invalid && location.touched"
                 #location="ngModel"/>
                 <div *ngIf="location.errors && (location.touched && location.invalid)">
                   <small class="text-danger" *ngIf="location?.errors.required">location field is required</small>
-                  <small class="text-danger" *ngIf="location?.errors.pattern">location field cannot contain numeric values</small>
+                  <small class="text-danger" *ngIf="location?.errors.pattern">location field cannot contain numeric values or symbols</small>
                 </div>
             </div>
           </div>
@@ -67,7 +67,9 @@
       </div>
       <button
       type="submit"
-      [disabled]="addForm.invalid">
+      [disabled]="loading || addForm.invalid">
+        <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin"></i>
+        &nbsp;
         <span>SUBMIT</span>
       </button>
     </form>
