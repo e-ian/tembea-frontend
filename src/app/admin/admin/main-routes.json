@@ -22,11 +22,7 @@
   ]
   },
   {
-    "name": "Cabs", "iconActive": "cabs", "iconInActive": "cabs-inactive", "link": "cabs", "pages": [
-    { "name": "Pending Requests", "link": "cabs/pending", "id": "pending-cabs" },
-    { "name": "Trip History", "link": "cabs/itinerary", "id": "itinerary-cabs" },
-    { "name": "Cab Inventory", "link": "cabs/inventory", "id": "inventory-cabs" }
-  ]
+    "name": "Cabs", "iconActive": "cabs", "iconInActive": "cabs-inactive", "link": "cabs", "pages": []
   },
   {
     "name": "Settings", "iconActive": "settings", "iconInActive": "settings-inactive", "link": "settings", "pages": [

@@ -28,7 +28,10 @@
             {{ headerTitle }}
           </span>
           <span *ngIf="badgeSize" class="badge">
-            {{badgeSize}}
+            {{badgeSize}} 
+          </span>
+          <span *ngIf="actionButton" class="action-button-wrapper">
+            <button class="header-action-button">{{actionButton}}</button>
           </span>
         </div>
       </ng-template>

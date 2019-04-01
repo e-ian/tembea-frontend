@@ -88,6 +88,13 @@ button:hover {
     line-height: 18px;
   }
 
+  & .action-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    justify-content: center;
+  }
+
   @media screen and (max-width: 600px) {
     & {
       margin-top: 0.2em;
@@ -171,4 +178,37 @@ span.too-bar-username {
   width: 39px !important;
   height: 39px !important;
   line-height: 39px !important;
+}
+
+.header-action-button {
+  color: #FFFFFF;	
+  font-family: "DIN Pro";	
+  font-size: 14px;	
+  font-weight: 500;
+  height: 29px;
+  width: 127px;
+  border: 1px solid #10A36D;
+  border-radius: 7px;
+  background-color: #10A36D;
+  text-align: center;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
+    padding-left: 0;
+    .title {
+      padding-left: 0;
+      margin-right: 2px;
+    }
+    .action-button-wrapper {
+      margin-left: 10px;
+    }
+  }
+  .app-toolbar[_ngcontent-c10]{
+    padding: 0;
+  }
 }

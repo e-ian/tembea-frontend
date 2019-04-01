@@ -50,9 +50,9 @@ describe('CabInventoryComponent', () => {
   it('should create component and render cabs', async(() => {
     component.getCabsInventory();
     fixture.detectChanges();
-    const button = fixture.debugElement.queryAll(By.css('.actions-icon'))
+    const button = fixture.debugElement.queryAll(By.css('.action-icon'))
 
-    expect(button.length).toEqual(1);
+    expect(button.length).toEqual(getCabsResponseMock.cabs.length * 6);
     expect(component.isLoading).toBe(false);
   }));
 
@@ -62,10 +62,10 @@ describe('CabInventoryComponent', () => {
 
     expect(component.cabs).toEqual(getCabsResponseMock.cabs);
 
-    const editButton = fixture.debugElement.queryAll(By.css('.edit-icon'));
-    const deleteButton = fixture.debugElement.queryAll(By.css('.delete-icon'));
-    expect(editButton.length).toEqual(getCabsResponseMock.cabs.length);
-    expect(deleteButton.length).toEqual(getCabsResponseMock.cabs.length);
+    const editButton = fixture.debugElement.queryAll(By.css('.edit-action'));
+    const deleteButton = fixture.debugElement.queryAll(By.css('.delete-action'));
+    expect(editButton.length).toEqual(getCabsResponseMock.cabs.length * 3);
+    expect(deleteButton.length).toEqual(getCabsResponseMock.cabs.length * 3);
   }));
 
   describe('ngOnInit', () => {

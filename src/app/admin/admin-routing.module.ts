@@ -93,10 +93,10 @@ const routes: Routes = [
         data: { title: 'All Cabs' }
       },
       {
-        path: 'cabs/inventory',
+        path: 'cabs',
         component: CabInventoryComponent,
         canActivate: [],
-        data: { title: 'Cabs Inventory' }
+        data: { title: 'Cabs' }
       },
       {
         path: 'settings/fellows',

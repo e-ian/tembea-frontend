@@ -21,6 +21,7 @@ import { AppEventService } from '../../shared/app-events.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   public headerTitle: string;
   public badgeSize = 0;
+  public actionButton = 0;
   user: IUser;
   updateHeaderSubscription: Subscription;
 
@@ -46,13 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.updateHeaderSubscription = this.appEventService.subscribe('updateHeaderTitle', (data) => {
-      const { content: { headerTitle, badgeSize } } = data;
-      if (headerTitle) {
-        this.headerTitle = headerTitle;
-      }
-      if (badgeSize) {
-        this.badgeSize = badgeSize;
-      }
+      const { content: { headerTitle, badgeSize, actionButton } } = data;
+      this.headerTitle = headerTitle || this.headerTitle;
+      this.badgeSize = badgeSize || this.badgeSize;
+      this.actionButton = actionButton || this.actionButton;
     });
   }
 
@@ -68,6 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       route.data.subscribe(value => {
         this.headerTitle = value['title'];
         this.badgeSize = 0;
+        this.actionButton = 0;
         this.titleService.setTitle(`Tembea - ${this.headerTitle}`);
       });
     }

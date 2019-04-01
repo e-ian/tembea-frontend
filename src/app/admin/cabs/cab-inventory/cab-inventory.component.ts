@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CABS_ITEMS_PER_PAGE } from 'src/app/app.constants';
+import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 
 import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
 import { ICabInventory } from 'src/app/shared/models/cab-inventory.model';
@@ -23,6 +23,9 @@ export class CabInventoryComponent implements OnInit {
   sort: string;
   isLoading: boolean;
   displayText = 'No cabs yet';
+  createCabText = 'Add a New Cab';
+  currentOptions = -1;
+
 
   constructor(
     public cabService: CabsInventoryService,
@@ -30,7 +33,7 @@ export class CabInventoryComponent implements OnInit {
   ) {
     this.pageNo = 1;
     this.sort = 'name,asc,batch,asc';
-    this.pageSize = CABS_ITEMS_PER_PAGE;
+    this.pageSize = ITEMS_PER_PAGE;
     this.isLoading = true;
   }
 
@@ -50,7 +53,7 @@ export class CabInventoryComponent implements OnInit {
       this.totalItems = totalResults;
       this.cabs = cabs;
       this.isLoading = false;
-      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: totalResults } })
+      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: totalResults, actionButton: 'Add a New Cab' } })
     },
     () => {
       this.isLoading = false;
@@ -63,4 +66,7 @@ export class CabInventoryComponent implements OnInit {
     this.getCabsInventory();
   }
 
+  showOptions(cabId) {
+    this.currentOptions = this.currentOptions === cabId ? -1 : cabId;
+  }
 }
