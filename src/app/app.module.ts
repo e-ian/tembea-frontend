@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,7 @@ import { AuthService } from './auth/__services__/auth.service';
 import { AngularMaterialModule } from './angular-material.module';
 import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
 import { RouteApproveDeclineModalComponent } from './admin/routes/route-approve-decline-modal/route-approve-decline-modal.component';
-import { FormsModule } from '@angular/forms';
+
 import { AlertService } from './shared/alert.service';
 import { RoutesInventoryEditModalComponent
 } from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';

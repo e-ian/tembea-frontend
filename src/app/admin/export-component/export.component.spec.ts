@@ -41,14 +41,14 @@ describe('ExportComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('exportToPDF', () => {
+  describe('exportToPDFOrCSV', () => {
     it('should call exportService', async(() => {
-      const exportSpy = jest.spyOn(component.exportService, 'exportToPDF').mockReturnValue(of(new ArrayBuffer(16)));
+      const exportSpy = jest.spyOn(component.exportService, 'exportData').mockReturnValue(of(new ArrayBuffer(16)));
       const toastInfoSpy = jest.spyOn(component.toastr, 'info');
       const clearToastSpy = jest.spyOn(component.toastr, 'clear');
 
       fixture.detectChanges();
-      component.exportToPDF();
+      component.exportToPDFOrCSV('pdf');
 
       expect(exportSpy).toBeCalledTimes(1);
       expect(clearToastSpy).toBeCalledTimes(1);
@@ -56,11 +56,36 @@ describe('ExportComponent', () => {
     }));
 
     it('should call toastr with an error if error is caught in subscribe', () => {
-      jest.spyOn(component.exportService, 'exportToPDF')
+      jest.spyOn(component.exportService, 'exportData')
         .mockReturnValue(throwError (new Error()))
       const toastSpy = jest.spyOn(component.toastr, 'error');
 
-      component.exportToPDF();
+      component.exportToPDFOrCSV('pdf');
+
+      expect(toastSpy).toBeCalledWith('Failed to download. Try Again!');
+    })
+  })
+
+  describe('exportToPDFOrCSV', () => {
+    it('should call exportService', async (() => {
+      const exportSpy = jest.spyOn(component.exportService, 'exportData').mockReturnValue(of(''));
+      const toastInfoSpy = jest.spyOn(component.toastr, 'info');
+      const clearToastSpy = jest.spyOn(component.toastr, 'clear');
+
+      fixture.detectChanges();
+      component.exportToPDFOrCSV('csv');
+
+      expect(exportSpy).toBeCalledTimes(1);
+      expect(clearToastSpy).toBeCalledTimes(1);
+      expect(toastInfoSpy).toBeCalledWith('Hold on tight, we\'re getting your document ready.');
+    }));
+
+    it('should call toastr with an error if error is caught in subscribe', () => {
+      jest.spyOn(component.exportService, 'exportData')
+        .mockReturnValue(throwError (new Error()));
+      const toastSpy = jest.spyOn(component.toastr, 'error');
+
+      component.exportToPDFOrCSV('csv');
 
       expect(toastSpy).toBeCalledWith('Failed to download. Try Again!');
     })

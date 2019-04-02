@@ -18,22 +18,21 @@ export class ExportComponent {
     public exportService: ExportService
   ) { }
 
-  async exportToPDF() {
-    const infoToastr = this.toastr.info('Hold on tight, we\'re getting your document ready.')
-
+  async exportToPDFOrCSV(type) {
+    const infoToastr = this.toastr.info('Hold on tight, we\'re getting your document ready.');
     this.toastr.clear(infoToastr);
+    const dataType = type === 'pdf' ? 'pdf' : 'csv';
+    await this.saveFiles(`application/${dataType}`, dataType);
+  }
 
-    await this.exportService.exportToPDF(this.tableName, this.sort, this.filterParams)
-      .subscribe(async(data) => {
-        const blob = new Blob([data], {type: 'application/pdf'});
-        await fileSaver.saveAs(blob, `${this.tableName}.pdf`);
-        this.toastr.success(`Success! ${this.tableName}.pdf downloaded!`);
+  async saveFiles(contenType, fileType) {
+    await this.exportService.exportData(this.tableName, this.sort, this.filterParams, fileType)
+      .subscribe(async(data: any) => {
+        const blob = new Blob([data], {type: contenType});
+        await fileSaver.saveAs(blob, `${this.tableName}.${fileType}`);
+        this.toastr.success(`Success! ${this.tableName}.${fileType} downloaded!`);
       }, () => {
         this.toastr.error('Failed to download. Try Again!')
       });
-  }
-
-  exportToCSV() {
-    // logic for export to csv
   }
 }
