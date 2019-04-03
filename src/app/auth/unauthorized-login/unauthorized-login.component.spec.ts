@@ -32,6 +32,6 @@ describe('UnauthorizedLoginComponent', () => {
   it('should contain p', () => {
     const compiled = fixture.debugElement.nativeElement;
     const p = compiled.querySelector('p');
-    expect(p.textContent).toEqual('Sorry, you\'re unauthorized to Login to Tembea :(');
+    expect(p.textContent).toEqual('Sorry, you\'re not authorized to Login to Tembea :(');
   });
 });
