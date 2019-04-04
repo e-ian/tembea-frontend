@@ -9,8 +9,10 @@ import { FellowsModel } from 'src/app/shared/models/fellows.model';
 })
 export class FellowsService {
   fellowsUrl: string;
+
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    body: { teamUrl: environment.teamUrl }
   };
 
   constructor(private http: HttpClient) {
@@ -23,5 +25,10 @@ export class FellowsService {
       .map(fellows => {
         return new FellowsModel().deserialize(fellows);
       });
+  }
+
+  removeFellowFromRoute(fellowId: number) {
+    const url = `${environment.tembeaBackEndUrl}/api/v1/routes/fellows/${fellowId}/`;
+    return this.http.delete(url, this.httpOptions);
   }
 }

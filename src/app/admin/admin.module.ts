@@ -45,6 +45,7 @@ import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.c
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 import { FellowsComponent } from './settings/fellows/fellows.component';
 import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.component';
+import { DeleteFellowModalComponent } from './settings/fellows/delete-fellow-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.
     EmbassyVisitsComponent,
     AirportTransfersComponent,
     FellowsComponent,
-    FellowCardComponent
+    FellowCardComponent,
+    DeleteFellowModalComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +97,7 @@ import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.
     }),
     AgmDirectionModule
   ],
+  entryComponents: [ DeleteFellowModalComponent ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
 export class AdminModule {}

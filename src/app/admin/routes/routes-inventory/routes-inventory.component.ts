@@ -131,20 +131,18 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  async deleteRoute(routeBatchId: number, ind: number) {
+  async deleteRoute(routeBatchId: number) {
     this.routeService.deleteRouteBatch(routeBatchId)
       .subscribe((response: IDeleteRouteResponse) => {
         const { success, message } = response;
         if (success) {
           this.alert.success(message);
-          const routes = [...this.routes];
-          routes.splice(ind, 1);
-          this.routes = this.renameRouteBatches(routes);
+          this.getRoutesInventory();
         } else { this.alert.error(message) }
       })
   }
 
-  showDeleteModal(routeBatchId: number, ind: number): void {
+  showDeleteModal(routeBatchId: number): void {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '592px',
       backdropClass: 'modal-backdrop',
@@ -155,7 +153,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
        }
     });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.deleteRoute(routeBatchId, ind)
+      this.deleteRoute(routeBatchId)
     })
   }
 

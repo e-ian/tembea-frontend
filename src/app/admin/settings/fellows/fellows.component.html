@@ -9,7 +9,7 @@
       <div class="fellows">
         <app-fellow-card
           *ngFor="let fellow of fellows"
-          [attr.data-userId]="fellow.id"
+          [userId]="fellow.id"
           [name]="fellow.name"
           [image]="fellow.image"
           [partner]="fellow.partner"
@@ -17,9 +17,9 @@
           [startDate]="fellow.startDate"
           [endDate]="fellow.endDate"
           [showRemoveIcon]="true"
-        ></app-fellow-card>
+          (removeFellow)="loadFellows()">
+        </app-fellow-card>
       </div>
-    
       <div class="pagination">
         <app-pagination
           *ngIf="totalItems > pageSize"

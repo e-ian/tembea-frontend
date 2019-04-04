@@ -7,8 +7,10 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { FellowsModel } from 'src/app/shared/models/fellows.model';
 import { fellowsMockResponse } from '../__mocks__/fellows.mock';
 import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
-describe('Fellows Service', () => {
+describe('FellowsService', () => {
   let service: FellowsService;
   let httpMock: HttpTestingController;
   const getFellowsMockResponse = new FellowsModel().deserialize(
@@ -38,4 +40,15 @@ describe('Fellows Service', () => {
 
     expect(res.fellows).toEqual(getFellowsMockResponse.fellows);
   });
+
+  describe('removeFellowFromRoute', () => {
+    it('should make a delete http call to API', () => {
+      const spy = jest.spyOn(HttpClient.prototype, 'delete');
+      const url = `${environment.tembeaBackEndUrl}/api/v1/routes/fellows/10/`;
+
+      service.removeFellowFromRoute(10);
+
+      expect(spy.mock.calls[0][0]).toEqual(url);
+    })
+  })
 });

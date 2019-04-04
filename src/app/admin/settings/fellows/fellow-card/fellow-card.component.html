@@ -8,7 +8,7 @@
     </div>
     <div class="fellow-card__action">
       <button class="remove-action-button" *ngIf="showRemoveIcon">
-        <span class="remove-icon"></span>
+        <span class="remove-icon" (click)="showFellowDeleteModal()"></span>
       </button>
     </div>
   </div>

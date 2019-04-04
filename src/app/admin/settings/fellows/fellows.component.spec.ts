@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialog } from '@angular/material';
 import { FellowsComponent } from './fellows.component';
 import { FellowsService } from '../../__services__/fellows.service';
 import { FellowCardComponent } from './fellow-card/fellow-card.component';
@@ -15,6 +15,15 @@ describe('FellowsComponent', () => {
     getFellows: jest.fn().mockReturnValue(of(fellowsMockResponse))
   };
 
+  const matDialogMock = {
+    open: jest.fn().mockReturnValue({
+      componentInstance: {
+        removeUser: {
+          subscribe: () => jest.fn()
+        }}
+       })
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -23,7 +32,10 @@ describe('FellowsComponent', () => {
         AppPaginationComponent,
         EmptyPageComponent
       ],
-      providers: [{ provide: FellowsService, useValue: mockFellowsService }]
+      providers: [
+        { provide: FellowsService, useValue: mockFellowsService },
+        { provide: MatDialog, useValue: matDialogMock }
+      ]
     }).compileComponents();
   }));
 

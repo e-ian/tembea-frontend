@@ -261,6 +261,7 @@ describe('RoutesInventoryComponent', () => {
     });
 
     it('should delete a route batch on success response from http call', () => {
+      const spy = jest.spyOn(component, 'getRoutesInventory');
       jest.spyOn(routesInventoryMock, 'deleteRouteBatch').mockReturnValue(of({
         success: true,
         message: 'batch deleted successfully'
@@ -268,11 +269,11 @@ describe('RoutesInventoryComponent', () => {
       component.getRoutesInventory();
       fixture.detectChanges();
 
-      component.deleteRoute(1, 1);
+      component.deleteRoute(1);
 
       expect(routesInventoryMock.deleteRouteBatch).toHaveBeenCalled();
       expect(alert.success).toBeCalledWith('batch deleted successfully');
-      expect(component.routes.length).toBe(4);
+      expect(spy).toBeCalled();
     });
 
     it('should show error alert route batch on failed response from http call', () => {
@@ -283,7 +284,7 @@ describe('RoutesInventoryComponent', () => {
 
       component.getRoutesInventory();
       fixture.detectChanges();
-      component.deleteRoute(1, 1);
+      component.deleteRoute(1);
 
       expect(routesInventoryMock.deleteRouteBatch).toHaveBeenCalled();
       expect(alert.error).toBeCalledWith('something went wrong');
