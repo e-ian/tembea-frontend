@@ -13,7 +13,7 @@ export class DepartmentsModel implements Deserializable<DepartmentsModel> {
 
 export interface IDepartmentsModel {
   id?: number;
-  department?: string;
+  name?: string;
   location?: string;
   lead?: string;
   status?: string;
