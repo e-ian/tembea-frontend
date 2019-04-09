@@ -27,16 +27,24 @@ import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.
 
 import { environment } from '../../environments/environment';
 import { DepartmentsComponent } from './settings/departments/departments.component';
-import {TripItineraryComponent} from './trips/trip-itinerary/trip-itinerary.component';
-import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
-import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
-import {PendingRequestComponent} from './trips/pending-request/pending-request.component';
+import { TripItineraryComponent } from './trips/trip-itinerary/trip-itinerary.component';
+import { TripNavComponent } from './trips/trip-nav/trip-nav.component';
+import { TripHistoryComponent } from './trips/trip-history/trip-history.component';
+import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-import {MatDatepickerModule,  MatFormFieldModule,  MatNativeDateModule, MatInputModule, MatButtonModule} from '@angular/material';
+import {
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatNativeDateModule,
+  MatInputModule,
+  MatButtonModule
+} from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 import { ExportComponent } from './export-component/export.component';
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
+import { FellowsComponent } from './settings/fellows/fellows.component';
+import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +74,9 @@ import { AirportTransfersComponent } from './travel/airport-transfers/airport-tr
     CustomDropdownComponent,
     ExportComponent,
     EmbassyVisitsComponent,
-    AirportTransfersComponent
+    AirportTransfersComponent,
+    FellowsComponent,
+    FellowCardComponent
   ],
   imports: [
     CommonModule,
@@ -87,4 +97,4 @@ import { AirportTransfersComponent } from './travel/airport-transfers/airport-tr
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
-export class AdminModule { }
+export class AdminModule {}

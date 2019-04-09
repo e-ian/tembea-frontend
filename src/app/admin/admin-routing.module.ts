@@ -6,7 +6,6 @@ import { CabsComponent } from './cabs/cabs.component';
 import { CabInventoryComponent } from './cabs/cab-inventory/cab-inventory.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
-import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 import { PagingParamsResolver } from '../shared/paging-params.resolver';
@@ -15,6 +14,7 @@ import {TripHistoryComponent} from './trips/trip-history/trip-history.component'
 import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
+import { FellowsComponent } from './settings/fellows/fellows.component';
 
 
 const routes: Routes = [
@@ -100,7 +100,7 @@ const routes: Routes = [
       },
       {
         path: 'settings/fellows',
-        component: SettingsComponent,
+        component: FellowsComponent,
         canActivate: [],
         data: { title: 'Fellows' }
       },

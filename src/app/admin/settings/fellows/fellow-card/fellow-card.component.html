@@ -1,0 +1,49 @@
+<div class="fellow-card">
+  <div class="fellow-card__header">
+    <div class="fellow-card__avatar">
+      <img class="fellow-card__avatar--image" [src]="image" [alt]="name" />
+    </div>
+    <div class="fellow-card__fellow-name">
+      {{ name }}
+    </div>
+    <div class="fellow-card__action">
+      <button class="remove-action-button" *ngIf="showRemoveIcon">
+        <span class="remove-icon"></span>
+      </button>
+    </div>
+  </div>
+  <div class="fellow-card__body">
+    <div class="fellow-card__detail">
+      <p class="fellow-card__detail--title">
+        Partner
+      </p>
+      <p class="fellow-card__detail--text">
+        {{ partner ? partner : "N/A" }}
+      </p>
+    </div>
+    <div class="fellow-card__detail">
+      <p class="fellow-card__detail--title">
+        Trips Taken
+      </p>
+      <p class="fellow-card__detail--text">
+        {{ tripsTaken }}
+      </p>
+    </div>
+    <div class="fellow-card__detail">
+      <p class="fellow-card__detail--title">
+        Start Date
+      </p>
+      <p class="fellow-card__detail--text">
+        {{ startDate ? (startDate | date: 'dd-MM-yy') : "N/A" }}
+      </p>
+    </div>
+    <div class="fellow-card__detail">
+      <p class="fellow-card__detail--title">
+        End Date
+      </p>
+      <p class="fellow-card__detail--text">
+        {{ endDate ? (endDate | date: 'dd-MM-yy') : "N/A" }}
+      </p>
+    </div>
+  </div>
+</div>
