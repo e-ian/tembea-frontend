@@ -24,7 +24,8 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/toastr/build/toastr.min.css",
@@ -60,7 +61,8 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true
             },
             "staging": {
               "fileReplacements": [
@@ -92,7 +94,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "tembea-frontend:build",
-            "publicHost":"tembea-dev.andela.com:4200"
+            "publicHost": "tembea-dev.andela.com:4200"
           },
           "configurations": {
             "production": {

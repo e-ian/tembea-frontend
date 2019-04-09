@@ -25,6 +25,8 @@ import { RoutesInventoryEditModalComponent
 import { errorHandlerFactory } from './shared/bugsnag.service';
 import { AddDepartmentsModalComponent } from './admin/settings/departments/add-departments-modal/add-departments-modal.component';
 import { TripApproveDeclineModalComponent } from './admin/trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const toastr: Toastr = window['toastr'];
 
@@ -47,7 +49,8 @@ const toastr: Toastr = window['toastr'];
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AuthService,
