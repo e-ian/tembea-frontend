@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of';
 import { throwError } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutesInventoryComponent } from './routes-inventory.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
@@ -18,6 +18,11 @@ import { AlertService } from '../../../shared/alert.service';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { ExportComponent } from '../../export-component/export.component';
+import {SearchService} from '../../__services__/search.service';
+import {CookieService} from '../../../auth/__services__/ngx-cookie-service.service';
+import {mockCookieService} from '../../../shared/__mocks__/mockData';
+import {ClockService} from '../../../auth/__services__/clock.service';
+import { AppEventService } from '../../../shared/app-events.service';
 
 describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
@@ -43,6 +48,15 @@ describe('RoutesInventoryComponent', () => {
       success: true,
       message: 'batch deleted successfully'
     }))
+  };
+
+  const searchServiceMock = {
+    searchRoutes: () => of(getRoutesResponseMock),
+    searchItems: jest.fn().mockReturnValue(of(getRoutesResponseMock)),
+  };
+
+  const clockServiceMock = {
+    getClock: jest.fn().mockReturnValue(of(6000000000)),
   };
 
   const router = {
@@ -76,6 +90,9 @@ describe('RoutesInventoryComponent', () => {
         { provide: AlertService, useValue: alert },
         { provide: CreateRouteHelper, useValue: createRouteHelperMock },
         { provide: RoutesInventoryService, useValue: routesInventoryMock },
+        { provide: SearchService, useValue: searchServiceMock },
+        { provide: CookieService, useValue: mockCookieService },
+        { provide: ClockService,  useValue: clockServiceMock },
         {
           provide: MAT_DIALOG_DATA, useValue: {
             data: {
@@ -84,7 +101,7 @@ describe('RoutesInventoryComponent', () => {
             }
           }
         },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
       ],
       imports: [ HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule ],
     })
@@ -99,6 +116,7 @@ describe('RoutesInventoryComponent', () => {
     fixture.detectChanges();
 
     jest.spyOn(routesInventoryMock, 'getRoutes');
+    jest.spyOn(searchServiceMock, 'searchRoutes');
   });
 
   afterEach(() => {
@@ -292,11 +310,52 @@ describe('RoutesInventoryComponent', () => {
     });
   });
 
+  describe('Search Routes', () => {
+    afterEach(() => {
+      jest.resetAllMocks();
+      jest.restoreAllMocks();
+    });
+
+    it('should return list of all routes when no name is provided', async(() => {
+      component.getSearchResults();
+      fixture.detectChanges();
+      expect(component.routes).toEqual(getRoutesResponseMock.routes);
+
+      const button = fixture.debugElement.queryAll(By.css('.arrow-icon-button'));
+      expect(button.length).toEqual(2);
+    }));
+
+    it('should throw error when routes not loaded successfully', async(() => {
+      spyOn(SearchService.prototype, 'searchRoutes')
+        .and.returnValue(throwError('error'));
+
+      component.getSearchResults();
+      fixture.detectChanges();
+      expect(component.displayText).toEqual(`Oops! We're having connection problems.`);
+    }));
+
+    it('should return list of filtered routes when name is provided', async(() => {
+      jest.spyOn(component, 'getSearchResults');
+      jest.spyOn(SearchService.prototype, 'searchRoutes').mockReturnValue(of(getRoutesResponseMock));
+      const appServiceSpy = jest.spyOn(AppEventService.prototype, 'broadcast');
+      component.getRoutesInventory();
+
+      fixture.detectChanges();
+      component.getSearchResults();
+
+      fixture.detectChanges();
+
+      expect(component.getSearchResults).toHaveBeenCalled();
+      expect(appServiceSpy).toHaveBeenCalled();
+      expect(component.routes).toEqual(getRoutesResponseMock.routes);
+    }));
+  });
+
   describe('ngOnDestroy', () => {
     it('should unsubscribe from subscriptions on ngOnDestroy', () => {
       component.updateSubscription = {
         unsubscribe: jest.fn()
-      }
+      };
       component.ngOnDestroy();
 
       expect(component.updateSubscription.unsubscribe).toBeCalledTimes(1);

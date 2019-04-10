@@ -29,7 +29,7 @@ mat-grid-list:last-child {
   margin-bottom: 5rem;
   .mat-grid-list{
     align-items: center;
-    height: 15px; 
+    height: 15px;
     padding: 10px;
   }
   .route-name-align{
@@ -129,6 +129,37 @@ mat-grid-list:last-child {
 
   button {
     border: none;
+  }
+
+  .search-section {
+    width: 270px;
+    position: relative
+  }
+
+  .search-term-area {
+    float: left;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .05);
+    padding-left: 10px;
+    height: 29px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .search-button {
+    position: absolute;
+    right: -8px;
+    width: 25px;
+    top: 1px;
+    height: 29px;
+    border: none;
+    background: white;
+    color: grey;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
   }
 }
 
@@ -246,3 +277,4 @@ mat-grid-list:last-child {
     color: #b9c5d1;
   }
 }
+

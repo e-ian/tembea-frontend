@@ -1,6 +1,3 @@
-import getRoutesResponseMock from './get-routes-response.mock';
-import { of } from 'rxjs';
-
 export const routesMock = [
   {
     id: 1,
