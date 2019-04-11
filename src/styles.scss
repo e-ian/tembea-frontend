@@ -209,3 +209,16 @@ input {
     transform: translate3d(0, 0, 0);
   }
 }
+
+.add-cab-modal-panel-class .mat-dialog-container {
+  border-radius: 11px;	
+  background-color: #FFFFFF;	
+  box-shadow: 0 5px 12px 0 rgba(83,89,98,0.12);
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.add-cab-modal-panel-class .add-cab-modal-backdrop {
+  opacity: 0.8;	
+  background-color: #4F4F4F;
+}

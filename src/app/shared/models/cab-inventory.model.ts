@@ -13,8 +13,19 @@ export class CabInventoryModel implements Deserializable<CabInventoryModel> {
 export interface ICabInventory {
   id?: number;
   regNumber: string;
-  capacity: number;
+  capacity: string;
   driverName: string;
-  driverPhoneNo: string;
+  driverPhoneNo?: string;
   location: string;
+}
+
+export class CabModel implements ICabInventory {
+  constructor(
+      public regNumber: string,
+      public capacity: string,
+      public driverName: string,
+      public location: string,
+      public model: string,
+      public driverPhoneNo: string
+  ) {}
 }

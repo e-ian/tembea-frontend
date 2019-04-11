@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import { IUser } from '../../shared/models/user.model';
 import { AppEventService } from '../../shared/app-events.service';
+import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,7 @@ import { AppEventService } from '../../shared/app-events.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   public headerTitle: string;
   public badgeSize = 0;
-  public actionButton = 0;
+  public actionButton = '';
   user: IUser;
   updateHeaderSubscription: Subscription;
 
@@ -66,7 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       route.data.subscribe(value => {
         this.headerTitle = value['title'];
         this.badgeSize = 0;
-        this.actionButton = 0;
+        this.actionButton = '';
         this.titleService.setTitle(`Tembea - ${this.headerTitle}`);
       });
     }
@@ -101,5 +102,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.executeFunction.subscribe(() => {
       this.logout();
     });
+  }
+
+  handleAction() {
+    if (this.actionButton === 'Add a New Cab') {
+      const dialogRef = this.dialog.open(AddCabsModalComponent, {
+        minHeight: '568px',
+        width: '592px',
+        panelClass: 'add-cab-modal-panel-class',
+      });
+    }
   }
 }

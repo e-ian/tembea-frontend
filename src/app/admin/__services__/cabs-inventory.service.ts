@@ -27,4 +27,7 @@ export class CabsInventoryService {
       return cabInventoryModel;
     });
   }
+  addCab(data: Object): Observable<any> {
+    return this.http.post<any>(this.cabsUrl, {...data});
+  }
 }

@@ -31,7 +31,7 @@
             {{badgeSize}} 
           </span>
           <span *ngIf="actionButton" class="action-button-wrapper">
-            <button class="header-action-button">{{actionButton}}</button>
+            <button class="header-action-button" (click)="handleAction()">{{actionButton}}</button>
           </span>
         </div>
       </ng-template>

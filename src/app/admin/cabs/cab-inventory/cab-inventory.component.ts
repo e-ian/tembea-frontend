@@ -25,6 +25,7 @@ export class CabInventoryComponent implements OnInit {
   displayText = 'No cabs yet';
   createCabText = 'Add a New Cab';
   currentOptions = -1;
+  updateSubscription: any;
 
 
   constructor(
@@ -39,6 +40,10 @@ export class CabInventoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCabsInventory();
+    this.updateSubscription = this.appEventsService
+    .subscribe(
+      'newCab', () => this.getCabsInventory()
+    );
   }
 
   getCabsInventory = () => {
