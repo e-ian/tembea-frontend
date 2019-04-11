@@ -80,7 +80,11 @@
                             <div class="cell-align">{{ fellow.driverName }}</div>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <div class="cell-align">{{ fellow.rating }}</div>
+                            <div class="cell-align">
+                                <span class="stars alignright">
+                                    <span [ngStyle]="{ 'width': fellow.rate }"></span>
+                                </span>
+                            </div>
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <div class="cell-align">{{ fellow.userAttendStatus }}</div>

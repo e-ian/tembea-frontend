@@ -137,7 +137,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rating': null,
+            'rate': '0%',
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }, {
@@ -145,7 +145,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rating': null,
+            'rate': '0%',
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }, {
@@ -153,7 +153,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rating': null,
+            'rate': '0%',
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }
