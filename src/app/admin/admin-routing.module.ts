@@ -15,7 +15,7 @@ import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
 import { FellowsComponent } from './settings/fellows/fellows.component';
-
+import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 
 const routes: Routes = [
   {
@@ -102,7 +102,13 @@ const routes: Routes = [
         path: 'settings/fellows',
         component: FellowsComponent,
         canActivate: [],
-        data: { title: 'Fellows' }
+        data: { title: 'Fellows on Routes' }
+      },
+      {
+        path: 'settings/fellows/fellow/:id',
+        component: FellowComponent,
+        canActivate: [],
+        data: { title: 'Fellow Trips' }
       },
       {
         path: 'settings/departments',

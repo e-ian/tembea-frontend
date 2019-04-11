@@ -42,12 +42,21 @@
   margin: 2px auto 8px;
 }
 
+.a-link{
+  text-decoration: none;
+  color: #4F4F4F;
+}
+
 .fellow-card__fellow-name {
   color: #39434D;
   flex-grow: 1;
   font-weight: bold;
   line-height: 21px;
   padding: 0 15px;
+}
+
+.fellow-card:hover {
+  box-shadow: 0 7px 44px 0 rgba(0,0,0,0.04);
 }
 
 .remove-action-button {

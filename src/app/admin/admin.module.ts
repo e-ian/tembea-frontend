@@ -46,6 +46,7 @@ import { AirportTransfersComponent } from './travel/airport-transfers/airport-tr
 import { FellowsComponent } from './settings/fellows/fellows.component';
 import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.component';
 import { DeleteFellowModalComponent } from './settings/fellows/delete-fellow-dialog/delete-dialog.component';
+import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { DeleteFellowModalComponent } from './settings/fellows/delete-fellow-dia
     AirportTransfersComponent,
     FellowsComponent,
     FellowCardComponent,
-    DeleteFellowModalComponent
+    DeleteFellowModalComponent,
+    FellowComponent
   ],
   imports: [
     CommonModule,

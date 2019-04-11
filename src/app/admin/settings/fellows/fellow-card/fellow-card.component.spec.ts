@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FellowCardComponent } from './fellow-card.component';
 import { MatDialog } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('FellowCardComponent', () => {
   let component: FellowCardComponent;
@@ -18,6 +19,7 @@ describe('FellowCardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FellowCardComponent],
+      imports: [ RouterTestingModule.withRoutes([])],
       providers: [
         { provide: MatDialog, useValue: matDialogMock }
       ]
@@ -39,3 +41,5 @@ describe('FellowCardComponent', () => {
     expect(emit).toBeCalledTimes(1);
   })
 });
+
+

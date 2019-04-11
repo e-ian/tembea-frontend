@@ -1,0 +1,102 @@
+<div>
+  <div class="loader" *ngIf="isLoading === true"></div>
+
+  <div *ngIf="totalItems === 0  && !isLoading">
+    <app-empty-page [text]='displayText'></app-empty-page>
+    <div class="bottom-image"></div>
+  </div>
+
+    <div *ngIf="totalItems > 0">
+        <div class="remove_fellow">
+            <p>Remove {{firstName}}</p>
+        </div>
+        <div class="details_card">
+            <div class="trips-average-card">
+                <div class="left-details">
+                    <ul>
+                        <li>No of trips</li>
+                        <li>Average rating</li>
+                        <li>Cost total</li>
+                    </ul>            
+                </div>
+
+                <div class="right-details">
+                    <ul>
+                        <li>{{totalItems}}</li>
+                        <li> - </li>
+                        <li> - </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-right">
+        <app-export-view [tableName]="'fellow Route Details'" [sort]="sort" class="flex-right">
+        </app-export-view>
+        </div>
+
+        <div class="fellows-table-container table">
+        
+            <div class="fellows-table">
+                <mat-grid-list class="table-title" cols="6" rowHeight="3:1">
+                    <mat-grid-tile>
+                        <div class="cell-align">Departed on</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="cell-align">Route Name</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="cell-align">Destination</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="cell-align">Driver</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="cell-align">Rating</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="cell-align">Status</div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <div class="title-grid-data">
+                    <mat-grid-list *ngFor="let fellow of fellowsData" cols="6" rowHeight="3:1">
+                        <mat-grid-tile>
+                            <div class="time cell-align">
+                                <span>{{ fellow.departureDate | date:'dd-MM-yy' }}</span>
+                                <span>
+                                <span>&nbsp;by&nbsp;</span>
+                                <span>{{ fellow.departureDate | date:'shortTime' }}</span>
+                                </span>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="cell-align">{{ fellow.name }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="cell-align">{{ fellow.address }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="cell-align">{{ fellow.driverName }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="cell-align">{{ fellow.rating }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="cell-align">{{ fellow.userAttendStatus }}</div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <app-pagination
+                *ngIf='totalItems > pageSize' 
+                [totalItems]="totalItems" 
+                (pageChange)="setPage($event)"
+                [pageSize]="pageSize">
+            </app-pagination>
+        </div>
+    </div>
+</div>

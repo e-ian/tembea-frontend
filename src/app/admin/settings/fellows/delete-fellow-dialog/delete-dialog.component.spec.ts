@@ -8,6 +8,7 @@ import { FellowCardComponent } from '../fellow-card/fellow-card.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FellowsService } from '../../../__services__/fellows.service';
 import { of, throwError } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DeleteFellowModalComponent', () => {
   let fixture: ComponentFixture<DeleteFellowModalComponent>;
@@ -30,7 +31,7 @@ describe('DeleteFellowModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DeleteFellowModalComponent, FellowCardComponent ],
-      imports: [ HttpClientTestingModule ],
+      imports: [ HttpClientTestingModule,  RouterTestingModule.withRoutes([])],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },

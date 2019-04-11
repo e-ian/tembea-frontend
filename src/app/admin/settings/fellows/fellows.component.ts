@@ -32,7 +32,11 @@ export class FellowsComponent implements OnInit {
     this.fellowService.getFellows(this.pageSize, this.pageNumber).subscribe(
       data => {
         const { fellows, pageMeta } = data;
-        this.fellows = fellows.map(this.serializeFellow);
+        if (!Array.isArray(fellows)) {
+          this.isLoading = false;
+          return (this.displayText = 'Something went wrong');
+        }
+        this.fellows = fellows.length && fellows.map(this.serializeFellow);
         this.totalItems = pageMeta.totalItems;
         this.isLoading = false;
         this.appEventService.broadcast({

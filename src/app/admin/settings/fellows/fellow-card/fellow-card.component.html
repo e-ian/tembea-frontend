@@ -4,7 +4,7 @@
       <img class="fellow-card__avatar--image" [src]="image" [alt]="name" />
     </div>
     <div class="fellow-card__fellow-name">
-      {{ name }}
+      <a class="a-link" routerLink="../fellows/fellow/{{userId}}"> {{ name }} </a>
     </div>
     <div class="fellow-card__action">
       <button class="remove-action-button" *ngIf="showRemoveIcon">
