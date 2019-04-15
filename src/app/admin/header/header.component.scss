@@ -48,6 +48,32 @@ button:hover {
   }
 }
 
+.logout::after {
+  content: ' ';
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-top: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid #FFFFFF;
+  border-right: 7px solid transparent;
+  left: 85%;
+  bottom: 100%;
+}
+
+.logout::before {
+  content: ' ';
+  width: 2px;
+  height: 2px;
+  position: absolute;
+  border-top: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid rgba(128, 143, 163, 0.11);
+  border-right: 7px solid transparent;
+  left: 84%;
+  bottom: 100%;
+}
+
 #menuToggle {
   border: 0;
   margin-right: 0.5em;
@@ -135,13 +161,13 @@ button:hover {
   color: #ff5359;
   font-size: 16px;
   font-weight: bold;
-  line-height: 21px;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.right-red-pointer {
-  background: url(../../../assets/sidebar-icons/right-red-pointer.svg) no-repeat !important;
+.right-arrow-icon-wrapper::before {
+  content: url('/assets/sidebar-icons/right-red-pointer.svg');
 }
 
 .right-arrow-icon-wrapper {
