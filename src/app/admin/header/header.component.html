@@ -20,7 +20,7 @@
         *ngIf="headerTitle === 'Welcome'; else showTitleOnly"
         class="header-title"
       >
-        {{ headerTitle }} {{ user.firstName }}
+        {{ headerTitle }}, {{ user.firstName }}
       </span>
       <ng-template #showTitleOnly>
         <div class="header">

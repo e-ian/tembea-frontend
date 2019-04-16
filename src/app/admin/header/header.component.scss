@@ -22,6 +22,16 @@ button:hover,
 button:focus {
   cursor: pointer;
 }
+.header-title{
+  height: 38px;
+  width: 182px;
+  color: #39434D;
+  font-family: "DIN Pro", Helvetica Neue, Helvetica, Arial, serif;
+  font-size: 30px;
+  letter-spacing: -1.46px;
+  line-height: 38px;
+  font-weight: normal;
+}
 
 button:hover {
   box-shadow: none;
@@ -107,7 +117,6 @@ button:hover {
     border-radius: 50%;
     border: 1px solid #F1F3F5;
     background-color: #FFFFFF;
-    //box-shadow: 0 7px 44px 0 rgba(128, 143, 163, 0.27);
     color: #808FA3;
     font-size: 14px;
     font-weight: 500;
