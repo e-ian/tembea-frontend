@@ -2,6 +2,10 @@ mat-sidenav-container, mat-sidenav {
   height: 100%;
 }
 
+mat-sidenav-content{
+  background: #ffffff;
+}
+
 mat-sidenav {
   width: 250px;
 }

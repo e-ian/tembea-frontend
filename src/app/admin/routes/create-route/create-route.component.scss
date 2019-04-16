@@ -182,3 +182,18 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.bottom-image{
+  background: url('../../../../assets/images/san-francisco.png');
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height:192px;
+  background-size: 400px 250px;
+  background-repeat: repeat-x;
+  position: fixed;
+  z-index: -1;
+  padding: 20px;
+}
+
