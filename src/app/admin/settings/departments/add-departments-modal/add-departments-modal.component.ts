@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IDepartmentsModel, Department } from 'src/app/shared/models/departments.model';
+import { IDepartmentsModel, IDepartmentResponse } from 'src/app/shared/models/departments.model';
 import { DepartmentsService } from 'src/app/admin/__services__/departments.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
@@ -12,7 +12,7 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 export class AddDepartmentsModalComponent implements OnInit {
   model: IDepartmentsModel;
   loading: boolean;
-
+  departmentName: string;
   constructor(
     public dialogRef: MatDialogRef<AddDepartmentsModalComponent>,
     public departmentService: DepartmentsService,
@@ -20,7 +20,8 @@ export class AddDepartmentsModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IDepartmentsModel,
     private appEventService: AppEventService
   ) {
-    this.model = new Department()
+    this.model = this.data;
+    this.departmentName = this.data.name;
   }
 
   ngOnInit() {
@@ -31,29 +32,52 @@ export class AddDepartmentsModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  logError(error) {
+    if (error && error.status === 404) {
+      const { error: { message } } = error
+      this.alert.error(message)
+    } else if (error && error.status === 409) {
+      const { error: { message } } = error
+      this.alert.error(message)
+    } else {
+      this.alert.error('Something went wrong, please try again')
+    }
+  }
+  refereshDepartment(message) {
+    this.alert.success(message);
+    this.appEventService.broadcast({ name: 'newDepartment' });
+    this.loading = false;
+    this.dialogRef.close();
+  }
+
+  updateDepartment(department: IDepartmentsModel) {
+    const { name, location, email, oldName } = department;
+    this.departmentService.update(oldName, name, email, location).subscribe((res: IDepartmentResponse) => {
+      if (res.success) {
+        this.refereshDepartment(res.message);
+      }
+    },
+      (error) => {
+        this.logError(error);
+        this.loading = false;
+    });
+  }
+
   addDepartment(): void {
     this.loading = true;
+    if (this.model.id) {
+      return this.updateDepartment(this.model);
+    }
     this.departmentService.add(this.model)
     .subscribe(
       (res) => {
 
         if (res.success) {
-          this.alert.success(res.message);
-          this.appEventService.broadcast({ name: 'newDepartment' });
-          this.loading = false;
-          this.dialogRef.close();
+          this.refereshDepartment(res.message);
         }
       },
       (error) => {
-        if (error && error.status  === 404 ) {
-          const { error: { message }} = error
-          this.alert.error(message)
-        } else if (error && error.status  === 409 ) {
-          const { error: { message }} = error
-          this.alert.error(message)
-        } else {
-          this.alert.error('Something went wrong, please try again')
-        }
+        this.logError(error);
         this.loading = false;
       }
     )

@@ -17,6 +17,8 @@ import { AppPaginationComponent } from '../../layouts/app-pagination/app-paginat
 import { AlertService } from 'src/app/shared/alert.service';
 import { ExportComponent } from '../../export-component/export.component';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
+import { FormsModule } from '@angular/forms';
 
 
 describe('DepartmentsComponent', () => {
@@ -47,8 +49,11 @@ describe('DepartmentsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent, ExportComponent, ConfirmModalComponent],
-      imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
+      declarations: [DepartmentsComponent, EmptyPageComponent,
+        AppPaginationComponent, ExportComponent, AddDepartmentsModalComponent,
+        ConfirmModalComponent ],
+      imports: [HttpClientTestingModule, AngularMaterialModule,
+        BrowserAnimationsModule, FormsModule],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: DepartmentsService, useValue: departmentsServiceMock },
@@ -61,12 +66,11 @@ describe('DepartmentsComponent', () => {
             }
           }
         },
-
       ],
     })
     .overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ConfirmModalComponent]
+        entryComponents: [ConfirmModalComponent, AddDepartmentsModalComponent]
       }
     }).compileComponents();
     fixture = TestBed.createComponent(DepartmentsComponent);
@@ -110,6 +114,42 @@ describe('DepartmentsComponent', () => {
     expect(fixture.componentInstance.isLoading).toBe(false);
   }));
 
+  it('should display an error message if error occured - "GET"', async () => {
+    jest.spyOn(departmentComponent, 'getDepartments');
+    jest.spyOn(departmentsServiceMock, 'get').mockReturnValue(throwError(new Error()));
+
+    departmentComponent.getDepartments();
+    fixture.detectChanges();
+    expect(departmentComponent.displayText).toEqual(`Ooops! We're having connection problems.`);
+    jest.restoreAllMocks();
+  });
+
+
+  describe('editDepartment', () => {
+    it('should prepopulate modal with the department info', () => {
+      const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
+      jest.spyOn(departmentComponent, 'getDepartments');
+      departmentComponent.getDepartments();
+      fixture.detectChanges();
+      const buttons = fixture.debugElement.queryAll(By.css('.edit-icon'));
+      buttons[0].triggerEventHandler('click', null);
+      expect(dialogSpy).toBeCalledTimes(1);
+    })
+  });
+
+  describe('addDepartment', () => {
+    it('should open modal when add button is clicked', () => {
+      const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
+      jest.spyOn(departmentComponent, 'getDepartments');
+      departmentComponent.getDepartments();
+      fixture.detectChanges();
+      const buttons = fixture.debugElement.queryAll(By.css('.fab'));
+      buttons[0].triggerEventHandler('click', null);
+      expect(dialogSpy).toBeCalledTimes(1);
+    })
+  })
+
+
   describe('showDeleteModal', () => {
     it('should open delete modal when delete icon is clicked', () => {
       const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
@@ -121,6 +161,7 @@ describe('DepartmentsComponent', () => {
       expect(dialogSpy).toBeCalledTimes(1);
     });
   });
+
 
   describe('deleteDepartment', () => {
     it('should delete a department success response from http call', () => {
@@ -144,14 +185,6 @@ describe('DepartmentsComponent', () => {
 
       departmentComponent.deleteDepartment(1, 'Launchpad');
       expect(alertMockData.error).toHaveBeenCalledTimes(1);
-    });
-
-    it('should display an error message if error occured - "GET"', async () => {
-      jest.spyOn(departmentsServiceMock, 'get').mockReturnValue(throwError(new Error()));
-
-      const result = departmentComponent.getDepartments();
-      fixture.detectChanges();
-      expect(departmentComponent.displayText).toEqual(`Ooops! We're having connection problems.`);
     });
 
   });

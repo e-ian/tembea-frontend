@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { MatDialog } from '@angular/material';
-import { IDeleteDepartmentResponse, IDepartmentsModel } from './../../../shared/models/departments.model';
+import { IDepartmentResponse, IDepartmentsModel } from './../../../shared/models/departments.model';
 import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 import { AppEventService } from 'src/app/shared/app-events.service';
@@ -71,12 +71,19 @@ export class DepartmentsComponent implements OnInit {
     })
   }
 
+  editDepartment(department: IDepartmentsModel, name: string) {
+    const departmentDetail = { ...department };
+    departmentDetail.email = department['head.email'];
+    departmentDetail.oldName = name;
+    this.dialog.open(AddDepartmentsModalComponent, {
+      data: departmentDetail,
+    })
+  }
+
   deleteDepartment(departmentId: number, departmentName: string) {
     this.departmentService.delete(departmentId)
-      .subscribe((response: IDeleteDepartmentResponse) => {
-        const {
-          success
-        } = response;
+      .subscribe((response: IDepartmentResponse) => {
+        const { success, message } = response;
         if (success) {
           this.alert.success(`${departmentName} was Successfully Deleted`);
           return this.getDepartments();

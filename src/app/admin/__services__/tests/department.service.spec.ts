@@ -73,8 +73,6 @@ describe('DepartmentsService', () => {
     });
   })
 
-
-
   describe('deleteDepartment', () => {
     it('should make http request to delete department by Id', () => {
       const spy = jest.spyOn(HttpClient.prototype, 'delete');
@@ -86,4 +84,20 @@ describe('DepartmentsService', () => {
       expect(JSON.stringify(result)).toEqual(JSON.stringify(of(deleteResponseMock)));
     })
   });
+
+  describe('updateDepartment', () => {
+    it('should make http request to update department', () => {
+      const spy = jest.spyOn(HttpClient.prototype, 'put');
+      const updateResponseMock = {
+        success: true
+      }
+      spy.mockReturnValue(of({ success: true }));
+      const result = service.update('abc', 'Launchpad', 'barak', 'Lagos');
+      result.subscribe(data => {
+        expect(data).toEqual(updateResponseMock);
+      });
+      expect(JSON.stringify(result)).toEqual(JSON.stringify(of(updateResponseMock)));
+    })
+  });
+
 });

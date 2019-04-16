@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { of, Observable, throwError } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { of, throwError } from 'rxjs';
 
 import { AddDepartmentsModalComponent } from './add-departments-modal.component';
 import { DepartmentsService } from 'src/app/admin/__services__/departments.service';
@@ -11,9 +11,17 @@ import { responseMock, MockError } from '../__mocks__/add-department-mock';
 describe('AddDepartmentsModalComponent', () => {
   let component: AddDepartmentsModalComponent;
   let fixture: ComponentFixture<AddDepartmentsModalComponent>;
+  const department = {
+    id: 1,
+    name: 'asd',
+    location: 'Lagos',
+    email: 'tembea@andela.com',
+    oldName: 'sdfsf'
+  };
 
   const mockDepartmentService = {
-    add: jest.fn()
+    add: jest.fn(),
+    update: jest.fn()
   };
 
   const mockMatDialogRef = {
@@ -48,6 +56,7 @@ describe('AddDepartmentsModalComponent', () => {
   });
 
   afterEach(() => {
+    jest.clearAllMocks()
     jest.resetAllMocks();
     jest.restoreAllMocks()
   });
@@ -105,6 +114,30 @@ describe('addDepartment', () => {
     expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again');
   });
 })
+
+  describe('updateDepartment', () => {
+    it('should call updateDepartment', () => {
+      mockDepartmentService.update.mockReturnValue(of(responseMock))
+      jest.spyOn(component.alert, 'success');
+      component.model = department;
+      component.addDepartment();
+      expect(component.departmentService.update).toHaveBeenCalledTimes(1);
+      expect(component.alert.success).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call AlertService.error upon 404 status code', () => {
+      const error = new MockError(404, 'Not working');
+      const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
+      jest.spyOn(component.alert, 'error');
+
+      mockDepartmentService.update.mockReturnValue(throwError(error));
+      jest.spyOn(component.alert, 'error');
+      component.model = department;
+      component.addDepartment();
+      expect(component.alert.error).toHaveBeenCalledTimes(1);
+    });
+  })
+
 });
 
 

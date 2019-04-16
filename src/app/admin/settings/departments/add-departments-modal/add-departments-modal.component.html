@@ -6,7 +6,13 @@
   </div>
   <div class=form-container>
       <form #addForm="ngForm" (ngSubmit)="addDepartment()" novalidate>
-        <h2>Add a New Department</h2>
+        <ng-container *ngIf="!model.id; else editTitle">
+          <h2>Add a New Department</h2>
+        </ng-container>
+        <ng-template #editTitle>
+          <h2>Edit {{model.oldName}} Department</h2>
+        </ng-template>
+        
         <div class="single-field">
             <div class="field single">
                 <div class="input-group">

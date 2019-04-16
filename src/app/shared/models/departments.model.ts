@@ -18,6 +18,7 @@ export interface IDepartmentsModel {
   lead?: string;
   status?: string;
   email?: string;
+  oldName?: string;
 }
 
 export class Department implements IDepartmentsModel {
@@ -28,7 +29,7 @@ export class Department implements IDepartmentsModel {
   ) {}
 }
 
-export interface IDeleteDepartmentResponse {
+export interface IDepartmentResponse {
   success?: boolean;
   message?: string;
 }
