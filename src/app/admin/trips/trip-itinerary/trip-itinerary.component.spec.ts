@@ -83,6 +83,16 @@ describe('TripItineraryComponent', () => {
       expect(getTripsSpy).toBeCalledTimes(1);
       expect(component.dateFilters.requestedOn).toEqual({before: '2019-03-03'})
     })
+
+    it('should return empty date if date is lower than current date', () => {
+      component.tripRequestType = 'Upcoming Trips';
+      const getTripsSpy = jest.spyOn(component, 'getTrips')
+      .mockImplementation(jest.fn());
+      component.setDateFilter('requestedOn', 'before', '2018-03-03');
+
+      expect(getTripsSpy).toBeCalledTimes(1);
+      expect(component.dateFilters.requestedOn).toEqual({})
+    })
   });
 
   describe('setFilterParams', () => {
@@ -112,4 +122,21 @@ describe('TripItineraryComponent', () => {
       expect(getTripsSpy).toHaveBeenCalled()
     });
   });
+
+  describe('Up Coming Trips', () => {
+    it('should set passdParams to fit up coming query', () => {
+      component.tripRequestType = 'Upcoming Trips';
+      component.getTrips();
+      const params = {
+        page: 1,
+        size: 20,
+        status: 'Confirmed',
+        department: undefined,
+        type: 'Regular Trip',
+        dateFilters: {departureTime: {}, requestedOn: {} },
+        currentDay: 'Call Current date'
+      }
+      expect(component.passedParams).toEqual(params);
+    });
+  })
 });

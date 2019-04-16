@@ -1,5 +1,5 @@
 .trip-itinerary-table{
-  margin-bottom: 5.0rem;
+  margin-bottom: 2rem;
 }
 .trip-table-head {
   font-size: 14px;
@@ -13,6 +13,7 @@
 .cell-align {
   justify-content: start;
   position: absolute;
+  margin: auto;
   left: 30px;
 }
 .time {
@@ -28,6 +29,7 @@
     text-align: left;
     justify-content: start;
   }
+  margin: 0 auto;
   text-align: left;
 }
 

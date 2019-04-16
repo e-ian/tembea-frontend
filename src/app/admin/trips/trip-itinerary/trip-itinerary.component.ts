@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import * as moment from 'moment';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { TripRequest } from 'src/app/shared/models/trip-request.model';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
@@ -12,6 +13,9 @@ import { AlertService } from '../../../shared/alert.service';
   styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss', ],
 })
 export class TripItineraryComponent implements OnInit {
+
+  @Input() tripRequestType: string;
+
   tripType: string;
   tripRequests: TripRequest[] = [];
   departmentsRequest: any = [];
@@ -26,6 +30,7 @@ export class TripItineraryComponent implements OnInit {
   departmentName: string;
   rating: number;
   filterParams: any;
+  passedParams = {};
 
 
   constructor(
@@ -51,7 +56,14 @@ export class TripItineraryComponent implements OnInit {
 
   getTrips() {
     const { page, pageSize: size, departmentName: department, rating,  dateFilters } = this;
-    this.tripRequestService.query({ page, size, status: this.status, department, rating, type: this.tripType, dateFilters })
+
+    this.passedParams = {page, size, status: this.status, department, rating, type: this.tripType, dateFilters }
+
+    if (this.tripRequestType) {
+      this.passedParams = {page, size, status: this.status, department,
+        rating, type: this.tripType, dateFilters, currentDay: 'Call Current date' }
+    }
+    this.tripRequestService.query(this.passedParams)
       .subscribe(tripData => {
         const { pageInfo, trips } = tripData;
         this.tripRequests = trips;
@@ -68,8 +80,17 @@ export class TripItineraryComponent implements OnInit {
   }
 
   setDateFilter(field: string, range: 'before' | 'after', date: string) {
+    const currentDate = moment().format('YYYY-MM-DD');
     const fieldObject = this.dateFilters[field] || {};
     this.dateFilters[field] = { ...fieldObject, [range]: date };
+    const timeOfDeparture = moment(date).format('YYYY-MM-DD');
+    if (this.tripRequestType && timeOfDeparture < currentDate) {
+      this.dateFilters = {
+        requestedOn: {},
+        departureTime: {},
+      };
+    }
+
     this.getTrips();
   }
 

@@ -5,10 +5,10 @@
 
   <mat-tab label="Past trips">
     <app-past-trips> </app-past-trips>
-    </mat-tab>
-
-    <mat-tab label="Upcoming Trips">
-    <p>This displays all upcoming trips </p>
+  </mat-tab>
+  
+  <mat-tab label="Upcoming Trips">
+    <app-trip-itinerary [tripRequestType]="'upcoming'"></app-trip-itinerary>
   </mat-tab>
 </mat-tab-group>
 
