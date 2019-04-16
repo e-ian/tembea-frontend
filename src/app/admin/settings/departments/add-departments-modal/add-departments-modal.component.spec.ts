@@ -13,7 +13,7 @@ describe('AddDepartmentsModalComponent', () => {
   let fixture: ComponentFixture<AddDepartmentsModalComponent>;
 
   const mockDepartmentService = {
-    addDepartment: jest.fn()
+    add: jest.fn()
   };
 
   const mockMatDialogRef = {
@@ -68,13 +68,13 @@ describe('AddDepartmentsModalComponent', () => {
 
 describe('addDepartment', () => {
   it('should call addDepartment', () => {
-    mockDepartmentService.addDepartment.mockReturnValue(of(responseMock))
+    mockDepartmentService.add.mockReturnValue(of(responseMock))
     component.addDepartment();
-    expect(component.departmentService.addDepartment).toHaveBeenCalledTimes(1);
+    expect(component.departmentService.add).toHaveBeenCalledTimes(1);
   });
 
   it('should call AlertService.success upon success', () => {
-    mockDepartmentService.addDepartment.mockReturnValue(of(responseMock))
+    mockDepartmentService.add.mockReturnValue(of(responseMock))
     jest.spyOn(component.alert, 'success');
     component.addDepartment();
     expect(component.alert.success).toHaveBeenCalledTimes(1);
@@ -82,7 +82,7 @@ describe('addDepartment', () => {
 
   it('should call AlertService.error upon 404 status code', () => {
     const error = new MockError(404, 'Not working');
-    mockDepartmentService.addDepartment.mockReturnValue(throwError(error));
+    mockDepartmentService.add.mockReturnValue(throwError(error));
     jest.spyOn(component.alert, 'error');
     component.addDepartment();
     expect(component.alert.error).toHaveBeenCalledTimes(1);
@@ -90,7 +90,7 @@ describe('addDepartment', () => {
 
   it('should call AlertService.error upon 409 status code', () => {
     const error = new MockError(409, 'Not working');
-    mockDepartmentService.addDepartment.mockReturnValue(throwError(error));
+    mockDepartmentService.add.mockReturnValue(throwError(error));
     jest.spyOn(component.alert, 'error');
     component.addDepartment();
     expect(component.alert.error).toHaveBeenCalledTimes(1);
@@ -98,7 +98,7 @@ describe('addDepartment', () => {
 
   it('should call AlertService.error upon other error status codes', () => {
     const error = new MockError(400, 'something went wrong');
-    mockDepartmentService.addDepartment.mockReturnValue(throwError(error));
+    mockDepartmentService.add.mockReturnValue(throwError(error));
     jest.spyOn(component.alert, 'error');
     component.addDepartment();
     expect(component.alert.error).toHaveBeenCalledTimes(1);

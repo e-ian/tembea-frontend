@@ -27,3 +27,8 @@ export class Department implements IDepartmentsModel {
     public email?: string,
   ) {}
 }
+
+export interface IDeleteDepartmentResponse {
+  success?: boolean;
+  message?: string;
+}

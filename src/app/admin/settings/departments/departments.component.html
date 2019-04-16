@@ -66,7 +66,7 @@
                 <div class="duplicate-icon"></div>
               </button>
               <button aria-label="Delete" class='decline-action-button'>
-                <div class="decline-icon"></div>
+                <div class="decline-icon" (click)="showDeleteModal(department.id, department.name)"></div>
               </button>
             </div>
           </mat-grid-tile>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { DepartmentsModel } from 'src/app/shared/models/departments.model';
@@ -14,13 +14,23 @@ export class DepartmentsService {
   constructor(private http: HttpClient) {
     this.departmentsUrl = `${environment.tembeaBackEndUrl}/api/v1/departments`;
   }
-  getDepartments(size: number, page: number): Observable<DepartmentsModel> {
+  get(size: number, page: number): Observable<DepartmentsModel> {
     return this.http.get<any>(`${this.departmentsUrl}?size=${size}&page=${page}`).map(departments => {
       return new DepartmentsModel().deserialize(departments);
     });
   }
 
-  addDepartment(data: Object): Observable<any> {
+  add(data: Object): Observable<any> {
     return this.http.post<any>(this.departmentsUrl, {...data, slackUrl: this.teamUrl})
   }
+
+  delete(id: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: { id, }
+    };
+
+    return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/departments`, httpOptions)
+  }
+
 }

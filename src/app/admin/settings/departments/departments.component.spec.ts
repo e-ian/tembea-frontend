@@ -2,43 +2,73 @@ import { EmptyPageComponent } from './../../empty-page/empty-page.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { throwError } from 'rxjs';
 
 import { DepartmentsComponent } from './departments.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
 import { environment } from '../../../../environments/environment';
-import getDepartmentsMock from './__mocks__/getDepartments.response.mock';
+import getdepartmentsServiceMock from './__mocks__/getDepartments.response.mock';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { AlertService } from 'src/app/shared/alert.service';
 import { ExportComponent } from '../../export-component/export.component';
+import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 
 describe('DepartmentsComponent', () => {
   let departmentComponent: DepartmentsComponent;
   let fixture: ComponentFixture<DepartmentsComponent>;
-  const service = {
-    getDepartments: jest.fn().mockReturnValue(of(true)),
-    http: {
-      get: jest.fn(),
-    },
-    departmentsUrl: `${environment.tembeaBackEndUrl}/api/v1/departments`
-  };
   const alertMockData = {
     error: jest.fn(),
     success: jest.fn(),
     info: jest.fn()
   };
 
+  const departmentsServiceMock = {
+    get: (size, pageNo) => {
+      return of(getdepartmentsServiceMock);
+    },
+    delete: jest.fn().mockReturnValue(of({
+      success: true,
+      message: 'department deleted successfully'
+    })),
+    add: jest.fn().mockReturnValue(of({ success: true })),
+  };
+
+
+  const mockMatDialogRef = {
+    close: () => {
+    },
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent, ExportComponent],
-      imports: [HttpClientTestingModule, AngularMaterialModule],
+      declarations: [DepartmentsComponent, EmptyPageComponent, AppPaginationComponent, ExportComponent, ConfirmModalComponent],
+      imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
       providers: [
-        { provide: DepartmentsService, useValue: service },
-        { provide: AlertService, useValue: alertMockData }
-      ]
-    });
+        { provide: MatDialogRef, useValue: mockMatDialogRef },
+        { provide: DepartmentsService, useValue: departmentsServiceMock },
+        { provide: AlertService, useValue: alertMockData },
+        {
+          provide: MAT_DIALOG_DATA, useValue: {
+            data: {
+              confirmText: 'Yes',
+              displayText: 'delete this department'
+            }
+          }
+        },
+
+      ],
+    })
+    .overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ConfirmModalComponent]
+      }
+    }).compileComponents();
     fixture = TestBed.createComponent(DepartmentsComponent);
     departmentComponent = fixture.componentInstance;
   }));
@@ -52,7 +82,7 @@ describe('DepartmentsComponent', () => {
   }));
 
   it('should set departments correctly from the service', async(() => {
-    service.getDepartments.mockReturnValue(of(getDepartmentsMock));
+    jest.spyOn(departmentsServiceMock, 'get');
     fixture.detectChanges();
     expect(fixture.componentInstance.departments.length).toBe(4);
   }))
@@ -65,10 +95,11 @@ describe('DepartmentsComponent', () => {
   }));
 
   it('should create one active button for each department', async(() => {
-    service.getDepartments.mockReturnValue(of(getDepartmentsMock));
+    jest.spyOn(departmentsServiceMock, 'get');
     fixture.detectChanges();
     expect(fixture.debugElement.queryAll(By.css('.active-status-button')).length).toBe(4);
   }));
+
   it('should update and load page', (() => {
     jest.spyOn(departmentComponent, 'getDepartments');
     expect(departmentComponent.pageNo).toEqual(1);
@@ -78,4 +109,50 @@ describe('DepartmentsComponent', () => {
     expect(departmentComponent.getDepartments).toHaveBeenCalled();
     expect(fixture.componentInstance.isLoading).toBe(false);
   }));
+
+  describe('showDeleteModal', () => {
+    it('should open delete modal when delete icon is clicked', () => {
+      const dialogSpy = jest.spyOn(MatDialog.prototype, 'open');
+
+      departmentComponent.getDepartments();
+      fixture.detectChanges();
+      const buttons = fixture.debugElement.queryAll(By.css('.decline-icon'));
+      buttons[0].triggerEventHandler('click', null);
+      expect(dialogSpy).toBeCalledTimes(1);
+    });
+  });
+
+  describe('deleteDepartment', () => {
+    it('should delete a department success response from http call', () => {
+      const departmentSpy = jest.spyOn(departmentComponent, 'getDepartments');
+      const deleteSpy = jest.spyOn(departmentsServiceMock, 'delete')
+      departmentComponent.getDepartments();
+      fixture.detectChanges();
+
+      departmentComponent.deleteDepartment(1, 'Launchpad');
+
+      expect(deleteSpy).toHaveBeenCalled();
+      expect(alertMockData.success).toBeCalledWith('Launchpad was Successfully Deleted');
+      expect(departmentSpy).toHaveBeenCalled();
+    });
+
+    it('should display an error message if department delete is unsuccessful', async () => {
+      jest.spyOn(departmentsServiceMock, 'delete').mockReturnValue(throwError(new Error()));
+
+      departmentComponent.getDepartments();
+      fixture.detectChanges();
+
+      departmentComponent.deleteDepartment(1, 'Launchpad');
+      expect(alertMockData.error).toHaveBeenCalledTimes(1);
+    });
+
+    it('should display an error message if error occured - "GET"', async () => {
+      jest.spyOn(departmentsServiceMock, 'get').mockReturnValue(throwError(new Error()));
+
+      const result = departmentComponent.getDepartments();
+      fixture.detectChanges();
+      expect(departmentComponent.displayText).toEqual(`Ooops! We're having connection problems.`);
+    });
+
+  });
 });

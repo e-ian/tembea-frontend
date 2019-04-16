@@ -33,7 +33,7 @@ export class AddDepartmentsModalComponent implements OnInit {
 
   addDepartment(): void {
     this.loading = true;
-    this.departmentService.addDepartment(this.model)
+    this.departmentService.add(this.model)
     .subscribe(
       (res) => {
 
