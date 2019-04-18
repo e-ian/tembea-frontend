@@ -16,15 +16,16 @@
     outline: none;
     border-radius: 5px 0px 0px 5px;
     float: left;
-    text-align: center;
+    text-align: left;
     border: 1px solid #e9eff4;
     border-right: none;
+    text-indent: 10px;
     font-size: 14px;
   }
 }
 
 .mat-datepicker-toggle {
-  height: 39px;
+  height: 40px;
   float: left;
   border: 1px solid #e9eff4;
   background: rgba(251, 252, 253, 0.49);

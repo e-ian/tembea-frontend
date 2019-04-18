@@ -38,21 +38,21 @@
 
     <div id="contentToExport">
       <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head">
-        <mat-grid-tile tabindex="0">Requested On</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Departing On</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Pickup</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Destination</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Requested-By</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Department</mat-grid-tile>
-        <mat-grid-tile tabindex="0">Rider</mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Requested On </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Departing On </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Pickup </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Destination </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Requested-By </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Department </p></mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> Rider </p></mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <p class="trip-itinerary-approved">Approved/Confirmed</p>
+          <p class="trip-itinerary-approved cell-align">Approved/Confirmed </p>
         </mat-grid-tile>
       </mat-grid-list>
 
       <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="2:1" class="trip-table-body">
         <mat-grid-tile tabindex="0">
-          <div class="time">
+          <div class="time cell-align">
             <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
             <span>
               <span>&nbsp;by&nbsp;</span>
@@ -61,7 +61,7 @@
           </div>
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <div class="time">
+          <div class="time cell-align">
             <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
             <span>
               <span>&nbsp;by&nbsp;</span>
@@ -69,15 +69,17 @@
             </span>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile tabindex="0">{{trip.pickup}}</mat-grid-tile>
-        <mat-grid-tile tabindex="0">{{trip.destination}}</mat-grid-tile>
-        <mat-grid-tile tabindex="0">{{trip.requester.name | shortenName: { max: 10 } }}</mat-grid-tile>
-        <mat-grid-tile tabindex="0">{{trip.department}}</mat-grid-tile>
-        <mat-grid-tile tabindex="0">{{trip.rider.name | shortenName: { max: 10 } }}</mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.pickup}} </p> </mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.destination}} </p> </mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.requester.name | shortenName: { max: 10 } }} </p> </mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.department}} </p> </mat-grid-tile>
+        <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.rider.name | shortenName: { max: 10 } }} </p> </mat-grid-tile>
         <mat-grid-tile tabindex="0">
+         <p class="cell-align"> 
           {{trip.approvedBy.name | shortenName: { max: 10 } }}
           &nbsp;/&nbsp;
-          {{trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile>
+          {{trip.confirmedBy.name | shortenName: { max: 10 } }}  </p>
+         </mat-grid-tile>
       </mat-grid-list>
     </div>
 

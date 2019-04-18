@@ -10,8 +10,11 @@
   border-top: 1px solid rgba(0, 0, 0, .05);
   border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
-
-
+.cell-align {
+  justify-content: start;
+  position: absolute;
+  left: 30px;
+}
 .time {
   padding: 5px;
   span:nth-child(2) {
@@ -43,7 +46,8 @@
   border: none;
   outline: none;
   border-radius: 5px;
-  text-align: center;
+  text-align: left;
+  text-indent: 10px;
   border: 1px solid #e9eff4;
   font-size: 14px;
 }
