@@ -10,7 +10,7 @@ import { AlertService } from '../../../shared/alert.service';
 @Component({
   selector: 'app-trip-itinerary',
   templateUrl: './trip-itinerary.component.html',
-  styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss', ],
+  styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss'],
 })
 export class TripItineraryComponent implements OnInit {
 
@@ -26,11 +26,12 @@ export class TripItineraryComponent implements OnInit {
     requestedOn: {},
     departureTime: {},
   };
-  status: string;
+  status = 'Confirmed';
   departmentName: string;
   rating: number;
   filterParams: any;
   passedParams = {};
+  state = 'Approved/Confirmed';
 
 
   constructor(
@@ -41,11 +42,28 @@ export class TripItineraryComponent implements OnInit {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;
     this.tripType = 'Regular Trip';
-    this.status = 'Confirmed'
   }
 
   ngOnInit() {
-    this.getTrips();
+    switch (this.tripRequestType ) {
+      case 'declinedTrips':
+        this.state = 'Declined';
+        this.status = 'DeclinedByOps';
+        break;
+      case 'pastTrips':
+        this.status = 'Completed';
+        break;
+      case 'upcomingTrips':
+        this.status = 'Confirmed';
+        break;
+      case 'all':
+        this.status = null;
+        break;
+      default:
+        this.status = 'Confirmed';
+        break;
+    }
+    this.getTrips(this.status);
     this.getDepartments();
   }
 
@@ -54,16 +72,9 @@ export class TripItineraryComponent implements OnInit {
       .subscribe(departmentsData => this.departmentsRequest = departmentsData);
   }
 
-  getTrips() {
-    const { page, pageSize: size, departmentName: department, rating,  dateFilters } = this;
-
-    this.passedParams = {page, size, status: this.status, department, rating, type: this.tripType, dateFilters }
-
-    if (this.tripRequestType) {
-      this.passedParams = {page, size, status: this.status, department,
-        rating, type: this.tripType, dateFilters, currentDay: 'Call Current date' }
-    }
-    this.tripRequestService.query(this.passedParams)
+  getTrips(status = 'Confirmed') {
+    const { page, pageSize: size, departmentName: department, dateFilters } = this;
+    this.tripRequestService.query({ page, size, status, department, type: this.tripType, dateFilters })
       .subscribe(tripData => {
         const { pageInfo, trips } = tripData;
         this.tripRequests = trips;
@@ -76,7 +87,7 @@ export class TripItineraryComponent implements OnInit {
 
   updatePage(page) {
     this.page = page;
-    this.getTrips();
+    this.getTrips(this.status);
   }
 
   setDateFilter(field: string, range: 'before' | 'after', date: string) {
@@ -84,19 +95,19 @@ export class TripItineraryComponent implements OnInit {
     const fieldObject = this.dateFilters[field] || {};
     this.dateFilters[field] = { ...fieldObject, [range]: date };
     const timeOfDeparture = moment(date).format('YYYY-MM-DD');
-    if (this.tripRequestType && timeOfDeparture < currentDate) {
+    if (this.tripRequestType === 'upcomingTrips' && timeOfDeparture < currentDate) {
       this.dateFilters = {
         requestedOn: {},
         departureTime: {},
       };
     }
 
-    this.getTrips();
+    this.getTrips(this.status);
   }
 
   departmentSelected($event) {
     this.departmentName = $event;
-    this.getTrips();
+    this.getTrips(this.status);
   }
 
   setFilterParams() {

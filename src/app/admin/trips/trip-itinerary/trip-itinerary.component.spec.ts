@@ -30,6 +30,7 @@ describe('TripItineraryComponent', () => {
     fixture = TestBed.createComponent(TripItineraryComponent);
     component = fixture.componentInstance;
     tripRequestService = fixture.debugElement.injector.get(TripRequestService);
+    component.tripRequestType = 'all'
     fixture.detectChanges();
   });
 
@@ -55,8 +56,26 @@ describe('TripItineraryComponent', () => {
 
  describe('ngOnInit', () => {
    it('should get trips and department', () => {
+     component.tripRequestType = 'all'
      component.ngOnInit();
+      expect(tripRequestService.query).toHaveBeenCalled();
+      expect(tripRequestService.getDepartments).toHaveBeenCalled();
+    });
+  });
 
+ describe('declinedTrips', () => {
+   it('should get declinedTrips and department', () => {
+     component.tripRequestType = 'declinedTrips'
+     component.ngOnInit();
+      expect(tripRequestService.query).toHaveBeenCalled();
+      expect(tripRequestService.getDepartments).toHaveBeenCalled();
+    });
+  });
+
+ describe('pastTrips', () => {
+   it('should get pastTrips and department', () => {
+     component.tripRequestType = 'pastTrips'
+     component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
     });
@@ -85,7 +104,7 @@ describe('TripItineraryComponent', () => {
     })
 
     it('should return empty date if date is lower than current date', () => {
-      component.tripRequestType = 'Upcoming Trips';
+      component.tripRequestType = 'upcomingTrips'
       const getTripsSpy = jest.spyOn(component, 'getTrips')
       .mockImplementation(jest.fn());
       component.setDateFilter('requestedOn', 'before', '2018-03-03');
@@ -124,19 +143,11 @@ describe('TripItineraryComponent', () => {
   });
 
   describe('Up Coming Trips', () => {
-    it('should set passdParams to fit up coming query', () => {
-      component.tripRequestType = 'Upcoming Trips';
-      component.getTrips();
-      const params = {
-        page: 1,
-        size: 20,
-        status: 'Confirmed',
-        department: undefined,
-        type: 'Regular Trip',
-        dateFilters: {departureTime: {}, requestedOn: {} },
-        currentDay: 'Call Current date'
-      }
-      expect(component.passedParams).toEqual(params);
+   it('should get upcomingTrips and department', () => {
+     component.tripRequestType = 'upcomingTrips'
+     component.ngOnInit();
+      expect(tripRequestService.query).toHaveBeenCalled();
+      expect(tripRequestService.getDepartments).toHaveBeenCalled();
     });
   })
 });

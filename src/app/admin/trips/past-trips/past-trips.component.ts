@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {TripItineraryComponent} from '../trip-itinerary/trip-itinerary.component';
 
 @Component({
@@ -11,5 +11,5 @@ import {TripItineraryComponent} from '../trip-itinerary/trip-itinerary.component
 })
 export class PastTripsComponent extends TripItineraryComponent {
   tripType = 'Regular Trip';
-  status = 'Completed';
+  @Input() tripRequestType: string;
 }

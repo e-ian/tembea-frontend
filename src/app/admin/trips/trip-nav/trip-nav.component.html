@@ -1,14 +1,17 @@
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="All Trips">
-    <app-trip-itinerary></app-trip-itinerary>
+    <app-trip-itinerary [tripRequestType]="'all'"></app-trip-itinerary>
   </mat-tab>
 
-  <mat-tab label="Past trips">
-    <app-past-trips> </app-past-trips>
+  <mat-tab label="Past Trips">
+   <app-past-trips [tripRequestType]="'pastTrips'"> </app-past-trips>
   </mat-tab>
   
   <mat-tab label="Upcoming Trips">
-    <app-trip-itinerary [tripRequestType]="'upcoming'"></app-trip-itinerary>
-  </mat-tab>
-</mat-tab-group>
+    <app-trip-itinerary [tripRequestType]="'upcomingTrips'"></app-trip-itinerary>
+    </mat-tab>
 
+  <mat-tab label="Declined Trips">
+        <app-trip-itinerary [tripRequestType]="'declinedTrips'"></app-trip-itinerary>
+ </mat-tab>
+</mat-tab-group>

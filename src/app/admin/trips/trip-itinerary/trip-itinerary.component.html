@@ -46,7 +46,7 @@
         <mat-grid-tile tabindex="0"> <p class="cell-align"> Department </p></mat-grid-tile>
         <mat-grid-tile tabindex="0"> <p class="cell-align"> Rider </p></mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <p class="trip-itinerary-approved cell-align">Approved/Confirmed </p>
+          <p class="trip-itinerary-approved cell-align">{{state}}</p>
         </mat-grid-tile>
       </mat-grid-list>
 
@@ -75,13 +75,17 @@
         <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.department}} </p> </mat-grid-tile>
         <mat-grid-tile tabindex="0"> <p class="cell-align"> {{trip.rider.name | shortenName: { max: 10 } }} </p> </mat-grid-tile>
         <mat-grid-tile tabindex="0">
-         <p class="cell-align"> 
-          {{trip.approvedBy.name | shortenName: { max: 10 } }}
-          &nbsp;/&nbsp;
-          {{trip.confirmedBy.name | shortenName: { max: 10 } }}  </p>
+          <div *ngIf="tripRequestType !== 'declinedTrips'" class="cell-align">      
+            {{trip.approvedBy.name | shortenName: { max: 10 } }}
+            &nbsp;/&nbsp;       
+            {{trip.confirmedBy.name | shortenName: { max: 10 } }}  
+          </div>
+          <div *ngIf="tripRequestType === 'declinedTrips' && trip.decliner" class="cell-align">
+            {{trip.decliner.name | shortenName: { max: 10 } }}
+          </div>
          </mat-grid-tile>
       </mat-grid-list>
-    </div>
+    </div> 
 
     <div class="pagination">
       <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="updatePage($event)"
