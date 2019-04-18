@@ -2,15 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Injector } from '@angular/core';
 import { of } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
+import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from '../../../shared/app-events.service';
 import { TripApproveDeclineModalComponent } from './trip-approve-decline-modal.component';
+import { AngularMaterialModule } from '../../../angular-material.module';
+import { ReturnExistingCabsComponent } from './return-existing-cabs/return-existing-cabs.component';
 
-describe('TripApproveDeclineModalComponent', () => {
+
+fdescribe('TripApproveDeclineModalComponent', () => {
   let component: TripApproveDeclineModalComponent;
   let fixture: ComponentFixture<TripApproveDeclineModalComponent>;
   let injector: Injector;
@@ -20,10 +22,11 @@ describe('TripApproveDeclineModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, AppTestModule],
-      declarations: [TripApproveDeclineModalComponent],
+      imports: [FormsModule, AppTestModule, AngularMaterialModule],
+      declarations: [TripApproveDeclineModalComponent, ReturnExistingCabsComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
+
       ]
     })
       .compileComponents();
@@ -101,6 +104,28 @@ describe('TripApproveDeclineModalComponent', () => {
       expect(tripRequestService.declineRequest).toHaveBeenCalledTimes(1);
       expect(component.dialogRef.close).toHaveBeenCalledTimes(1);
       expect(appEventService.broadcast).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('clearFields', () => {
+    it('should reset input fileds to empty when cab model(input) is empty', () => {
+      component.confirmForm = { form: { patchValue: jest.fn() } };
+      const event = { target: { value: '' } };
+
+      component.clearFields(event);
+
+      expect(component.disableOtherInput).toEqual(false);
+      expect(component.confirmForm.form.patchValue).toBeCalledTimes(1);
+    });
+  });
+  describe('clickedCabs', () => {
+    it('should patch the input fields of the form once a cab has been clicked', () => {
+      const event = { click: { cabRegNumber: 'UBE234A', cabModel: 'Toyota'} }
+      component.confirmForm = { form: { patchValue: jest.fn() } };
+
+      component.clickedCabs(event);
+
+      expect(component.disableOtherInput).toEqual(true);
+      expect(component.confirmForm.form.patchValue).toBeCalledTimes(1);
     });
   });
 });

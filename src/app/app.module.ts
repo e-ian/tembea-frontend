@@ -28,6 +28,8 @@ import { TripApproveDeclineModalComponent } from './admin/trips/trip-approve-dec
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AddCabsModalComponent } from './admin/cabs/add-cab-modal/add-cab-modal.component';
+import { ReturnExistingCabsComponent } from './admin/trips/trip-approve-decline-modal/return-existing-cabs/return-existing-cabs.component';
+
 
 const toastr: Toastr = window['toastr'];
 
@@ -43,7 +45,8 @@ const toastr: Toastr = window['toastr'];
     RoutesInventoryEditModalComponent,
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
-    AddCabsModalComponent
+    AddCabsModalComponent,
+    ReturnExistingCabsComponent
   ],
   imports: [
   FormsModule,
@@ -71,7 +74,8 @@ const toastr: Toastr = window['toastr'];
     RoutesInventoryEditModalComponent,
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
-    AddCabsModalComponent
+    AddCabsModalComponent,
+    ReturnExistingCabsComponent
   ],
   bootstrap: [AppComponent]
 })

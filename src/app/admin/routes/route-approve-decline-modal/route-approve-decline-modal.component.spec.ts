@@ -5,11 +5,13 @@ import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { RouteRequestService } from '../../__services__/route-request.service';
-
 import { AppTestModule } from '../../../__tests__/testing.module';
 import { of } from 'rxjs';
 import { Injector } from '@angular/core';
 import { AppEventService } from '../../../shared/app-events.service';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { ReturnExistingCabsComponent } from '../../trips/trip-approve-decline-modal/return-existing-cabs/return-existing-cabs.component';
+
 
 describe('RouteApproveDeclineModalComponent', () => {
   let component: RouteApproveDeclineModalComponent;
@@ -21,8 +23,8 @@ describe('RouteApproveDeclineModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, AppTestModule],
-      declarations: [RouteApproveDeclineModalComponent],
+      imports: [FormsModule, AppTestModule, AngularMaterialModule],
+      declarations: [RouteApproveDeclineModalComponent, ReturnExistingCabsComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
       ]

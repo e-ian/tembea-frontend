@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
+import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
+
 
 @Component({
   templateUrl: 'trip-approve-decline-modal.component.html',
@@ -15,14 +16,24 @@ export class TripApproveDeclineModalComponent implements OnInit {
   public loading: boolean;
   public comment: string;
   private account: any;
+  public cols = 3;
+  public rowHeight: any = '3:1';
+  public colspan = 1;
+  public disableOtherInput = false;
+  public selectedCabOption = {driverName: '', driverPhoneNo: '', regNumber: ''}
+  auto = null;
+@ViewChild('approveForm') approveForm: NgForm;
+@ViewChild('confirmForm')  confirmForm;
 
   constructor(
     public dialogRef: MatDialogRef<TripApproveDeclineModalComponent>,
     public authService: AuthService,
     private tripRequestService: TripRequestService,
     private appEventService: AppEventService,
-    @Inject(MAT_DIALOG_DATA) public data
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data,
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loading = false;
@@ -53,4 +64,20 @@ export class TripApproveDeclineModalComponent implements OnInit {
         this.appEventService.broadcast({ name: 'reInitializeTripRequest' });
       });
   }
+
+setAuto (event) {
+    this.auto = event;
+}
+clearFields(event) {
+  const { value } = event.target;
+  if (value === '') {
+    this.disableOtherInput = false;
+    this.confirmForm.form.patchValue(this.selectedCabOption);
+  }
+}
+
+clickedCabs (event) {
+  this.disableOtherInput = true;
+  this.confirmForm.form.patchValue(event);
+}
 }

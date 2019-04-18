@@ -1,0 +1,21 @@
+<mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="setOption(option)" (click)="click(option)">
+    <div class="cabs-container">
+      <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" class="cab-list">
+        <mat-grid-tile >
+          <span class="cab-name">
+            {{option.model}}
+          </span>
+        </mat-grid-tile>
+        <span class="body-text">
+          <mat-grid-tile>
+            {{option.regNumber}}
+          </mat-grid-tile>     
+          <mat-grid-tile [colspan]="colspan">
+            Seats up to {{option.capacity}} people
+          </mat-grid-tile>
+        </span>
+      </mat-grid-list>
+    </div>
+    </mat-option>
+  </mat-autocomplete>

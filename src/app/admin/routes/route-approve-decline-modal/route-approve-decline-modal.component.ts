@@ -1,10 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { IRouteApprovalDeclineInfo, IRouteDetails } from '../../../shared/models/route-approve-decline-info.model';
 import { RouteRequestService } from '../../__services__/route-request.service';
 import { AppEventService } from '../../../shared/app-events.service';
+import { ICabInventory } from 'src/app/shared/models/cab-inventory.model';
+import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
+import { Observable, Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { startWith, map } from 'rxjs/operators';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Component({
   templateUrl: 'route-approve-decline-modal.component.html',
@@ -18,14 +24,19 @@ export class RouteApproveDeclineModalComponent implements OnInit {
   public cabRegNumber: string;
   public loading: boolean;
   private account: any;
+  auto = null;
 
+
+  @ViewChild('approveForm') approveForm: NgForm;
   constructor(
     public dialogRef: MatDialogRef<RouteApproveDeclineModalComponent>,
     public authService: AuthService,
     private routeService: RouteRequestService,
     private appEventService: AppEventService,
-    @Inject(MAT_DIALOG_DATA) public data: IRouteApprovalDeclineInfo
+    public mediaObserver: MediaObserver,
+    @Inject(MAT_DIALOG_DATA) public data: IRouteApprovalDeclineInfo,
   ) {
+
   }
 
   ngOnInit() {
@@ -59,5 +70,9 @@ export class RouteApproveDeclineModalComponent implements OnInit {
         this.closeDialog();
         this.appEventService.broadcast({ name: 'updateRouteRequestStatus' });
       });
+  }
+
+setAuto(event) {
+  this.auto = event;
   }
 }

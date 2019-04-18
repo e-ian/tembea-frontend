@@ -17,6 +17,7 @@ export interface ICabInventory {
   driverName: string;
   driverPhoneNo?: string;
   location: string;
+  model?: string;
 }
 
 export class CabModel implements ICabInventory {

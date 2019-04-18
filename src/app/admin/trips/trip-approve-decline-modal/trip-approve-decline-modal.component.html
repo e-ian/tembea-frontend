@@ -4,14 +4,19 @@
   </button>
 </div>
 <div class=form-container>
+  <form *ngIf="data.status === 0" #approveForm="ngForm" (ngSubmit)="confirm(approveForm.value)">
+      <h1 class="heading-one">Confirm {{data.requesterFirstName | titlecase}}'s Trip</h1>
+    <p class="message">Select an existing cab from the web</p>
+    <input type="text" class="form-input" (change)="clearFields($event)" (ngModel)="cabDetails" name="cabDetails" placeholder="Choose a cab" aria-label="Number" matInput [matAutocomplete]="auto">
+    <app-return-existing-cabs optionValue="model" [approveForm]="approveForm" (clickedCabs)="clickedCabs($event)" (emitAutoComplete)="setAuto($event)"></app-return-existing-cabs>
+  </form>
   <form *ngIf="data.status === 0" #confirmForm="ngForm" (ngSubmit)="confirm(confirmForm.value)" novalidate>
-    <h1 class="heading-one">Confirm {{data.requesterFirstName | titlecase}}'s Trip</h1>
     <p class="message">Driver Name</p>
-    <input required (ngModel)="driverName" class="form-input" type="text" name="driverName"><br>
+    <input required [(ngModel)]="driverName" [readonly]="disableOtherInput" class="form-input" type="text" name="driverName"><br>
     <p class="message">Driver Contact</p>
-    <input required (ngModel)="driverPhoneNo" class="form-input" type="text" name="driverPhoneNo">
+    <input required [(ngModel)]="driverPhoneNo" [readonly]="disableOtherInput" class="form-input" type="text" name="driverPhoneNo">
     <p class="message">Cab Registration Number</p>
-    <input required (ngModel)="regNumber" class="plate-input" type="text" name="regNumber">
+    <input required [(ngModel)]="regNumber" [readonly]="disableOtherInput" class="plate-input" type="text" name="regNumber">
     <p class="message">Confirmation Reason</p>
     <textarea required (ngModel)="comment" name="comment" class="decline-comment"></textarea>
     <button type="submit" [disabled]="confirmForm.invalid || loading" class="submit-btn button-hover">

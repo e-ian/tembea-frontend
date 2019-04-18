@@ -50,6 +50,7 @@ import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 import { PastTripsComponent } from './trips/past-trips/past-trips.component';
 import { CabCardComponent } from './cabs/cab-inventory/cab-card/cab-card.component';
 import { DeleteCabModalComponent } from './cabs/cab-inventory/delete-cab-dialog/delete-cab-dialog.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { DeleteCabModalComponent } from './cabs/cab-inventory/delete-cab-dialog/
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    FlexLayoutModule,
     MatInputModule,
     MatButtonModule,
     AgmCoreModule.forRoot({

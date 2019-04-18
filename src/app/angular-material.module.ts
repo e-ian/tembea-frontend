@@ -8,10 +8,13 @@ import {
   MatToolbarModule,
   MatDialogModule,
   MatCardModule,
+  MatSelectModule,
   MatButtonModule,
   MatTabsModule,
   MatBadgeModule,
-  MatGridListModule
+  MatGridListModule,
+  MatOptionModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -28,9 +31,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDialogModule,
     MatCardModule,
     MatButtonModule,
+    MatSelectModule,
     MatTabsModule,
     MatBadgeModule,
+    MatOptionModule,
     MatGridListModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatToolbarModule,
@@ -42,10 +48,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatExpansionModule,
     MatDialogModule,
     MatCardModule,
+    MatSelectModule,
     MatButtonModule,
+    MatOptionModule,
     MatTabsModule,
     MatBadgeModule,
-    MatGridListModule
+    MatGridListModule,
+    MatAutocompleteModule,
   ]
 })
 export class AngularMaterialModule {}

@@ -1,0 +1,25 @@
+.cab-name {
+    color: #39434D;
+    font-family: "DIN Pro";
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 21px;
+    text-transform: capitalize;
+    text-align: left;
+  }
+  
+  .body-text {
+    font-size: 14px;	
+    line-height: 18px;
+    margin-top: 10px;
+  }
+  
+  /* Mobile in portrait and landscape mode*/
+  @media all and (max-width: 650px) {
+    .cabs-container{
+      margin-bottom: 5px;
+    }
+    .cab-list {
+      margin-bottom: 5px;
+    }
+  }

@@ -26,7 +26,8 @@
           <input required (ngModel)="takeOff" class="time-input"type="time" name="takeOff">
         </div>
         <p class="message">Cab Registration Number</p>
-        <input required (ngModel)="cabRegNumber"class="plate-input" type="text" name="cabRegNumber">
+        <input required [(ngModel)]="cabRegNumber" class="plate-input" type="text" name="cabRegNumber" aria-label="Number" matInput [matAutocomplete]="auto">
+        <app-return-existing-cabs optionValue="regNumber"  [approveForm]="approveForm" (emitAutoComplete)="setAuto($event)"></app-return-existing-cabs>
         <p class="message">comment</p>
         <textarea required (ngModel)="comment" name="comment" class="decline-comment"></textarea>
         <button type="submit" [disabled]="approveForm.invalid || loading" class="submit-btn button-hover">
