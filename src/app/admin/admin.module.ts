@@ -37,7 +37,7 @@ import {
   MatFormFieldModule,
   MatNativeDateModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule, MatProgressBarModule
 } from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 import { ExportComponent } from './export-component/export.component';
@@ -105,7 +105,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       apiKey: environment.googMapsAPIKey,
       libraries: ['places']
     }),
-    AgmDirectionModule
+    AgmDirectionModule,
+    MatProgressBarModule
   ],
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent

@@ -3,6 +3,7 @@ import { CreateRouteHelper } from './create-route.helper';
 import { takeOffTimeFormat } from './createRouteUtils';
 import {
   googleMapsServiceMock, routeServiceMock, createRouteHelperMock, routerMock, toastrMock
+  , navMenuServiceMock
 } from '../__mocks__/create-route';
 
 const mockCoordinates = { lat: -1.87637, lng: 36.89373 };
@@ -16,7 +17,8 @@ describe('CreateRouteComponent', () => {
       googleMapsServiceMock,
       routeServiceMock,
       createRouteHelperMock,
-      routerMock
+      routerMock,
+      navMenuServiceMock
     );
     component.destinationInputElement = { nativeElement: { value: 'someValue' } };
   });

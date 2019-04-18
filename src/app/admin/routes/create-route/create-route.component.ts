@@ -5,6 +5,7 @@ import { GoogleMapsService } from '../../../shared/googlemaps.service';
 import { Location } from '../../../shared/location.model';
 import { CreateRouteHelper } from './create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
+import {NavMenuService} from '../../__services__/nav-menu.service';
 
 class RouteModel {
   constructor(public routeName?: string,
@@ -34,15 +35,16 @@ export class CreateRouteComponent implements AfterViewInit {
   @ViewChild('destinationFormInput') destinationInputElement: ElementRef;
 
   mouseoverCreateButton
-
   constructor(
     public googleMapsService: GoogleMapsService,
     private routeService: RoutesInventoryService,
     public createRouteHelper: CreateRouteHelper,
-    private router: Router
+    private router: Router,
+    private navMenuService: NavMenuService
   ) {
     this.model = new RouteModel();
-    this.model.capacity = 1
+    this.model.capacity = 1;
+
   }
 
   ngAfterViewInit() {
@@ -85,7 +87,6 @@ export class CreateRouteComponent implements AfterViewInit {
     this.destinationIsDojo = true;
     this.destinationIsDojo = false;
   }
-
   changeCapacityValue(methodToCall: string) {
     this.model.capacity = this.createRouteHelper[methodToCall](this.model.capacity);
   }
@@ -96,7 +97,6 @@ export class CreateRouteComponent implements AfterViewInit {
         ['Click the search icon to confirm destination']
       );
     }
-
     const routeRequest = this.createRouteHelper.createNewRouteRequestObject(
       this.model, this.model.destinationInputField, this.destinationCoordinates
     );
@@ -111,11 +111,14 @@ export class CreateRouteComponent implements AfterViewInit {
 
   async sendRequestToServer(data) {
     try {
+      this.navMenuService.showProgress();
       const response = await this.routeService.createRoute(data);
+      this.navMenuService.stopProgress();
       this.createRouteHelper.notifyUser([response.message], 'success');
       this.model = null;
       this.router.navigate(['/admin/routes/inventory']);
     } catch (e) {
+      this.navMenuService.stopProgress();
       this.createRouteHelper.notifyUser([e.error.message || 'An error occurred.']);
     }
   }

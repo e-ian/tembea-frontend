@@ -197,3 +197,20 @@ input[type=number] {
   padding: 20px;
 }
 
+::ng-deep .mat-progress-bar-fill::after {
+  width: 80%;
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  background-color: #3359DB;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: white;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 3px;
+}
+
+

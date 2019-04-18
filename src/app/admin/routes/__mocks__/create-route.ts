@@ -36,3 +36,8 @@ export const toastrMock: any = {
 export const httpMock: any = {
   post: _ => {}
 }
+
+export const navMenuServiceMock: any = {
+  showProgress: _ => {},
+  stopProgress: _ => {}
+}

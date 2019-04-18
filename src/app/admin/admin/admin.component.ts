@@ -3,9 +3,10 @@ import { MatIconRegistry, MatSidenav } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Event as RouterEvent, Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs'
+import { Subscription, interval } from 'rxjs'
 import { NavMenuService } from '../__services__/nav-menu.service';
 import * as mainRoutes from './main-routes.json';
+
 
 @Component({
   selector: 'app-admin',
@@ -15,9 +16,12 @@ import * as mainRoutes from './main-routes.json';
 export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   position: String = 'side';
   watcher: Subscription;
+  counterSubscription: Subscription;
   activeRoute = '';
-
+  loading: Boolean = false;
   routes = mainRoutes.routes;
+  value = 0;
+  counter = interval(500);
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
@@ -27,7 +31,7 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     private media: MediaObserver,
     private router: Router,
     private navMenuService: NavMenuService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     this.registerIcons();
     this.router.events.subscribe((event: RouterEvent) => {
@@ -36,8 +40,16 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-
   ngOnInit() {
+    this.navMenuService.addSubscriber((data: boolean) => {
+      this.loading = data;
+       this.counterSubscription = this.counter.subscribe(() => {
+        this.value = this.value + 10;
+        if (this.value === 250) {
+          this.counterSubscription.unsubscribe();
+        }
+      });
+    });
   }
 
   ngAfterViewInit() {

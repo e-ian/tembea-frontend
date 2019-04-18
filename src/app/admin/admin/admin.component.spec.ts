@@ -17,12 +17,8 @@ import {ClockService} from '../../auth/__services__/clock.service';
 import { toastrMock } from '../routes/__mocks__/create-route';
 import { AlertService } from '../../shared/alert.service';
 
-const sideNavMock = {
-  setSidenav: jest.fn(),
-  open: jest.fn(),
-  close: jest.fn(),
-  toggle: jest.fn(),
-};
+const sideNavMock = new NavMenuService();
+
 
 
 describe('SideBarComponent', () => {
@@ -32,6 +28,7 @@ describe('SideBarComponent', () => {
     events: of(new NavigationEnd(0, '/', null))
   };
   let router: Router;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,6 +45,7 @@ describe('SideBarComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: RouterModule, useValue: routerMock },
+        { provide: NavMenuService, useValue: sideNavMock}
       ]
     });
 
@@ -78,9 +76,31 @@ describe('SideBarComponent', () => {
   describe('menuClicked on a large screen device', () => {
     it('should not call sideNav.close when clicked', () => {
       // test
+      jest.spyOn(sideNavMock, 'close');
       component.menuClicked(true);
       // assert
       expect(sideNavMock.close).toBeCalledTimes(0);
+    });
+  });
+
+  describe('ngOnInit', () => {
+    it('should call addSubscriber' , () => {
+      jest.spyOn(sideNavMock, 'addSubscriber');
+      component.ngOnInit();
+      sideNavMock.showProgress();
+      expect(sideNavMock.addSubscriber).toHaveBeenCalled();
+    });
+    it('should set loading to true' , () => {
+      jest.spyOn(sideNavMock, 'addSubscriber');
+      component.ngOnInit();
+      sideNavMock.showProgress();
+      expect(component.loading).toBeTruthy();
+    });
+    it('should set loading to false' , () => {
+      jest.spyOn(sideNavMock, 'addSubscriber');
+      component.ngOnInit();
+      sideNavMock.stopProgress();
+      expect(component.loading).toBeFalsy();
     });
   });
 

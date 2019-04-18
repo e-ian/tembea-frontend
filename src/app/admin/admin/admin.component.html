@@ -83,10 +83,13 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-
+    <mat-progress-bar
+      *ngIf="loading"  mode="determinate" [value]="value">
+    </mat-progress-bar>
     <app-header></app-header>
 
     <div class="mat-sidenav-content-div">
+
 
       <router-outlet></router-outlet>
 
