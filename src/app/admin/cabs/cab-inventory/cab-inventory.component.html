@@ -49,97 +49,56 @@
     <div class="cabs-grid-container xl-width">
       <mat-grid-list cols="4" rowHeight="145px">
         <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-            <div class="cab-card">
-                <div class="card-header flex">
-                  <span class="cab-name">{{ cab.model || 'No Name'}}</span>
-                  <button class="options flex-right" (click)="showOptions(ind)"></button>
-                </div>
-                <div class="card-body">
-                  <div class="cab-number">
-                    <i class="cab-card-icon ic-reg"></i>
-                    <span class="body-text">{{ cab.regNumber || '-' }}</span>
-                  </div>
-                  <div class="cab-capacity">
-                    <i class="cab-card-icon ic-capacity"></i>
-                    <span class="body-text">{{ 'Seats up to ' + cab.capacity + ' People'  || '-' }}</span>
-                  </div>
-                </div>
-                <div class="cab-card-action" [hidden]="currentOptions !== ind">
-                    <div class="edit-action">
-                      <button class="action-button"><i class="action-icon ic-edit"></i>Edit</button>
-                    </div>
-                    <div class="delete-action">
-                        <button class="action-button"><i class="action-icon ic-delete"></i>Delete</button>
-                    </div>
-                </div>
-            </div>
+          <app-cab-card
+            [id]="cab.id"
+            [model]="cab.model"
+            [regNumber]="cab.regNumber"
+            [capacity]="cab.capacity"
+            [hidden]="currentOptions !== ind"
+            [showMoreIcon]="true"
+            (showOptions)="showOptions(ind)"
+            (refreshWindow)="getCabsInventory()">
+          </app-cab-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
+
     <div class="cabs-grid-container l-width">
-        <mat-grid-list cols="2" rowHeight="145px">
-          <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-              <div class="cab-card">
-                  <div class="card-header flex">
-                    <span class="cab-name">{{ cab.model || 'No Name'}}</span>
-                    <button class="options flex-right" (click)="showOptions(ind)"></button>
-                  </div>
-                  <div class="card-body">
-                    <div class="cab-number">
-                      <i class="cab-card-icon ic-reg"></i>
-                      <span class="body-text">{{ cab.regNumber || '-' }}</span>
-                    </div>
-                    <div class="cab-capacity">
-                      <i class="cab-card-icon ic-capacity"></i>
-                      <span class="body-text">{{ 'Seats up to ' + cab.capacity + ' People'  || '-' }}</span>
-                    </div>
-                  </div>
-                  <div class="cab-card-action" [hidden]="currentOptions !== ind">
-                      <div class="edit-action">
-                        <button class="action-button"><i class="action-icon ic-edit"></i>Edit</button>
-                      </div>
-                      <div class="delete-action">
-                          <button class="action-button"><i class="action-icon ic-delete"></i>Delete</button>
-                      </div>
-                  </div>
-              </div>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-      <div class="cabs-grid-container sm-width">
-          <mat-grid-list cols="1" rowHeight="145px">
-            <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-                <div class="cab-card">
-                    <div class="card-header flex">
-                      <span class="cab-name">{{ cab.model || 'No Name'}}</span>
-                      <button class="options flex-right" (click)="showOptions(ind)"></button>
-                    </div>
-                    <div class="card-body">
-                      <div class="cab-number">
-                        <i class="cab-card-icon ic-reg"></i>
-                        <span class="body-text">{{ cab.regNumber || '-' }}</span>
-                      </div>
-                      <div class="cab-capacity">
-                        <i class="cab-card-icon ic-capacity"></i>
-                        <span class="body-text">{{ 'Seats up to ' + cab.capacity + ' People'  || '-' }}</span>
-                      </div>
-                    </div>
-                    <div class="cab-card-action" [hidden]="currentOptions !== ind">
-                        <div class="edit-action">
-                          <button class="action-button"><i class="action-icon ic-edit"></i>Edit</button>
-                        </div>
-                        <div class="delete-action">
-                            <button class="action-button"><i class="action-icon ic-delete"></i>Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </mat-grid-tile>
-          </mat-grid-list>
-        </div>
+      <mat-grid-list cols="2" rowHeight="145px">
+        <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
+          <app-cab-card
+            [id]="cab.id"
+            [model]="cab.model"
+            [regNumber]="cab.regNumber"
+            [capacity]="cab.capacity"
+            [hidden]="currentOptions !== ind"
+            [showMoreIcon]="true"
+            (showOptions)="showOptions(ind)"
+            (refreshWindow)="getCabsInventory()">
+          </app-cab-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <div class="cabs-grid-container sm-width">
+      <mat-grid-list cols="1" rowHeight="145px">
+        <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
+          <app-cab-card
+            [id]="cab.id"
+            [model]="cab.model"
+            [regNumber]="cab.regNumber"
+            [capacity]="cab.capacity"
+            [hidden]="currentOptions !== ind"
+            [showMoreIcon]="true"
+            (showOptions)="showOptions(ind)"
+            (refreshWindow)="getCabsInventory()">
+          </app-cab-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
     <div class="pagination">
       <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="setPage($event)"
         [pageSize]="pageSize"></app-pagination>
     </div>
-
   </div>
 </div>

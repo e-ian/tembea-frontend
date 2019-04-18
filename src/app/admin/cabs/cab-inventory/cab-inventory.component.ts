@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
+import { MatDialog } from '@angular/material';
 
 import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
 import { ICabInventory } from 'src/app/shared/models/cab-inventory.model';
@@ -31,6 +32,7 @@ export class CabInventoryComponent implements OnInit {
   constructor(
     public cabService: CabsInventoryService,
     private appEventsService: AppEventService,
+    public dialog: MatDialog,
   ) {
     this.pageNo = 1;
     this.sort = 'name,asc,batch,asc';
@@ -64,6 +66,7 @@ export class CabInventoryComponent implements OnInit {
       this.isLoading = false;
       this.displayText = `Oops! We're having connection problems.`;
     });
+    this.currentOptions = -1;
   }
 
   setPage(page: number): void {

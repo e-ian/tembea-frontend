@@ -47,27 +47,6 @@ describe('CabInventoryComponent', () => {
     expect(component).toBeTruthy();
   }));
 
-  it('should create component and render cabs', async(() => {
-    component.getCabsInventory();
-    fixture.detectChanges();
-    const button = fixture.debugElement.queryAll(By.css('.action-icon'))
-
-    expect(button.length).toEqual(getCabsResponseMock.cabs.length * 6);
-    expect(component.isLoading).toBe(false);
-  }));
-
-  it('should call getCabs and return list of cabs', async(() => {
-    component.getCabsInventory();
-    fixture.detectChanges();
-
-    expect(component.cabs).toEqual(getCabsResponseMock.cabs);
-
-    const editButton = fixture.debugElement.queryAll(By.css('.edit-action'));
-    const deleteButton = fixture.debugElement.queryAll(By.css('.delete-action'));
-    expect(editButton.length).toEqual(getCabsResponseMock.cabs.length * 3);
-    expect(deleteButton.length).toEqual(getCabsResponseMock.cabs.length * 3);
-  }));
-
   describe('ngOnInit', () => {
     it('should update and load page', (() => {
       jest.spyOn(component, 'getCabsInventory');

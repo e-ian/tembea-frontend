@@ -29,3 +29,7 @@ export class CabModel implements ICabInventory {
       public driverPhoneNo: string
   ) {}
 }
+export interface IDeleteCabInventory {
+  success: boolean,
+  message: string
+}

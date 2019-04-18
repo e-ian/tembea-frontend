@@ -10,11 +10,10 @@ import 'rxjs/add/operator/map';
 })
 
 export class CabsInventoryService {
-   cabsUrl = `${environment.tembeaBackEndUrl}/api/v1/cabs`;
-   httpOptions = {
+  cabsUrl = `${environment.tembeaBackEndUrl}/api/v1/cabs`;
+  httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-   };
-
+  };
   constructor(
     private http: HttpClient,
   ) { }
@@ -29,5 +28,9 @@ export class CabsInventoryService {
   }
   addCab(data: Object): Observable<any> {
     return this.http.post<any>(this.cabsUrl, {...data});
+  }
+
+  deleteCab(id: number) {
+    return this.http.delete(`${this.cabsUrl}/${id}`, this.httpOptions);
   }
 }

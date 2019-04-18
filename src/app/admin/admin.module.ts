@@ -48,6 +48,8 @@ import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.
 import { DeleteFellowModalComponent } from './settings/fellows/delete-fellow-dialog/delete-dialog.component';
 import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 import { PastTripsComponent } from './trips/past-trips/past-trips.component';
+import { CabCardComponent } from './cabs/cab-inventory/cab-card/cab-card.component';
+import { DeleteCabModalComponent } from './cabs/cab-inventory/delete-cab-dialog/delete-cab-dialog.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { PastTripsComponent } from './trips/past-trips/past-trips.component';
     FellowCardComponent,
     DeleteFellowModalComponent,
     FellowComponent,
-    PastTripsComponent
+    PastTripsComponent,
+    CabCardComponent,
+    DeleteCabModalComponent
   ],
   imports: [
     CommonModule,
@@ -101,7 +105,9 @@ import { PastTripsComponent } from './trips/past-trips/past-trips.component';
     }),
     AgmDirectionModule
   ],
-  entryComponents: [ DeleteFellowModalComponent ],
+  entryComponents: [
+    DeleteFellowModalComponent, DeleteCabModalComponent
+  ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
 export class AdminModule {}
