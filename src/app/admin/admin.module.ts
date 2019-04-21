@@ -47,6 +47,7 @@ import { FellowsComponent } from './settings/fellows/fellows.component';
 import { FellowCardComponent } from './settings/fellows/fellow-card/fellow-card.component';
 import { DeleteFellowModalComponent } from './settings/fellows/delete-fellow-dialog/delete-dialog.component';
 import { FellowComponent } from './settings/fellows/fellow/fellow.component';
+import { PastTripsComponent } from './trips/past-trips/past-trips.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { FellowComponent } from './settings/fellows/fellow/fellow.component';
     FellowsComponent,
     FellowCardComponent,
     DeleteFellowModalComponent,
-    FellowComponent
+    FellowComponent,
+    PastTripsComponent
   ],
   imports: [
     CommonModule,

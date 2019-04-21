@@ -24,6 +24,7 @@ export class TripRequest  implements Deserializable<TripRequest>  {
     public requester?: Users,
     public approvedBy?: Users,
     public confirmedBy?: Users,
+    public rating?: number,
   ) {
   }
   deserialize(input: any): TripRequest {

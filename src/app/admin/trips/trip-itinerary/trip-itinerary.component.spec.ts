@@ -83,7 +83,7 @@ describe('TripItineraryComponent', () => {
       expect(getTripsSpy).toBeCalledTimes(1);
       expect(component.dateFilters.requestedOn).toEqual({before: '2019-03-03'})
     })
-  })
+  });
 
   describe('setFilterParams', () => {
     it('should set filter parameters for exporting tables', () => {
@@ -102,5 +102,14 @@ describe('TripItineraryComponent', () => {
         }
       })
     })
-  })
+  });
+
+  describe('departmentSelected', () => {
+    it('fires event when department is selected', () => {
+      const getTripsSpy = jest.spyOn(component, 'getTrips');
+      component.departmentSelected('(click)');
+      expect(component.departmentName).toEqual('(click)');
+      expect(getTripsSpy).toHaveBeenCalled()
+    });
+  });
 });
