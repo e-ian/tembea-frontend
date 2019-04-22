@@ -56,6 +56,8 @@
 }
 
 .fellow-card:hover {
+  animation-name: fellow-hover;
+  animation-duration: 0.25s;
   box-shadow: 0 7px 44px 0 rgba(0,0,0,0.04);
 }
 
@@ -70,4 +72,10 @@
     width: 19px;
     display: inline-block;
   }
+}
+
+@keyframes fellow-hover {
+  0%   {border: 1px solid #C8C8C8;}
+  60% {border: 1px solid #F8F8F8;}
+  100% {border: 1px solid white;}
 }

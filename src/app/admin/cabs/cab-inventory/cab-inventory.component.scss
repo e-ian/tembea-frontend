@@ -28,8 +28,8 @@ mat-grid-tile {
 }
 
 .pagination {
-  width: 90%;
-  margin: 0 0 0 auto;
+  width: 100%;
+  margin-bottom: 5rem;
 }
 
 .cabs-table-head {
@@ -65,9 +65,9 @@ mat-grid-tile {
     border-radius: 13px;
     background-color: rgba(244,247,249,0.4);
 
-    color: #323C47;	
-    font-family: "DIN Pro";	
-    font-size: 12px;	
+    color: #323C47;
+    font-family: "DIN Pro";
+    font-size: 12px;
     line-height: 26px;
     padding: 6px 21px;
     margin-right: 7.5px;
@@ -185,7 +185,7 @@ mat-grid-tile {
   .xl-width {
     display: none;
   }
-} 
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1270px) {
@@ -199,3 +199,4 @@ mat-grid-tile {
     display: block;
   }
 }
+

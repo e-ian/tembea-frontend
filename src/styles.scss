@@ -211,15 +211,15 @@ input {
 }
 
 .add-cab-modal-panel-class .mat-dialog-container {
-  border-radius: 11px;	
-  background-color: #FFFFFF;	
+  border-radius: 11px;
+  background-color: #FFFFFF;
   box-shadow: 0 5px 12px 0 rgba(83,89,98,0.12);
   padding-left: 50px;
   padding-right: 50px;
 }
 
 .add-cab-modal-panel-class .add-cab-modal-backdrop {
-  opacity: 0.8;	
+  opacity: 0.8;
   background-color: #4F4F4F;
 }
 
@@ -227,4 +227,45 @@ input {
   height: 450px;
   width: 470px;
   border-radius: 10px;
+}
+
+.custom-table {
+  width: 100%;
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+  .mat-grid-list {
+    align-items: center;
+    height: 15px;
+    padding: 10px;
+  }
+  .route-name-align {
+    position: absolute;
+    left: 25px;
+  }
+  .edit-action-button, .duplicate-action-button, .decline-action-button {
+    display: none;
+  }
+}
+
+.custom-table:hover {
+  border-radius: 10px;
+  animation-duration: 0.25s;
+  box-shadow: 0 2px 21px -10px rgba(0, 0, 0, 0.25);
+
+  .table-header-hover {
+    color: black;
+  }
+}
+
+.table-row-item:hover {
+  background-color: white;
+  color: black;
+  box-shadow:
+    0 -4px 5px -5px rgba(0, 0, 0, 0.25),
+    0 4px 5px -5px rgba(0, 0, 0, 0.25);
+
+  .edit-action-button, .duplicate-action-button, .decline-action-button {
+    display: inline-block;
+    margin-right: 8px;
+  }
 }

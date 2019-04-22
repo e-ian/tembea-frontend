@@ -15,27 +15,12 @@ mat-grid-list:first-child {
   border-top-left-radius: .5em;
   border-top-right-radius: .5em;
   border: 1px solid rgba(0, 0, 0, .05);
-  border-bottom: 1px solid rgba(0, 0, 0, .05);
   color: #808FA3;
 }
 
 mat-grid-list:last-child {
   border-bottom-left-radius: .5em;
   border-bottom-right-radius: .5em;
-}
-
-.routes-table {
-  width: 100%;
-  margin-bottom: 5rem;
-  .mat-grid-list{
-    align-items: center;
-    height: 15px;
-    padding: 10px;
-  }
-  .route-name-align{
-    position: absolute;
-    left: 25px;
-  }
 }
 
 .active-status-button {
@@ -100,8 +85,7 @@ mat-grid-list:last-child {
 }
 
 .status-inactive {
-  margin: auto;
-  margin-left: .4em;
+  margin: auto auto auto .4em;
   font-size: 9px;
   width: 50px;
   font-weight: bold;
@@ -232,13 +216,13 @@ mat-grid-list:last-child {
 }
 
 .pagination {
-  width: 90%;
-  margin: 0 0 0 auto;
+  width: 100%;
+  margin-bottom: 5rem;
 }
 
 @media all and (max-width: 752px) {
-  .buttons-wrapper{
-    margin: 0rem auto 1rem;
+  .buttons-wrapper {
+    margin: 0 auto 1rem;
   }
   .routes-table-container {
     width: 100%;
@@ -249,11 +233,10 @@ mat-grid-list:last-child {
     width: 700px;
   }
   mat-grid-list {
-    padding: 0rem 0.2rem;
-    padding-bottom: 2rem;
+    padding: 0 0.2rem 2rem;
   }
   mat-grid-tile {
-    padding: 1.0rem 0rem;
+    padding: 1.0rem 0;
   }
   .nav-buttons {
     margin-top: 1rem;
@@ -266,7 +249,7 @@ mat-grid-list:last-child {
   border: 1px solid rgba(128, 143, 163, 0.11);
   border-radius: 6px;
   background-color: #ffffff;
-  box-shadow: 0 3px 7px 0 rgba(128, 143, 163, 0.11);
+  box-shadow: none;
   display: flex;
   justify-content: center;
   align-items: center;

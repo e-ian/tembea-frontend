@@ -43,62 +43,57 @@
       ></button>
     </div>
 
-    <mat-grid-list cols="9" rowHeight="2:1" class="trip-table-head">
-      <mat-grid-tile tabindex="0">Requested On</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Departing On</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Pickup</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Destination</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Requested-By</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Flight Number</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Department</mat-grid-tile>
-      <mat-grid-tile tabindex="0">Rider</mat-grid-tile>
-      <mat-grid-tile tabindex="0"
-        ><p class="trip-itinerary-approved">
-          Approved/Confirmed
-        </p></mat-grid-tile
-      >
+    <div class="custom-table">
+    <mat-grid-list cols="9" rowHeight="2:1" class="trip-table-head table-header-hover">
+      <mat-grid-tile tabindex="0" class="cell-align">Requested On</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Departing On</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Pickup</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Destination</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Requested-By</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Flight Number</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Department</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align">Rider</mat-grid-tile>
+      <mat-grid-tile tabindex="0" class="cell-align"><span class="trip-itinerary-approved">Approved/ Confirmed</span></mat-grid-tile>
     </mat-grid-list>
 
     <mat-grid-list
       *ngFor="let trip of tripRequests"
       cols="9"
       rowHeight="2:1"
-      class="trip-table-body"
+      class="trip-table-body table-row-item"
     >
-      <mat-grid-tile tabindex="0">
+      <mat-grid-tile tabindex="0" class="cell-align">
         <div class="time">
-          <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
+          <span>{{ trip.requestedOn | date: 'shortTime' }}</span>
           <span>
-            <span>&nbsp;by&nbsp;</span>
-            <span>{{ trip.requestedOn | date: 'shortTime' }}</span>
+            <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
           </span>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile tabindex="0">
-        <div class="time">
-          <span>{{ trip.departureTime | date: 'dd-MM-yy' }}</span>
+      <mat-grid-tile tabindex="0" class="cell-align">
+        <div class="time cell-align">
+          <span>{{ trip.departureTime | date: 'shortTime' }}</span>
           <span>
-            <span>&nbsp;by&nbsp;</span>
-            <span>{{ trip.departureTime | date: 'shortTime' }}</span>
+            <span>{{ trip.departureTime | date: 'dd-MM-yy' }}</span>
           </span>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{ trip.pickup }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{ trip.destination }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{
-        trip.requester.name | shortenName: { max: 10 }
-      }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{ trip.flightNumber }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{ trip.department }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">{{
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{ trip.pickup }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{ trip.destination }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{trip.requester.name | shortenName: { max: 10 }
+      }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{ trip.flightNumber }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{ trip.department }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">{{
         trip.rider.name | shortenName: { max: 10 }
-      }}</mat-grid-tile>
-      <mat-grid-tile tabindex="0">
+      }}</p></mat-grid-tile>
+      <mat-grid-tile tabindex="0"><p class="cell-align">
         {{ trip.approvedBy.name | shortenName: { max: 10 } }}
         &nbsp;/&nbsp;
-        {{ trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile
+        {{ trip.confirmedBy.name | shortenName: { max: 10 } }}</p></mat-grid-tile
       >
     </mat-grid-list>
+    </div>
 
     <div class="pagination">
       <app-pagination

@@ -17,7 +17,7 @@
                         <li>No of trips</li>
                         <li>Average rating</li>
                         <li>Cost total</li>
-                    </ul>            
+                    </ul>
                 </div>
 
                 <div class="right-details">
@@ -36,9 +36,9 @@
         </div>
 
         <div class="fellows-table-container table">
-        
-            <div class="fellows-table">
-                <mat-grid-list class="table-title" cols="6" rowHeight="3:1">
+
+            <div class="fellows-table custom-table">
+                <mat-grid-list class="table-header-hover" cols="6" rowHeight="3:1">
                     <mat-grid-tile>
                         <div class="cell-align">Departed on</div>
                     </mat-grid-tile>
@@ -59,8 +59,7 @@
                     </mat-grid-tile>
                 </mat-grid-list>
 
-                <div class="title-grid-data">
-                    <mat-grid-list *ngFor="let fellow of fellowsData" cols="6" rowHeight="3:1">
+                    <mat-grid-list *ngFor="let fellow of fellowsData" cols="6" rowHeight="3:1" class="table-row-item">
                         <mat-grid-tile>
                             <div class="time cell-align">
                                 <span>{{ fellow.departureDate | date:'dd-MM-yy' }}</span>
@@ -71,13 +70,13 @@
                             </div>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <div class="cell-align">{{ fellow.name }}</div>
+                            <p class="cell-align">{{ fellow.name }}</p>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <div class="cell-align">{{ fellow.address }}</div>
+                            <p class="cell-align">{{ fellow.address }}</p>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <div class="cell-align">{{ fellow.driverName }}</div>
+                            <p class="cell-align">{{ fellow.driverName }}</p>
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <div class="cell-align">
@@ -90,14 +89,13 @@
                             <div class="cell-align">{{ fellow.userAttendStatus }}</div>
                         </mat-grid-tile>
                     </mat-grid-list>
-                </div>
             </div>
         </div>
 
         <div class="pagination">
             <app-pagination
-                *ngIf='totalItems > pageSize' 
-                [totalItems]="totalItems" 
+                *ngIf='totalItems > pageSize'
+                [totalItems]="totalItems"
                 (pageChange)="setPage($event)"
                 [pageSize]="pageSize">
             </app-pagination>

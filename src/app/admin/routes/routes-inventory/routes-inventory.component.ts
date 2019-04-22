@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
-import {IDeleteRouteResponse, IRouteInventory, RouteInventoryModel} from 'src/app/shared/models/route-inventory.model';
+import {IDeleteRouteResponse, IRouteInventory} from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
 import { MatDialog } from '@angular/material';

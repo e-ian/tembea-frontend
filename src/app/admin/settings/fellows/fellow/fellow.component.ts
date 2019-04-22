@@ -9,7 +9,9 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 @Component({
   selector: 'app-fellow-details',
   templateUrl: './fellow.component.html',
-  styleUrls: ['./fellow.component.scss',
+  styleUrls: [
+    '../../../routes/routes-inventory/routes-inventory.component.scss',
+    './fellow.component.scss',
 ]
 })
 export class FellowComponent implements OnInit {
