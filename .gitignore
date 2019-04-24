@@ -130,3 +130,4 @@ excel.xlsx
 cypress/videos/*
 cypress/screenshots/*
 my-test-data.ts
+jenkins/secrets/
