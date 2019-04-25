@@ -79,7 +79,7 @@
           &nbsp;/&nbsp;
           {{trip.confirmedBy.name | shortenName: { max: 10 } }}</mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <span class="stars-container stars-{{trip.rating *20}}">★★★★★</span>
+          <app-rating-stars [rating]="trip.rating" ></app-rating-stars>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

@@ -109,17 +109,9 @@ export class FellowComponent implements OnInit {
           }
         }
       }  = entry
-      return { rate: this.getStars(rating), userAttendStatus, departureDate, driverName, regNumber, name, address}
+      return { rating, userAttendStatus, departureDate, driverName, regNumber, name, address }
     });
 
     return theData;
-  }
-
-  getStars(rating) {
-    if (rating == null) {
-      rating = 0;
-    }
-    const value = ( parseFloat(rating) ) / 5 * 100;
-    return value + '%';
   }
 }

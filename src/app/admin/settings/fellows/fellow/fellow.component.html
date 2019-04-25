@@ -80,9 +80,7 @@
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <div class="cell-align">
-                                <span class="stars alignright">
-                                    <span [ngStyle]="{ 'width': fellow.rate }"></span>
-                                </span>
+                                <app-rating-stars [rating]="fellow.rating" ></app-rating-stars>
                             </div>
                         </mat-grid-tile>
                         <mat-grid-tile>

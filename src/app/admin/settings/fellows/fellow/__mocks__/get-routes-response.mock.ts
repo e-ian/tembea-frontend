@@ -12,7 +12,7 @@ export const FellowRoutesResponseMock = {
         'batchRecordId': 1,
         'userAttendStatus': 'NotConfirmed',
         'reasonForSkip': null,
-        'rating': null,
+        'rating': 3,
         'createdAt': '2019-04-04T10:12:02.625Z',
         'updatedAt': '2019-04-04T10:12:02.625Z',
         'user': {
@@ -52,7 +52,7 @@ export const FellowRoutesResponseMock = {
       'batchRecordId': 1,
       'userAttendStatus': 'NotConfirmed',
       'reasonForSkip': null,
-      'rating': null,
+      'rating': 3,
       'createdAt': '2019-04-04T10:12:02.625Z',
       'updatedAt': '2019-04-04T10:12:02.625Z',
       'user': {
@@ -92,7 +92,7 @@ export const FellowRoutesResponseMock = {
     'batchRecordId': 1,
     'userAttendStatus': 'NotConfirmed',
     'reasonForSkip': null,
-    'rating': null,
+    'rating': 3,
     'createdAt': '2019-04-04T10:12:02.625Z',
     'updatedAt': '2019-04-04T10:12:02.625Z',
     'user': {
@@ -137,7 +137,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rate': '0%',
+            'rating': 3,
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }, {
@@ -145,7 +145,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rate': '0%',
+            'rating': 3,
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }, {
@@ -153,7 +153,7 @@ export const FellowProcessedDataMock = {
             'departureDate': '2019-04-04 03:00',
             'driverName': 'Dominic Toretto',
             'name': 'Doug Flats',
-            'rate': '0%',
+            'rating': 3,
             'regNumber': 'SMK 319 JK',
             'userAttendStatus': 'NotConfirmed'
         }
