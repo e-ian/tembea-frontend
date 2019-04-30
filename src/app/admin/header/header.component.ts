@@ -25,11 +25,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public actionButton = '';
   user: IUser;
   updateHeaderSubscription: Subscription;
+  logoutModalSub: Subscription;
 
   constructor(
     private navItem: NavMenuService,
-    private dialog: MatDialog,
-    private auth: AuthService,
+    public dialog: MatDialog,
+    public auth: AuthService,
     private titleService: Title,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -40,19 +41,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
     this.getHeaderTitleFromRouteData();
-
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.getHeaderTitleFromRouteData();
       }
     });
-
     this.updateHeaderSubscription = this.appEventService.subscribe('updateHeaderTitle', (data) => {
       const { content: { headerTitle, badgeSize, actionButton } } = data;
       this.headerTitle = headerTitle || this.headerTitle;
       this.badgeSize = badgeSize || this.badgeSize;
       this.actionButton = actionButton || this.actionButton;
     });
+    this.logoutModalSub = this.appEventService.subscribe('SHOW_LOGOUT_MODAL', () => this.showLogoutModal.call(this));
   }
 
   private getHeaderTitleFromRouteData() {
@@ -77,6 +77,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.updateHeaderSubscription) {
       this.updateHeaderSubscription.unsubscribe();
     }
+    if (this.logoutModalSub) {
+      this.logoutModalSub.unsubscribe();
+    }
   }
 
   toggleSideNav = () => {
@@ -89,19 +92,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showLogoutModal() {
-    const firstName = this.auth.getCurrentUser().firstName;
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      width: '592px',
-      backdropClass: 'modal-backdrop',
-      panelClass: 'confirm-modal-panel-class',
-      data: {
-        displayText: `logout, ${firstName}`,
-        confirmText: 'logout'
-      }
-    });
-    dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.logout();
-    });
+    if (this.user) {
+      const firstName = this.user.firstName;
+      const dialogRef = this.dialog.open(ConfirmModalComponent, {
+        width: '592px',
+        backdropClass: 'modal-backdrop',
+        panelClass: 'confirm-modal-panel-class',
+        data: {
+          displayText: `logout, ${firstName}`,
+          confirmText: 'logout'
+        }
+      });
+      dialogRef.componentInstance.executeFunction.subscribe(() => {
+        this.logout();
+      });
+    }
   }
 
   handleAction() {

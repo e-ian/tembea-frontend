@@ -7,19 +7,23 @@ import { By } from '@angular/platform-browser';
 import { MediaObserver } from '@angular/flex-layout';
 import { of } from 'rxjs';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { AngularMaterialModule } from '../../angular-material.module';
-import { HeaderComponent } from '../header/header.component';
 import { NavMenuService } from '../__services__/nav-menu.service';
 import {CookieService} from '../../auth/__services__/ngx-cookie-service.service';
 import {ClockService} from '../../auth/__services__/clock.service';
 import { toastrMock } from '../routes/__mocks__/create-route';
 import { AlertService } from '../../shared/alert.service';
+import { HeaderComponent } from '../header/header.component';
+import { AppEventService } from 'src/app/shared/app-events.service';
 
 const sideNavMock = new NavMenuService();
 
 
+const appEventsMock = {
+  broadcast: jest.fn()
+};
 
 describe('SideBarComponent', () => {
   let component: AdminComponent;
@@ -139,7 +143,8 @@ describe('SideBarComponent on small devices', () => {
         ClockService,
         { provide: AlertService, useValue: toastrMock },
         { provide: MediaObserver, useValue: mediaObserverMock },
-        { provide: NavMenuService, useValue: sideNavMock }
+        { provide: NavMenuService, useValue: sideNavMock },
+        { provide: AppEventService, useValue: appEventsMock }
       ]
     })
       .compileComponents();
@@ -150,6 +155,16 @@ describe('SideBarComponent on small devices', () => {
   it('should change menu orientation if screen size is small', () => {
     // assert
     expect(component.position).toEqual('side');
+  });
+
+  describe('logout model on small screen devices', () => {
+    it('should call header.showLogoutModal', () => {
+      jest.spyOn(component.header, 'showLogoutModal');
+      component.responsiveLogout();
+      expect(appEventsMock.broadcast).toHaveBeenCalledWith({
+        name: 'SHOW_LOGOUT_MODAL'
+      });
+    });
   });
 
   describe('menuClicked on a small screen device', () => {

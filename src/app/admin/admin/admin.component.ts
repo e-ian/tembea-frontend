@@ -1,11 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatIconRegistry, MatSidenav } from '@angular/material';
+import { MatIconRegistry, MatSidenav, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Event as RouterEvent, Router, NavigationEnd } from '@angular/router';
 import { Subscription, interval } from 'rxjs'
 import { NavMenuService } from '../__services__/nav-menu.service';
 import * as mainRoutes from './main-routes.json';
+import { HeaderComponent } from '../header/header.component';
+import { AppEventService } from '../../shared/app-events.service';
 
 
 @Component({
@@ -24,6 +26,7 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   counter = interval(500);
 
   @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild(HeaderComponent) header: HeaderComponent;
 
   constructor(
     private iconRegistry: MatIconRegistry,
@@ -32,6 +35,7 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private navMenuService: NavMenuService,
     private cd: ChangeDetectorRef,
+    private events: AppEventService
   ) {
     this.registerIcons();
     this.router.events.subscribe((event: RouterEvent) => {
@@ -40,6 +44,13 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
+
+  responsiveLogout = () => {
+    this.events.broadcast({
+      name: 'SHOW_LOGOUT_MODAL'
+    });
+  }
+
   ngOnInit() {
     this.navMenuService.addSubscriber((data: boolean) => {
       this.loading = data;
