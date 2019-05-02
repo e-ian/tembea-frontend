@@ -24,14 +24,7 @@
   left: 30px;
 }
 .time {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0;
-  font-size: 1.1em;
-
-  span:nth-child(2) {
-    color: #808FA3;
-  }
+  color: #808FA3;
 }
 .trip-table-body  {
 

@@ -6,7 +6,8 @@ import { TripItineraryComponent } from '../../trips/trip-itinerary/trip-itinerar
   templateUrl: './airport-transfers.component.html',
   styleUrls: [
     '../../routes/routes-inventory/routes-inventory.component.scss',
-    '../../trips/trip-itinerary/trip-itinerary.component.scss'
+    '../../trips/trip-itinerary/trip-itinerary.component.scss',
+    './airport-transfers.component.scss'
   ]
 })
 export class AirportTransfersComponent extends TripItineraryComponent {
