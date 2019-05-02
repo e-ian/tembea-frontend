@@ -18,8 +18,8 @@ export class FellowsService {
   constructor(private http: HttpClient) {
     this.fellowsUrl = `${environment.tembeaBackEndUrl}/api/v1/fellows`;
   }
-  getFellows(size = 9, page = 1): Observable<any> {
-    const queryParams = `size=${size}&page=${page}`;
+  getFellows(onRoute, size = 9, page = 1): Observable<any> {
+    const queryParams = onRoute ? `size=${size}&page=${page}` : `onRoute=${false}&size=${size}&page=${page}`;
     return this.http
       .get<any>(`${this.fellowsUrl}?${queryParams}`)
       .map(fellows => {

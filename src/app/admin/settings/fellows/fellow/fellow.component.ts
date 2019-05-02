@@ -27,6 +27,7 @@ export class FellowComponent implements OnInit {
   sort: string;
   isLoading: boolean;
   displayText = 'This fellow has no Routes yet 😒';
+  routeBatchId: any;
 
   constructor(
     public fellowRouteService: FellowRouteService,
@@ -74,10 +75,11 @@ export class FellowComponent implements OnInit {
   userDetails(data) {
     try {
       const {
-        user: { name }
+        user: { name, routeBatchId }
       } = data[0];
       this.userName = name;
       this.firstName = name.split(' ')[0];
+      this.routeBatchId = routeBatchId;
     } catch (err) {
       this.userName = '';
       this.isLoading = false;

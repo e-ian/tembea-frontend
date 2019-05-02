@@ -1,4 +1,4 @@
-<div class="fellow-card">
+<div [className]="showRemoveIcon ? 'fellow-card' : 'fellow-card fellow-card__modal'">
   <div class="fellow-card__header">
     <div class="fellow-card__avatar">
       <img class="fellow-card__avatar--image" [src]="image" [alt]="name" />
@@ -9,6 +9,9 @@
     <div class="fellow-card__action">
       <button class="remove-action-button" *ngIf="showRemoveIcon">
         <span class="remove-icon" (click)="showFellowDeleteModal()"></span>
+      </button>
+      <button class="add-action-button" *ngIf="showAddIcon">
+        <span class="add-icon"></span>
       </button>
     </div>
   </div>

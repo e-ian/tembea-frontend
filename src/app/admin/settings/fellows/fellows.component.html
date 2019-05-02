@@ -16,7 +16,8 @@
           [tripsTaken]="fellow.tripsTaken"
           [startDate]="fellow.startDate"
           [endDate]="fellow.endDate"
-          [showRemoveIcon]="true"
+          [showRemoveIcon]="showRemoveIcon"
+          [showAddIcon]="showAddIcon"
           (removeFellow)="loadFellows()">
         </app-fellow-card>
       </div>

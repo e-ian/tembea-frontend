@@ -73,7 +73,7 @@
         <mat-grid-tile tabindex="0">
           <div *ngIf="tripRequestType !== 'declinedTrips'" class="cell-align">
             {{trip.approvedBy.name | shortenName: { max: 10 } }}
-            &nbsp;/&nbsp;
+            &nbsp;/&nbsp;       
             {{trip.confirmedBy.name | shortenName: { max: 10 } }}
           </div>
           <div *ngIf="tripRequestType === 'declinedTrips' && trip.decliner" class="cell-align">

@@ -18,6 +18,7 @@ export class FellowCardComponent implements OnInit {
   @Input() startDate: string;
   @Input() endDate: string;
   @Input() showRemoveIcon: boolean;
+  @Input() showAddIcon: boolean;
   @Input() userId: number;
 
   ngOnInit() {}

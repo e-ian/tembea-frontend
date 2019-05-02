@@ -1,0 +1,15 @@
+<mat-tab-group animationDuration="800ms">
+  <mat-tab label="On Route"><br>
+    <app-fellows 
+      [onOrOffRoute]="'onRoute'"
+      [showRemoveIcon]="true">
+    </app-fellows>
+  </mat-tab>
+
+  <mat-tab label="Off Route"><br>
+    <app-fellows 
+      [onOrOffRoute]="'offRoute'"
+      [showAddIcon]="true">
+    </app-fellows>
+  </mat-tab>
+</mat-tab-group>

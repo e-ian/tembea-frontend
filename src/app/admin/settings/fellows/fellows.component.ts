@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { FellowsService } from '../../__services__/fellows.service';
 import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
@@ -12,12 +12,16 @@ import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
   ]
 })
 export class FellowsComponent implements OnInit {
+  @Input() onOrOffRoute: string;
+  @Input() showRemoveIcon: boolean;
+  @Input() showAddIcon: boolean;
   isLoading: boolean;
   fellows: ISerializedFellowDetail[];
   totalItems: number;
   pageSize: number;
   pageNumber: number;
   displayText = 'No fellows currently on routes';
+  onRoute: boolean;
 
   constructor(
     private appEventService: AppEventService,
@@ -27,9 +31,9 @@ export class FellowsComponent implements OnInit {
     this.pageSize = 9;
   }
 
-  loadFellows() {
+  loadFellows(onRoute) {
     this.isLoading = true;
-    this.fellowService.getFellows(this.pageSize, this.pageNumber).subscribe(
+    this.fellowService.getFellows(onRoute, this.pageSize, this.pageNumber).subscribe(
       data => {
         const { fellows, pageMeta } = data;
         if (!Array.isArray(fellows)) {
@@ -68,10 +72,21 @@ export class FellowsComponent implements OnInit {
 
   setPage(page: number): void {
     this.pageNumber = page;
-    this.loadFellows();
+    this.loadFellows(this.onRoute);
   }
 
   ngOnInit() {
-    this.loadFellows();
+    switch (this.onOrOffRoute) {
+      case 'offRoute':
+        this.onRoute = false;
+        break;
+      case 'onRoute':
+        this.onRoute = true;
+        break;
+      default:
+        this.onRoute = true;
+        break;
+    }
+    this.loadFellows(this.onRoute);
   }
 }

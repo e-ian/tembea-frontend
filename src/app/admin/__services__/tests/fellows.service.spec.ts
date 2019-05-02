@@ -13,7 +13,11 @@ import { environment } from 'src/environments/environment';
 describe('FellowsService', () => {
   let service: FellowsService;
   let httpMock: HttpTestingController;
-  const getFellowsMockResponse = new FellowsModel().deserialize(
+  const getFellowsOnRouteMockResponse = new FellowsModel().deserialize(
+    fellowsMockResponse
+  );
+
+  const getFellowsNotOnRouteMockResponse = new FellowsModel().deserialize(
     fellowsMockResponse
   );
 
@@ -29,16 +33,28 @@ describe('FellowsService', () => {
   afterEach(jest.resetAllMocks);
   afterAll(jest.restoreAllMocks);
 
-  it('should make http request to get fellows', () => {
+  it('should make http request to get fellows on route', () => {
     let res;
     jest
       .spyOn(service, 'getFellows')
-      .mockReturnValue(of(getFellowsMockResponse));
-    service.getFellows(9, 1).subscribe(data => {
+      .mockReturnValue(of(getFellowsOnRouteMockResponse));
+    service.getFellows(true, 9, 1).subscribe(data => {
       res = data;
     });
 
-    expect(res.fellows).toEqual(getFellowsMockResponse.fellows);
+    expect(res.fellows).toEqual(getFellowsOnRouteMockResponse.fellows);
+  });
+
+  it('should make http request to get fellows not on route', () => {
+    let res;
+    jest
+      .spyOn(service, 'getFellows')
+      .mockReturnValue(of(getFellowsNotOnRouteMockResponse));
+    service.getFellows(false, 9, 1).subscribe(data => {
+      res = data;
+    });
+
+    expect(res.fellows).toEqual(getFellowsNotOnRouteMockResponse.fellows);
   });
 
   describe('removeFellowFromRoute', () => {

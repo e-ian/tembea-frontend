@@ -28,8 +28,34 @@
   margin-bottom: 5px;
 }
 
+.add_fellow {
+  width: 210px;
+  height: 25px;
+  border: none;
+  border-radius: 7px;
+  background-color: lightgreen;
+  padding-bottom: 5px;
+}
+
+.add_fellow p {
+  color: green;
+  font-family: "DIN Pro";
+  padding-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .remove_fellow:hover {
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.add_fellow:hover {
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
 }
 
 .details_card {

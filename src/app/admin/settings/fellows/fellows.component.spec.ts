@@ -8,10 +8,12 @@ import { EmptyPageComponent } from '../../empty-page/empty-page.component';
 import { of } from 'rxjs';
 import { fellowsMockResponse, fellowsArrayMockResponse } from '../../__services__/__mocks__/fellows.mock';
 import { RouterTestingModule } from '@angular/router/testing';
+import { componentFactoryName } from '@angular/compiler';
 
 describe('FellowsComponent', () => {
   let component: FellowsComponent;
   let fixture: ComponentFixture<FellowsComponent>;
+  let fellowService: FellowsService;
   const mockFellowsService = {
     getFellows: jest.fn().mockReturnValue(of(fellowsMockResponse))
   };
@@ -44,6 +46,7 @@ describe('FellowsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FellowsComponent);
     component = fixture.componentInstance;
+    fellowService = fixture.debugElement.injector.get(FellowsService);
     fixture.detectChanges();
   });
 
@@ -57,9 +60,25 @@ describe('FellowsComponent', () => {
 
   it('should get next page when pagination is clicked', () => {
     component.setPage(2);
-    expect(mockFellowsService.getFellows).toHaveBeenCalledWith(9, 2);
+    expect(mockFellowsService.getFellows).toHaveBeenCalledWith(true, 9, 2);
+  });
+
+
+  describe('ngOnInit', () => {
+    it('should get fellows onRoute', () => {
+      component.onOrOffRoute = 'onRoute'
+      component.ngOnInit();
+      expect(fellowService.getFellows).toHaveBeenCalled();
+    });
+
+    it('shold get fellows offRoute', () => {
+      component.onOrOffRoute = 'offRoute'
+      component.ngOnInit();
+      expect(fellowService.getFellows).toHaveBeenCalled();
+    });
   });
 });
+
 
 describe('FellowsComponent no fellow Array', () => {
   let component: FellowsComponent;
