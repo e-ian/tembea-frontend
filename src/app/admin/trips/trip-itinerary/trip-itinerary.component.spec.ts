@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { MatDialog } from '@angular/material';
 
 import { TripItineraryComponent } from './trip-itinerary.component';
 import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
@@ -11,20 +12,41 @@ import {tripRequestMock} from '../../../shared/__mocks__/trip-request.mock';
 import {department} from '../../../shared/__mocks__/department.mock';
 import { AppTestModule } from '../../../__tests__/testing.module';
 
+  const mockMatDialog = {
+    open: jest.fn(),
+  };
+
 describe('TripItineraryComponent', () => {
   let component: TripItineraryComponent;
   let tripRequestService: TripRequestService;
   let fixture: ComponentFixture<TripItineraryComponent>;
+  const tripInfo = {
+    distance: '12 km',
+    requester: {
+      name: 'sdfe'
+    },
+    rider: {
+      name: 'sfdddsa'
+    },
+    pickup: 'asd',
+    destination: 'afsd',
+    department: 'safd'
+  };
 
-  beforeEach(async() => {
+
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TripItineraryComponent, ShortenNamePipe, EmptyPageComponent],
       imports: [HttpClientTestingModule, AppTestModule],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      providers: [
+        {
+          provide: MatDialog, useValue: mockMatDialog
+        },
+      ]
     })
-    .overrideTemplate(TripItineraryComponent, `<div></div>`)
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TripItineraryComponent);
@@ -148,6 +170,12 @@ describe('TripItineraryComponent', () => {
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
+    });
+  })
+  describe('view Trip Description', () => {
+    it('should show decription of a trip when clicked', () => {
+      component.viewTripDescription(tripInfo);
+      expect(mockMatDialog.open).toBeCalledTimes(1);
     });
   })
 });

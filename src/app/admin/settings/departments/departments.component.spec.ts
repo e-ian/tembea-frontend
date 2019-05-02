@@ -10,7 +10,6 @@ import { throwError } from 'rxjs';
 import { DepartmentsComponent } from './departments.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
-import { environment } from '../../../../environments/environment';
 import getdepartmentsServiceMock from './__mocks__/getDepartments.response.mock';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';

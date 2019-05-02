@@ -5,6 +5,9 @@ import { TripRequest } from 'src/app/shared/models/trip-request.model';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 import { AppEventService } from '../../../shared/app-events.service';
 import { AlertService } from '../../../shared/alert.service';
+import { MatDialog } from '@angular/material';
+import { DisplayTripModalComponent } from '../display-trip-modal/display-trip-modal.component';
+
 
 
 @Component({
@@ -38,6 +41,7 @@ export class TripItineraryComponent implements OnInit {
     private tripRequestService: TripRequestService,
     private appEventService: AppEventService,
     private alertService: AlertService,
+    public dialog: MatDialog,
   ) {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;
@@ -115,5 +119,16 @@ export class TripItineraryComponent implements OnInit {
     this.filterParams = {
       dateFilters, department: departmentName
     };
+  }
+
+  viewTripDescription(trip: any) {
+    this.dialog.open(DisplayTripModalComponent, {
+      height: '660px',
+      width: '592px',
+      data: {
+        tripInfo: trip,
+        closeText: 'Close'
+      }
+    });
   }
 }

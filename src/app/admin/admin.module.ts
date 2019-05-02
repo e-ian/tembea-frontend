@@ -54,6 +54,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RatingStarsComponent } from './rating-stars/rating-stars.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
 import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-overview.component';
+import { DisplayTripModalComponent } from './trips/display-trip-modal/display-trip-modal.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-over
     DeleteCabModalComponent,
     RatingStarsComponent,
     FellowNavComponent,
-    RoutesOverviewComponent
+    RoutesOverviewComponent,
+    DisplayTripModalComponent
   ],
   imports: [
     CommonModule,
@@ -115,7 +117,7 @@ import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-over
     MatProgressBarModule
   ],
   entryComponents: [
-    DeleteFellowModalComponent, DeleteCabModalComponent
+    DeleteFellowModalComponent, DeleteCabModalComponent, DisplayTripModalComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
