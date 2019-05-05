@@ -29,6 +29,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AddCabsModalComponent } from './admin/cabs/add-cab-modal/add-cab-modal.component';
 import { ReturnExistingCabsComponent } from './admin/trips/trip-approve-decline-modal/return-existing-cabs/return-existing-cabs.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 const toastr: Toastr = window['toastr'];
@@ -46,7 +47,8 @@ const toastr: Toastr = window['toastr'];
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
-    ReturnExistingCabsComponent
+    ReturnExistingCabsComponent,
+    PageNotFoundComponent
   ],
   imports: [
   FormsModule,
