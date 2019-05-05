@@ -13,7 +13,11 @@ import { DisplayTripModalComponent } from '../display-trip-modal/display-trip-mo
 @Component({
   selector: 'app-trip-itinerary',
   templateUrl: './trip-itinerary.component.html',
-  styleUrls: ['../../routes/routes-inventory/routes-inventory.component.scss', './trip-itinerary.component.scss'],
+  styleUrls: [
+    '../../routes/routes-inventory/routes-inventory.component.scss',
+    './trip-itinerary.component.scss',
+    '../../travel/airport-transfers/airport-transfers.component.scss'
+  ],
 })
 export class TripItineraryComponent implements OnInit {
 

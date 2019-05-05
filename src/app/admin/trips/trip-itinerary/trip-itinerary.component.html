@@ -1,25 +1,37 @@
-<div class="top-filter">
-  <label>
-    From
-    <app-date-picker [placeholder]="'Departure Date'"
-      (selectedDateChange)="setDateFilter('departureTime','after', $event)"></app-date-picker>
-  </label>
+<div class="filter-top">
+  <div class="filter-block">
 
-  <label>
-    To
-    <app-date-picker [placeholder]="'Departure Date'"
-      (selectedDateChange)="setDateFilter('departureTime', 'before', $event)"></app-date-picker>
-  </label>
+    <div class="filter-item">
+      <span>From</span>
+      <div class="selector">
+        <app-date-picker [placeholder]="'Departure Date'"
+          (selectedDateChange)="setDateFilter('departureTime', 'after', $event)"></app-date-picker>
+      </div>
+    </div>
 
-  <label>
-    Department
-    <app-custom-dropdown [dropdownItems]='departmentsRequest' (handleSelected)="departmentSelected($event)">
-    </app-custom-dropdown>
-  </label>
-  <label>
-    Location
-    <input type="text" class='input-style' placeholder="Travel Ops">
-  </label>
+    <div class="filter-item">
+      <span>To</span>
+      <div class="selector">
+        <app-date-picker [placeholder]="'Departure Date'"
+          (selectedDateChange)="setDateFilter('departureTime', 'before', $event)"></app-date-picker>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="filter-block">
+    <div class="filter-item">
+      Department
+      <app-custom-dropdown [dropdownItems]="departmentsRequest" (handleSelected)="departmentSelected($event)">
+      </app-custom-dropdown>
+    </div>
+
+    <div class="filter-item">
+      Location
+      <input type="text" class="input-style" placeholder="Travel Ops" />
+    </div>
+  </div>
 </div>
 
 <div *ngIf="!tripRequests.length">
@@ -27,76 +39,91 @@
   <div class="bottom-image"></div>
 </div>
 
-<div class="trip-itinerary-table">
-  <div *ngIf="tripRequests.length">
-    <div class="buttons-wrapper flex ">
-      <button class="search-wrapper" aria-label="Search Trips"></button>
-      <app-export-view (click)="setFilterParams()" [tableName]="'tripItinerary'" [filterParams]="filterParams"
-        class="flex-right">
-      </app-export-view>
-    </div>
-    <div id="contentToExport" class="custom-table">
-      <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head table-header-hover">
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Requested On </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Departing On </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Pickup </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Destination </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Requested-By </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Department </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0"><p class="cell-align"> Rider </p></mat-grid-tile>
-        <mat-grid-tile tabindex="0">
-          <p class="trip-itinerary-approved cell-align">Approved/ Confirmed</p>
-        </mat-grid-tile>
-      </mat-grid-list>
+<div *ngIf="tripRequests.length" class="buttons-wrapper flex">
+  <button class="search-wrapper" aria-label="Search Trips"></button>
+  <app-export-view (click)="setFilterParams()" [tableName]="'tripItinerary'" [filterParams]="filterParams"
+    class="flex-right">
+  </app-export-view>
+</div>
 
-      <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="2:1"
-        class="trip-table-body table-row-item"
-        (click)="viewTripDescription(trip)"
-         tabindex="0">
-        <mat-grid-tile>
-          <div class="time cell-align">
-            <span>{{ trip.requestedOn | date:'shortTime' }}</span>
-            <span>
-              <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
-            </span>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="time cell-align">
-            <span>{{ trip.departureTime | date:'shortTime' }}</span>
-            <span>
-              <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
-            </span>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <p class="cell-align"> {{trip.pickup | shortenName: { max: 15 } }} </p>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <p class="cell-align"> {{trip.destination | shortenName: { max: 15 } }} </p>
-        </mat-grid-tile>
-        <mat-grid-tile> <p class="cell-align"> {{trip.requester.name | shortenName: { max: 10 } }} </p> </mat-grid-tile>
-        <mat-grid-tile> <p class="cell-align"> {{trip.department}} </p> </mat-grid-tile>
-        <mat-grid-tile> <p class="cell-align"> {{trip.rider.name | shortenName: { max: 10 } }} </p> </mat-grid-tile>
-        <mat-grid-tile>
-          <div *ngIf="tripRequestType !== 'declinedTrips'" class="cell-align">
-            {{trip.approvedBy.name | shortenName: { max: 10 } }}
-            &nbsp;/&nbsp;       
-            {{trip.confirmedBy.name | shortenName: { max: 10 } }}
-          </div>
-          <div *ngIf="tripRequestType === 'declinedTrips' && trip.decliner" class="cell-align">
-            {{trip.decliner.name | shortenName: { max: 10 } }}
-          </div>
-         </mat-grid-tile>
-      </mat-grid-list>
-    </div>
+<div *ngIf="tripRequests.length" class="trips-container">
+  <div id="contentToExport" class="trips-table custom-table">
+    <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head">
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Requested On </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Departing On </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Pickup </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Destination </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Requested-By </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Department </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell"> Rider </div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-itinerary-approved trip-align-cell">Approved/Confirmed</div>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-    <div class="pagination">
-      <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="updatePage($event)"
-        [pageSize]="pageSize">
-      </app-pagination>
-    </div>
-
+    <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="2:1" class="trip-table-body table-row-item"
+      (click)="viewTripDescription(trip)" tabindex="0">
+      <mat-grid-tile>
+        <div class="time trip-align-cell">
+          <span>{{ trip.requestedOn | date:'shortTime' }}</span>
+          <span>
+            <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
+          </span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="time trip-align-cell">
+          <span>{{ trip.departureTime | date:'shortTime' }}</span>
+          <span>
+            <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
+          </span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">{{trip.pickup | shortenName: { max: 10 } }}</div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">{{trip.destination | shortenName: { max: 10 } }}</div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">{{trip.requester.name | shortenName: { max: 10 } }}</div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">{{trip.department}} </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">{{trip.rider.name | shortenName: { max: 10 } }}</div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div *ngIf="tripRequestType !== 'declinedTrips'" class="trip-align-cell">
+          {{trip.approvedBy.name | shortenName: { max: 10 } }}
+          &nbsp;/&nbsp;
+          {{trip.confirmedBy.name | shortenName: { max: 10 } }}
+        </div>
+        <div *ngIf="tripRequestType === 'declinedTrips' && trip.decliner" class="trip-align-cell">
+          {{trip.decliner.name | shortenName: { max: 10 } }}
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
+</div>
 
+<div class="pagination">
+  <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="updatePage($event)"
+    [pageSize]="pageSize">
+  </app-pagination>
 </div>

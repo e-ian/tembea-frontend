@@ -9,55 +9,100 @@
     <app-export-view [tableName]="'pendingRequests'" class="flex-right">
     </app-export-view>
   </div>
+</div>
 
-  <div class="custom-table">
+<div *ngIf="tripRequests.length > 0" class="trips-container">
+  <div class="trips-table custom-table">
     <mat-grid-list cols="9" rowHeight="2:1" class="pending-table-head table-header-hover">
-      <mat-grid-tile>Requested On</mat-grid-tile>
-      <mat-grid-tile>Departing On</mat-grid-tile>
-      <mat-grid-tile>Pickup</mat-grid-tile>
-      <mat-grid-tile>Destination</mat-grid-tile>
-      <mat-grid-tile>Requested By</mat-grid-tile>
-      <mat-grid-tile>Department</mat-grid-tile>
-      <mat-grid-tile>Rider</mat-grid-tile>
-      <mat-grid-tile>Approved By</mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Requested On</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Departing On</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+          <div class="trip-align-cell">Pickup</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Destination</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Requested-By</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Department</div>
+      </mat-grid-tile>
+      <mat-grid-tile tabindex="0">
+        <div class="trip-align-cell">Rider</div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">Approved By</div>
+      </mat-grid-tile>
       <mat-grid-tile>Actions
-        <div class="actions-icon"></div>
+        <div class="actions-icon tirp-align-cell"></div>
       </mat-grid-tile>
     </mat-grid-list>
-      <mat-grid-list *ngFor='let trip of tripRequests' cols="9" rowHeight="2:1" class="pending-table-body table-row-item">
-        <mat-grid-tile>
-          <div class="time">
-            <span>{{ trip.requestedOn | date:'shortTime' }}</span>
-            <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="time">
-            <span>{{ trip.departureTime | date:'shortTime' }}</span>
-            <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>{{ trip.pickup}}</mat-grid-tile>
-        <mat-grid-tile>{{ trip.destination}}</mat-grid-tile>
-        <mat-grid-tile><span>{{ trip.requester.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
-        <mat-grid-tile>{{ trip.department}}</mat-grid-tile>
-        <mat-grid-tile><span>{{ trip.rider.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
-        <mat-grid-tile><span>{{ trip.approvedBy.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
-        <mat-grid-tile>
-          <div class="flex">
-            <button class='confirm-action-button'>
-              <span class="confirm-icon tooltip" (click)="confirm(trip)">
-                <span class="show-on-right">Confirm<i></i></span>
-              </span>
-            </button>
-            <button class='decline-action-button'>
-              <span class="decline-icon tooltip" (click)="decline(trip)">
-                <span class="show-on-left">Decline<i></i></span>
-              </span>
-            </button>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+
+    <mat-grid-list *ngFor='let trip of tripRequests' class="pending-table-body table-row-item trip-table-body" cols="9" rowHeight="2:1">
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
+          <br />
+          <span class="time">{{ trip.requestedOn | date: 'shortTime' }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          <span>{{ trip.departureTime | date: 'dd-MM-yy' }}</span>
+          <br />
+          <span class="time">{{ trip.departureTime | date: 'shortTime' }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile class="">
+        <div class="trip-align-cell">
+            {{ trip.pickup}}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile class="">
+        <div class="trip-align-cell">
+          {{ trip.destination}}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          <span>{{ trip.requester.name | shortenName: { max: 10 } }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          {{ trip.department}}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          <span>{{ trip.rider.name | shortenName: { max: 10 } }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="trip-align-cell">
+          <span>{{ trip.approvedBy.name | shortenName: { max: 10 } }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+          <div class="flex trip-align-cell">
+              <button class='confirm-action-button'>
+                <span class="confirm-icon tooltip" (click)="confirm(trip)">
+                  <span class="show-on-right">Confirm<i></i></span>
+                </span>
+              </button>
+              <button class='decline-action-button'>
+                <span class="decline-icon tooltip" (click)="decline(trip)">
+                  <span class="show-on-left">Decline<i></i></span>
+                </span>
+              </button>
+            </div>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
   <div class="pagination">
     <app-pagination [totalItems]="totalItems"

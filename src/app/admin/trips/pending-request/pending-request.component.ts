@@ -12,9 +12,10 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 @Component({
   selector: 'app-pending-request',
   templateUrl: './pending-request.component.html',
-  styleUrls: [
-    './pending-request.component.scss',
-    '../../routes/routes-inventory/routes-inventory.component.scss'],
+  styleUrls: ['./pending-request.component.scss',
+  '../../routes/routes-inventory/routes-inventory.component.scss',
+  '../../travel/airport-transfers/airport-transfers.component.scss'
+],
 })
 export class PendingRequestComponent implements OnInit, OnDestroy {
   tripRequests: TripRequest[] = [];
