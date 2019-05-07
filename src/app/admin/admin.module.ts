@@ -53,6 +53,7 @@ import { DeleteCabModalComponent } from './cabs/cab-inventory/delete-cab-dialog/
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RatingStarsComponent } from './rating-stars/rating-stars.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
+import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-overview.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.com
     CabCardComponent,
     DeleteCabModalComponent,
     RatingStarsComponent,
-    FellowNavComponent
+    FellowNavComponent,
+    RoutesOverviewComponent
   ],
   imports: [
     CommonModule,

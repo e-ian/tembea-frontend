@@ -15,7 +15,8 @@ import {
   MatGridListModule,
   MatOptionModule,
   MatAutocompleteModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDatepickerModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -34,6 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatSelectModule,
     MatTabsModule,
+    MatDatepickerModule,
     MatBadgeModule,
     MatOptionModule,
     MatGridListModule,
@@ -47,6 +49,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatListModule,
     FlexLayoutModule,
+    MatDatepickerModule,
     MatExpansionModule,
     MatDialogModule,
     MatCardModule,
