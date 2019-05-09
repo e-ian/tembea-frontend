@@ -3,6 +3,7 @@
     width: 100%;
     padding: 0 0 0 5px;
 }
+
 .routes-title {
     height: 18px;
 	width: 145px;
@@ -25,4 +26,13 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+}
+.background {
+  padding: 10px 0;
+}
+.dashboard-top-container {
+min-height: 200px ;
+}
+.dashboard-middle-container {
+
 }

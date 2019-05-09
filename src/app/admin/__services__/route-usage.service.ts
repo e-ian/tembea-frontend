@@ -19,8 +19,8 @@ export class RouteUsageService {
 
     const { from: { startDate }, to: { endDate } } = dateFilter;
 
-    const fromStr = startDate ? `from=${startDate}` : 'from='
-    const toStr = endDate ?  `to=${endDate}` : 'to='
+    const fromStr = startDate ? `from=${startDate}` : 'from=';
+    const toStr = endDate ?  `to=${endDate}` : 'to=';
 
     return this.http.get<any>(`${this.routeUsageUrl}?${fromStr}&${toStr}`).map(usage => {
       const { data: { mostUsedBatch, leastUsedBatch } } = usage;

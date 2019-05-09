@@ -60,6 +60,7 @@ import { ProviderModalComponent } from './providers/provider-modal/provider-moda
 import { AddProviderModalComponent } from './providers/add-provider-modal/add-provider-modal.component';
 import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/provider-filter.component';
 import { DriverModalComponent } from './providers/driver-modal/driver-modal.component';
+import { RouteRatingsOverviewComponent } from './dashboard/route-ratings-overview/route-ratings-overview.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { DriverModalComponent } from './providers/driver-modal/driver-modal.comp
     ProviderModalComponent,
     AddProviderModalComponent,
     ProviderFilterComponent,
-    DriverModalComponent
+    DriverModalComponent,
+    RouteRatingsOverviewComponent
   ],
   imports: [
     CommonModule,

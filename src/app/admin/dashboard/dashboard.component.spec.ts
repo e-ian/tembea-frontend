@@ -1,15 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard.component';
-import { RoutesOverviewComponent } from './routes-overview/routes-overview.component';
-import { AngularMaterialModule } from 'src/app/angular-material.module';
-import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material';
 import { of } from 'rxjs/observable/of';
 import { RouteUsageService } from '../__services__/route-usage.service';
-import { environment } from 'src/environments/environment';
 import routeUsageMock from '../__services__/__mocks__/routeUsageMock';
+import { RouteRatingsService } from '../__services__/route-ratings.service';
+import { RouteRatingsOverviewComponent } from './route-ratings-overview/route-ratings-overview.component';
+import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
+import { mockRouteRatings} from './route-ratings-overview/ratingsMockData';
+import { DashboardComponent } from './dashboard.component';
+import { RoutesOverviewComponent } from './routes-overview/routes-overview.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { DatePickerComponent } from '../date-picker/date-picker.component';
 
+
+export const routeRatingServiceMock = {
+  getRouteAverages: jest.fn(),
+};
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -21,12 +28,15 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent, RoutesOverviewComponent, DatePickerComponent ],
+      declarations: [ DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
+        RouteRatingsOverviewComponent, RatingStarsComponent ],
       imports: [ AngularMaterialModule, FormsModule, MatNativeDateModule ],
-      providers: [{ provide: RouteUsageService, useValue: service }]
+      providers: [{ provide: RouteUsageService, useValue: service },
+        { provide: RouteRatingsService , useValue: routeRatingServiceMock } ]
     })
     .compileComponents();
-  }));
+  })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
@@ -57,10 +67,43 @@ describe('DashboardComponent', () => {
 
     const routesUsage = jest.spyOn(component, 'getRoutesUsage')
     .mockImplementation(jest.fn());
+    jest.spyOn(component , 'getRouteRatings').mockImplementationOnce(jest.fn);
 
-    component.setDateFilter('from', 'startDate', '2019-05-03');
+    component.setDateFilter('from', 'from', '2019-05-03');
 
     expect(routesUsage).toBeCalledTimes(1);
-    expect(component.dateFilters.from).toEqual({startDate: '2019-05-03'})
+    expect(component.dateFilters.from).toEqual({from: '2019-05-03'})
   });
+
+  describe('getRouteRatings', () => {
+    let getRouteRatingsSpy;
+    beforeEach(() => {
+      getRouteRatingsSpy = jest.spyOn(component, 'getRouteRatings');
+    });
+
+    it('should call getRouteRating on ngOnInit', () => {
+      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
+      component.ngOnInit();
+      expect(component.getRouteRatings).toHaveBeenCalled();
+    });
+
+    it('should call getRouteRatings on setDateFilter', () => {
+      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
+      component.setDateFilter('from', 'from', '2019-05-03');
+      expect(component.getRouteRatings).toHaveBeenCalled();
+    });
+
+    it('should call routeRating service and set route ratings', () => {
+      const res = {
+        success: true,
+        message: 'Ratings fetched successfully',
+          data: mockRouteRatings
+      };
+      jest.spyOn(routeRatingServiceMock, 'getRouteAverages').mockReturnValue(of(res));
+      component.getRouteRatings();
+      expect(routeRatingServiceMock.getRouteAverages).toHaveBeenCalled();
+      expect(component.mostRatedRoutes).toEqual(res.data.slice(0, 3));
+      expect(component.leastRatedRoutes).toEqual(res.data.slice(0, 3));
+    });
+  })
 });
