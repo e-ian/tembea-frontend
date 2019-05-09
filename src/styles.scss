@@ -229,6 +229,10 @@ input {
   border-radius: 10px;
 }
 
+.small-modal-panel-class .mat-dialog-container {
+  max-height: fit-content;
+}
+
 .custom-table {
   width: 100%;
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
@@ -242,7 +246,10 @@ input {
     position: absolute;
     left: 25px;
   }
-  .edit-action-button, .duplicate-action-button, .decline-action-button {
+  .edit-action-button,
+  .duplicate-action-button,
+  .decline-action-button,
+  .confirm-action-button {
     display: none;
   }
 }
@@ -257,6 +264,24 @@ input {
   }
 }
 
+.time {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  font-size: 1.1em;
+
+  span:nth-child(2) {
+    color: #808FA3;
+  }
+}
+
+.cell-align {
+  justify-content: start;
+  position: absolute;
+  margin: auto;
+  left: 30px;
+}
+
 .table-row-item:hover {
   background-color: white;
   color: black;
@@ -264,7 +289,10 @@ input {
     0 -4px 5px -5px rgba(0, 0, 0, 0.25),
     0 4px 5px -5px rgba(0, 0, 0, 0.25);
 
-  .edit-action-button, .duplicate-action-button, .decline-action-button {
+  .edit-action-button,
+  .duplicate-action-button,
+  .decline-action-button,
+  .confirm-action-button  {
     display: inline-block;
     margin-right: 8px;
   }

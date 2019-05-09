@@ -19,7 +19,7 @@
         max-height: 130px;
         max-width: 258px;
       }
-  } 
+  }
 }
 
 .fellow-card__avatar--image {
@@ -43,10 +43,6 @@
 
 .fellow-card__detail {
   width: 115px;
-
-  @media screen and (min-width: 1240px) {
-    width: 66px;
-  }
 }
 
 .fellow-card__detail--title {

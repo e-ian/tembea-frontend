@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
         width: '592px',
         backdropClass: 'modal-backdrop',
-        panelClass: 'confirm-modal-panel-class',
+        panelClass: 'small-modal-panel-class',
         data: {
           displayText: `logout, ${firstName}`,
           confirmText: 'logout'

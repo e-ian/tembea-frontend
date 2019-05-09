@@ -34,19 +34,21 @@
             <span *ngIf="headerTitle === 'Routes Inventory'">There is currently {{badgeSize}} route in the {{headerTitle}}</span>
             <span *ngIf="headerTitle === 'All Trips'">There is currently {{badgeSize}} trip in {{headerTitle}}</span>
             <span *ngIf="headerTitle === 'Cabs'">There is currently {{badgeSize}} cab in display</span>
-            <span *ngIf="headerTitle === 'Fellows on Routes'">There is currently {{badgeSize}} Fellow on Route</span>
+            <span *ngIf="headerTitle === 'Fellows'">There is currently {{badgeSize}} Fellow on Route</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There has been {{badgeSize}} airport transfer so far</span>
             <span *ngIf="headerTitle === 'Embassy Visits'">There has been {{badgeSize}} embassy visit so far</span>
             <span *ngIf="headerTitle.includes('Trip History')">This fellow has taken {{badgeSize}} trip so far</span>
+            <span *ngIf="headerTitle === 'Pending Trips'">There is currently {{badgeSize}} pending trip</span>
           </ng-template>
           <ng-template #moreThanOne>
             <span *ngIf="headerTitle === 'Routes Inventory'">There are currently {{badgeSize}} routes in the {{headerTitle}}</span>
             <span *ngIf="headerTitle === 'All Trips'">There are currently {{badgeSize}} trips in {{headerTitle}}</span>
             <span *ngIf="headerTitle === 'Cabs'">There are currently {{badgeSize}} {{headerTitle}} in display</span>
-            <span *ngIf="headerTitle === 'Fellows on Routes'">There are currently {{badgeSize}} Fellows on Routes</span>
+            <span *ngIf="headerTitle === 'Fellows'">There are currently {{badgeSize}} Fellows on Routes</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There have been {{badgeSize}} airport transfers so far</span>
             <span *ngIf="headerTitle === 'Embassy Visits'">There have been {{badgeSize}} embassy visits so far</span>
             <span *ngIf="headerTitle.includes('Trip History')">This fellow has taken {{badgeSize}} trips so far</span>
+            <span *ngIf="headerTitle === 'Pending Trips'">There are currently {{badgeSize}} pending trips</span>
           </ng-template>
           </span>
           <span *ngIf="actionButton" class="action-button-wrapper">

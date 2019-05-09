@@ -4,14 +4,14 @@
 </div>
 
 <div *ngIf="tripRequests.length > 0">
-  <div class="buttons-wrapper flex routes-table">
+  <div class="buttons-wrapper flex">
     <button class="search-wrapper"></button>
     <app-export-view [tableName]="'pendingRequests'" class="flex-right">
     </app-export-view>
   </div>
 
   <div class="custom-table">
-    <mat-grid-list cols="9" rowHeight="2:1">
+    <mat-grid-list cols="9" rowHeight="2:1" class="pending-table-head table-header-hover">
       <mat-grid-tile>Requested On</mat-grid-tile>
       <mat-grid-tile>Departing On</mat-grid-tile>
       <mat-grid-tile>Pickup</mat-grid-tile>
@@ -24,28 +24,21 @@
         <div class="actions-icon"></div>
       </mat-grid-tile>
     </mat-grid-list>
-    <div *ngFor='let trip of tripRequests' class="items">
-      <mat-grid-list cols="9" rowHeight="2:1">
+      <mat-grid-list *ngFor='let trip of tripRequests' cols="9" rowHeight="2:1" class="pending-table-body table-row-item">
         <mat-grid-tile>
           <div class="time">
+            <span>{{ trip.requestedOn | date:'shortTime' }}</span>
             <span>{{ trip.requestedOn | date:'dd-MM-yy' }}</span>
-            <span>
-              <span>&nbsp;by&nbsp;</span>
-              <span>{{ trip.requestedOn | date:'shortTime' }}</span>
-            </span>
           </div>
         </mat-grid-tile>
         <mat-grid-tile>
           <div class="time">
+            <span>{{ trip.departureTime | date:'shortTime' }}</span>
             <span>{{ trip.departureTime | date:'dd-MM-yy' }}</span>
-            <span>
-              <span>&nbsp;by&nbsp;</span>
-              <span>{{ trip.departureTime | date:'shortTime' }}</span>
-            </span>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile class="center">{{ trip.pickup}}</mat-grid-tile>
-        <mat-grid-tile class="center">{{ trip.destination}}</mat-grid-tile>
+        <mat-grid-tile>{{ trip.pickup}}</mat-grid-tile>
+        <mat-grid-tile>{{ trip.destination}}</mat-grid-tile>
         <mat-grid-tile><span>{{ trip.requester.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
         <mat-grid-tile>{{ trip.department}}</mat-grid-tile>
         <mat-grid-tile><span>{{ trip.rider.name | shortenName: { max: 10 } }}</span></mat-grid-tile>
@@ -61,11 +54,10 @@
           </div>
         </mat-grid-tile>
       </mat-grid-list>
-    </div>
-    <div class="pagination">
-      <app-pagination [totalItems]="totalItems"
-                      (pageChange)="updatePage($event)"
-                      [pageSize]="pageSize"></app-pagination>
-    </div>
+  </div>
+  <div class="pagination">
+    <app-pagination [totalItems]="totalItems"
+                    (pageChange)="updatePage($event)"
+                    [pageSize]="pageSize"></app-pagination>
   </div>
 </div>

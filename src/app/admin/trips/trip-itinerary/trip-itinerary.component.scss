@@ -17,15 +17,6 @@
 .trip-table-head p{
   font-size: 14px;
 }
-.cell-align {
-  justify-content: start;
-  position: absolute;
-  margin: auto;
-  left: 30px;
-}
-.time {
-  color: #808FA3;
-}
 .trip-table-body  {
   cursor: pointer;
   .mat-grid-tile {
@@ -35,7 +26,6 @@
   }
   text-align: left;
 }
-
 .top-filter{
   padding-left: 10px;
   display: grid;

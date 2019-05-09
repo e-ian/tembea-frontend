@@ -1,37 +1,7 @@
-.trip-table {
-  width: 94%;
-  margin-left: 2em;
-  font-size: 13px;
-
-  .items {
-    color: #4f0c05;
-
-    .time {
-      padding: 5px;
-
-      span:nth-child(2) {
-        color: #808FA3;
-      }
-    }
-
-    mat-grid-list {
-      color: #39434D;
-    }
-
-    mat-grid-tile {
-      &.center {
-        text-align: center;
-      }
-    }
-  }
-}
-
 .pagination {
-  width: 90%;
+  width: 100%;
   margin: 0 0 0 auto;
 }
-
-
 .confirm-action-button {
   border: none;
   height: 20px;
@@ -46,4 +16,17 @@
     width: 19px;
     display: inline-block;
   }
+}
+.pending-table-head mat-grid-tile{
+  font-size: 14px;
+}
+
+.pending-table-body  {
+  cursor: pointer;
+  .time {
+    font-size: 16px;
+    text-align: left;
+    justify-content: start;
+  }
+  text-align: left;
 }

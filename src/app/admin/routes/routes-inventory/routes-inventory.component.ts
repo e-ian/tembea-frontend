@@ -107,7 +107,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '592px',
       backdropClass: 'modal-backdrop',
-      panelClass: 'confirm-modal-panel-class',
+      panelClass: 'small-modal-panel-class',
       data: {
         confirmText: 'Yes',
         displayText: 'copy this route'
