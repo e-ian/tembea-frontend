@@ -1,17 +1,16 @@
 <div>
 <div fxLayoutGap="13.5px" fxLayout.lt-sm="column wrap" class="date-picker">
-    <app-date-picker 
-        (selectedDateChange)="setDateFilter('from','startDate', $event)"></app-date-picker>
+    <app-date-picker
+        (selectedDateChange)="setDateFilter('startDate', 'from', $event)"></app-date-picker>
 
     <app-date-picker
-          (selectedDateChange)="setDateFilter('to', 'endDate', $event)"></app-date-picker>
+          (selectedDateChange)="setDateFilter('endDate', 'to', $event)"></app-date-picker>
   </div>
 <mat-grid-list cols="12" rowHeight="180px">
   <mat-grid-tile colspan="12" rowspan="2">
-    
   </mat-grid-tile>
   <mat-grid-tile colspan="12" rowspan="2.85">
-      
+
   </mat-grid-tile>
   <mat-grid-tile colspan="12" class="background" color="primary" rowspan="4">
     <div fxLayout="column wrap" fxLayoutGap="5px" fxLayoutAlign="start start" class="card-position">
