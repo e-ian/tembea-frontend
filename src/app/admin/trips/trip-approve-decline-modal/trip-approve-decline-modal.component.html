@@ -4,7 +4,6 @@
   </button>
 </div>
 <div class=form-container>
-  <div class="scrollable-modal">
   <form *ngIf="data.status === 0" #approveForm="ngForm" (ngSubmit)="confirm(approveForm.value)">
     <h1 class="heading-one">Confirm {{data.requesterFirstName | titlecase}}'s Trip</h1>
     <p class="message">Select an existing cab from the web</p>
@@ -35,7 +34,6 @@
       SUBMIT
     </button>
   </form>
-  </div>
   <form #declineForm="ngForm" (ngSubmit)="decline(declineForm.value)" *ngIf="data.status === 1" novalidate>
     <h1 class="heading-one">Decline {{data.requesterFirstName | titlecase}}'s Trip</h1>
     <p class="message">Hi {{account.firstName | titlecase}}, why are you declining?</p>

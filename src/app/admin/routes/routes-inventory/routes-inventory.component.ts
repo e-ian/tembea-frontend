@@ -167,7 +167,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '592px',
       backdropClass: 'modal-backdrop',
-      panelClass: 'logout-modal-panel-class',
+      panelClass: 'small-modal-panel-class',
       data: {
         confirmText: 'Yes',
         displayText: 'delete this batch'

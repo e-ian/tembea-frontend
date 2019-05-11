@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DepartmentsService } from '../../__services__/departments.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { MatDialog } from '@angular/material';
-import { IDepartmentResponse, IDepartmentsModel } from './../../../shared/models/departments.model';
+import { IDepartmentResponse, IDepartmentsModel } from '../../../shared/models/departments.model';
 import { AddDepartmentsModalComponent } from './add-departments-modal/add-departments-modal.component';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 import { AppEventService } from 'src/app/shared/app-events.service';
@@ -99,7 +99,7 @@ export class DepartmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '592px',
       backdropClass: 'modal-backdrop',
-      panelClass: 'logout-modal-panel-class',
+      panelClass: 'small-modal-panel-class',
       data: {
         confirmText: 'Yes',
         displayText: 'delete this department'

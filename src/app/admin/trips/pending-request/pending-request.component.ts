@@ -77,6 +77,7 @@ export class PendingRequestComponent implements OnInit, OnDestroy {
     };
     this.approvalDeclineDialog = this.dialog.open(TripApproveDeclineModalComponent, {
       width: '592px',
+      maxHeight: '600px',
       backdropClass: 'modal-backdrop',
       panelClass: 'route-decline-modal-panel-class',
       data

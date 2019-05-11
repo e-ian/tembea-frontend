@@ -60,13 +60,19 @@
             <mat-grid-tile>
               <div class="flex">
                 <button aria-label="Edit" class='edit-action-button'>
-                  <div class="edit-icon" (click)="editDepartment(department, department.name)"></div>
+                  <span class="edit-icon tooltip" (click)="editDepartment(department, department.name)">
+                    <span class="show-on-right">Edit<i></i></span>
+                  </span>
                 </button>
                 <button aria-label="Copy" class='duplicate-action-button'>
-                  <div class="duplicate-icon"></div>
+                  <span class="duplicate-icon tooltip">
+                    <span class="show-on-left">Copy<i></i></span>
+                  </span>
                 </button>
                 <button aria-label="Delete" class='decline-action-button'>
-                  <div class="decline-icon" (click)="showDeleteModal(department.id, department.name)"></div>
+                  <span class="decline-icon tooltip" (click)="showDeleteModal(department.id, department.name)">
+                    <span class="show-on-left">Delete<i></i></span>
+                  </span>
                 </button>
               </div>
             </mat-grid-tile>

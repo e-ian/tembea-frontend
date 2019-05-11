@@ -65,14 +65,20 @@
             </ng-template>
             <mat-grid-tile>
               <div class="flex">
-                <button (click)="editRoute(ind)" class='edit-action-button'>
-                  <span class="edit-icon"></span>
+                <button class='edit-action-button'>
+                  <span class="edit-icon tooltip" (click)="editRoute(ind)">
+                    <span class="show-on-right">Edit<i></i></span>
+                  </span>
                 </button>
                 <button class='duplicate-action-button'>
-                  <span class="duplicate-icon" (click)="showCopyConfirmModal(route)"></span>
+                  <span class="duplicate-icon tooltip" (click)="showCopyConfirmModal(route)">
+                    <span class="show-on-left">Copy<i></i></span>
+                  </span>
                 </button>
                 <button class='decline-action-button'>
-                  <span class="decline-icon" (click)='showDeleteModal(route.id)'></span>
+                  <span class="decline-icon tooltip" (click)='showDeleteModal(route.id)'>
+                    <span class="show-on-left">Delete<i></i></span>
+                  </span>
                 </button>
               </div>
             </mat-grid-tile>

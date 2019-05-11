@@ -46,10 +46,14 @@
         <mat-grid-tile>
           <div class="flex">
             <button class='confirm-action-button'>
-              <span class="confirm-icon" (click)="confirm(trip)"></span>
+              <span class="confirm-icon tooltip" (click)="confirm(trip)">
+                <span class="show-on-right">Confirm<i></i></span>
+              </span>
             </button>
             <button class='decline-action-button'>
-              <span class="decline-icon" (click)="decline(trip)"></span>
+              <span class="decline-icon tooltip" (click)="decline(trip)">
+                <span class="show-on-left">Decline<i></i></span>
+              </span>
             </button>
           </div>
         </mat-grid-tile>
