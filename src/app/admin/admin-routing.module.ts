@@ -10,7 +10,6 @@ import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 import { PagingParamsResolver } from '../shared/paging-params.resolver';
 import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
-import {TripHistoryComponent} from './trips/trip-history/trip-history.component';
 import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
@@ -56,12 +55,6 @@ const routes: Routes = [
         data: { title: 'Pending Trips' }
       },
 
-      {
-        path: 'trips/history',
-        component: TripHistoryComponent,
-        canActivate: [],
-        data: { title: 'Trip History' }
-      },
       {
         path: 'trips/itinerary',
         component: TripNavComponent,

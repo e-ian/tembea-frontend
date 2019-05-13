@@ -29,7 +29,6 @@ import { environment } from '../../environments/environment';
 import { DepartmentsComponent } from './settings/departments/departments.component';
 import { TripItineraryComponent } from './trips/trip-itinerary/trip-itinerary.component';
 import { TripNavComponent } from './trips/trip-nav/trip-nav.component';
-import { TripHistoryComponent } from './trips/trip-history/trip-history.component';
 import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {
@@ -78,7 +77,6 @@ import { DisplayTripModalComponent } from './trips/display-trip-modal/display-tr
     AppPaginationComponent,
     TripItineraryComponent,
     TripNavComponent,
-    TripHistoryComponent,
     PendingRequestComponent,
     DatePickerComponent,
     CustomDropdownComponent,

@@ -11,7 +11,6 @@
   {
     "name": "Trips", "iconActive": "trips", "iconInActive": "trips-inactive", "link": "trips", "pages": [
     { "name": "Pending Requests", "link": "trips/pending", "id": "pending-trips" },
-    { "name": "Trip History", "link": "trips/history", "id": "history-trips" },
     { "name": "Trip Itinerary", "link": "trips/itinerary", "id": "itinerary-trips" }
   ]
   },
