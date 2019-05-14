@@ -41,13 +41,15 @@
     }
 }
 
-
+.filter-top {
+  padding-left: 10px;
+}
 // for table
 .trips-table {
-    min-width: 1094px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    .mat-grid-tile .mat-figure{
+    width: 98%;
+    margin: 2rem auto;
+
+  .mat-grid-tile .mat-figure{
       justify-content: start;
     }
     .trip-align-cell{
@@ -55,11 +57,11 @@
       left: 30px;
     }
   }
-  
+
   mat-icon {
     color: white;
   }
-  
+
   .pagination {
     margin-bottom: 2rem;
   }
@@ -81,8 +83,8 @@
       padding: 1.5rem 0rem;
     }
   }
-  
+
   .app-custom-dropdown {
-    max-width: 20px; 
+    max-width: 20px;
   }
 

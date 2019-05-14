@@ -17,13 +17,15 @@
         <h1>Approve {{data.requesterFirstName | titlecase}}'s Route Request</h1>
         <p class="message">Route Name</p>
         <input required (ngModel)="routeName" class="form-input"  type="text" name="routeName"><br>
-        <p class="message-row">
-           <span>Route Capacity</span>
-           <span>Take Off Time</span>
-        </p>
         <div class="input-row">
-          <input required (ngModel)="capacity" class="number-input" name="capacity" type="number" min="1" max="100">
-          <input required (ngModel)="takeOff" class="time-input"type="time" name="takeOff">
+          <div class="input-row-content">
+            <span class="message-row">Route Capacity</span>
+            <input required (ngModel)="capacity" class="number-input" name="capacity" type="number" min="1" max="100">
+          </div>
+          <div class="input-row-content">
+            <span class="message-row">Take Off Time</span>
+            <input required (ngModel)="takeOff" class="time-input" type="time" name="takeOff">
+          </div>
         </div>
         <p class="message">Cab Registration Number</p>
         <input required [(ngModel)]="cabRegNumber" class="plate-input" type="text" name="cabRegNumber" aria-label="Number" matInput [matAutocomplete]="auto">

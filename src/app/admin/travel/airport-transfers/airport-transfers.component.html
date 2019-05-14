@@ -41,8 +41,8 @@
 
 
 <div *ngIf="tripRequests.length > 0" class="trips-container">
-  <div class="trips-table">
-    <mat-grid-list cols="9" rowHeight="2:1" class="table-header">
+  <div class="trips-table custom-table">
+    <mat-grid-list cols="9" rowHeight="2:1" class="table-header table-header-hover">
       <mat-grid-tile tabindex="0">
         <div class="trip-align-cell">Requested On</div>
       </mat-grid-tile>
@@ -74,19 +74,17 @@
         </p>
       </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list *ngFor="let trip of tripRequests" cols="9" rowHeight="2:1" class="trip-table-body">
+    <mat-grid-list *ngFor="let trip of tripRequests" cols="9" rowHeight="2:1" class="trip-table-body table-row-item">
       <mat-grid-tile tabindex="0">
-        <div class="trip-align-cell">
+        <div class="time trip-align-cell">
+          <span>{{ trip.requestedOn | date: 'shortTime' }}</span>
           <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
-          <br/>
-          <span class="time">{{ trip.requestedOn | date: 'shortTime' }}</span>
         </div>
       </mat-grid-tile>
       <mat-grid-tile tabindex="0">
-        <div class="trip-align-cell">
+        <div class="time trip-align-cell">
+          <span>{{ trip.departureTime | date: 'shortTime' }}</span>
           <span>{{ trip.departureTime | date: 'dd-MM-yy' }}</span>
-          <br/>
-          <span class="time">{{ trip.departureTime | date: 'shortTime' }}</span>
         </div>
       </mat-grid-tile>
       <mat-grid-tile tabindex="0">
