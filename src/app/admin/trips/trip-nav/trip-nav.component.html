@@ -1,17 +1,19 @@
-<mat-tab-group animationDuration="0ms">
+<mat-tab-group (selectedTabChange)='getSelectedTab($event)' animationDuration="0ms">
   <mat-tab label="All Trips">
-    <app-trip-itinerary [tripRequestType]="'all'"></app-trip-itinerary>
+    <app-trip-itinerary [tripRequestType]="'all'" (tripTotalEventEmitter)="tripsTotal($event)"></app-trip-itinerary>
   </mat-tab>
 
   <mat-tab label="Past Trips">
-   <app-past-trips [tripRequestType]="'pastTrips'"> </app-past-trips>
+   <app-past-trips [tripRequestType]="'pastTrips'" (tripTotalEventEmitter)="tripsTotal($event)"> </app-past-trips>
   </mat-tab>
   
   <mat-tab label="Upcoming Trips">
-    <app-trip-itinerary [tripRequestType]="'upcomingTrips'"></app-trip-itinerary>
+    <app-trip-itinerary [tripRequestType]="'upcomingTrips'" (tripTotalEventEmitter)="tripsTotal($event)">
+    </app-trip-itinerary>
     </mat-tab>
 
   <mat-tab label="Declined Trips">
-        <app-trip-itinerary [tripRequestType]="'declinedTrips'"></app-trip-itinerary>
+        <app-trip-itinerary [tripRequestType]="'declinedTrips'" (tripTotalEventEmitter)="tripsTotal($event)">
+        </app-trip-itinerary>
  </mat-tab>
 </mat-tab-group>

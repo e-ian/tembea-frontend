@@ -28,11 +28,11 @@
           <span class="title">
             {{ headerTitle }}
           </span>
-          <span *ngIf="badgeSize" class="badge tooltips" data-title="Hypertext Markup Language">
+          <span *ngIf="badgeSize >= 0" class="badge tooltips" data-title="Hypertext Markup Language">
             {{badgeSize}}
           <ng-template [ngIf]="badgeSize == 1" [ngIfElse]="moreThanOne">
             <span *ngIf="headerTitle === 'Routes Inventory'">There is currently {{badgeSize}} route in the {{headerTitle}}</span>
-            <span *ngIf="headerTitle === 'All Trips'">There is currently {{badgeSize}} trip in {{headerTitle}}</span>
+            <span *ngIf="headerTitle.includes('Trips')">There is currently {{badgeSize}} trip in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle === 'Cabs'">There is currently {{badgeSize}} cab in display</span>
             <span *ngIf="headerTitle === 'Fellows'">There is currently {{badgeSize}} Fellow on Route</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There has been {{badgeSize}} airport transfer so far</span>
@@ -42,7 +42,7 @@
           </ng-template>
           <ng-template #moreThanOne>
             <span *ngIf="headerTitle === 'Routes Inventory'">There are currently {{badgeSize}} routes in the {{headerTitle}}</span>
-            <span *ngIf="headerTitle === 'All Trips'">There are currently {{badgeSize}} trips in {{headerTitle}}</span>
+            <span *ngIf="headerTitle.includes('Trips')">There are currently {{badgeSize}} trips in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle === 'Cabs'">There are currently {{badgeSize}} {{headerTitle}} in display</span>
             <span *ngIf="headerTitle === 'Fellows'">There are currently {{badgeSize}} Fellows on Routes</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There have been {{badgeSize}} airport transfers so far</span>

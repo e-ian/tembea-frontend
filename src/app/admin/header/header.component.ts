@@ -21,6 +21,7 @@ import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.compo
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public headerTitle: string;
+  public tooltipTitle: string;
   public badgeSize = 0;
   public actionButton = '';
   user: IUser;
@@ -47,9 +48,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     this.updateHeaderSubscription = this.appEventService.subscribe('updateHeaderTitle', (data) => {
-      const { content: { headerTitle, badgeSize, actionButton } } = data;
+      const { content: { headerTitle, badgeSize, actionButton, tooltipTitle } } = data;
       this.headerTitle = headerTitle || this.headerTitle;
-      this.badgeSize = badgeSize || this.badgeSize;
+      this.tooltipTitle = tooltipTitle;
+      this.badgeSize = badgeSize;
       this.actionButton = actionButton || this.actionButton;
     });
     this.logoutModalSub = this.appEventService.subscribe('SHOW_LOGOUT_MODAL', () => this.showLogoutModal.call(this));

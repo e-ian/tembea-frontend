@@ -11,12 +11,16 @@ import {TripRequestService} from '../../__services__/trip-request.service';
 import {tripRequestMock} from '../../../shared/__mocks__/trip-request.mock';
 import {department} from '../../../shared/__mocks__/department.mock';
 import { AppTestModule } from '../../../__tests__/testing.module';
+import {AppEventService} from '../../../shared/app-events.service';
 
   const mockMatDialog = {
     open: jest.fn(),
   };
 
 describe('TripItineraryComponent', () => {
+  const appEventsMock = {
+    broadcast: jest.fn()
+  };
   let component: TripItineraryComponent;
   let tripRequestService: TripRequestService;
   let fixture: ComponentFixture<TripItineraryComponent>;
@@ -43,6 +47,7 @@ describe('TripItineraryComponent', () => {
         {
           provide: MatDialog, useValue: mockMatDialog
         },
+        { provide: AppEventService, useValue: appEventsMock },
       ]
     })
     .compileComponents();
@@ -82,7 +87,17 @@ describe('TripItineraryComponent', () => {
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
+      expect(component.status).toEqual(null);
     });
+   it('should broadcast an event in all', () => {
+     component.tripRequestType = 'all';
+     component.ngOnInit();
+     expect(appEventsMock.broadcast).toHaveBeenCalledWith({
+       name: 'updateHeaderTitle',
+       content: {'badgeSize': 12, 'tooltipTitle': 'All Trips'}
+     });
+
+   });
   });
 
  describe('declinedTrips', () => {

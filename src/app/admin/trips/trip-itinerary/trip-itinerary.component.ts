@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { TripRequest } from 'src/app/shared/models/trip-request.model';
@@ -39,7 +39,8 @@ export class TripItineraryComponent implements OnInit {
   filterParams: any;
   passedParams = {};
   state = 'Approved/Confirmed';
-
+  @Output()
+  tripTotalEventEmitter = new EventEmitter();
 
   constructor(
     private tripRequestService: TripRequestService,
@@ -87,7 +88,13 @@ export class TripItineraryComponent implements OnInit {
         const { pageInfo, trips } = tripData;
         this.tripRequests = trips;
         this.totalItems = pageInfo.totalResults;
-        this.appEventService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageInfo.totalResults } });
+        if (this.tripRequestType === 'all') {
+          this.appEventService.broadcast({
+            name: 'updateHeaderTitle',
+            content: { badgeSize: pageInfo.totalResults, tooltipTitle: 'All Trips' }
+          });
+        }
+        this.tripTotalEventEmitter.emit({ totalItems: this.totalItems, tripRequestType: this.tripRequestType });
       }, () => {
         this.alertService.error('Error occured while retrieving data');
       });
