@@ -65,7 +65,6 @@ const toastr: Toastr = window['toastr'];
     CookieService,
     ClockService,
     { provide: TOASTR_TOKEN, useValue: toastr },
-    { provide: AlertService, useValue: toastr },
     { provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true },
     { provide: ErrorHandler, useFactory: errorHandlerFactory }
   ],
