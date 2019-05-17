@@ -1,14 +1,14 @@
-import {getTestBed, TestBed} from '@angular/core/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
-import { HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import getRoutesResponseMock from '../../routes/routes-inventory/__mocks__/get-routes-response.mock';
-import {SearchService} from '../search.service';
-import {CookieService} from '../../../auth/__services__/ngx-cookie-service.service';
-import {ClockService} from '../../../auth/__services__/clock.service';
-import {Router} from '@angular/router';
-import {SpyObject} from '../../../__mocks__/SpyObject';
-import {AlertService} from '../../../shared/alert.service';
-import {mockToastr} from '../../../shared/__mocks__/mockData';
+import { SearchService } from '../search.service';
+import { CookieService } from '../../../auth/__services__/ngx-cookie-service.service';
+import { ClockService } from '../../../auth/__services__/clock.service';
+import { Router } from '@angular/router';
+import { SpyObject } from '../../../__mocks__/SpyObject';
+import { AlertService } from '../../../shared/alert.service';
+import { mockToastr } from '../../../shared/__mocks__/mockData';
 import { RouteInventoryModel } from '../../../shared/models/route-inventory.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
@@ -31,8 +31,8 @@ describe('SearchService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         { provide: CookieService, useValue: new SpyObject(CookieService) },
-        { provide: ClockService,  useValue: new SpyObject(ClockService) },
-        { provide: Router,  useValue: new SpyObject(Router) },
+        { provide: ClockService, useValue: new SpyObject(ClockService) },
+        { provide: Router, useValue: new SpyObject(Router) },
         { provide: AlertService, useValue: mockToastr }
       ]
     });
@@ -64,8 +64,8 @@ describe('SearchService', () => {
 
   it('should return filtered routes if route name provided', done => {
     const routeName = 'anyRoute';
-    jest.spyOn(searchService, 'searchRoutes').mockReturnValue(of(getRoutesResponse));
-    searchService.searchRoutes(of(routeName)).subscribe(value => {
+    jest.spyOn(searchService, 'searchData').mockReturnValue(of(getRoutesResponse));
+    searchService.searchData(of(routeName), 'routes').subscribe(value => {
       expect(value).toHaveProperty('routes');
       expect(value.routes).toEqual(getRoutesResponseMock.routes);
       done();
@@ -75,7 +75,7 @@ describe('SearchService', () => {
   it('should trigger searchItems()', done => {
     const routeName = 'anyRoute';
     jest.spyOn(searchService, 'searchItems').mockReturnValue(of(getRoutesResponseMock));
-    searchService.searchRoutes(of(routeName)).subscribe(value => {
+    searchService.searchData(of(routeName), 'routes').subscribe(value => {
       expect(searchService.searchItems).toHaveBeenCalled();
       done();
     });

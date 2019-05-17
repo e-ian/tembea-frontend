@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const { content: { headerTitle, badgeSize, actionButton, tooltipTitle } } = data;
       this.headerTitle = headerTitle || this.headerTitle;
       this.tooltipTitle = tooltipTitle;
-      this.badgeSize = badgeSize;
+      this.badgeSize = badgeSize || 0;
       this.actionButton = actionButton || this.actionButton;
     });
     this.logoutModalSub = this.appEventService.subscribe('SHOW_LOGOUT_MODAL', () => this.showLogoutModal.call(this));

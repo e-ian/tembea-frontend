@@ -21,7 +21,7 @@
   ]
   },
   {
-    "name": "Cabs", "iconActive": "cabs", "iconInActive": "cabs-inactive", "link": "cabs", "pages": []
+    "name": "Providers", "iconActive": "cabs", "iconInActive": "cabs-inactive", "link": "providers", "pages": []
   },
   {
     "name": "Settings", "iconActive": "settings", "iconInActive": "settings-inactive", "link": "settings", "pages": [

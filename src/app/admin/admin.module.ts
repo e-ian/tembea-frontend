@@ -54,6 +54,8 @@ import { RatingStarsComponent } from './rating-stars/rating-stars.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
 import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-overview.component';
 import { DisplayTripModalComponent } from './trips/display-trip-modal/display-trip-modal.component';
+import { ProvidersComponent } from './providers/providers.component';
+import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { DisplayTripModalComponent } from './trips/display-trip-modal/display-tr
     RatingStarsComponent,
     FellowNavComponent,
     RoutesOverviewComponent,
-    DisplayTripModalComponent
+    DisplayTripModalComponent,
+    ProvidersComponent,
+    ProviderCardComponent
   ],
   imports: [
     CommonModule,

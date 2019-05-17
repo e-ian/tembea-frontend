@@ -10,11 +10,12 @@ import { AdminComponent } from './admin/admin.component';
 import { RouteRequestsComponent } from './routes/route-requests/route-requests.component';
 import { PagingParamsResolver } from '../shared/paging-params.resolver';
 import { PendingRequestComponent } from './trips/pending-request/pending-request.component';
-import {TripNavComponent} from './trips/trip-nav/trip-nav.component';
+import { TripNavComponent } from './trips/trip-nav/trip-nav.component';
 import { AirportTransfersComponent } from './travel/airport-transfers/airport-transfers.component';
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
 import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
+import { ProvidersComponent } from './providers/providers.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,12 @@ const routes: Routes = [
         data: { title: 'Airport Transfers' }
       },
       {
+        path: 'providers',
+        component: ProvidersComponent,
+        canActivate: [],
+        data: { title: 'Providers' }
+      },
+      {
         path: 'cabs/pending',
         component: CabsComponent,
         canActivate: [],
@@ -117,4 +124,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

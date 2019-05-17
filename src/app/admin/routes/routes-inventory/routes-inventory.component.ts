@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
-import {IDeleteRouteResponse, IRouteInventory} from 'src/app/shared/models/route-inventory.model';
+import { IDeleteRouteResponse, IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 import { AlertService } from '../../../shared/alert.service';
 import { ITEMS_PER_PAGE } from '../../../app.constants';
 import { MatDialog } from '@angular/material';
@@ -11,8 +11,8 @@ import RenameRouteBatch from './routes-inventory.helper';
 import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
-import {Subject} from 'rxjs';
-import {SearchService} from '../../__services__/search.service';
+import { Subject } from 'rxjs';
+import { SearchService } from '../../__services__/search.service';
 
 @Component({
   selector: 'app-inventory',
@@ -67,21 +67,21 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
       this.isLoading = false;
     },
-    () => {
-      this.isLoading = false;
-      this.displayText = `Oops! We're having connection problems.`;
-    });
+      () => {
+        this.isLoading = false;
+        this.displayText = `Oops! We're having connection problems.`;
+      });
   };
 
   getSearchResults = () => {
     this.isLoading = true;
-    this.searchService.searchRoutes(this.searchTerm$).subscribe(routesData => {
-        const { routes, pageMeta } = routesData;
-        this.routes = routes;
-        this.totalItems = pageMeta.totalResults;
-        this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
-        this.isLoading = false;
-      },
+    this.searchService.searchData(this.searchTerm$, 'routes').subscribe(routesData => {
+      const { routes, pageMeta } = routesData;
+      this.routes = routes;
+      this.totalItems = pageMeta.totalResults;
+      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
+      this.isLoading = false;
+    },
       () => {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
@@ -171,8 +171,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       data: {
         confirmText: 'Yes',
         displayText: 'delete this batch'
-       }
-    });
+      }
+  });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
       this.deleteRoute(routeBatchId)
     })

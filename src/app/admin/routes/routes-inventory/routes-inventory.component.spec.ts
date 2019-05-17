@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of';
 import { throwError } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutesInventoryComponent } from './routes-inventory.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from '../../../angular-material.module';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
@@ -18,10 +18,10 @@ import { AlertService } from '../../../shared/alert.service';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { ExportComponent } from '../../export-component/export.component';
-import {SearchService} from '../../__services__/search.service';
-import {CookieService} from '../../../auth/__services__/ngx-cookie-service.service';
-import {mockCookieService} from '../../../shared/__mocks__/mockData';
-import {ClockService} from '../../../auth/__services__/clock.service';
+import { SearchService } from '../../__services__/search.service';
+import { CookieService } from '../../../auth/__services__/ngx-cookie-service.service';
+import { mockCookieService } from '../../../shared/__mocks__/mockData';
+import { ClockService } from '../../../auth/__services__/clock.service';
 import { AppEventService } from '../../../shared/app-events.service';
 
 describe('RoutesInventoryComponent', () => {
@@ -41,7 +41,7 @@ describe('RoutesInventoryComponent', () => {
   };
 
   const routesInventoryMock = {
-    createRoute: jest.fn().mockResolvedValue({ message: 'Successfully created'}),
+    createRoute: jest.fn().mockResolvedValue({ message: 'Successfully created' }),
     getRoutes: () => of(getRoutesResponseMock),
     changeRouteStatus: jest.fn().mockReturnValue(of({})),
     deleteRouteBatch: jest.fn().mockReturnValue(of({
@@ -51,7 +51,7 @@ describe('RoutesInventoryComponent', () => {
   };
 
   const searchServiceMock = {
-    searchRoutes: () => of(getRoutesResponseMock),
+    searchData: () => of(getRoutesResponseMock),
     searchItems: jest.fn().mockReturnValue(of(getRoutesResponseMock)),
   };
 
@@ -92,7 +92,7 @@ describe('RoutesInventoryComponent', () => {
         { provide: RoutesInventoryService, useValue: routesInventoryMock },
         { provide: SearchService, useValue: searchServiceMock },
         { provide: CookieService, useValue: mockCookieService },
-        { provide: ClockService,  useValue: clockServiceMock },
+        { provide: ClockService, useValue: clockServiceMock },
         {
           provide: MAT_DIALOG_DATA, useValue: {
             data: {
@@ -103,20 +103,20 @@ describe('RoutesInventoryComponent', () => {
         },
         { provide: Router, useValue: router },
       ],
-      imports: [ HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule ],
+      imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
     })
-    .overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [ConfirmModalComponent]
-      }
-    }).compileComponents();
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [ConfirmModalComponent]
+        }
+      }).compileComponents();
 
     fixture = TestBed.createComponent(RoutesInventoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     jest.spyOn(routesInventoryMock, 'getRoutes');
-    jest.spyOn(searchServiceMock, 'searchRoutes');
+    jest.spyOn(searchServiceMock, 'searchData');
   });
 
   afterEach(() => {
@@ -196,7 +196,7 @@ describe('RoutesInventoryComponent', () => {
 
   describe('Send Request to Server', () => {
     beforeEach(() => {
-      jest.spyOn(routesInventoryMock, 'createRoute').mockResolvedValue({ message: 'Successfully duplicated Yaba route'});
+      jest.spyOn(routesInventoryMock, 'createRoute').mockResolvedValue({ message: 'Successfully duplicated Yaba route' });
     });
     it('should display a success message if copy request is successful', async () => {
       await component.sendRequestToServer(routeObject.id);
@@ -326,7 +326,7 @@ describe('RoutesInventoryComponent', () => {
     }));
 
     it('should throw error when routes not loaded successfully', async(() => {
-      spyOn(SearchService.prototype, 'searchRoutes')
+      spyOn(SearchService.prototype, 'searchData')
         .and.returnValue(throwError('error'));
 
       component.getSearchResults();
@@ -336,7 +336,7 @@ describe('RoutesInventoryComponent', () => {
 
     it('should return list of filtered routes when name is provided', async(() => {
       jest.spyOn(component, 'getSearchResults');
-      jest.spyOn(SearchService.prototype, 'searchRoutes').mockReturnValue(of(getRoutesResponseMock));
+      jest.spyOn(SearchService.prototype, 'searchData').mockReturnValue(of(getRoutesResponseMock));
       const appServiceSpy = jest.spyOn(AppEventService.prototype, 'broadcast');
       component.getRoutesInventory();
 
