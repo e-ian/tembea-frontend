@@ -24,7 +24,7 @@ describe('ConfirmModalComponent', () => {
       declarations: [ ConfirmModalComponent ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
-        { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData }
+        { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
       ]
     })
     .compileComponents();

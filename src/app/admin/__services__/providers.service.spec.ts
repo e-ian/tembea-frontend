@@ -56,4 +56,21 @@ describe('ProvidersService', () => {
         expect(data).toEqual(response);
       });
     })
-  })});
+  });
+  describe('Delete Provider', () => {
+    beforeEach(() => {
+      jest.spyOn(HttpClient.prototype, 'delete');
+    });
+    it('should call Http client to delete Provider', () => {
+      service.deleteProvider(1);
+      expect(HttpClient.prototype.delete).toHaveBeenCalled();
+    });
+
+    it('should delete a provider successfully', () => {
+      jest.spyOn(HttpClient.prototype, 'delete').mockReturnValue(of({}));
+      service.deleteProvider(1).subscribe(data => {
+        expect(data).toEqual({});
+      });
+    })
+  });
+});

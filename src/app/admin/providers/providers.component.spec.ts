@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProvidersComponent } from './providers.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { throwError, of } from 'rxjs';
+import { Injector } from '@angular/core';
+import { ProvidersComponent } from './providers.component';
 import { SearchService } from '../__services__/search.service';
 import { AppTestModule } from '../../__tests__/testing.module';
-import { of } from 'rxjs';
-import { Injector } from '@angular/core';
 import providersMock from '../../__mocks__/providers.mock';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { ProviderService } from '../__services__/providers.service';
-import { throwError } from 'rxjs';
+
 
 describe('ProvidersComponent', () => {
   let component: ProvidersComponent;
@@ -129,13 +129,19 @@ describe('ProvidersComponent', () => {
       expect(component.displayText).toEqual(`Oops! We're having connection problems.`);
     });
 
-    it('should unsubscribe on ngOnDestroy', () => {
+    it('should unsubscribe updateSubscription on ngOnDestroy', () => {
       component.updateSubscription = {
         unsubscribe: jest.fn()
       };
       component.ngOnDestroy();
       expect(component.updateSubscription.unsubscribe).toHaveBeenCalled();
-    })
-
+    });
+    it('should unsubscribe deleteSubscription on ngOnDestroy', () => {
+      component.deleteSubscription = {
+        unsubscribe: jest.fn()
+      };
+      component.ngOnDestroy();
+      expect(component.deleteSubscription.unsubscribe).toHaveBeenCalled();
+    });
   });
 });

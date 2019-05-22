@@ -34,7 +34,7 @@ export class ProviderModalComponent implements OnInit {
         this.loading = false;
         if (res.success) {
           this.toastService.success(res.message);
-          this.appEventService.broadcast({ name: 'updated providers' });
+          this.appEventService.broadcast({ name: 'updatedProvidersEvent' });
           this.closeDialog();
         }
       }, error => {

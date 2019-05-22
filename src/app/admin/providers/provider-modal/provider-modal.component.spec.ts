@@ -82,7 +82,7 @@ describe('ProviderModalComponent', () => {
       expect(component.toastService.success).toBeCalled();
       expect(component.dialogRef.close).toBeCalled();
       expect(appEventService.broadcast).toBeCalled();
-      expect(appEventService.broadcast).toBeCalledWith({name: 'updated providers'})
+      expect(appEventService.broadcast).toBeCalledWith({name: 'updatedProvidersEvent'});
     });
 
   it('should alert error on  provider update fail and not close modal', () => {
