@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProviderService } from '../__services__/providers.service';
 import { IProviderInventory } from '../../shared/models/provider.model';
-import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 import { SearchService } from '../__services__/search.service';
 import { Subject } from 'rxjs';
-import { AppEventService } from 'src/app/shared/app-events.service';
 import { AlertService } from 'src/app/shared/alert.service';
+import { ITEMS_PER_PAGE } from 'src/app/app.constants';
+import {Subscription} from 'rxjs';
+import {AppEventService} from '../../shared/app-events.service';
 
 @Component({
   selector: 'app-providers',
@@ -15,7 +16,7 @@ import { AlertService } from 'src/app/shared/alert.service';
   ],
   providers: [SearchService]
 })
-export class ProvidersComponent implements OnInit {
+export class ProvidersComponent implements OnInit, OnDestroy {
   providers: IProviderInventory[] = [];
   currentOptions = -1;
   pageNo: number;
@@ -24,19 +25,23 @@ export class ProvidersComponent implements OnInit {
   displayText: string;
   isLoading: boolean;
   searchTerm$ = new Subject<string>();
+  updateSubscription: { unsubscribe: any };
   constructor(
-    public providerService: ProviderService,
     private searchService: SearchService,
     private appEventsService: AppEventService,
-    public alert: AlertService, ) {
+    public alert: AlertService,
+    public appEventService: AppEventService,
+    public providerService: ProviderService  ) {
     this.pageNo = 1;
     this.pageSize = ITEMS_PER_PAGE;
     this.isLoading = true;
     this.getSearchResults(this.searchTerm$);
-  }
+    }
 
   ngOnInit() {
     this.getProvidersData();
+    this.updateSubscription = this.appEventService.subscribe('updated providers',
+      () => this.getProvidersData());
   }
   getSearchResults = (searchItem) => {
     this.isLoading = true;
@@ -71,7 +76,6 @@ export class ProvidersComponent implements OnInit {
       this.providers = providers;
       this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: this.totalItems } });
       this.isLoading = false;
-
     },
       () => {
         this.isLoading = false;
@@ -88,4 +92,10 @@ export class ProvidersComponent implements OnInit {
   showOptions(providerId) {
     this.currentOptions = this.currentOptions === providerId ? -1 : providerId;
   }
+  ngOnDestroy(): void {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
+  }
+
 }

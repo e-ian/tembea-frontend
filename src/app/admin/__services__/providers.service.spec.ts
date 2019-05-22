@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule,  HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient} from '@angular/common/http';
 import { of } from 'rxjs';
 import { ProviderService } from './providers.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 
 describe('ProvidersService', () => {
   let service: ProviderService;
@@ -42,4 +42,18 @@ describe('ProvidersService', () => {
       })
     })
   })
-});
+  describe('Update Provider', () => {
+    it('should call http client patch on update provider', () => {
+      jest.spyOn(HttpClient.prototype, 'patch').mockReturnValue(of({}));
+      service.editProvider({}, 1);
+      expect(HttpClient.prototype.patch).toHaveBeenCalled();
+   });
+    it('should return data on http edit provider', () => {
+      const response = { success: true };
+      jest.spyOn(HttpClient.prototype, 'patch').mockReturnValue(of(response));
+      const results = service.editProvider({}, 1);
+      results.subscribe(data => {
+        expect(data).toEqual(response);
+      });
+    })
+  })});

@@ -1,14 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {MatDialog} from '@angular/material';
 import { ProviderCardComponent } from './provider-card.component';
+import { of } from 'rxjs';
 
+const matDialogMock = {
+  open: jest.fn().mockReturnValue({
+    componentInstance: {
+      executeFunction: {
+        subscribe: () => jest.fn()
+      }
+    },
+    afterClosed: () => of()
+  }),
+};
 describe('ProviderCardComponent', () => {
   let component: ProviderCardComponent;
   let fixture: ComponentFixture<ProviderCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProviderCardComponent]
+      declarations: [ ProviderCardComponent ],
+      providers: [{provide: MatDialog, useValue: matDialogMock}]
     })
       .compileComponents();
   }));
@@ -27,5 +39,11 @@ describe('ProviderCardComponent', () => {
     component.showMoreOptions();
     expect(component.hidden).toBe(true);
     expect(component.showOptions.emit).toBeCalled();
+  });
+
+  it('should open edit modal', () => {
+    jest.spyOn(matDialogMock, 'open');
+    component.openEditModal();
+    expect(matDialogMock.open).toHaveBeenCalled()
   })
 });

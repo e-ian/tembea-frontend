@@ -129,5 +129,13 @@ describe('ProvidersComponent', () => {
       expect(component.displayText).toEqual(`Oops! We're having connection problems.`);
     });
 
+    it('should unsubscribe on ngOnDestroy', () => {
+      component.updateSubscription = {
+        unsubscribe: jest.fn()
+      };
+      component.ngOnDestroy();
+      expect(component.updateSubscription.unsubscribe).toHaveBeenCalled();
+    })
+
   });
 });

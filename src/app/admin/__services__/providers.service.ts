@@ -21,4 +21,7 @@ export class ProviderService {
     return this.http
       .get<any>(`${this.providersUrl}?size=${size}&page=${page}`);
   }
+  editProvider(provider: any, id: number): Observable<any> {
+    return  this.http.patch<any>(`${this.providersUrl}/${id}`, provider)
+  }
 }
