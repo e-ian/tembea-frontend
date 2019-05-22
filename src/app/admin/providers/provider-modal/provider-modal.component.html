@@ -6,7 +6,7 @@
   </div>
   <div class=form-container>
     <form #providerForm="ngForm" (ngSubmit)="editProvider(providerForm, data.id)">
-      <h2>Edit </h2>
+      <span class="modal-title">Edit Provider</span>
       <div class="single-field">
         <div class="field single">
           <div class="input-group">
@@ -50,7 +50,7 @@
         type="submit"
         [disabled]="loading || providerForm.invalid">
         <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin"></i>
-        <span>SUBMIT</span>
+        <span>Submit</span>
       </button>
     </form>
   </div>

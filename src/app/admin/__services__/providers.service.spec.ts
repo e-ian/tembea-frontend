@@ -3,6 +3,7 @@ import { HttpClientTestingModule,  HttpTestingController } from '@angular/common
 import { HttpClient} from '@angular/common/http';
 import { of } from 'rxjs';
 import { ProviderService } from './providers.service';
+import {createProviderMock, providerResponseMock} from '../providers/add-provider-modal/__mocks__/add-provider.mocks';
 
 describe('ProvidersService', () => {
   let service: ProviderService;
@@ -29,7 +30,7 @@ describe('ProvidersService', () => {
   describe('getAllProviders', () => {
     beforeEach(() => {
       jest.spyOn(HttpClient.prototype, 'get');
-    })
+    });
     it('should call HttpClient.getProviders', () => {
       service.getProviders(1, 1);
       expect(HttpClient.prototype.get).toBeCalled();
@@ -41,15 +42,15 @@ describe('ProvidersService', () => {
         expect(data).toEqual({});
       })
     })
-  })
+  });
   describe('Update Provider', () => {
     it('should call http client patch on update provider', () => {
       jest.spyOn(HttpClient.prototype, 'patch').mockReturnValue(of({}));
       service.editProvider({}, 1);
       expect(HttpClient.prototype.patch).toHaveBeenCalled();
-   });
+    });
     it('should return data on http edit provider', () => {
-      const response = { success: true };
+      const response = {success: true};
       jest.spyOn(HttpClient.prototype, 'patch').mockReturnValue(of(response));
       const results = service.editProvider({}, 1);
       results.subscribe(data => {
@@ -57,6 +58,7 @@ describe('ProvidersService', () => {
       });
     })
   });
+
   describe('Delete Provider', () => {
     beforeEach(() => {
       jest.spyOn(HttpClient.prototype, 'delete');
@@ -72,5 +74,23 @@ describe('ProvidersService', () => {
         expect(data).toEqual({});
       });
     })
+
+    describe('addProvider', () => {
+      it('should add a new provider', () => {
+        let provider = null;
+        jest.spyOn(service, 'add').mockReturnValue(of(providerResponseMock));
+        service.add(createProviderMock).subscribe(value => {
+          provider = value
+        });
+        expect(provider).toEqual(providerResponseMock);
+      });
+
+      it('should call http client post method on add provider', () => {
+        const response = {success: true};
+        jest.spyOn(HttpClient.prototype, 'post').mockReturnValue(of(response));
+        service.add({});
+        expect(HttpClient.prototype.post).toHaveBeenCalled();
+      });
+    });
   });
 });

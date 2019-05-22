@@ -5,9 +5,6 @@ import { ProviderService } from '../../__services__/providers.service';
 import { AlertService } from '../../../shared/alert.service';
 import {AppEventService} from '../../../shared/app-events.service';
 
-
-
-
 @Component({
   selector: 'app-provider-modal',
   templateUrl: './provider-modal.component.html',

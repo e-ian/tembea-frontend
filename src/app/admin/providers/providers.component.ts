@@ -26,40 +26,46 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   searchTerm$ = new Subject<string>();
   updateSubscription: any;
   deleteSubscription: any;
+  updateListSubscription: { unsubscribe: any };
 
   constructor(
     private searchService: SearchService,
     public appEventsService: AppEventService,
     public alert: AlertService,
-    public providerService: ProviderService  ) {
+    public providerService: ProviderService) {
     this.pageNo = 1;
     this.pageSize = ITEMS_PER_PAGE;
     this.isLoading = true;
     this.getSearchResults(this.searchTerm$);
-    }
+  }
 
   ngOnInit() {
     this.getProvidersData();
     this.updateSubscription = this.appEventsService.subscribe('updatedProvidersEvent',
       () => this.getProvidersData());
-    this.deleteSubscription = this.appEventsService.subscribe('providerDeletedEvent', () =>
+      this.deleteSubscription = this.appEventsService.subscribe('providerDeletedEvent', () =>
       this.getProvidersData());
+      this.updateListSubscription = this.appEventsService.subscribe('newProvider',
+        () => this.getProvidersData());
   }
+
   getSearchResults = (searchItem) => {
     this.isLoading = true;
     this.searchService.searchData(searchItem, 'providers').subscribe(providersData => {
-      const { providers, pageMeta: {
-        totalResults
-      } } = providersData;
-      this.displayText = 'No providers yet';
-      this.providers = providers;
-      this.totalItems = totalResults;
-      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: this.totalItems } });
-      this.isLoading = false;
-    },
+        const {
+          providers, pageMeta: {
+            totalResults
+          }
+        } = providersData;
+        this.displayText = 'No providers yet';
+        this.providers = providers;
+        this.totalItems = totalResults;
+        this.appEventsService.broadcast({name: 'updateHeaderTitle', content: {badgeSize: this.totalItems}});
+        this.isLoading = false;
+      },
       (error) => {
         if (error && error.error) {
-          const { message } = error.error;
+          const {message} = error.error;
           this.alert.error(message);
           this.getSearchResults(this.searchTerm$);
         }
@@ -71,14 +77,19 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   getProvidersData = () => {
     this.isLoading = true;
     this.providerService.getProviders(this.pageSize, this.pageNo).subscribe(providerData => {
-      const { providers, pageMeta: {
-        totalResults
-      } } = providerData.data;
-      this.totalItems = totalResults;
-      this.providers = providers;
-      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: this.totalItems } });
-      this.isLoading = false;
-    },
+        const {
+          providers, pageMeta: {
+            totalResults
+          }
+        } = providerData.data;
+        this.totalItems = totalResults;
+        this.providers = providers;
+        this.appEventsService.broadcast({
+          name: 'updateHeaderTitle', content:
+            {badgeSize: this.totalItems, actionButton: 'Add Provider'}
+        });
+        this.isLoading = false;
+      },
       () => {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
@@ -91,6 +102,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     this.pageNo = page;
     this.getProvidersData();
   }
+
   showOptions(providerId) {
     this.currentOptions = this.currentOptions === providerId ? -1 : providerId;
   }
@@ -99,9 +111,11 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     if (this.updateSubscription) {
       this.updateSubscription.unsubscribe();
     }
-    if ( this.deleteSubscription) {
-      this.deleteSubscription.unsubscribe()
+    if (this.deleteSubscription) {
+      this.deleteSubscription.unsubscribe();
+      if (this.updateListSubscription) {
+        this.updateListSubscription.unsubscribe();
+      }
     }
   }
-
 }

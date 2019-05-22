@@ -13,6 +13,7 @@ import 'rxjs/add/operator/mergeMap';
 import { IUser } from '../../shared/models/user.model';
 import { AppEventService } from '../../shared/app-events.service';
 import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.component';
+import {AddProviderModalComponent} from '../providers/add-provider-modal/add-provider-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -112,12 +113,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleAction() {
-    if (this.actionButton === 'Add a New Cab') {
-      const dialogRef = this.dialog.open(AddCabsModalComponent, {
-        minHeight: '568px',
-        width: '592px',
-        panelClass: 'add-cab-modal-panel-class',
-      });
+    switch (this.actionButton) {
+      case 'Add a New Cab':
+        this.dialog.open(AddCabsModalComponent, {
+          minHeight: '568px',
+          width: '592px',
+          panelClass: 'add-cab-modal-panel-class',
+        });
+        break;
+      case 'Add Provider':
+         this.dialog.open(AddProviderModalComponent, {
+          maxHeight: '568px',
+          width: '620px',
+          panelClass: 'add-cab-modal-panel-class',
+        });
+         break;
     }
   }
 }

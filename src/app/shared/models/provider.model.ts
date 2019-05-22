@@ -1,12 +1,13 @@
 export interface IProviderInventory {
-    id?: number;
-    name: string;
-    providerUserId: string;
-    user: IUser;
+  id?: number;
+  name?: string;
+  user?: string;
+  email?: string;
 }
-export interface IUser {
-    id?: number;
-    name: string;
-    phoneNo: number;
-    email: string;
+
+export class ProviderModel implements IProviderInventory {
+  constructor(
+    public name?: string,
+    public email?: string,
+  ) {}
 }

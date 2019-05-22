@@ -57,6 +57,7 @@ import { DisplayTripModalComponent } from './trips/display-trip-modal/display-tr
 import { ProvidersComponent } from './providers/providers.component';
 import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
 import { ProviderModalComponent } from './providers/provider-modal/provider-modal.component';
+import { AddProviderModalComponent } from './providers/add-provider-modal/add-provider-modal.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { ProviderModalComponent } from './providers/provider-modal/provider-moda
     DisplayTripModalComponent,
     ProvidersComponent,
     ProviderCardComponent,
-    ProviderModalComponent
+    ProviderModalComponent,
+    AddProviderModalComponent
   ],
   imports: [
     CommonModule,
@@ -121,7 +123,8 @@ import { ProviderModalComponent } from './providers/provider-modal/provider-moda
     MatProgressBarModule
   ],
   entryComponents: [
-    DeleteFellowModalComponent, DeleteCabModalComponent, DisplayTripModalComponent, ProviderModalComponent
+    DeleteFellowModalComponent, DeleteCabModalComponent,
+    DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })

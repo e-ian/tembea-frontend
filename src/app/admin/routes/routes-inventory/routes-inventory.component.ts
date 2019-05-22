@@ -61,12 +61,12 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   getRoutesInventory = () => {
     this.isLoading = true;
     this.routeService.getRoutes(this.pageSize, this.pageNo, this.sort).subscribe(routesData => {
-      const { routes, pageMeta } = routesData;
-      this.routes = this.renameRouteBatches(routes);
-      this.totalItems = pageMeta.totalResults;
-      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
-      this.isLoading = false;
-    },
+        const { routes, pageMeta } = routesData;
+        this.routes = this.renameRouteBatches(routes);
+        this.totalItems = pageMeta.totalResults;
+        this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
+        this.isLoading = false;
+      },
       () => {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
@@ -76,12 +76,12 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   getSearchResults = () => {
     this.isLoading = true;
     this.searchService.searchData(this.searchTerm$, 'routes').subscribe(routesData => {
-      const { routes, pageMeta } = routesData;
-      this.routes = routes;
-      this.totalItems = pageMeta.totalResults;
-      this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
-      this.isLoading = false;
-    },
+        const { routes, pageMeta } = routesData;
+        this.routes = routes;
+        this.totalItems = pageMeta.totalResults;
+        this.appEventsService.broadcast({ name: 'updateHeaderTitle', content: { badgeSize: pageMeta.totalResults } });
+        this.isLoading = false;
+      },
       () => {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
@@ -172,7 +172,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
         confirmText: 'Yes',
         displayText: 'delete this batch'
       }
-  });
+    });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
       this.deleteRoute(routeBatchId)
     })

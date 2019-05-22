@@ -83,7 +83,7 @@ describe('ProvidersComponent', () => {
       jest.spyOn(component, 'getProvidersData').mockImplementation();
       component.ngOnInit();
       expect(component.getProvidersData).toBeCalledTimes(1);
-    })
+    });
 
     it('should set pagination', () => {
       jest.spyOn(component, 'getProvidersData').mockImplementation();
@@ -98,8 +98,7 @@ describe('ProvidersComponent', () => {
       component.showOptions(-1);
       expect(component.currentOptions).toEqual(-1)
     })
-
-  })
+  });
 
   describe('getProvidersData', () => {
     it('should return providers\' data', () => {
@@ -117,7 +116,7 @@ describe('ProvidersComponent', () => {
           'phoneNo': null,
           'email': 'ronald.okello@andela.com'
         }
-      }])
+      }]);
       expect(component.totalItems).toEqual(1);
     });
 
@@ -143,5 +142,5 @@ describe('ProvidersComponent', () => {
       component.ngOnDestroy();
       expect(component.deleteSubscription.unsubscribe).toHaveBeenCalled();
     });
+    })
   });
-});

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { AngularMaterialModule } from '../../angular-material.module';
-import { of } from 'rxjs';
+import {of, Subscription} from 'rxjs';
 import { MediaObserver } from '@angular/flex-layout';
 import { By } from '@angular/platform-browser';
 import { NavMenuService } from '../__services__/nav-menu.service';
@@ -14,8 +14,9 @@ import { AdminComponent } from '../admin/admin.component';
 import { MatMenuModule, MatDialog } from '@angular/material';
 import { toastrMock } from '../routes/__mocks__/create-route';
 import { AlertService } from '../../shared/alert.service';
-import { AuthService } from 'src/app/auth/__services__/auth.service';
-
+import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.component';
+import {AddProviderModalComponent} from '../providers/add-provider-modal/add-provider-modal.component';
+import { AppEventService } from '../../shared/app-events.service';
 class MockServices {
   public events = of(new NavigationEnd(0, '/', null));
 }
@@ -26,6 +27,11 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     const mockMatDialog = {
       open: () => { },
+    };
+    const mockCabsModalComponent = {};
+    const mockProviderModalComponent = {};
+    const mockAppEventService = {
+      subscribe: jest.fn()
     };
 
     await TestBed.configureTestingModule({
@@ -47,7 +53,11 @@ describe('HeaderComponent', () => {
         ClockService,
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: RouterModule, useClass: MockServices },
-        { provide: AlertService, useValue: toastrMock}
+        { provide: AlertService, useValue: toastrMock},
+        { provide: AddCabsModalComponent, useValue: mockCabsModalComponent },
+        { provide: AddProviderModalComponent, useValue: mockProviderModalComponent},
+        { provide: AppEventService, useValue: mockAppEventService},
+        {provide: Subscription, useValue: mockCabsModalComponent}
       ]
     }).compileComponents();
 
@@ -62,7 +72,9 @@ describe('HeaderComponent', () => {
 
   describe('ngOnInit()', () => {
     it('should change header title', async () => {
+      jest.spyOn(component['appEventService'], 'subscribe');
       component.ngOnInit();
+      expect(component['appEventService'].subscribe).toHaveBeenCalled()
       await fixture.ngZone.run(async () => {
         const router = TestBed.get(Router);
         await router.navigate(['admin/trips/pending']);
@@ -91,6 +103,27 @@ describe('HeaderComponent', () => {
       const logout = fixture.debugElement.nativeElement.querySelector('#logout');
       logout.click();
     }));
+
+    describe('handleAction', () => {
+      beforeEach(() => {
+        jest.spyOn(component.dialog, 'open');
+      });
+      it('should open a dialog if action is Adding a new cab', () => {
+        component.actionButton = 'Add a New Cab';
+        component.handleAction();
+        expect(component.dialog.open).toHaveBeenCalledWith(AddCabsModalComponent, {
+          'minHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '592px'
+        })
+      });
+
+      it('should open a dialog if action is Adding Provider', () => {
+        component.actionButton = 'Add Provider';
+        component.handleAction();
+        expect(component.dialog.open).toHaveBeenCalledWith(AddProviderModalComponent, {
+            'maxHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '620px',
+        });
+      });
+    });
   });
 });
 
