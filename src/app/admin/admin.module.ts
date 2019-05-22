@@ -58,6 +58,7 @@ import { ProvidersComponent } from './providers/providers.component';
 import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
 import { ProviderModalComponent } from './providers/provider-modal/provider-modal.component';
 import { AddProviderModalComponent } from './providers/add-provider-modal/add-provider-modal.component';
+import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/provider-filter.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { AddProviderModalComponent } from './providers/add-provider-modal/add-pr
     ProvidersComponent,
     ProviderCardComponent,
     ProviderModalComponent,
-    AddProviderModalComponent
+    AddProviderModalComponent,
+    ProviderFilterComponent
   ],
   imports: [
     CommonModule,

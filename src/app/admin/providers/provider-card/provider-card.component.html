@@ -1,6 +1,8 @@
 <div class="cab-card">
   <div class="card-header flex">
-    <span class="cab-name">{{name || 'No Name'}}</span>
+    <span class="cab-name"
+          routerLink="../providers/{{providerName}}/{{providerId}}">{{providerName || 'No Name'}}
+    </span>
     <button *ngIf="showMoreIcon" class="options flex-right" (click)="showMoreOptions()"></button>
   </div>
   <div class="card-body">

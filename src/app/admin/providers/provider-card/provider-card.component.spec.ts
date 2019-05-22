@@ -9,6 +9,7 @@ import { ProviderService } from '../../__services__/providers.service';
 import { AppEventService } from '../../../shared/app-events.service';
 import { AlertService } from '../../../shared/alert.service';
 import { ConfirmModalComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 const matDialogMock = {
@@ -45,9 +46,9 @@ describe('ProviderCardComponent', () => {
       providers: [{provide: MatDialog, useValue: matDialogMock},
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData }],
-      imports: [MatDialogModule, AppTestModule, BrowserAnimationsModule, NoopAnimationsModule],
-    })
-      .compileComponents();
+      imports: [
+        MatDialogModule, AppTestModule, BrowserAnimationsModule, NoopAnimationsModule, RouterTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -73,7 +74,7 @@ describe('ProviderCardComponent', () => {
   it('should open edit modal', () => {
     jest.spyOn(matDialogMock, 'open');
     component.openEditModal();
-    expect(matDialogMock.open).toHaveBeenCalled()
+    expect(matDialogMock.open).toHaveBeenCalled();
   });
 
   describe('Delete Provider', () => {
@@ -137,5 +138,5 @@ describe('ProviderCardComponent', () => {
       component.ngOnDestroy();
       expect(component.closeDialogSubscription.unsubscribe).toHaveBeenCalled();
     });
-  })
+  });
 });

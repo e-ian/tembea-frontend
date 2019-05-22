@@ -4,43 +4,59 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { CabInventoryModel } from 'src/app/shared/models/cab-inventory.model';
 import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 describe('CabInventoryService', () => {
-    let injector: TestBed;
-    let service: CabsInventoryService;
-    let httpMock: HttpTestingController;
-    const getCabsResponse = new CabInventoryModel().deserialize(getCabsMock)
+  let injector: TestBed;
+  let service: CabsInventoryService;
+  let httpMock: HttpTestingController;
+  const getCabsResponse = new CabInventoryModel().deserialize(getCabsMock);
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: []
-        });
-        injector = getTestBed();
-        service = injector.get(CabsInventoryService);
-        httpMock = injector.get(HttpClientTestingModule);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: []
     });
+    injector = getTestBed();
+    service = injector.get(CabsInventoryService);
+    httpMock = injector.get(HttpClientTestingModule);
+  });
 
-    describe('getCabs', () => {
-        it('should get all Cabs', () => {
-            let cabs;
-            jest.spyOn(service, 'getCabs').mockReturnValue(of(getCabsResponse));
+  describe('getCabs', () => {
+    it('should get all Cabs', () => {
+      const httpSpy = jest.spyOn(HttpClient.prototype, 'get');
+      httpSpy.mockReturnValue(of(getCabsResponse));
+      let cabs;
+      const result = service.getCabs(2, 2, 'name,asc,batch,asc', 1);
+      result.subscribe(value => {
+        cabs = value;
+        expect(cabs).toEqual(getCabsMock.cabs);
+      });
+    });
+  });
+  describe('addCab', () => {
+    it('should add a new cab', () => {
+      const httpSpy = jest.spyOn(HttpClient.prototype, 'post');
+      httpSpy.mockReturnValue(of(responseMock));
+      let cab;
+      const result = service.addCab(createCabMock)
+      result.subscribe(value => {
+        cab = value;
+        expect(cab).toEqual(responseMock);
+      });
+    });
+  });
 
-            service.getCabs(2, 2, 'name,asc,batch,asc').subscribe(value => {
-                cabs = value;
-            })
-            expect(cabs.cabs).toEqual(getCabsMock.cabs);
-        });
-    })
-    describe('addCab', () => {
-        it('should add a new cab', () => {
-            let cab;
-            jest.spyOn(service, 'addCab').mockReturnValue(of(responseMock));
-
-            service.addCab(createCabMock).subscribe(value => {
-                cab = value;
-            })
-            expect(cab).toEqual(responseMock);
-        });
-    })
-})
+  describe('deleteCab', () => {
+    it('should delete a cab', () => {
+      const httpSpy = jest.spyOn(HttpClient.prototype, 'delete');
+      httpSpy.mockReturnValue(of(responseMock));
+      let cab;
+      const result = service.deleteCab(1)
+      result.subscribe(value => {
+        cab = value;
+        expect(cab).toEqual(responseMock);
+      });
+    });
+  });
+});

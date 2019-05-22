@@ -1,104 +1,67 @@
 <div>
   <div class="loader" *ngIf="isLoading === true"></div>
 
-  <div *ngIf="cabs.length === 0  && !isLoading">
-    <app-empty-page [text]='displayText'></app-empty-page>
-    <div class="bottom-image"></div>
-  </div>
-
-
-  <div *ngIf="cabs.length > 0">
-    <div class="top-filter">
-      <div class="filter-item">
-        <p class="title">What Routes ?</p>
-        <div class="filter-selector-wrapper">
-          <button class="filter-selector-button active"><i class="filter-icon ic-filter-location"></i>
-              <select class="">
-                  <option class="active">All</option>
-                  <option>Route name 1</option>
-                  <option>Route name 2</option>
-                  <option>Route name 3</option>
-                  <option>Route name 4</option>
-                  <option>Route name 5</option>
-              </select>
-            </button>
-          <button class="filter-selector-button">Route-name</button>
-          <button class="filter-selector-button">Route-name</button>
-        </div>
+  <div>
+    <app-provider-filter></app-provider-filter>
+    <div *ngIf="cabs.length === 0  && !isLoading">
+      <app-empty-page [text]='displayText'></app-empty-page>
+      <div class="bottom-image"></div>
+    </div>
+    <div *ngIf="cabs.length > 0">
+      <div class="cabs-grid-container xl-width">
+        <mat-grid-list cols="4" rowHeight="145px">
+          <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
+            <app-cab-card
+              [id]="cab.id"
+              [model]="cab.model"
+              [regNumber]="cab.regNumber"
+              [capacity]="cab.capacity"
+              [hidden]="currentOptions !== ind"
+              [showMoreIcon]="true"
+              (showOptions)="showOptions(ind)"
+              (refreshWindow)="getCabsInventory()">
+            </app-cab-card>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
-      <div class="filter-item">
-        <p class="title">What Batch ?</p>
-        <div class="filter-selector-wrapper">
-          <button class="filter-selector-button active"><i class="filter-icon ic-filter-batch"></i>All Batches</button>
-          <button class="filter-selector-button">A</button>
-          <button class="filter-selector-button">B</button>
-        </div>
+      <div class="cabs-grid-container l-width">
+        <mat-grid-list cols="2" rowHeight="145px">
+          <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
+            <app-cab-card
+              [id]="cab.id"
+              [model]="cab.model"
+              [regNumber]="cab.regNumber"
+              [capacity]="cab.capacity"
+              [hidden]="currentOptions !== ind"
+              [showMoreIcon]="true"
+              (showOptions)="showOptions(ind)"
+              (refreshWindow)="getCabsInventory()">
+            </app-cab-card>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
-      <div class="filter-item">
-        <p class="title">What Capacity ?</p>
-        <div class="filter-selector-wrapper">
-          <button class="filter-selector-button active"><i class="filter-icon ic-filter-seats"></i>Random</button>
-          <button class="filter-selector-button">Least Seats</button>
-          <button class="filter-selector-button">Most Seats</button>
-        </div>
+      <div class="cabs-grid-container sm-width">
+        <mat-grid-list cols="1" rowHeight="145px">
+          <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
+            <app-cab-card
+              [id]="cab.id"
+              [model]="cab.model"
+              [regNumber]="cab.regNumber"
+              [capacity]="cab.capacity"
+              [hidden]="currentOptions !== ind"
+              [showMoreIcon]="true"
+              (showOptions)="showOptions(ind)"
+              (refreshWindow)="getCabsInventory()">
+            </app-cab-card>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
-    </div>
-
-    <div class="cabs-grid-container xl-width">
-      <mat-grid-list cols="4" rowHeight="145px">
-        <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-          <app-cab-card
-            [id]="cab.id"
-            [model]="cab.model"
-            [regNumber]="cab.regNumber"
-            [capacity]="cab.capacity"
-            [hidden]="currentOptions !== ind"
-            [showMoreIcon]="true"
-            (showOptions)="showOptions(ind)"
-            (refreshWindow)="getCabsInventory()">
-          </app-cab-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div>
-
-    <div class="cabs-grid-container l-width">
-      <mat-grid-list cols="2" rowHeight="145px">
-        <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-          <app-cab-card
-            [id]="cab.id"
-            [model]="cab.model"
-            [regNumber]="cab.regNumber"
-            [capacity]="cab.capacity"
-            [hidden]="currentOptions !== ind"
-            [showMoreIcon]="true"
-            (showOptions)="showOptions(ind)"
-            (refreshWindow)="getCabsInventory()">
-          </app-cab-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div>
-
-    <div class="cabs-grid-container sm-width">
-      <mat-grid-list cols="1" rowHeight="145px">
-        <mat-grid-tile *ngFor='let cab of cabs; index as ind' >
-          <app-cab-card
-            [id]="cab.id"
-            [model]="cab.model"
-            [regNumber]="cab.regNumber"
-            [capacity]="cab.capacity"
-            [hidden]="currentOptions !== ind"
-            [showMoreIcon]="true"
-            (showOptions)="showOptions(ind)"
-            (refreshWindow)="getCabsInventory()">
-          </app-cab-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div>
-    <div class="pagination">
-      <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="setPage($event)"
-        [pageSize]="pageSize"></app-pagination>
+      <div class="pagination">
+        <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" (pageChange)="setPage($event)"
+          [pageSize]="pageSize"></app-pagination>
+      </div>
     </div>
   </div>
 </div>

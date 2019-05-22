@@ -18,9 +18,9 @@ export class CabsInventoryService {
     private http: HttpClient,
   ) { }
 
-  getCabs(size: number, page: number, sort: string): Observable<CabInventoryModel> {
+  getCabs(size: number, page: number, sort: string, providerId: number): Observable<CabInventoryModel> {
     return this.http
-    .get<any>(`${this.cabsUrl}?sort=${sort}&size=${size}&page=${page}`)
+    .get<any>(`${this.cabsUrl}?sort=${sort}&size=${size}&page=${page}&providerId=${providerId}`)
     .map(cabs => {
       const cabInventoryModel = new CabInventoryModel().deserialize(cabs.data);
       return cabInventoryModel;

@@ -114,7 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleAction() {
     switch (this.actionButton) {
-      case 'Add a New Cab':
+      case 'Add a New Vehicle':
         this.dialog.open(AddCabsModalComponent, {
           minHeight: '568px',
           width: '592px',

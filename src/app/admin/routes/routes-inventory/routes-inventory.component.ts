@@ -54,8 +54,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getRoutesInventory();
     this.updateSubscription = this.appEventsService.subscribe('updateRouteInventory', () => {
-      this.getRoutesInventory()
-    })
+      this.getRoutesInventory();
+    });
   }
 
   getRoutesInventory = () => {
@@ -71,7 +71,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
       });
-  };
+  }
 
   getSearchResults = () => {
     this.isLoading = true;
@@ -86,7 +86,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
       });
-  };
+  }
 
   renameRouteBatches(routes) {
     let renamedBatches = routes;
@@ -94,7 +94,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       const renameBatchesObject = new RenameRouteBatch(routes, this.lastRoute);
       renamedBatches = renameBatchesObject.renameRouteBatches();
       this.lastRoute = renamedBatches[renamedBatches.length - 1];
-    };
+    }
     return renamedBatches;
   }
 
@@ -159,8 +159,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
         if (success) {
           this.alert.success(message);
           this.getRoutesInventory();
-        } else { this.alert.error(message) }
-      })
+        } else { this.alert.error(message); }
+      });
   }
 
   showDeleteModal(routeBatchId: number): void {
@@ -174,8 +174,8 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
       }
     });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.deleteRoute(routeBatchId)
-    })
+      this.deleteRoute(routeBatchId);
+    });
   }
 
   editRoute(index): void {
@@ -195,7 +195,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe()
+      this.updateSubscription.unsubscribe();
     }
   }
 }

@@ -14,25 +14,27 @@ import SubscriptionHelper from '../../../utils/unsubscriptionHelper';
 })
 export class ProviderCardComponent implements OnInit, OnDestroy {
   @Output() showOptions: EventEmitter<any> = new EventEmitter();
-  @Input() id: number;
   @Input() username: string;
-  @Input() name: string;
+  @Input() providerName: string;
   @Input() email: string;
   @Input() showMoreIcon: boolean;
   @Input() hidden: boolean;
+  @Input() providerId: number;
   confirmDeleteSubscription: any;
   closeDialogSubscription: any;
-  constructor(public dialog: MatDialog,
-              public providerService: ProviderService,
-              public alert: AlertService,
-              public appEventService: AppEventService ) { }
+
+  constructor(
+    public dialog: MatDialog,
+    public providerService: ProviderService,
+    public alert: AlertService,
+    public appEventService: AppEventService ) { }
 
   ngOnInit() { }
 
   openEditModal() {
     const dialogRef = this.dialog.open(ProviderModalComponent, {
       width: '620px', panelClass: 'small-modal-panel-class',
-      data: { name: this.name, email: this.email, id: this.id } });
+      data: { name: this.providerName, email: this.email, id: this.providerId } });
     dialogRef.afterClosed().subscribe(() => {
       this.hidden = !this.hidden;
     }); }
@@ -50,10 +52,10 @@ export class ProviderCardComponent implements OnInit, OnDestroy {
 
   showDeleteModal() {
     this.dialog.open(ConfirmModalComponent, {
-      data: { displayText: `delete provider ${this.name}  `, confirmText: 'Yes'}
+      data: { displayText: `delete provider ${this.providerName}  `, confirmText: 'Yes'}
     });
     this.confirmDeleteSubscription =  this.appEventService.subscribe('confirmProviderDelete', () => {
-      return this.deleteProvider(this.id);
+      return this.deleteProvider(this.providerId);
     });
     this.closeDialogSubscription = this.appEventService.subscribe('closeConfirmationDialog', () => {
       return this.hidden = !this.hidden;

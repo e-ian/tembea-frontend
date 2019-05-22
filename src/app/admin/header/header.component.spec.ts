@@ -108,8 +108,8 @@ describe('HeaderComponent', () => {
       beforeEach(() => {
         jest.spyOn(component.dialog, 'open');
       });
-      it('should open a dialog if action is Adding a new cab', () => {
-        component.actionButton = 'Add a New Cab';
+      it('should open a dialog if action is Adding a new Vehicle', () => {
+        component.actionButton = 'Add a New Vehicle';
         component.handleAction();
         expect(component.dialog.open).toHaveBeenCalledWith(AddCabsModalComponent, {
           'minHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '592px'

@@ -29,12 +29,12 @@ export class SearchService {
       .distinctUntilChanged()
       .switchMap(term => this.searchItems(routesQuery, term.trim()))
       .map(items => {
-        return items.data
+        return items.data;
       });
   }
 
   searchItems(resourceEndpoint, term): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${resourceEndpoint}${term}`, this.httpOptions)
+    return this.http.get<any>(`${this.baseUrl}${resourceEndpoint}${term}`, this.httpOptions);
   }
 
 }
