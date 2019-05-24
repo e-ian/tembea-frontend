@@ -95,7 +95,7 @@ export class ReturnExistingCabsComponent implements OnInit  {
     }
 
     getCabsInventory() {
-      this.cabService.getCabs(1000, 1, this.sort, null)
+      this.cabService.getCabs(1000, 1, this.sort, 1)
       .subscribe(cabsData => {
         const {
           cabs

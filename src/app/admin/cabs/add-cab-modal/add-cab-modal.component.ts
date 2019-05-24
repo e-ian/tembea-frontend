@@ -1,9 +1,10 @@
-import { Component, Output, EventEmitter, Inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Output, EventEmitter, Inject} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CabModel } from 'src/app/shared/models/cab-inventory.model';
 import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,17 +15,19 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 export class AddCabsModalComponent {
     loading: boolean;
     cabData: CabModel;
+    providerId: number;
 
     @Output() executeFunction = new EventEmitter();
 
     constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef <AddCabsModalComponent>,
         public cabService: CabsInventoryService,
         public alert: AlertService,
         private appEventService: AppEventService
     ) {
-        this.cabData = new CabModel('', '', '', '', '', '');
-     }
+        this.cabData = new CabModel('', '', '', '', '', '', null);
+    }
 
     closeDialog(): void {
         this.dialogRef.close();
@@ -32,6 +35,7 @@ export class AddCabsModalComponent {
 
     addCab(): void {
         this.loading = true;
+        this.cabData.providerId = this.data.providerId;
         this.cabService.addCab(this.cabData)
         .subscribe(
             (responseData) => {

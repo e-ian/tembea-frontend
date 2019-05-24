@@ -112,8 +112,8 @@ describe('HeaderComponent', () => {
         component.actionButton = 'Add a New Vehicle';
         component.handleAction();
         expect(component.dialog.open).toHaveBeenCalledWith(AddCabsModalComponent, {
-          'minHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '592px'
-        })
+          'data': { 'providerId': undefined }, 'minHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '592px'
+        });
       });
 
       it('should open a dialog if action is Adding Provider', () => {

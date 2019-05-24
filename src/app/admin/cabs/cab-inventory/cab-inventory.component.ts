@@ -82,7 +82,8 @@ export class CabInventoryComponent implements OnInit {
           content: {
             badgeSize: totalResults,
             actionButton: this.createVehicleText,
-            headerTitle: `${ this.providerName } Vehicles`
+            headerTitle: `${this.providerName} Vehicles`,
+            providerId: this.providerId
           }
         });
       },

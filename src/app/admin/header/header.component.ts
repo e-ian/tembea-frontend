@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public tooltipTitle: string;
   public badgeSize = 0;
   public actionButton = '';
+  public providerId: number;
   user: IUser;
   updateHeaderSubscription: Subscription;
   logoutModalSub: Subscription;
@@ -49,10 +50,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     this.updateHeaderSubscription = this.appEventService.subscribe('updateHeaderTitle', (data) => {
-      const { content: { headerTitle, badgeSize, actionButton, tooltipTitle } } = data;
+      const { content: { headerTitle, badgeSize, actionButton, tooltipTitle, providerId } } = data;
       this.headerTitle = headerTitle || this.headerTitle;
       this.tooltipTitle = tooltipTitle;
       this.badgeSize = badgeSize || 0;
+      this.providerId = providerId;
       this.actionButton = actionButton || this.actionButton;
     });
     this.logoutModalSub = this.appEventService.subscribe('SHOW_LOGOUT_MODAL', () => this.showLogoutModal.call(this));
@@ -114,20 +116,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleAction() {
     switch (this.actionButton) {
+      case 'Add Provider':
+        this.dialog.open(AddProviderModalComponent, {
+          maxHeight: '568px',
+          width: '620px',
+          panelClass: 'add-cab-modal-panel-class',
+        });
+        break;
       case 'Add a New Vehicle':
         this.dialog.open(AddCabsModalComponent, {
           minHeight: '568px',
           width: '592px',
           panelClass: 'add-cab-modal-panel-class',
+          data: {
+            providerId: this.providerId
+          }
         });
-        break;
-      case 'Add Provider':
-         this.dialog.open(AddProviderModalComponent, {
-          maxHeight: '568px',
-          width: '620px',
-          panelClass: 'add-cab-modal-panel-class',
-        });
-         break;
     }
   }
 }

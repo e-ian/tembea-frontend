@@ -1,7 +1,7 @@
 import { AddCabsModalComponent } from './add-cab-modal.component';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { of, Observable, throwError } from 'rxjs';
 
 import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
@@ -33,7 +33,9 @@ describe('AddCabsModalComponent', () => {
             providers: [
                 { provide: MatDialogRef, useValue: mockMatDialogRef },
                 { provide: CabsInventoryService, useValue: mockCabsInventoryService },
-                { provide: AlertService, useValue: mockAlert}
+                { provide: AlertService, useValue: mockAlert },
+                { provide: MAT_DIALOG_DATA, useValue: {} },
+
             ]
         })
         .compileComponents();

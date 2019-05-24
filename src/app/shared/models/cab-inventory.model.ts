@@ -18,16 +18,19 @@ export interface ICabInventory {
   driverPhoneNo?: string;
   location: string;
   model?: string;
+  providerId: number;
 }
 
 export class CabModel implements ICabInventory {
   constructor(
-      public regNumber: string,
-      public capacity: string,
-      public driverName: string,
-      public location: string,
-      public model: string,
-      public driverPhoneNo: string
+    public regNumber: string,
+    public capacity: string,
+    public driverName: string,
+    public location: string,
+    public model: string,
+    public driverPhoneNo: string,
+    public providerId: number
+
   ) {}
 }
 export interface IDeleteCabInventory {
