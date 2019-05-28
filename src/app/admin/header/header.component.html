@@ -31,6 +31,7 @@
           <span *ngIf="badgeSize >= 0" class="badge tooltips" data-title="Hypertext Markup Language">
             {{badgeSize}}
           <ng-template [ngIf]="badgeSize == 1" [ngIfElse]="moreThanOne">
+            <span *ngIf="headerTitle==='Route Requests'"> There is currently {{badgeSize}} route request in {{headerTitle}}</span>
             <span *ngIf="headerTitle === 'Routes Inventory'">There is currently {{badgeSize}} route in the {{headerTitle}}</span>
             <span *ngIf="headerTitle.includes('Trips')">There is currently {{badgeSize}} trip in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle.includes('Vehicles')">This provider currently has {{badgeSize}} vehicle</span>
@@ -43,6 +44,7 @@
           </ng-template>
           <ng-template #moreThanOne>
             <span *ngIf="headerTitle === 'Routes Inventory'">There are currently {{badgeSize}} routes in the {{headerTitle}}</span>
+            <span *ngIf="headerTitle === 'Route Requests'">There are currently {{badgeSize}} route requests in the {{headerTitle}}</span>
             <span *ngIf="headerTitle.includes('Trips')">There are currently {{badgeSize}} trips in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle.includes('Vehicles')">This provider currently has {{badgeSize}} vehicles</span>
             <span *ngIf="headerTitle === 'Providers'">There are currently {{badgeSize}} {{headerTitle}} in display</span>

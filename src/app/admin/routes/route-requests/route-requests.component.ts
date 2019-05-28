@@ -94,6 +94,10 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
     if (routeRequest) {
       this.getRequesterData(routeRequest.engagement.fellow.email);
     }
+    this.appEventService.broadcast({
+      name: 'updateHeaderTitle',
+      content: { badgeSize: val.length, headerTitle: 'Route Requests' }
+    })
   };
 
   private openDialogModal(decline?: boolean) {
