@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { FellowsService } from '../../__services__/fellows.service';
 import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
@@ -15,6 +15,7 @@ export class FellowsComponent implements OnInit {
   @Input() onOrOffRoute: string;
   @Input() showRemoveIcon: boolean;
   @Input() showAddIcon: boolean;
+  @Output() fellowsOnRouteEventEmitter = new EventEmitter();
   isLoading: boolean;
   fellows: ISerializedFellowDetail[];
   totalItems: number;
@@ -43,9 +44,9 @@ export class FellowsComponent implements OnInit {
         this.fellows = fellows.length && fellows.map(this.serializeFellow);
         this.totalItems = pageMeta.totalItems;
         this.isLoading = false;
-        this.appEventService.broadcast({
-          name: 'updateHeaderTitle',
-          content: { badgeSize: this.totalItems }
+        this.fellowsOnRouteEventEmitter.emit({
+          totalItems: this.totalItems,
+          onRoute: onRoute ? 'On Route' : 'Off Route'
         });
       },
       error => {
