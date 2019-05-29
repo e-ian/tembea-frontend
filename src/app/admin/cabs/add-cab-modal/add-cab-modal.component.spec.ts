@@ -81,12 +81,21 @@ describe('AddCabsModalComponent', () => {
         });
 
         it('should call alert.error when request fail with 409 conflict', () => {
-            const error = new MockError(409, 'A cab with the registration or phone number already exists');
+            const error = new MockError(409, 'A cab with the registration already exists');
             mockCabsInventoryService.addCab.mockReturnValue(throwError(error));
             jest.spyOn(component.alert, 'error');
             component.addCab();
             expect(component.alert.error).toHaveBeenCalledTimes(1);
-            expect(component.alert.error).toHaveBeenCalledWith('A cab with the registration or phone number already exists');
+            expect(component.alert.error).toHaveBeenCalledWith('A cab with the registration already exists');
         });
+
+      it('should call alert.error when request fail with 404', () => {
+        const error = new MockError(404, 'A cab with the registration does not exist');
+        mockCabsInventoryService.addCab.mockReturnValue(throwError(error));
+        jest.spyOn(component.alert, 'error');
+        component.addCab();
+        expect(component.alert.error).toHaveBeenCalledTimes(1);
+        expect(component.alert.error).toHaveBeenCalledWith('A cab with the registration does not exist');
+      });
     });
 });

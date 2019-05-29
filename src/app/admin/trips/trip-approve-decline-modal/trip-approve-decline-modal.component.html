@@ -7,10 +7,6 @@
   <form *ngIf="data.status === 0" #approveForm="ngForm" (ngSubmit)="confirm(approveForm.value)">
     <h1 class="heading-one">Confirm {{data.requesterFirstName | titlecase}}'s Trip</h1>
     <p class="message">Select an existing cab from the web</p>
-    <input type="text" class="form-input" (change)="clearFields($event)" (ngModel)="cabDetails" name="cabDetails"
-      placeholder="Choose a cab" aria-label="Number" matInput [matAutocomplete]="auto">
-    <app-return-existing-cabs optionValue="model" [approveForm]="approveForm" (clickedCabs)="clickedCabs($event)"
-      (emitAutoComplete)="setAuto($event)"></app-return-existing-cabs>
   </form>
   <form *ngIf="data.status === 0" #confirmForm="ngForm" (ngSubmit)="confirm(confirmForm.value)" novalidate>
     <p class="message">Driver Name</p>

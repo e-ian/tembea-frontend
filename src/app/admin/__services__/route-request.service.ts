@@ -14,11 +14,7 @@ import { AlertService } from '../../shared/alert.service';
 export class RouteRequestService {
   routesUrl = `${environment.tembeaBackEndUrl}/api/v1/routes`;
 
-  constructor(
-    private http: HttpClient,
-    public toastr: AlertService
-  ) {
-  }
+  constructor(private http: HttpClient, public toastr: AlertService) {}
 
   getAllRequests(): Observable<RouteRequest[]> {
     return this.http.get<{ routes: RouteRequest[] }>(`${this.routesUrl}/requests`)
@@ -37,7 +33,7 @@ export class RouteRequestService {
       .pipe(tap((data) => this.handleResponse(data, 'decline'), this.handleError));
   }
 
-  approveRequest(id: number, comment: string, routeDetails: IRouteDetails, email: string): Observable<any> {
+  approveRouteRequest(id: number, comment: string, routeDetails: IRouteDetails, email: string, provider: object): Observable<any> {
     return this.http.put(`${this.routesUrl}/requests/status/${id}`, {
       newOpsStatus: 'approve',
       comment: comment,
@@ -45,8 +41,7 @@ export class RouteRequestService {
       teamUrl: environment.teamUrl,
       routeName: routeDetails.routeName,
       takeOff: routeDetails.takeOff,
-      cabRegNumber: routeDetails.cabRegNumber,
-      capacity: routeDetails.capacity.toString(),
+      provider: provider,
     })
       .pipe(tap((data) => this.handleResponse(data, 'approve'), this.handleError));
   }

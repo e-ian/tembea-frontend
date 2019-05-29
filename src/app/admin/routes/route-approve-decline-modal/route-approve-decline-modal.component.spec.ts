@@ -1,16 +1,16 @@
+import { of } from 'rxjs';
+import { Injector } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 import { RouteApproveDeclineModalComponent } from './route-approve-decline-modal.component';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormsModule } from '@angular/forms';
 import { RouteRequestService } from '../../__services__/route-request.service';
 import { AppTestModule } from '../../../__tests__/testing.module';
-import { of } from 'rxjs';
-import { Injector } from '@angular/core';
 import { AppEventService } from '../../../shared/app-events.service';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
-import { ReturnExistingCabsComponent } from '../../trips/trip-approve-decline-modal/return-existing-cabs/return-existing-cabs.component';
+import {ProviderSelectorComponent} from './provider-selector/provider-selector.component';
 
 
 describe('RouteApproveDeclineModalComponent', () => {
@@ -24,7 +24,7 @@ describe('RouteApproveDeclineModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, AppTestModule, AngularMaterialModule],
-      declarations: [RouteApproveDeclineModalComponent, ReturnExistingCabsComponent],
+      declarations: [RouteApproveDeclineModalComponent, ProviderSelectorComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
       ]
@@ -50,7 +50,7 @@ describe('RouteApproveDeclineModalComponent', () => {
 
     jest.spyOn(authService, 'getCurrentUser').mockReturnValue({ email: '' });
     jest.spyOn(routeService, 'declineRequest').mockReturnValue(of({}));
-    jest.spyOn(routeService, 'approveRequest').mockReturnValue(of({}));
+    jest.spyOn(routeService, 'approveRouteRequest').mockReturnValue(of({}));
     jest.spyOn(appEventService, 'broadcast').mockImplementation();
   });
 
@@ -91,19 +91,47 @@ describe('RouteApproveDeclineModalComponent', () => {
     it('should change loading to true', () => {
       // @ts-ignore
       component.account = { email: 'AAA.BBB@CCC.DDD' };
+      component.selectedProvider = {
+        id: 1, name: 'Andela Kenya', providerUserId: 1, user: { slackId: 'NONE'}
+      };
       const appEventService = injector.get(AppEventService);
-
       component.approve({
         routeName: 'This route is beyond our acceptable limit',
         takeOff: '',
-        cabRegNumber: '',
-        capacity: ''
+        provider: '',
+        comment: ''
       });
 
       expect(component.loading).toBe(true);
-      expect(routeService.approveRequest).toHaveBeenCalledTimes(1);
+      expect(routeService.approveRouteRequest).toHaveBeenCalledTimes(1);
       expect(component.dialogRef.close).toHaveBeenCalledTimes(1);
       expect(appEventService.broadcast).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('clearRouteFields', () => {
+    it('should reset input fields to empty when cab model(input) is empty', () => {
+      component.approveForm = { form: { patchValue: jest.fn() } };
+      const event = { target: { value: '' } };
+      component.clearRouteFields(event);
+      expect(component.disableOtherInput).toEqual(false);
+      expect(component.approveForm.form.patchValue).toBeCalledTimes(1);
+    });
+  });
+
+  describe('clickedRouteProvider', () => {
+    const event = { click: { rawSample: 'UBE234A', sampleModel: 'Toyota'} };
+
+    it('should patch the input fields of the form once a cab has been clicked', () => {
+      component.approveForm = { form: { patchValue: jest.fn() } };
+      component.clickedRouteProviders(event);
+      expect(component.disableOtherInput).toEqual(true);
+      expect(component.approveForm.form.patchValue).toBeCalledTimes(1);
+    });
+
+    it('test set', () => {
+      component.setAuto(event);
+      expect(component.auto).toEqual(event);
     });
   });
 });

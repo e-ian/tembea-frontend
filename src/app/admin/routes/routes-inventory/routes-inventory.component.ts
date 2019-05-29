@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';

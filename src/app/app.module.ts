@@ -28,8 +28,8 @@ import { TripApproveDeclineModalComponent } from './admin/trips/trip-approve-dec
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AddCabsModalComponent } from './admin/cabs/add-cab-modal/add-cab-modal.component';
-import { ReturnExistingCabsComponent } from './admin/trips/trip-approve-decline-modal/return-existing-cabs/return-existing-cabs.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {ProviderSelectorComponent} from './admin/routes/route-approve-decline-modal/provider-selector/provider-selector.component';
 
 
 const toastr: Toastr = window['toastr'];
@@ -47,11 +47,11 @@ const toastr: Toastr = window['toastr'];
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
-    ReturnExistingCabsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ProviderSelectorComponent
   ],
   imports: [
-  FormsModule,
+    FormsModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -76,7 +76,7 @@ const toastr: Toastr = window['toastr'];
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
-    ReturnExistingCabsComponent
+    ProviderSelectorComponent
   ],
   bootstrap: [AppComponent]
 })

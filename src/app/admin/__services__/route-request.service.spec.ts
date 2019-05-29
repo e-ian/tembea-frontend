@@ -55,9 +55,7 @@ describe('RoutesService', () => {
       const mockResponse = {
         success: true,
         message: 'This route request has been updated',
-        data: {
-          id: 1
-        }
+        data: { id: 1 }
       };
 
       service.declineRequest(1, comment, reviewerEmail)
@@ -74,7 +72,6 @@ describe('RoutesService', () => {
       request.flush(mockResponse);
     });
     it('should tap and decline request error', (done) => {
-      // jest.spyOn(service, 'handleError').mockImplementation();
 
       const comment = 'some comment';
       const reviewerEmail = 'test@email.com';
@@ -98,39 +95,47 @@ describe('RoutesService', () => {
     });
   });
 
-  describe('approveRequest', () => {
+  describe('approveRouteRequest', () => {
     const routeDetails = {};
     const comment = 'some comment';
     const reviewerEmail = 'some@email.com';
     const { teamUrl } = environment;
+    const provider = { id: 1, name: 'Andela Kenya', providerUserId: 15};
+    const updatedRouteDetails = {
+      comment: 'some comment',
+      newOpsStatus: 'approve',
+      provider: { id: 1, name: 'Andela Kenya', providerUserId: 15 },
+      reviewerEmail: 'some@email.com',
+      routeName: 'Some route name',
+      takeOff: '2:30',
+      teamUrl: 'andela-tembea.slack.com'
+    };
+
     let mockResponse;
     beforeEach(() => {
       jest.spyOn(service, 'handleResponse').mockImplementation();
       routeDetails['routeName'] = 'Some route name';
       routeDetails['takeOff'] = '2:30';
-      routeDetails['cabRegNumber'] = 'KXXX XX0';
-      routeDetails['capacity'] = '1';
+      routeDetails['providerName'] = 'Rides';
 
       mockResponse = {
         success: true,
         message: 'This route request has been updated',
-        data: {
-          id: 1
-        }
+        data: { id: 1 }
       };
-
     });
-    it('should call handleApproveResponse', (done) => {
-      service.approveRequest(1, comment, routeDetails, reviewerEmail)
+
+    it('should call handleApproveRouteResponse', (done) => {
+      service.approveRouteRequest(1, comment, routeDetails, reviewerEmail, provider)
         .subscribe((result) => {
           expect(service.handleResponse).toHaveBeenCalledTimes(1);
-          expect(service.handleResponse).toHaveBeenCalledWith(result, 'approve');
+          expect(result.provider).toHaveBeenCalledWith(result, 'approve');
           done();
         });
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ ...routeDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
+      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
 
       request.flush(mockResponse);
 
@@ -138,7 +143,7 @@ describe('RoutesService', () => {
       done();
     });
     it('should tap and approve request error', (done) => {
-      service.approveRequest(1, comment, routeDetails, reviewerEmail)
+      service.approveRouteRequest(1, comment, routeDetails, reviewerEmail, provider)
         .subscribe(null, (result) => {
           expect(result.status).toEqual(400);
           expect(result.statusText).toEqual('Bad Request');
@@ -148,7 +153,7 @@ describe('RoutesService', () => {
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ ...routeDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
+      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
       request.flush('Server error', {
         status: 400,
         statusText: 'Bad Request'

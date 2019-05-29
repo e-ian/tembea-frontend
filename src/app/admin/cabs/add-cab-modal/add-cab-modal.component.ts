@@ -46,11 +46,15 @@ export class AddCabsModalComponent {
                 }
             },
             (error) => {
-                const errorMessage = (error && error.status  === 409) ?
-                'A cab with the registration or phone number already exists'
-                : 'Something went wrong, please try again';
-                this.alert.error(errorMessage)
+              if (error && error.status  === 409) {
+                const errorMsg =  'A cab with the registration already exists';
+                this.alert.error(errorMsg)
+              }
+              if (error && error.status  === 404) {
+                const errorMsg =  'A cab with the registration does not exist';
+                this.alert.error(errorMsg);
                 this.loading = false;
+              }
             }
         )
     }

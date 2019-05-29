@@ -1,39 +1,36 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
+import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { IRouteApprovalDeclineInfo, IRouteDetails } from '../../../shared/models/route-approve-decline-info.model';
 import { RouteRequestService } from '../../__services__/route-request.service';
 import { AppEventService } from '../../../shared/app-events.service';
-import { ICabInventory } from 'src/app/shared/models/cab-inventory.model';
-import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
-import { Observable, Subscription } from 'rxjs';
-import { NgForm } from '@angular/forms';
-import { startWith, map } from 'rxjs/operators';
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Component({
   templateUrl: 'route-approve-decline-modal.component.html',
   styleUrls: ['route-approve-decline-modal.component.scss']
 })
+
 export class RouteApproveDeclineModalComponent implements OnInit {
+  public values: any;
   public comment: string;
   public routeName: string;
   public capacity: number;
   public takeOff: string;
-  public cabRegNumber: string;
+  public providerName: string;
   public loading: boolean;
   private account: any;
+  public disableOtherInput = false;
+  public selectedProviderOption: any;
+  public selectedProvider: any;
   auto = null;
-
-
   @ViewChild('approveForm') approveForm: NgForm;
+
   constructor(
     public dialogRef: MatDialogRef<RouteApproveDeclineModalComponent>,
     public authService: AuthService,
     private routeService: RouteRequestService,
     private appEventService: AppEventService,
-    public mediaObserver: MediaObserver,
     @Inject(MAT_DIALOG_DATA) public data: IRouteApprovalDeclineInfo,
   ) {
 
@@ -50,11 +47,11 @@ export class RouteApproveDeclineModalComponent implements OnInit {
 
   approve(values): void {
     this.loading = true;
-    const { routeName, takeOff, cabRegNumber, capacity, comment } = values;
-    const routeDetails: IRouteDetails = { routeName, takeOff, cabRegNumber, capacity };
+    const { routeName, takeOff, capacity, comment } = values;
+    const routeDetails: IRouteDetails = { routeName, takeOff, capacity };
     const { data: { routeRequestId }, account: { email } } = this;
-
-    this.routeService.approveRequest(routeRequestId, comment, routeDetails, email)
+    delete this.selectedProvider.user.slackId;
+    this.routeService.approveRouteRequest(routeRequestId, comment, routeDetails, email, this.selectedProvider)
       .subscribe(() => {
         this.closeDialog();
         this.appEventService.broadcast({ name: 'updateRouteRequestStatus' });
@@ -72,7 +69,21 @@ export class RouteApproveDeclineModalComponent implements OnInit {
       });
   }
 
-setAuto(event) {
-  this.auto = event;
+  setAuto(event) {
+    this.auto = event;
+  }
+
+  clearRouteFields(event) {
+    const { value } = event.target;
+    if (value === '') {
+      this.disableOtherInput = false;
+      this.approveForm.form.patchValue(this.selectedProviderOption);
+    }
+  }
+
+  clickedRouteProviders (event) {
+    this.selectedProvider = event;
+    this.disableOtherInput = true;
+    this.approveForm.form.patchValue(event);
   }
 }

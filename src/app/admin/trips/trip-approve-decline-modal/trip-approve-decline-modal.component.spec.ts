@@ -9,10 +9,9 @@ import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from '../../../shared/app-events.service';
 import { TripApproveDeclineModalComponent } from './trip-approve-decline-modal.component';
 import { AngularMaterialModule } from '../../../angular-material.module';
-import { ReturnExistingCabsComponent } from './return-existing-cabs/return-existing-cabs.component';
 
 
-fdescribe('TripApproveDeclineModalComponent', () => {
+describe('TripApproveDeclineModalComponent', () => {
   let component: TripApproveDeclineModalComponent;
   let fixture: ComponentFixture<TripApproveDeclineModalComponent>;
   let injector: Injector;
@@ -23,7 +22,7 @@ fdescribe('TripApproveDeclineModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, AppTestModule, AngularMaterialModule],
-      declarations: [TripApproveDeclineModalComponent, ReturnExistingCabsComponent],
+      declarations: [TripApproveDeclineModalComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
 
@@ -104,28 +103,6 @@ fdescribe('TripApproveDeclineModalComponent', () => {
       expect(tripRequestService.declineRequest).toHaveBeenCalledTimes(1);
       expect(component.dialogRef.close).toHaveBeenCalledTimes(1);
       expect(appEventService.broadcast).toHaveBeenCalledTimes(1);
-    });
-  });
-  describe('clearFields', () => {
-    it('should reset input fileds to empty when cab model(input) is empty', () => {
-      component.confirmForm = { form: { patchValue: jest.fn() } };
-      const event = { target: { value: '' } };
-
-      component.clearFields(event);
-
-      expect(component.disableOtherInput).toEqual(false);
-      expect(component.confirmForm.form.patchValue).toBeCalledTimes(1);
-    });
-  });
-  describe('clickedCabs', () => {
-    it('should patch the input fields of the form once a cab has been clicked', () => {
-      const event = { click: { cabRegNumber: 'UBE234A', cabModel: 'Toyota'} }
-      component.confirmForm = { form: { patchValue: jest.fn() } };
-
-      component.clickedCabs(event);
-
-      expect(component.disableOtherInput).toEqual(true);
-      expect(component.confirmForm.form.patchValue).toBeCalledTimes(1);
     });
   });
 });
