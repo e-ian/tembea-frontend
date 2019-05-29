@@ -8,8 +8,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {AppEventService} from '../../../shared/app-events.service';
 
 
+const appEventService = new AppEventService();
 describe('CabInventoryComponent', () => {
   let component: CabInventoryComponent;
   let fixture: ComponentFixture<CabInventoryComponent>;
@@ -29,7 +31,8 @@ describe('CabInventoryComponent', () => {
       ],
       providers: [
         {provide: CabsInventoryService, useValue: cabsInventoryMock},
-        {provide: ActivatedRoute, useValue: activatedRouteMock }
+        {provide: ActivatedRoute, useValue: activatedRouteMock },
+        { provide: AppEventService, useValue: appEventService}
       ],
       imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -83,4 +86,30 @@ describe('CabInventoryComponent', () => {
       expect(component.loadCabs).toHaveBeenCalled();
     }));
   });
+  describe('tabChanged', () => {
+    it('should change to Drivers tab on click', () => {
+      const expected = {'content': {'actionButton': 'Add Driver',
+          'headerTitle': 'undefined Drivers', 'providerId': undefined}, 'name': 'updateHeaderTitle'}
+      const event = {
+        tab: { textLabel: 'Drivers' }
+      };
+      jest.spyOn(appEventService, 'broadcast');
+      component.tabChanged(event);
+      expect(appEventService.broadcast).toHaveBeenCalledWith(expected);
+
+    });
+    it('should change to Vehicles tab on click', () => {
+      const expected = {'content': {'actionButton': 'Add a New Vehicle',
+          'badgeSize': undefined, 'headerTitle': 'undefined Vehicles',
+          'providerId': undefined}, 'name': 'updateHeaderTitle'};
+      const event = {
+        tab: { textLabel: 'Vehicles' }
+      };
+      jest.spyOn(appEventService, 'broadcast');
+      component.tabChanged(event);
+      expect(appEventService.broadcast).toHaveBeenCalledWith(expected);
+
+    });
+
+  })
 });

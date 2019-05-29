@@ -59,6 +59,7 @@ import { ProviderCardComponent } from './providers/provider-card/provider-card.c
 import { ProviderModalComponent } from './providers/provider-modal/provider-modal.component';
 import { AddProviderModalComponent } from './providers/add-provider-modal/add-provider-modal.component';
 import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/provider-filter.component';
+import { DriverModalComponent } from './providers/driver-modal/driver-modal.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/pr
     ProviderCardComponent,
     ProviderModalComponent,
     AddProviderModalComponent,
-    ProviderFilterComponent
+    ProviderFilterComponent,
+    DriverModalComponent
   ],
   imports: [
     CommonModule,
@@ -126,7 +128,7 @@ import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/pr
   ],
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent,
-    DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent
+    DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
+import { environment } from '../../../environments/environment';
+import { CreateDriverModel} from '../../shared/models/driver.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,11 @@ export class ProviderService {
   add(data: Object): Observable<any> {
     return this.http.post<any>(this.providersUrl, {...data })
   }
+  addDriver(data: CreateDriverModel): Observable<any> {
+    const results = this.http.post(`${this.providersUrl}/drivers`, data);
+    return  results;
+  }
 }
+
+
+

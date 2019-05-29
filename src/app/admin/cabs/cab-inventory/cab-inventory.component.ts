@@ -100,4 +100,20 @@ export class CabInventoryComponent implements OnInit {
   showOptions(cabId) {
     this.currentOptions = this.currentOptions === cabId ? -1 : cabId;
   }
+  tabChanged(event) {
+    const { tab: { textLabel } } = event;
+    if (textLabel === 'Drivers') {
+      this.appEventsService.broadcast({
+        name: 'updateHeaderTitle', content:
+          { actionButton: 'Add Driver', providerId: this.providerId, headerTitle:
+              `${this.providerName} Drivers`, }
+      });
+    } else {
+      this.appEventsService.broadcast({
+        name: 'updateHeaderTitle', content:
+          { badgeSize: this.totalItems, actionButton: 'Add a New Vehicle', headerTitle:
+              `${this.providerName} Vehicles` }
+      });
+    }
+  }
 }

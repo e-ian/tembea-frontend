@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { ProviderService } from './providers.service';
 import {createProviderMock, providerResponseMock} from '../providers/add-provider-modal/__mocks__/add-provider.mocks';
 
+
 describe('ProvidersService', () => {
   let service: ProviderService;
   let httpMock: HttpTestingController;
@@ -73,7 +74,7 @@ describe('ProvidersService', () => {
       service.deleteProvider(1).subscribe(data => {
         expect(data).toEqual({});
       });
-    })
+    });
 
     describe('addProvider', () => {
       it('should add a new provider', () => {
@@ -92,5 +93,42 @@ describe('ProvidersService', () => {
         expect(HttpClient.prototype.post).toHaveBeenCalled();
       });
     });
+
+    describe('add Driver', () => {
+      const driverObject = {
+        driverPhoneNo: 45678,
+        driverName: 'Test User',
+        driverNumber: '1222333',
+        providerId: 1
+      };
+      const expected = {
+        success: true,
+        message: 'Driver successfully added',
+        data: driverObject };
+
+      it('should call http client post', () => {
+        jest.spyOn(HttpClient.prototype, 'post').mockImplementation(
+          () => {
+            return of({expected})
+          }
+        );
+        jest.spyOn(HttpClient.prototype, 'post').mockReturnValue(of({expected}));
+        service.addDriver(driverObject);
+        expect(HttpClient.prototype.post).toHaveBeenCalled();
+      });
+      it('should add a driver sucessfully', () => {
+        let response = null;
+        jest.spyOn(HttpClient.prototype, 'post').mockImplementation(
+          () => {
+            return of(expected)
+          }
+        );
+        jest.spyOn(HttpClient.prototype, 'post').mockReturnValue(of({expected}));
+        service.addDriver(driverObject).subscribe(data => {
+          response = data;
+        });
+        expect(response.expected).toEqual(expected);
+      })
+    })
   });
 });

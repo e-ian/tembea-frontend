@@ -9,19 +9,20 @@ import { MockError } from '../../cabs/add-cab-modal/__mocks__/add-cabs-mock';
 import { AppEventService } from '../../../shared/app-events.service';
 
 const appEventService = new AppEventService();
-const toastService = {
+export const toastService = {
   success: jest.fn(),
   info: jest.fn(),
   warning: jest.fn(),
   error: jest.fn()
 };
-const mockMatDialogRef = {
+export const mockMatDialogRef = {
   close: () => {},
 };
-const mockProviderService = {
-  editProvider: jest.fn()
+export const mockProviderService = {
+  editProvider: jest.fn(),
+  addDriver: jest.fn()
 };
-const successMock = {
+export const successMock = {
   success: true
 };
 describe('ProviderModalComponent', () => {

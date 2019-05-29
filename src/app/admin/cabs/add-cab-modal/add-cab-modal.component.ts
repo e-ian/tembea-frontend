@@ -4,7 +4,6 @@ import { CabModel } from 'src/app/shared/models/cab-inventory.model';
 import { CabsInventoryService } from '../../__services__/cabs-inventory.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({

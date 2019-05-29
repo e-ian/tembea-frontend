@@ -17,6 +17,7 @@ import { AlertService } from '../../shared/alert.service';
 import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.component';
 import {AddProviderModalComponent} from '../providers/add-provider-modal/add-provider-modal.component';
 import { AppEventService } from '../../shared/app-events.service';
+import { DriverModalComponent } from '../providers/driver-modal/driver-modal.component';
 class MockServices {
   public events = of(new NavigationEnd(0, '/', null));
 }
@@ -121,6 +122,14 @@ describe('HeaderComponent', () => {
         component.handleAction();
         expect(component.dialog.open).toHaveBeenCalledWith(AddProviderModalComponent, {
             'maxHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '620px',
+        });
+      });
+      it('should open a dialog if action is Adding Driver', () => {
+        component.actionButton = 'Add Driver';
+        component.handleAction();
+        expect(component.dialog.open).toHaveBeenCalledWith(DriverModalComponent, {
+          'minHeight': '568px', 'panelClass': 'add-cab-modal-panel-class', 'width': '592px',
+          data: { providerId: undefined }
         });
       });
     });

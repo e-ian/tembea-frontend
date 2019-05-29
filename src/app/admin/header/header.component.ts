@@ -14,6 +14,7 @@ import { IUser } from '../../shared/models/user.model';
 import { AppEventService } from '../../shared/app-events.service';
 import { AddCabsModalComponent } from '../cabs/add-cab-modal/add-cab-modal.component';
 import {AddProviderModalComponent} from '../providers/add-provider-modal/add-provider-modal.component';
+import { DriverModalComponent } from '../providers/driver-modal/driver-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: IUser;
   updateHeaderSubscription: Subscription;
   logoutModalSub: Subscription;
-
   constructor(
     private navItem: NavMenuService,
     public dialog: MatDialog,
@@ -38,8 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private appEventService: AppEventService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
@@ -113,25 +112,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     }
   }
-
   handleAction() {
+    const openModal = (Modal) => {
+      this.dialog.open(Modal, {
+        minHeight: '568px', width: '592px', panelClass: 'add-cab-modal-panel-class',
+        data: { providerId: this.providerId }
+      });
+    };
     switch (this.actionButton) {
       case 'Add Provider':
         this.dialog.open(AddProviderModalComponent, {
-          maxHeight: '568px',
-          width: '620px',
-          panelClass: 'add-cab-modal-panel-class',
-        });
+          maxHeight: '568px', width: '620px', panelClass: 'add-cab-modal-panel-class', });
         break;
       case 'Add a New Vehicle':
-        this.dialog.open(AddCabsModalComponent, {
-          minHeight: '568px',
-          width: '592px',
-          panelClass: 'add-cab-modal-panel-class',
-          data: {
-            providerId: this.providerId
-          }
-        });
+        openModal(AddCabsModalComponent);
+        break;
+      case 'Add Driver':
+        openModal(DriverModalComponent);
+        break;
     }
   }
 }
