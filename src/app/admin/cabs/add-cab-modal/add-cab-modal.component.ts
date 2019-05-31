@@ -25,7 +25,7 @@ export class AddCabsModalComponent {
         public alert: AlertService,
         private appEventService: AppEventService
     ) {
-        this.cabData = new CabModel('', '', '', '', '', '', null);
+        this.cabData = new CabModel('', '', '', null);
     }
 
     closeDialog(): void {

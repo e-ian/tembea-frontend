@@ -10,19 +10,6 @@
       <div class="single-field">
         <div class="field single">
           <div class="input-group">
-            <label for="driverName">What's the Driver's Name?</label>
-            <input required [(ngModel)]="cabData.driverName" id="driverName" name="driverName" pattern="^[a-zA-Z\s]+$"
-              [class.is_invalid]="driverName.invalid && driverName.touched" #driverName="ngModel" />
-            <div *ngIf="driverName.errors && (driverName.touched && driverName.invalid)">
-              <small class="text-danger" *ngIf="driverName?.errors.required">Driver's Name is required</small>
-              <small class="text-danger" *ngIf="driverName?.errors.pattern">please provide a valid Driver's Name</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="single-field">
-        <div class="field single">
-          <div class="input-group">
             <label for="regNumber">Vehicle Registration Number?</label>
             <input required placeholder="FKJ-38298" [(ngModel)]="cabData.regNumber" id="regNumber" name="regNumber"
               pattern="^[a-zA-Z][A-Za-z0-9- ,]+$" [class.is_invalid]="regNumber.invalid && regNumber.touched"
@@ -45,35 +32,6 @@
             <div *ngIf="model.errors && (model.touched && model.invalid)">
               <small class="text-danger" *ngIf="model?.errors.required">Vehicle Model is required</small>
               <small class="text-danger" *ngIf="model?.errors.pattern">please provide a valid Vehicle Model</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="single-field">
-        <div class="field single">
-          <div class="input-group">
-            <label for="driverPhoneNo">What's the Driver's Phone Number?</label>
-            <input required [(ngModel)]="cabData.driverPhoneNo" placeholder="08283849383" id="driverPhoneNo"
-              name="driverPhoneNo" pattern="^[0-9\s,+-]+$"
-              [class.is_invalid]="driverPhoneNo.invalid && driverPhoneNo.touched" #driverPhoneNo="ngModel" />
-            <div *ngIf="driverPhoneNo.errors && (driverPhoneNo.touched && driverPhoneNo.invalid)">
-              <small class="text-danger" *ngIf="driverPhoneNo?.errors.required">Driver's Phone Number is
-                required</small>
-              <small class="text-danger" *ngIf="driverPhoneNo?.errors.pattern">please provide a valid Driver's Phone
-                Number</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="single-field">
-        <div class="field single">
-          <div class="input-group">
-            <label for="location">Location</label>
-            <input required [(ngModel)]="cabData.location" placeholder="Nairobi" id="location" name="location"
-              pattern="^[a-zA-Z\s]+$" [class.is_invalid]="location.invalid && location.touched" #location="ngModel" />
-            <div *ngIf="location.errors && (location.touched && location.invalid)">
-              <small class="text-danger" *ngIf="location?.errors.required">Location is required</small>
-              <small class="text-danger" *ngIf="location?.errors.pattern">please provide a valid location</small>
             </div>
           </div>
         </div>
