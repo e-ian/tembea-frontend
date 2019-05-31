@@ -105,7 +105,6 @@ jobs:
       - *persist_to_workspace
 
   docker_and_deploy:
-    type: approval
     docker:
       - image: gcr.io/$GCP_PROJECT_ID/tembea-ci-image
         auth:
@@ -163,6 +162,7 @@ workflows:
             - test_and_report
           <<: *filters
       - docker_and_deploy:
+          type: approval
           requires:
             - checkout_code
             - test_and_report
