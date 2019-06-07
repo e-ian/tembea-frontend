@@ -19,9 +19,12 @@ export class TripApproveDeclineModalComponent implements OnInit {
   public cols = 3;
   public rowHeight: any = '3:1';
   public disableOtherInput = false;
+  public providerName: string;
+
+  public selectedCabOption = {driverName: '', driverPhoneNo: '', regNumber: ''};
   auto = null;
   @ViewChild('approveForm') approveForm: NgForm;
-  @ViewChild('confirmForm') confirmForm;
+  selectedProviderId: any;
 
   constructor(
     public dialogRef: MatDialogRef<TripApproveDeclineModalComponent>,
@@ -43,6 +46,7 @@ export class TripApproveDeclineModalComponent implements OnInit {
   }
 
   confirm(values) {
+    values.selectedProviderId = this.selectedProviderId;
     this.loading = true;
     const {tripId} = this.data;
     this.tripRequestService.confirmRequest(tripId, values)
@@ -61,5 +65,23 @@ export class TripApproveDeclineModalComponent implements OnInit {
         this.closeDialog();
         this.appEventService.broadcast({name: 'reInitializeTripRequest'});
       });
+  }
+
+  setAuto(event) {
+    this.auto = event;
+  }
+
+  clearFields(event) {
+    const {value} = event.target;
+    if (value === '') {
+      this.disableOtherInput = false;
+      this.approveForm.form.patchValue(this.selectedCabOption);
+    }
+  }
+
+  clickedProviders(event) {
+    this.selectedProviderId = event.providerUserId;
+    this.disableOtherInput = true;
+    this.approveForm.form.patchValue(event);
   }
 }

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import { Injector } from '@angular/core';
 import { of } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -9,6 +9,7 @@ import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from '../../../shared/app-events.service';
 import { TripApproveDeclineModalComponent } from './trip-approve-decline-modal.component';
 import { AngularMaterialModule } from '../../../angular-material.module';
+import {ProviderSelectorComponent} from '../../routes/route-approve-decline-modal/provider-selector/provider-selector.component';
 
 
 describe('TripApproveDeclineModalComponent', () => {
@@ -22,7 +23,7 @@ describe('TripApproveDeclineModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, AppTestModule, AngularMaterialModule],
-      declarations: [TripApproveDeclineModalComponent],
+      declarations: [TripApproveDeclineModalComponent, ProviderSelectorComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
 
@@ -105,4 +106,36 @@ describe('TripApproveDeclineModalComponent', () => {
       expect(appEventService.broadcast).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('clearFields', () => {
+    beforeEach(() => {
+      component.approveForm = new NgForm([], []);
+      jest.spyOn(component.approveForm.form, 'patchValue');
+
+    });
+    it('should not disable other inputs and patch form value' , () => {
+      const event = {
+        target: {
+          value: ''
+        }
+      };
+
+      component.clearFields(event);
+      expect(component.disableOtherInput).toBeFalsy();
+      expect(component.approveForm.form.patchValue).toHaveBeenCalled();
+    })
+  });
+
+  describe('clickedProviders', () => {
+    it('should disable inputs, set providerId and patch form value ',  () => {
+      const event = {
+        providerUserId: 1
+      };
+      component.approveForm = new NgForm([], []);
+      component.clickedProviders(event);
+      expect(component.selectedProviderId).toEqual(event.providerUserId);
+      expect(component.disableOtherInput).toEqual(true);
+      expect(component.disableOtherInput).toBeTruthy();
+    });
+  })
 });

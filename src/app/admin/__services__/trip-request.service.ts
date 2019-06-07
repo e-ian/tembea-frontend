@@ -66,12 +66,13 @@ export class TripRequestService {
       );
   }
 
-  confirmRequest(tripId: number, values: any): Observable<any> {
+  confirmRequest(tripId: number, values: any, ): Observable<any> {
+    const isAssignProvider = true
     const queryParam = 'confirm'
     const { teamUrl: slackUrl } = environment;
-    const { driverName, driverPhoneNo, regNumber, model, capacity, comment } = values;
+    const { comment, selectedProviderId } = values;
     return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
-      comment, driverName, driverPhoneNo, regNumber, model, capacity, slackUrl
+      comment, slackUrl, isAssignProvider, selectedProviderId
     })
       .pipe(tap((data) => this.handleResponse(data, 'confirm'), this.handleError));
   }

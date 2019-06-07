@@ -89,7 +89,7 @@ export class ProviderSelectorComponent implements OnInit {
     this.clickedProviders.emit(option);
   }
 
-  setOption (option) {
+  setOption(option) {
     return option[this.optionValue];
   }
 

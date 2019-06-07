@@ -125,9 +125,8 @@ describe('Trip Request Service', () => {
 
   describe('confirmRequest', () => {
     const values = {
-      driverName: 'Jack',
-      driverPhoneNo: '090837378373',
-      regNumber: 'JIE 930',
+      isAssignProvider: true,
+      selectedProviderId : 16,
       comment: 'This trip is confirm'
     };
     const mockResponse = {
