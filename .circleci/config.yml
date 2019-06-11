@@ -161,9 +161,14 @@ workflows:
             - checkout_code
             - test_and_report
           <<: *filters
-      - docker_and_deploy:
+      - approve_deployment:
           type: approval
           requires:
+            - build_artifacts
+          <<: *filters
+      - docker_and_deploy:
+          requires:
+            - approve_deployment
             - checkout_code
             - test_and_report
             - build_artifacts
