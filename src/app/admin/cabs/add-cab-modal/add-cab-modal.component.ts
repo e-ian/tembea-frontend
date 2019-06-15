@@ -7,55 +7,79 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 
 
 @Component({
-    templateUrl: './add-cab-modal.component.html',
-    styleUrls: ['./add-cab-modal.component.scss']
+  templateUrl: './add-cab-modal.component.html',
+  styleUrls: ['./add-cab-modal.component.scss']
 })
 
 export class AddCabsModalComponent {
-    loading: boolean;
-    cabData: CabModel;
-    providerId: number;
+  loading: boolean;
+  cabData: CabModel;
+  providerId: number;
+  modalHeader: string;
 
-    @Output() executeFunction = new EventEmitter();
+  @Output() executeFunction = new EventEmitter();
 
-    constructor(
-        @Inject(MAT_DIALOG_DATA) public data: any,
-        public dialogRef: MatDialogRef <AddCabsModalComponent>,
-        public cabService: CabsInventoryService,
-        public alert: AlertService,
-        private appEventService: AppEventService
-    ) {
-        this.cabData = new CabModel('', '', '', null);
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef <AddCabsModalComponent>,
+    public cabService: CabsInventoryService,
+    public alert: AlertService,
+    private appEventService: AppEventService
+  ) {
+    this.cabData = this.data;
+    this.modalHeader = this.cabData.id ? 'Edit' : 'Add a';
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+ response(responseData, action = 'newCab'): void {
+  if (responseData.success) {
+    this.alert.success(responseData.message);
+    this.appEventService.broadcast({ name: 'newCab' });
+    this.loading = false;
+    this.closeDialog();
+  }
+ }
+
+  addCab(): void {
+    if (this.cabData.id) {
+      return this.editCab(this.cabData);
     }
+    this.loading = true;
+    this.cabData.providerId = this.data.providerId;
+    this.cabService.addCab(this.cabData)
+    .subscribe(
+      (responseData) => this.response(responseData),
+      (error) => {
+        this.displayError(error);
+      }
+    )
+  }
+  editCab(cab: CabModel) {
+    const { id } = cab;
+    this.loading = true;
+    this.cabService.updateCab( cab, id).subscribe(
+      responseData => this.response(responseData, 'updateCab'),
+      error => {
+        this.displayError(error);
+      }
+    );
+  }
 
-    closeDialog(): void {
-        this.dialogRef.close();
+  displayError(error: any) {
+    const { status } = error ;
+    this.loading = false;
+    switch (status) {
+      case 409:
+        this.alert.error('A cab with the registration already exists');
+        break;
+      case 404:
+        this.alert.error('A cab with the registration does not exist');
+        break;
+      default:
+        this.alert.error(error.message);
     }
-
-    addCab(): void {
-        this.loading = true;
-        this.cabData.providerId = this.data.providerId;
-        this.cabService.addCab(this.cabData)
-        .subscribe(
-            (responseData) => {
-                if (responseData.success) {
-                    this.alert.success(responseData.message);
-                    this.appEventService.broadcast({ name: 'newCab' });
-                    this.loading = false;
-                    this.dialogRef.close();
-                }
-            },
-            (error) => {
-              if (error && error.status  === 409) {
-                const errorMsg =  'A cab with the registration already exists';
-                this.alert.error(errorMsg)
-              }
-              if (error && error.status  === 404) {
-                const errorMsg =  'A cab with the registration does not exist';
-                this.alert.error(errorMsg);
-                this.loading = false;
-              }
-            }
-        )
-    }
+  }
 }

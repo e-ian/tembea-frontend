@@ -1,5 +1,5 @@
 import { CabsInventoryService } from '../cabs-inventory.service';
-import { responseMock, getCabsMock, createCabMock } from '../../cabs/add-cab-modal/__mocks__/add-cabs-mock';
+import { responseMock, getCabsMock, createCabMock, updateCabMock, updateResponse } from '../../cabs/add-cab-modal/__mocks__/add-cabs-mock';
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { CabInventoryModel } from 'src/app/shared/models/cab-inventory.model';
@@ -43,6 +43,20 @@ describe('CabInventoryService', () => {
       result.subscribe(value => {
         cab = value;
         expect(cab).toEqual(responseMock);
+      });
+    });
+  });
+
+  describe('updateCab', () => {
+    it('should add a new cab', () => {
+      const httpSpy = jest.spyOn(HttpClient.prototype, 'put');
+      httpSpy.mockReturnValue(of(responseMock));
+      let cab;
+      const { id } = updateCabMock;
+      const result = service.updateCab(updateCabMock, id)
+      result.subscribe(value => {
+        cab = value;
+        expect(cab).toEqual(updateResponse);
       });
     });
   });

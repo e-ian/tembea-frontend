@@ -15,15 +15,16 @@ export interface ICabInventory {
   regNumber: string;
   model?: string;
   providerId: number;
+  capacity: number;
 }
 
 export class CabModel implements ICabInventory {
   constructor(
+    public id: number,
     public regNumber: string,
-    public capacity: string,
+    public capacity: number,
     public model: string,
-    public providerId: number
-
+    public providerId: number,
   ) {}
 }
 export interface IDeleteCabInventory {

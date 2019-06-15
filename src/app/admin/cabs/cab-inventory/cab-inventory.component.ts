@@ -52,6 +52,9 @@ export class CabInventoryComponent implements OnInit {
     this.updateSubscription = this.appEventsService.subscribe(
       'newCab', () => this.getCabsInventory.call(this)
     );
+    this.updateSubscription = this.appEventsService.subscribe(
+      'updateCab', () => this.getCabsInventory.call(this)
+    );
   }
 
   getCabsInventory (): void {

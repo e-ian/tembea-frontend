@@ -6,7 +6,7 @@
   </div>
   <div class="form-container">
     <form #addForm="ngForm" (ngSubmit)="addCab()">
-      <span class="modal-title">Add a Vehicle</span>
+      <span class="modal-title">{{ modalHeader }} Vehicle</span>
       <div class="single-field">
         <div class="field single">
           <div class="input-group">
@@ -28,7 +28,7 @@
           <div class="input-group">
             <label for="model">What's the Vehicle Model?</label>
             <input required [(ngModel)]="cabData.model" placeholder="Toyota Corolla" id="model" name="model"
-              pattern="^[^-\s][a-zA-Z0-9\s]+$" [class.is_invalid]="model.invalid && model.touched" #model="ngModel" />
+              pattern="^[^-\s][a-zA-Z0-9-_\s]+$" [class.is_invalid]="model.invalid && model.touched" #model="ngModel" />
             <div *ngIf="model.errors && (model.touched && model.invalid)">
               <small class="text-danger" *ngIf="model?.errors.required">Vehicle Model is required</small>
               <small class="text-danger" *ngIf="model?.errors.pattern">please provide a valid Vehicle Model</small>

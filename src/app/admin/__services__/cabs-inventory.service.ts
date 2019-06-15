@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { CabInventoryModel } from 'src/app/shared/models/cab-inventory.model';
+import { CabInventoryModel, CabModel } from 'src/app/shared/models/cab-inventory.model';
 import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -28,6 +28,10 @@ export class CabsInventoryService {
   }
   addCab(data: Object): Observable<any> {
     return this.http.post<any>(this.cabsUrl, {...data});
+  }
+
+  updateCab(data: CabModel, id: number): Observable<any> {
+    return this.http.put(`${this.cabsUrl}/${id}`, data , this.httpOptions);
   }
 
   deleteCab(id: number) {
