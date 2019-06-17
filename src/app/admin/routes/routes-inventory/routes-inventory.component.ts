@@ -13,6 +13,7 @@ import { AppEventService } from 'src/app/shared/app-events.service';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
 import { Subject } from 'rxjs';
 import { SearchService } from '../../__services__/search.service';
+import { getDialogProps } from 'src/app/utils/generic-helpers';
 
 @Component({
   selector: 'app-inventory',
@@ -103,19 +104,15 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     return this.sendRequestToServer(id);
   }
 
-  showCopyConfirmModal(route: any) {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      width: '592px',
-      backdropClass: 'modal-backdrop',
-      panelClass: 'small-modal-panel-class',
-      data: {
-        confirmText: 'Yes',
-        displayText: 'copy this route'
-      }
-    });
+  showDialog(displayText: string, func: any, value: any) {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, getDialogProps(displayText));
     dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.copyRoute(route);
+      func(value);
     });
+  }
+
+  showCopyConfirmModal(route: any) {
+    this.showDialog('copy this route', this.copyRoute, route);
   }
 
   async sendRequestToServer(data) {
@@ -164,18 +161,7 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   }
 
   showDeleteModal(routeBatchId: number): void {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      width: '592px',
-      backdropClass: 'modal-backdrop',
-      panelClass: 'small-modal-panel-class',
-      data: {
-        confirmText: 'Yes',
-        displayText: 'delete this batch'
-      }
-    });
-    dialogRef.componentInstance.executeFunction.subscribe(() => {
-      this.deleteRoute(routeBatchId);
-    });
+    this.showDialog('delete this batch', this.deleteRoute, routeBatchId);
   }
 
   editRoute(index): void {

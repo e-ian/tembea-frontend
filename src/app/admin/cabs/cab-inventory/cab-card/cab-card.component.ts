@@ -1,8 +1,12 @@
 import { createDialogOptions } from './../../../../utils/helpers';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { DeleteCabModalComponent } from 'src/app/admin/cabs/cab-inventory/delete-cab-dialog/delete-cab-dialog.component';
 import { AddCabsModalComponent } from '../../add-cab-modal/add-cab-modal.component';
+import { IDeleteCabInventory } from 'src/app/shared/models/cab-inventory.model';
+import { CabsInventoryService } from 'src/app/admin/__services__/cabs-inventory.service';
+import { AlertService } from 'src/app/shared/alert.service';
+import { openDialog } from 'src/app/utils/generic-helpers';
+
 
 @Component({
   selector: 'app-cab-card',
@@ -11,7 +15,10 @@ import { AddCabsModalComponent } from '../../add-cab-modal/add-cab-modal.compone
 })
 export class CabCardComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    public cabService: CabsInventoryService,
+    public alert: AlertService,
+    ) { }
 
   @Output() refreshWindow = new EventEmitter();
   @Output() showOptions: EventEmitter<any> = new EventEmitter();
@@ -24,18 +31,22 @@ export class CabCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  showCabDeleteModal() {
-    const dialogRef = this.dialog.open(DeleteCabModalComponent, createDialogOptions({
-      cab: {
-        id: this.id,
-        model: this.model,
-        regNumber: this.regNumber,
-        capacity: this.capacity
+  delete(cabId: number) {
+    this.cabService.deleteCab(cabId).subscribe((response: IDeleteCabInventory) => {
+      const { success, message } = response;
+      if (success) {
+        this.alert.success(message);
+        this.refreshWindow.emit();
+      } else {
+        this.alert.error(message);
       }
-    }, '620px', 'delete-cab-modal'));
+    });
+  }
 
-    dialogRef.componentInstance.refresh.subscribe(() => {
-      this.refreshWindow.emit();
+  showCabDeleteModal(cabId: number) {
+    const dialogReference = openDialog(this.dialog, 'delete this cab');
+    dialogReference.componentInstance.executeFunction.subscribe(() => {
+      this.delete(cabId);
     });
   }
 
