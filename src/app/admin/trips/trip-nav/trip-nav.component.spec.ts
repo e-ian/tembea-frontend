@@ -73,6 +73,13 @@ describe('TripNavComponent', () => {
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
   });
+  it('should send an Awaiting Provider message', () => {
+    component.data = { awaitingProvider : { totalItems: 4 } };
+    event.tab.textLabel = 'Awaiting Provider';
+    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.awaitingProvider.totalItems };
+    component.getSelectedTab(event);
+    expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
+  });
   it('should send a default all broadcast message if event not found', () => {
     component.data = { all: { totalItems: 4 } };
     event.tab.textLabel = 'mmmm';

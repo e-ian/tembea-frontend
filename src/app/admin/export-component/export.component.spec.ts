@@ -89,5 +89,19 @@ describe('ExportComponent', () => {
 
       expect(toastSpy).toBeCalledWith('Failed to download. Try Again!');
     });
+
+    it('should not call exportService when on the awaiting providers page', async (() => {
+      const exportSpy = jest.spyOn(component.exportService, 'exportData').mockReturnValue(of(''));
+      const toastInfoSpy = jest.spyOn(component.toastr, 'info');
+      const clearToastSpy = jest.spyOn(component.toastr, 'clear');
+
+      component.tableName = 'awaitingProvider';
+      fixture.detectChanges();
+      component.exportToPDFOrCSV('pdf');
+
+      expect(exportSpy).toBeCalledTimes(0);
+      expect(clearToastSpy).toBeCalledTimes(1);
+      expect(toastInfoSpy).toBeCalledWith('Ooops! This feature has not been implemented for this table yet. Check back soon!');
+    }));
   });
 });

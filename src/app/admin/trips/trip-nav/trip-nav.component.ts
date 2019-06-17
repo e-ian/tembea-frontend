@@ -30,6 +30,9 @@ export class TripNavComponent implements OnInit {
       case 'Upcoming Trips':
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.upcomingTrips.totalItems };
         break;
+      case 'Awaiting Provider':
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.awaitingProvider.totalItems };
+        break;
       default:
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems };
         break;

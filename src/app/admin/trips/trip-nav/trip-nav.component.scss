@@ -18,10 +18,48 @@
 .mat-ink-bar {
   color: #3359DB  !important;
   min-width: 25px !important;
-  background-color: #3359DB  !important;
+  background-color: rgb(202, 209, 230)  !important;
 }
 
-.mat-tab-header{
+.mat-tab-header {
   width: 50%;
-margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+/* Styles common to the tabs pages on trips section */
+.trip-itinerary-table {
+  margin-bottom: 2rem;
+  padding: 10px;
+  width: auto;
+  display: block;
+}
+
+.trip-table-head {
+  color: #808FA3;
+  text-align: left;
+  border-top-left-radius: .5em;
+  border-top-right-radius: .5em;
+  border-top: 1px solid rgba(0, 0, 0, .05);
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.trip-buttons-section {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.trip-table-head {
+  p {
+    font-size: 14px;
+  }
+}
+
+.trip-table-body  {
+  cursor: pointer;
+  .mat-grid-tile {
+    font-size: 14px;
+    text-align: left;
+    justify-content: start;
+  }
+  text-align: left;
 }

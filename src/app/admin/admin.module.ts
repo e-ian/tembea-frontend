@@ -66,6 +66,7 @@ import { DriverCardComponent } from './drivers/driver-card/driver-card.component
 import { BaseInventoryComponent } from './base-inventory/base-inventory.component';
 import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/delete-driver-dialog.component';
 import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edit-modal.component';
+import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/trip-awaiting-provider.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edi
     DriverCardComponent,
     BaseInventoryComponent,
     DeleteDriverDialogComponent,
-    DriverEditModalComponent
+    DriverEditModalComponent,
+    TripAwaitingProviderComponent
   ],
   imports: [
     CommonModule,

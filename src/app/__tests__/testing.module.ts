@@ -10,6 +10,8 @@ import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { AisService } from '../admin/__services__/ais.service';
 import { AlertService } from '../shared/alert.service';
+import { ConvertTimePipe } from '../admin/__pipes__/convert-time.pipe';
+import { ShortenNamePipe } from '../admin/__pipes__/shorten-name.pipe';
 
 @NgModule({
   providers: [

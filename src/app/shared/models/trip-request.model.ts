@@ -8,6 +8,12 @@ export enum TripStatus {
   CONFIRMED = 'Confirmed',
 }
 
+export interface IProvider {
+  name: string;
+  phoneNumber: string;
+  email: string;
+}
+
 export class TripRequest  implements Deserializable<TripRequest>  {
   constructor(
     public id?: number,
@@ -28,6 +34,8 @@ export class TripRequest  implements Deserializable<TripRequest>  {
     public operationsComment?: string,
     public managerComment?: string,
     public distance?: string,
+    public approvalDate?: string,
+    public provider?: IProvider
   ) {
   }
   deserialize(input: any): TripRequest {

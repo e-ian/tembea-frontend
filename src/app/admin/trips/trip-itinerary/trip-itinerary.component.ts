@@ -42,6 +42,8 @@ export class TripItineraryComponent implements OnInit {
   @Output()
   tripTotalEventEmitter = new EventEmitter();
 
+  noCab = false;
+
   constructor(
     private tripRequestService: TripRequestService,
     private appEventService: AppEventService,
@@ -54,7 +56,7 @@ export class TripItineraryComponent implements OnInit {
   }
 
   ngOnInit() {
-    switch (this.tripRequestType ) {
+    switch (this.tripRequestType) {
       case 'declinedTrips':
         this.state = 'Declined';
         this.status = 'DeclinedByOps';
@@ -64,6 +66,11 @@ export class TripItineraryComponent implements OnInit {
         break;
       case 'upcomingTrips':
         this.status = 'Confirmed';
+        break;
+      case 'awaitingProvider':
+        this.noCab = true;
+        this.status = null;
+        this.tripType = null;
         break;
       case 'all':
         this.status = null;
@@ -83,7 +90,7 @@ export class TripItineraryComponent implements OnInit {
 
   getTrips(status = 'Confirmed') {
     const { page, pageSize: size, departmentName: department, dateFilters } = this;
-    this.tripRequestService.query({ page, size, status, department, type: this.tripType, dateFilters })
+    this.tripRequestService.query({ page, size, status, department, type: this.tripType, dateFilters, noCab: this.noCab })
       .subscribe(tripData => {
         const { pageInfo, trips } = tripData;
         this.tripRequests = trips;
