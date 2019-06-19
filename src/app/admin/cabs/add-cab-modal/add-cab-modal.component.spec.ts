@@ -25,7 +25,7 @@ describe('AddCabsModalComponent', () => {
   const mockAlert = {
       success: jest.fn(),
       error: jest.fn()
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -80,7 +80,7 @@ describe('TripApproveDeclineModalComponent', () => {
         driverPhoneNo: '0908377848383',
         regNumber: 'HJD 345',
         comment: 'This trip is acceptable'
-      }
+      };
       const appEventService = injector.get(AppEventService);
 
       component.confirm(values);
@@ -123,7 +123,7 @@ describe('TripApproveDeclineModalComponent', () => {
       component.clearFields(event);
       expect(component.disableOtherInput).toBeFalsy();
       expect(component.approveForm.form.patchValue).toHaveBeenCalled();
-    })
+    });
   });
 
   describe('clickedProviders', () => {
@@ -137,5 +137,5 @@ describe('TripApproveDeclineModalComponent', () => {
       expect(component.disableOtherInput).toEqual(true);
       expect(component.disableOtherInput).toBeTruthy();
     });
-  })
+  });
 });

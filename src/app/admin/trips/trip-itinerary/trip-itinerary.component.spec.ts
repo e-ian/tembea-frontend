@@ -57,7 +57,7 @@ describe('TripItineraryComponent', () => {
     fixture = TestBed.createComponent(TripItineraryComponent);
     component = fixture.componentInstance;
     tripRequestService = fixture.debugElement.injector.get(TripRequestService);
-    component.tripRequestType = 'all'
+    component.tripRequestType = 'all';
     fixture.detectChanges();
   });
 
@@ -83,7 +83,7 @@ describe('TripItineraryComponent', () => {
 
  describe('ngOnInit', () => {
    it('should get trips and department', () => {
-     component.tripRequestType = 'all'
+     component.tripRequestType = 'all';
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
@@ -102,7 +102,7 @@ describe('TripItineraryComponent', () => {
 
  describe('declinedTrips', () => {
    it('should get declinedTrips and department', () => {
-     component.tripRequestType = 'declinedTrips'
+     component.tripRequestType = 'declinedTrips';
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
@@ -111,7 +111,7 @@ describe('TripItineraryComponent', () => {
 
  describe('pastTrips', () => {
    it('should get pastTrips and department', () => {
-     component.tripRequestType = 'pastTrips'
+     component.tripRequestType = 'pastTrips';
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
@@ -137,18 +137,18 @@ describe('TripItineraryComponent', () => {
       component.setDateFilter('requestedOn', 'before', '2019-03-03');
 
       expect(getTripsSpy).toBeCalledTimes(1);
-      expect(component.dateFilters.requestedOn).toEqual({before: '2019-03-03'})
-    })
+      expect(component.dateFilters.requestedOn).toEqual({before: '2019-03-03'});
+    });
 
     it('should return empty date if date is lower than current date', () => {
-      component.tripRequestType = 'upcomingTrips'
+      component.tripRequestType = 'upcomingTrips';
       const getTripsSpy = jest.spyOn(component, 'getTrips')
       .mockImplementation(jest.fn());
       component.setDateFilter('requestedOn', 'before', '2018-03-03');
 
       expect(getTripsSpy).toBeCalledTimes(1);
-      expect(component.dateFilters.requestedOn).toEqual({})
-    })
+      expect(component.dateFilters.requestedOn).toEqual({});
+    });
   });
 
   describe('setFilterParams', () => {
@@ -166,8 +166,8 @@ describe('TripItineraryComponent', () => {
         dateFilters: {
           requestedOn: '2022-12-21', departureTime: '2023-12-21'
         }
-      })
-    })
+      });
+    });
   });
 
   describe('departmentSelected', () => {
@@ -175,22 +175,22 @@ describe('TripItineraryComponent', () => {
       const getTripsSpy = jest.spyOn(component, 'getTrips');
       component.departmentSelected('(click)');
       expect(component.departmentName).toEqual('(click)');
-      expect(getTripsSpy).toHaveBeenCalled()
+      expect(getTripsSpy).toHaveBeenCalled();
     });
   });
 
   describe('Up Coming Trips', () => {
    it('should get upcomingTrips and department', () => {
-     component.tripRequestType = 'upcomingTrips'
+     component.tripRequestType = 'upcomingTrips';
      component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();
     });
-  })
+  });
   describe('view Trip Description', () => {
     it('should show decription of a trip when clicked', () => {
       component.viewTripDescription(tripInfo);
       expect(mockMatDialog.open).toBeCalledTimes(1);
     });
-  })
+  });
 });

@@ -359,6 +359,6 @@ describe('RoutesInventoryComponent', () => {
       component.ngOnDestroy();
 
       expect(component.updateSubscription.unsubscribe).toBeCalledTimes(1);
-    })
-  })
+    });
+  });
 });

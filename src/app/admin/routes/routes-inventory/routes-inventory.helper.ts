@@ -1,19 +1,19 @@
 import { IRouteInventory } from '../../../shared/models/route-inventory.model';
 
 class RenameRouteBatch {
-  routesList: Array<any>
-  renamedBatches = []
-  sameRoute = []
-  newCharArray = []
-  batchLetter: string
-  lastRoute: IRouteInventory
+  routesList: Array<any>;
+  renamedBatches = [];
+  sameRoute = [];
+  newCharArray = [];
+  batchLetter: string;
+  lastRoute: IRouteInventory;
 
   constructor(
     routes: Array<any>,
     lastRoute
   ) {
-    this.routesList = [...routes]
-    this.lastRoute = lastRoute
+    this.routesList = [...routes];
+    this.lastRoute = lastRoute;
   }
 
   nextLetter(letter) {
@@ -21,23 +21,23 @@ class RenameRouteBatch {
   }
 
   incrementChar(batchString) {
-    const lastChar = batchString[batchString.length - 1]
-    const remString = batchString.slice(0, batchString.length - 1)
+    const lastChar = batchString[batchString.length - 1];
+    const remString = batchString.slice(0, batchString.length - 1);
     const newChar = lastChar === undefined ? 'A' : this.nextLetter(lastChar);
-    this.newCharArray.unshift(newChar)
+    this.newCharArray.unshift(newChar);
     if (lastChar === 'Z') {
-      return this.incrementChar(remString)
+      return this.incrementChar(remString);
     }
-    const newBatchString = remString + [...this.newCharArray].join('')
-    this.newCharArray = []
+    const newBatchString = remString + [...this.newCharArray].join('');
+    this.newCharArray = [];
     return newBatchString;
   }
 
   isSameBatch(sameBatch, routeBatch) {
     if (routeBatch && (sameBatch.name === routeBatch.name)) {
-      return sameBatch.takeOff === routeBatch.takeOff
+      return sameBatch.takeOff === routeBatch.takeOff;
     }
-    return false
+    return false;
   }
 
   updateBatches() {

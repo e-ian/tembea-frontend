@@ -67,8 +67,8 @@ export class TripRequestService {
   }
 
   confirmRequest(tripId: number, values: any, ): Observable<any> {
-    const isAssignProvider = true
-    const queryParam = 'confirm'
+    const isAssignProvider = true;
+    const queryParam = 'confirm';
     const { teamUrl: slackUrl } = environment;
     const { comment, selectedProviderId } = values;
     return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
@@ -78,7 +78,7 @@ export class TripRequestService {
   }
 
   declineRequest(tripId: number, comment: string): Observable<any> {
-    const queryParam = 'decline'
+    const queryParam = 'decline';
     const { teamUrl: slackUrl } = environment;
     return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
       comment, slackUrl
@@ -88,7 +88,7 @@ export class TripRequestService {
 
   handleError = () => {
     this.toastr.error('Something did not work right there.');
-  };
+  }
 
   handleResponse = (data, status: 'confirm' | 'decline') => {
     if (data.success) {
@@ -96,7 +96,7 @@ export class TripRequestService {
     } else {
       this.toastr.error(`Could not ${status} request`);
     }
-  };
+  }
 }
 
 

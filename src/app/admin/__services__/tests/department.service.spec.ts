@@ -16,7 +16,7 @@ describe('DepartmentsService', () => {
   };
 
   const getDepartmentsResponse = new DepartmentsModel()
-    .deserialize(getDepartmentsMock)
+    .deserialize(getDepartmentsMock);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -47,12 +47,12 @@ describe('DepartmentsService', () => {
           expect(pageMeta.pageSize).toEqual(2);
         });
       const url2 = `${environment.tembeaBackEndUrl}/api/v1/departments?size=1&page=2`;
-      const mockDepartments: TestRequest = httpMock.expectOne(url2)
+      const mockDepartments: TestRequest = httpMock.expectOne(url2);
 
       expect(mockDepartments.request.method).toEqual('GET');
       mockDepartments.flush(getDepartmentsResponse);
     });
-  })
+  });
 
   describe('Add Departments', () => {
     it('should http request to post Departments', () => {
@@ -63,26 +63,26 @@ describe('DepartmentsService', () => {
           slackUrl: 'ASE32YL',
           location: 'Nairobi'
         }
-      }
+      };
       const spy = jest.spyOn(HttpClient.prototype, 'post');
       spy.mockReturnValue(of({ success: true }));
       const result = service.add(department);
       result.subscribe( data => {
         expect(data.success).toEqual(true);
-      })
+      });
     });
-  })
+  });
 
   describe('deleteDepartment', () => {
     it('should make http request to delete department by Id', () => {
       const spy = jest.spyOn(HttpClient.prototype, 'delete');
       spy.mockReturnValue(of(deleteResponseMock));
-      const result = service.delete(1)
+      const result = service.delete(1);
       result.subscribe(data => {
         expect(data).toEqual(deleteResponseMock);
       });
       expect(JSON.stringify(result)).toEqual(JSON.stringify(of(deleteResponseMock)));
-    })
+    });
   });
 
   describe('updateDepartment', () => {
@@ -90,14 +90,14 @@ describe('DepartmentsService', () => {
       const spy = jest.spyOn(HttpClient.prototype, 'put');
       const updateResponseMock = {
         success: true
-      }
+      };
       spy.mockReturnValue(of({ success: true }));
       const result = service.update('abc', 'Launchpad', 'barak', 'Lagos');
       result.subscribe(data => {
         expect(data).toEqual(updateResponseMock);
       });
       expect(JSON.stringify(result)).toEqual(JSON.stringify(of(updateResponseMock)));
-    })
+    });
   });
 
 });

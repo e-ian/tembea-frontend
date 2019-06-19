@@ -11,7 +11,7 @@ export const environment = {
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
   teamUrl: 'andela-tembea.slack.com',
   googMapsAPIKey: 'AIzaSyDT1bJDksmdUa0221cLtjq36p9GidNa110',
-  BUGSNAG_API_KEY: 'your glory my savior'
+  BUGSNAG_API_KEY: 'your glory my savior',
 };
 
 /*

@@ -57,14 +57,14 @@ describe('ExportComponent', () => {
 
     it('should call toastr with an error if error is caught in subscribe', () => {
       jest.spyOn(component.exportService, 'exportData')
-        .mockReturnValue(throwError (new Error()))
+        .mockReturnValue(throwError (new Error()));
       const toastSpy = jest.spyOn(component.toastr, 'error');
 
       component.exportToPDFOrCSV('pdf');
 
       expect(toastSpy).toBeCalledWith('Failed to download. Try Again!');
-    })
-  })
+    });
+  });
 
   describe('exportToPDFOrCSV', () => {
     it('should call exportService', async (() => {
@@ -88,6 +88,6 @@ describe('ExportComponent', () => {
       component.exportToPDFOrCSV('csv');
 
       expect(toastSpy).toBeCalledWith('Failed to download. Try Again!');
-    })
-  })
-})
+    });
+  });
+});

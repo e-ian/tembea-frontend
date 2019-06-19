@@ -94,10 +94,10 @@ describe('ProvidersComponent', () => {
     });
 
     it('should show options', () => {
-      component.currentOptions = 1
+      component.currentOptions = 1;
       component.showOptions(-1);
-      expect(component.currentOptions).toEqual(-1)
-    })
+      expect(component.currentOptions).toEqual(-1);
+    });
   });
 
   describe('getProvidersData', () => {
@@ -142,5 +142,5 @@ describe('ProvidersComponent', () => {
       component.ngOnDestroy();
       expect(component.deleteSubscription.unsubscribe).toHaveBeenCalled();
     });
-    })
+    });
   });

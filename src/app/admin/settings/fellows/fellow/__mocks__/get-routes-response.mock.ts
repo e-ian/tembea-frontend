@@ -158,7 +158,7 @@ export const FellowProcessedDataMock = {
             'userAttendStatus': 'NotConfirmed'
         }
     ]
-}
+};
 
 export const FellowErrorDataMock = {
     data: {
@@ -170,5 +170,5 @@ export const FellowErrorDataMock = {
         totalResults: 0,
         pageSize: 1,
     }
-}
+};
 

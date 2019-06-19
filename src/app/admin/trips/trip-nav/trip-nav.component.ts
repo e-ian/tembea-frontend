@@ -19,19 +19,19 @@ export class TripNavComponent implements OnInit {
     let broadcastPayload = {};
     switch (event.tab.textLabel) {
       case 'Past Trips':
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.pastTrips.totalItems }
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.pastTrips.totalItems };
         break;
       case 'All Trips':
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems }
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems };
         break;
       case 'Declined Trips':
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.declinedTrips.totalItems }
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.declinedTrips.totalItems };
         break;
       case 'Upcoming Trips':
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.upcomingTrips.totalItems }
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.upcomingTrips.totalItems };
         break;
       default:
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems }
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems };
         break;
     }
     this.appEventService.broadcast({ name: 'updateHeaderTitle', content: broadcastPayload });

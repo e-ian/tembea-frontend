@@ -14,7 +14,7 @@ export const responseMock = {
     updatedAt: '2019-04-14T10:22:01.291Z',
     createdAt: '2019-04-14T10:22:01.291Z'
   }
-}
+};
 
 export const createCabMock = {
   driverName: 'Ahmed',
@@ -23,7 +23,7 @@ export const createCabMock = {
   capacity: '7',
   model: 'Lamborghini Aventador S LP 740-4 Roadster',
   location: 'Lagos',
-}
+};
 
 export const getCabsMock = {
   pageMeta: {
@@ -80,8 +80,8 @@ export const updateResponse = {
     model: 'subaru',
     deletedAt: null,
     providerId: 1
-    }
-}
+  }
+};
 
 export class MockError extends Error {
   error: any;
@@ -89,6 +89,6 @@ export class MockError extends Error {
     super(message);
     this.error = {
         message
-    }
+    };
   }
 }

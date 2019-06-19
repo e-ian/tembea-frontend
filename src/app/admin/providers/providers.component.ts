@@ -72,7 +72,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
       });
-  };
+  }
 
   getProvidersData = () => {
     this.isLoading = true;
@@ -96,7 +96,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       }
     );
     this.currentOptions = -1;
-  };
+  }
 
   setPage(page: number): void {
     this.pageNo = page;

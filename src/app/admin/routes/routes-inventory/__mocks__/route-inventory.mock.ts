@@ -27,7 +27,7 @@ export const routesMock = [
     driverPhoneNo: '+23480232',
     regNumber: 'WEK123'
   }
-]
+];
 
 export const editMockPayload = {
   success: true,
@@ -40,4 +40,4 @@ export const editMockPayload = {
     status: 'Inactive',
     takeOff: '22:00'
   }
-}
+};

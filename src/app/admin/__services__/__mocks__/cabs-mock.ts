@@ -27,6 +27,6 @@ const getCabsResponseMock = {
             deletedAt: null
         }
     ]
-}
+};
 
 export default getCabsResponseMock;

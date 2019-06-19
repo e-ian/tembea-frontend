@@ -24,7 +24,7 @@ describe('RoutesInventoryEditModalComponent', () => {
     info: jest.fn(),
     warning: jest.fn(),
     error: jest.fn()
-  }
+  };
 
   let data;
 
@@ -61,13 +61,13 @@ describe('RoutesInventoryEditModalComponent', () => {
     fixture.detectChanges();
     data = {
       id: 1
-    }
+    };
   });
 
   afterEach(() => {
     jest.resetAllMocks();
-    jest.restoreAllMocks()
-  })
+    jest.restoreAllMocks();
+  });
 
 describe('initial load', () => {
   it('should create', () => {
@@ -87,24 +87,24 @@ describe('closedialog', () => {
 describe('editRoute', () => {
 
   it('should call changeRouteStatus', () => {
-    mockRouteInventoryService.changeRouteStatus.mockReturnValue(of(editMockPayload))
+    mockRouteInventoryService.changeRouteStatus.mockReturnValue(of(editMockPayload));
     component.editRoute(editMockPayload);
     expect(component.routeService.changeRouteStatus).toHaveBeenCalledTimes(1);
   });
 
   it('should call AlertService.success upon successfull edit', () => {
-    mockRouteInventoryService.changeRouteStatus.mockReturnValue(of(editMockPayload))
+    mockRouteInventoryService.changeRouteStatus.mockReturnValue(of(editMockPayload));
     jest.spyOn(component.alert, 'success');
     component.editRoute(data);
     expect(component.alert.success).toHaveBeenCalledTimes(1);
   });
 
   it('should call AlertService.error upon unsuccessfull edit', () => {
-    const mockError = Observable.create(observer => observer.error(new Error('Not working')))
+    const mockError = Observable.create(observer => observer.error(new Error('Not working')));
     mockRouteInventoryService.changeRouteStatus.mockReturnValue(mockError);
     jest.spyOn(component.alert, 'error');
     component.editRoute(data);
     expect(component.alert.error).toHaveBeenCalledTimes(1);
   });
-})
+});
 });

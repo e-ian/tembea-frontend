@@ -88,7 +88,7 @@ describe('DepartmentsComponent', () => {
     jest.spyOn(departmentsServiceMock, 'get');
     fixture.detectChanges();
     expect(fixture.componentInstance.departments.length).toBe(4);
-  }))
+  }));
 
   it('should render actions button', async(() => {
     departmentComponent.getDepartments();
@@ -133,7 +133,7 @@ describe('DepartmentsComponent', () => {
       const buttons = fixture.debugElement.queryAll(By.css('.edit-icon'));
       buttons[0].triggerEventHandler('click', null);
       expect(dialogSpy).toBeCalledTimes(1);
-    })
+    });
   });
 
   describe('addDepartment', () => {
@@ -145,8 +145,8 @@ describe('DepartmentsComponent', () => {
       const buttons = fixture.debugElement.queryAll(By.css('.fab'));
       buttons[0].triggerEventHandler('click', null);
       expect(dialogSpy).toBeCalledTimes(1);
-    })
-  })
+    });
+  });
 
 
   describe('showDeleteModal', () => {
@@ -165,7 +165,7 @@ describe('DepartmentsComponent', () => {
   describe('deleteDepartment', () => {
     it('should delete a department success response from http call', () => {
       const departmentSpy = jest.spyOn(departmentComponent, 'getDepartments');
-      const deleteSpy = jest.spyOn(departmentsServiceMock, 'delete')
+      const deleteSpy = jest.spyOn(departmentsServiceMock, 'delete');
       departmentComponent.getDepartments();
       fixture.detectChanges();
 

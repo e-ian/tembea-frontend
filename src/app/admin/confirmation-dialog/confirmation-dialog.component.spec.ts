@@ -17,7 +17,7 @@ describe('ConfirmModalComponent', () => {
       displayText: 'display data',
       confirmText: 'yes'
     }
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

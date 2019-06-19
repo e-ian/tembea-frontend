@@ -32,7 +32,7 @@ export class ExportComponent {
         await fileSaver.saveAs(blob, `${this.tableName}.${fileType}`);
         this.toastr.success(`Success! ${this.tableName}.${fileType} downloaded!`);
       }, () => {
-        this.toastr.error('Failed to download. Try Again!')
+        this.toastr.error('Failed to download. Try Again!');
       });
   }
 }

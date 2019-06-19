@@ -5,7 +5,7 @@ describe('ConvertTimePipe', () => {
 
   beforeEach(() => {
     pipe = new ConvertTimePipe();
-  })
+  });
   it('create an instance', () => {
     expect(pipe).toBeTruthy();
   });

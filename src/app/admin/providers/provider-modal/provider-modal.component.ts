@@ -36,8 +36,8 @@ export class ProviderModalComponent implements OnInit {
         }
       }, error => {
         this.loading = false;
-        this.toastService.error(error.error.message)
-      } )
+        this.toastService.error(error.error.message);
+      } );
   }
 
   closeDialog(): void {

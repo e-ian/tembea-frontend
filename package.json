@@ -65,10 +65,13 @@
     "commitplease": "^3.2.0",
     "concurrently": "^4.1.0",
     "cypress": "^3.1.4",
+    "husky": "^2.4.1",
     "jest": "^23.6.0",
+    "lint-staged": "^8.2.1",
+    "ng-lint-staged": "^0.1.6",
     "ngx-cypress-builder": "^1.0.2",
     "ts-node": "~7.0.0",
-    "tslint": "^5.13.0",
+    "tslint": "^5.17.0",
     "typescript": "~3.1.1"
   },
   "commitplease": {
@@ -92,5 +95,19 @@
       "text",
       "lcov"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "ignore": [],
+    "linters": {
+      "src/**/*.ts": [
+        "ng-lint-staged lint --fix --",
+        "git add"
+      ]
+    }
   }
 }

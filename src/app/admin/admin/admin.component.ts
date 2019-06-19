@@ -3,7 +3,7 @@ import { MatIconRegistry, MatSidenav, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Event as RouterEvent, Router, NavigationEnd } from '@angular/router';
-import { Subscription, interval } from 'rxjs'
+import { Subscription, interval } from 'rxjs';
 import { NavMenuService } from '../__services__/nav-menu.service';
 import * as mainRoutes from './main-routes.json';
 import { HeaderComponent } from '../header/header.component';
@@ -96,23 +96,25 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
       this.iconRegistry.addSvgIcon(item.name,
         this.sanitizer.bypassSecurityTrustResourceUrl(item.url));
     });
-  };
+  }
 
   createMediaWatcher = () => {
-    this.watcher = this.media.media$.subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
-        this.navMenuService.close();
-        this.position = 'over';
-      } else {
-        this.navMenuService.open();
-        this.position = 'side';
-      }
+    this.watcher = this.media.asObservable().subscribe((changes: MediaChange[]) => {
+      changes.map(change => {
+        if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
+          this.navMenuService.close();
+          this.position = 'over';
+        } else {
+          this.navMenuService.open();
+          this.position = 'side';
+        }
+      });
     });
-  };
+  }
 
   menuClicked = (shouldCloseWhenClicked) => {
     if (this.position === 'over' && shouldCloseWhenClicked) {
       this.navMenuService.close();
     }
-  };
+  }
 }

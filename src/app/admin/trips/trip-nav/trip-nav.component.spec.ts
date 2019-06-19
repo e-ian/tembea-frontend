@@ -48,35 +48,35 @@ describe('TripNavComponent', () => {
     });
     it('should send a past trips broadcast message', () => {
       component.data = { pastTrips: { totalItems: 4 } };
-      const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.pastTrips.totalItems }
+      const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.pastTrips.totalItems };
       component.getSelectedTab(event);
       expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
     });
     it('should send a All Trips broadcast message', () => {
       component.data = { all: { totalItems: 4 } };
       event.tab.textLabel = 'All Trips';
-      const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.all.totalItems }
+      const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.all.totalItems };
       component.getSelectedTab(event);
       expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
     });
   it('should send a Declined Trips broadcast message', () => {
     component.data = { declinedTrips: { totalItems: 4 } };
     event.tab.textLabel = 'Declined Trips';
-    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.declinedTrips.totalItems }
+    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.declinedTrips.totalItems };
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
   });
   it('should send a Upcoming Trips broadcast message', () => {
     component.data = { upcomingTrips: { totalItems: 4 } };
     event.tab.textLabel = 'Upcoming Trips';
-    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.upcomingTrips.totalItems }
+    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.upcomingTrips.totalItems };
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
   });
   it('should send a default all broadcast message if event not found', () => {
     component.data = { all: { totalItems: 4 } };
     event.tab.textLabel = 'mmmm';
-    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.all.totalItems }
+    const broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: component.data.all.totalItems };
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
   });

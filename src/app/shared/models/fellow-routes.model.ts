@@ -1,10 +1,10 @@
 import { Deserializable } from './deserializable.model';
 
 interface FRouteMeta {
-  pageNo?: number
-  itemsPerPage?: number
-  totalPages?: number
-  totalItems?: number
+  pageNo?: number;
+  itemsPerPage?: number;
+  totalPages?: number;
+  totalItems?: number;
 }
 
 export class FellowRoutesModel implements Deserializable<FellowRoutesModel> {

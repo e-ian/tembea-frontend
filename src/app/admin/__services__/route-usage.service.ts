@@ -25,6 +25,6 @@ export class RouteUsageService {
     return this.http.get<any>(`${this.routeUsageUrl}?${fromStr}&${toStr}`).map(usage => {
       const { data: { mostUsedBatch, leastUsedBatch } } = usage;
       return { mostUsedBatch, leastUsedBatch };
-    })
+    });
   }
   }

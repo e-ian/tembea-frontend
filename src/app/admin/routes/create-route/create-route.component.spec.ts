@@ -34,7 +34,7 @@ describe('CreateRouteComponent', () => {
 
   it('should load google maps', () => {
     const loadGoogleMaps = jest.spyOn(component.googleMapsService, 'loadGoogleMaps');
-    component.ngAfterViewInit()
+    component.ngAfterViewInit();
     expect(loadGoogleMaps).toHaveBeenCalled();
   });
 
@@ -43,7 +43,7 @@ describe('CreateRouteComponent', () => {
     const getCoordinates = jest.spyOn(component.googleMapsService,
       'getLocationCoordinatesFromAddress');
 
-    await component.showRouteDirectionOnClick()
+    await component.showRouteDirectionOnClick();
     expect(getCoordinates).toHaveBeenCalled();
     expect(updateRoute).toHaveBeenCalled();
   });
@@ -204,17 +204,17 @@ describe('CreateRoute Helper Component', () => {
   });
 
   it('should increment a number value', () => {
-    const newValue = component.incrementCapacity(1)
+    const newValue = component.incrementCapacity(1);
     expect(newValue).toBe(2);
   });
 
   it('should decrement a number value', () => {
-    const newValue = component.decrementCapacity(2)
+    const newValue = component.decrementCapacity(2);
     expect(newValue).toBe(1);
   });
 
   it('should return 1 if value passed is less than 2', () => {
-    const newValue = component.decrementCapacity(0)
+    const newValue = component.decrementCapacity(0);
     expect(newValue).toBe(1);
   });
 
@@ -223,8 +223,8 @@ describe('CreateRoute Helper Component', () => {
     const newObject = {
       ...formValues,
       destination: { address: mockAddress, coordinates: mockCoordinates }
-    }
-    const finalObject = component.createNewRouteRequestObject(formValues, mockAddress, mockCoordinates)
+    };
+    const finalObject = component.createNewRouteRequestObject(formValues, mockAddress, mockCoordinates);
     expect(`${finalObject}`).toEqual(`${newObject}`);
   });
 
@@ -233,7 +233,7 @@ describe('CreateRoute Helper Component', () => {
     const inputValidator = jest.spyOn(component, 'validateInputFormat')
       .mockReturnValue(['error made']);
     const capacityValidator = jest.spyOn(component, 'validateCapacity')
-      .mockReturnValue(['error made again']); ;
+      .mockReturnValue(['error made again']);
 
     const errors = component.validateFormEntries(formValues);
     expect(inputValidator).toHaveBeenCalled();
@@ -246,7 +246,7 @@ describe('CreateRoute Helper Component', () => {
     const inputValidator = jest.spyOn(component, 'validateInputFormat')
       .mockReturnValue(['error made']);
     const capacityValidator = jest.spyOn(component, 'validateCapacity')
-      .mockReturnValue(['error made again']); ;
+      .mockReturnValue(['error made again']);
 
     const errors = component.validateFormEntries(formValues);
     expect(inputValidator).toHaveBeenCalled();

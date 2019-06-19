@@ -55,6 +55,6 @@ describe('FellowRouteService', () => {
       service.getFellowRoutes(fellowID, pageSize, pageNo, sort);
 
       expect(spy.mock.calls[0][0]).toEqual(url);
-    })
-  })
+    });
+  });
 });

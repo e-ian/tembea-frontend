@@ -50,13 +50,13 @@ describe('ProviderModalComponent', () => {
     fixture = TestBed.createComponent(ProviderModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    form = new NgForm([], [])
+    form = new NgForm([], []);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   it('should create Provider Modal Component', () => {
@@ -99,5 +99,5 @@ describe('ProviderModalComponent', () => {
     mockProviderService.editProvider.mockReturnValue(of(successMock));
     component.editProvider(form, null);
     expect(component.loading).toBeFalsy();
-  })
+  });
 });

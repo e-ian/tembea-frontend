@@ -60,8 +60,8 @@ describe('SideBarComponent', () => {
   }));
 
   beforeEach(() => {
-    jest.setTimeout(10000)
-  })
+    jest.setTimeout(10000);
+  });
 
   it('should create sideNav Component', () => {
     expect(component).toBeTruthy();
@@ -117,7 +117,7 @@ describe('SideBarComponent', () => {
         expect(component.activeRoute).toContain('trips/pending');
       });
     });
-  })
+  });
 });
 
 describe('SideBarComponent on small devices', () => {
@@ -175,5 +175,5 @@ describe('SideBarComponent on small devices', () => {
 
       expect(component.sidenav.opened).toBeFalsy();
     });
-  })
+  });
 });

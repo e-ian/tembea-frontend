@@ -7,6 +7,6 @@ describe('SubscriptionHelper', () => {
     jest.spyOn(SubscriptionHelper, 'unsubscribeHelper').mockImplementation(
       jest.fn());
      SubscriptionHelper.unsubscribeHelper(['a', 'b']);
-     expect(SubscriptionHelper.unsubscribeHelper).toHaveBeenCalled()
+     expect(SubscriptionHelper.unsubscribeHelper).toHaveBeenCalled();
   });
 });

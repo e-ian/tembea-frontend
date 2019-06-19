@@ -16,6 +16,6 @@ export class RouteRatingsService implements OnInit {
   getRouteAverages(dateFilter): Observable<any> {
     const fromStr = dateFilter.startDate ? `from=${dateFilter.startDate.from}` : null;
     const toStr = dateFilter.startDate ?  `to=${dateFilter.endDate.to}` : null;
-    return  this.http.get(`${environment.tembeaBackEndUrl}/api/v1/routes/ratings?${fromStr}&${toStr}`)
+    return  this.http.get(`${environment.tembeaBackEndUrl}/api/v1/routes/ratings?${fromStr}&${toStr}`);
   }
 }

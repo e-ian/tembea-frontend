@@ -89,7 +89,7 @@ describe('CabInventoryComponent', () => {
   describe('tabChanged', () => {
     it('should change to Drivers tab on click', () => {
       const expected = {'content': {'actionButton': 'Add Driver',
-          'headerTitle': 'undefined Drivers', 'providerId': undefined}, 'name': 'updateHeaderTitle'}
+          'headerTitle': 'undefined Drivers', 'providerId': undefined}, 'name': 'updateHeaderTitle'};
       const event = {
         tab: { textLabel: 'Drivers' }
       };
@@ -111,5 +111,5 @@ describe('CabInventoryComponent', () => {
 
     });
 
-  })
+  });
 });

@@ -17,7 +17,7 @@ describe('FellowComponent', () => {
   const FellowRoutesMock = {
     getFellowRoutes: () => of(FellowRoutesResponseMock),
     userDetails: () => of(FellowRoutesResponseMock),
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -64,13 +64,13 @@ describe('FellowComponent', () => {
       fixture.detectChanges();
       expect(component.pageNo).toEqual(20);
       expect(component.getFellowsRoutes).toHaveBeenCalled();
-    }))
-  })
+    }));
+  });
 
   it('Should return user name data', () => {
     component.userDetails(FellowRoutesResponseMock);
     expect(component.userName).toEqual('');
-  })
+  });
 });
 
 describe('FellowComponent not array returned', () => {
@@ -79,7 +79,7 @@ describe('FellowComponent not array returned', () => {
 
   const FellowRoutesMock = {
     getFellowRoutes: () => of(FellowErrorDataMock)
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -110,5 +110,5 @@ describe('FellowComponent not array returned', () => {
     component.getFellowsRoutes();
     expect(component.isLoading).toEqual(false);
     expect(component.displayText).toEqual('Something went wrong');
-  })
+  });
 });

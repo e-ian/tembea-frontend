@@ -20,7 +20,7 @@ export class LoginRedirectComponent implements OnInit {
 
   ngOnInit() {
     // const token = this.route.snapshot.queryParams.token;
-    const loggedIn = this.authService.setAisToken()
+    const loggedIn = this.authService.setAisToken();
     // this.authService.setAisToken(token);
 
     if (!loggedIn) {
@@ -32,7 +32,7 @@ export class LoginRedirectComponent implements OnInit {
       if (response.isAuthorized) {
         return this.authService.authorizeUser(response);
       }
-    }, (err: any) => this.handleEventError(err))
+    }, (err: any) => this.handleEventError(err));
   }
 
   handleEventError(err: any) {

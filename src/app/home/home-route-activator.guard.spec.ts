@@ -16,11 +16,11 @@ describe('HomeRouteActivatorGuard', () => {
 
   const mockCookieService = {
     get: () => 'token'
-  }
+  };
 
   const mockRouter = {
     navigate: () => { }
-  }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -72,7 +72,7 @@ describe('HomeRouteActivatorGuard', () => {
 
     it('should navigate the user to the loginRedirect route when andela_token exists and user isn\'t authenticated',
       inject([HomeRouteActivatorGuard], (guard: HomeRouteActivatorGuard) => {
-      const mockCookie = jest.spyOn(cookieService, 'get').mockImplementation((prop) => prop === 'jwt_token' ? 'token' : '')
+      const mockCookie = jest.spyOn(cookieService, 'get').mockImplementation((prop) => prop === 'jwt_token' ? 'token' : '');
       const routerMock = jest.spyOn(router, 'navigate');
 
       authService.isAuthorized = true;
@@ -98,5 +98,5 @@ describe('HomeRouteActivatorGuard', () => {
       expect(mockCookie).toHaveBeenCalledTimes(2);
       expect(routerMock).toHaveBeenCalledTimes(0);
     }));
-  })
+  });
 });

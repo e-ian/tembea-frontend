@@ -14,7 +14,7 @@ describe('FellowCardComponent', () => {
           subscribe: () => emit()
         }}
        })
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,7 +39,7 @@ describe('FellowCardComponent', () => {
 
     expect(matDialogMock.open).toBeCalledTimes(1);
     expect(emit).toBeCalledTimes(1);
-  })
+  });
 });
 
 

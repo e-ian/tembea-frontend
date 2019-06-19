@@ -23,10 +23,10 @@ describe('DeleteFellowModalComponent', () => {
       name: 'fellow', image: 'image', partner: 'partner', id: 3,
       tripsTaken: 10, startDate: '2019-01-23T00:00:00.000Z', endDate: '2020-01-23T00:00:00.000Z'
     }
-  }
+  };
   const mockMatDialog = {
     open: jest.fn()
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,15 +48,15 @@ describe('DeleteFellowModalComponent', () => {
 
   describe('initial load', () => {
     it('should have correct title', () => {
-      const title = debugElement.query(By.css('.header-title')).nativeElement.innerHTML
+      const title = debugElement.query(By.css('.header-title')).nativeElement.innerHTML;
       expect(title).toEqual(' Are you sure you want to Remove? ');
     });
-  })
+  });
 
   describe('closeDialog', () => {
     afterEach(() => {
       jest.clearAllMocks();
-    })
+    });
     it('should call dialogRef.close() when closeDialog() is called', () => {
       component.closeDialog();
       expect(mockMatDialogRef.close).toHaveBeenCalledTimes(1);
@@ -87,13 +87,13 @@ describe('DeleteFellowModalComponent', () => {
     });
 
     it('should remove a fellow successfully when delete button is clicked', () => {
-      deleteFellowSpy.mockReturnValue(of({ success: true, message: 'fellow removed successfully' }))
+      deleteFellowSpy.mockReturnValue(of({ success: true, message: 'fellow removed successfully' }));
       const emitSpy = jest.spyOn(component.removeUser, 'emit').mockImplementation(jest.fn());
       const button = debugElement.query(By.css('.confirm')).nativeElement;
 
       button.click();
 
-      expect(mockToastr.success).toBeCalledWith('fellow removed successfully')
+      expect(mockToastr.success).toBeCalledWith('fellow removed successfully');
       expect(emitSpy).toBeCalledTimes(1);
       expect(mockMatDialogRef.close).toHaveBeenCalledTimes(1);
     });
@@ -107,6 +107,6 @@ describe('DeleteFellowModalComponent', () => {
         'Something went terribly wrong, we couldn\`t remove the fellow. Please try again.'
       );
       expect(mockMatDialogRef.close).toHaveBeenCalledTimes(1);
-    })
+    });
   });
 });

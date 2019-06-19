@@ -47,6 +47,6 @@ describe('test AlertService', () => {
   });
   it('test clear toast', () => {
     alert.clear(mockToastr.error);
-    expect(mockToastr.clear).toHaveBeenCalledWith(mockToastr.error)
+    expect(mockToastr.clear).toHaveBeenCalledWith(mockToastr.error);
   });
 });

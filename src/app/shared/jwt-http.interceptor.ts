@@ -29,7 +29,7 @@ export class JwtHttpInterceptor implements HttpInterceptor {
           }
           return throwError(error);
         })
-      )
+      );
     }
 
     return next.handle(request);

@@ -8,7 +8,7 @@ export const googleMapsServiceMock: any = {
   lookUpAddressOrCoordinates(): Promise<{}> { return Promise.resolve({}); },
   retrieveLocationDetails() {
   }
-}
+};
 
 export const routeServiceMock: any = {
   http: {},
@@ -22,22 +22,22 @@ export const createRouteHelperMock: any = {
   validateFormEntries: _ => {},
   createNewRouteRequestObject: _ => {},
   notifyUser: _ => {}
-}
+};
 
 export const routerMock: any = {
   navigate: _ => {}
-}
+};
 
 export const toastrMock: any = {
   error: _ => {},
   success: _ => {}
-}
+};
 
 export const httpMock: any = {
   post: _ => {}
-}
+};
 
 export const navMenuServiceMock: any = {
   showProgress: _ => {},
   stopProgress: _ => {}
-}
+};

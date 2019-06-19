@@ -65,6 +65,6 @@ describe('FellowsService', () => {
       service.removeFellowFromRoute(10);
 
       expect(spy.mock.calls[0][0]).toEqual(url);
-    })
-  })
+    });
+  });
 });

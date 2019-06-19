@@ -29,7 +29,7 @@ describe('PastTripsComponent', () => {
       .compileComponents();
     fixture = TestBed.createComponent(PastTripsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges()
+    fixture.detectChanges();
   }));
 
 

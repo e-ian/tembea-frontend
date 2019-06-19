@@ -9,6 +9,6 @@ const routeUsageMock = {
     RouteBatch: 'B',
     percentageUsage: 25
   }
-}
+};
 
 export default routeUsageMock;

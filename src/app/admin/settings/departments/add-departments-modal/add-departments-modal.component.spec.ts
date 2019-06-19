@@ -33,7 +33,7 @@ describe('AddDepartmentsModalComponent', () => {
     info: jest.fn(),
     warning: jest.fn(),
     error: jest.fn()
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -56,9 +56,9 @@ describe('AddDepartmentsModalComponent', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks()
+    jest.clearAllMocks();
     jest.resetAllMocks();
-    jest.restoreAllMocks()
+    jest.restoreAllMocks();
   });
 
   describe('initial load', () => {
@@ -77,13 +77,13 @@ describe('AddDepartmentsModalComponent', () => {
 
 describe('addDepartment', () => {
   it('should call addDepartment', () => {
-    mockDepartmentService.add.mockReturnValue(of(responseMock))
+    mockDepartmentService.add.mockReturnValue(of(responseMock));
     component.addDepartment();
     expect(component.departmentService.add).toHaveBeenCalledTimes(1);
   });
 
   it('should call AlertService.success upon success', () => {
-    mockDepartmentService.add.mockReturnValue(of(responseMock))
+    mockDepartmentService.add.mockReturnValue(of(responseMock));
     jest.spyOn(component.alert, 'success');
     component.addDepartment();
     expect(component.alert.success).toHaveBeenCalledTimes(1);
@@ -113,11 +113,11 @@ describe('addDepartment', () => {
     expect(component.alert.error).toHaveBeenCalledTimes(1);
     expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again');
   });
-})
+});
 
   describe('updateDepartment', () => {
     it('should call updateDepartment', () => {
-      mockDepartmentService.update.mockReturnValue(of(responseMock))
+      mockDepartmentService.update.mockReturnValue(of(responseMock));
       jest.spyOn(component.alert, 'success');
       component.model = department;
       component.addDepartment();
@@ -136,7 +136,7 @@ describe('addDepartment', () => {
       component.addDepartment();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 
 });
 

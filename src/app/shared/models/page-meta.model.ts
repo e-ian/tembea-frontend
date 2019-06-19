@@ -1,9 +1,9 @@
 export interface IPageMeta {
-  page?: number
-  pageSize?: number
-  totalPages?: number
-  totalResults?: number
-  totalItems?: number
+  page?: number;
+  pageSize?: number;
+  totalPages?: number;
+  totalResults?: number;
+  totalItems?: number;
 }
 
 export class PageMeta implements IPageMeta {

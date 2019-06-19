@@ -28,6 +28,6 @@ export class CabModel implements ICabInventory {
   ) {}
 }
 export interface IDeleteCabInventory {
-  success: boolean,
-  message: string
+  success: boolean;
+  message: string;
 }

@@ -19,5 +19,5 @@ const providerMock = {
             }
         ]
     }
-}
+};
 export default providerMock;

@@ -27,6 +27,6 @@ export interface IRouteInventory {
 }
 
 export interface IDeleteRouteResponse {
-  success: boolean,
-  message: string
+  success: boolean;
+  message: string;
 }

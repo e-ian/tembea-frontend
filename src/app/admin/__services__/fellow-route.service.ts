@@ -19,9 +19,9 @@ export class FellowRouteService {
   getFellowRoutes(fellowId, pageSize, pageNo, sort): Observable<FellowRoutesModel> {
     return this.http.get<any>(`${this.fellowRoutesUrl}?id=${fellowId}&size=${pageSize}&sort=${sort}&page=${pageNo}`)
     .map(fellowRoutes => {
-      const fellowRoutesModel = new FellowRoutesModel().deserialize(fellowRoutes)
+      const fellowRoutesModel = new FellowRoutesModel().deserialize(fellowRoutes);
       return fellowRoutesModel;
-    })
+    });
   }
 
 }

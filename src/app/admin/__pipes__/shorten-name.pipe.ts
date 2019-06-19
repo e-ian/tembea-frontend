@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 export interface IShortenNameOption {
-  max?: number,
-  fallbackText?: string,
+  max?: number;
+  fallbackText?: string;
 }
 
 @Pipe({

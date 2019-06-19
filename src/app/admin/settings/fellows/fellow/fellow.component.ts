@@ -63,7 +63,7 @@ export class FellowComponent implements OnInit {
           this.fellowsData = this.mapReturnedData(data);
           this.appEventsService.broadcast({
             name: 'updateHeaderTitle',
-            content: { badgeSize: this.totalItems, headerTitle: `${ this.userName } Trip History` } })
+            content: { badgeSize: this.totalItems, headerTitle: `${ this.userName } Trip History` } });
         }
       }, () => {
         this.isLoading = false;
@@ -110,8 +110,8 @@ export class FellowComponent implements OnInit {
             }
           }
         }
-      }  = entry
-      return { rating, userAttendStatus, departureDate, driverName, regNumber, name, address }
+      }  = entry;
+      return { rating, userAttendStatus, departureDate, driverName, regNumber, name, address };
     });
 
     return theData;

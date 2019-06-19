@@ -26,7 +26,7 @@ export class CreateRouteComponent implements AfterViewInit {
   lng = 36.886215;
   zoom = 8;
   destinationIsDojo = true;
-  origin = { lat: this.lat, lng: this.lng }
+  origin = { lat: this.lat, lng: this.lng };
   destination: Location = { lat: this.lat, lng: this.lng };
   destinationCoordinates: Location;
 
@@ -34,7 +34,7 @@ export class CreateRouteComponent implements AfterViewInit {
 
   @ViewChild('destinationFormInput') destinationInputElement: ElementRef;
 
-  mouseoverCreateButton
+  mouseoverCreateButton;
   constructor(
     public googleMapsService: GoogleMapsService,
     private routeService: RoutesInventoryService,

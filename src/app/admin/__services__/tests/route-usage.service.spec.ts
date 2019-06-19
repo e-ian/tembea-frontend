@@ -34,7 +34,7 @@ describe('RouteUsageService', () => {
       expect(usageData.leastUsedBatch).toBeDefined();
     });
 
-    const req = httpMock.expectOne('http://localhost:5000/api/v1/routes/status/usage?from=2019-05-03&to=2019-05-06')
+    const req = httpMock.expectOne('http://localhost:5000/api/v1/routes/status/usage?from=2019-05-03&to=2019-05-06');
 
     req.flush({ data: {...routeUsageMock } });
     });

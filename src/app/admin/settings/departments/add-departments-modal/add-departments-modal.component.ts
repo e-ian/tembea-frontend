@@ -34,13 +34,13 @@ export class AddDepartmentsModalComponent implements OnInit {
 
   logError(error) {
     if (error && error.status === 404) {
-      const { error: { message } } = error
-      this.alert.error(message)
+      const { error: { message } } = error;
+      this.alert.error(message);
     } else if (error && error.status === 409) {
-      const { error: { message } } = error
-      this.alert.error(message)
+      const { error: { message } } = error;
+      this.alert.error(message);
     } else {
-      this.alert.error('Something went wrong, please try again')
+      this.alert.error('Something went wrong, please try again');
     }
   }
   refereshDepartment(message) {
@@ -80,6 +80,6 @@ export class AddDepartmentsModalComponent implements OnInit {
         this.logError(error);
         this.loading = false;
       }
-    )
-  };
+    );
+  }
 }

@@ -75,7 +75,7 @@ describe('HeaderComponent', () => {
     it('should change header title', async () => {
       jest.spyOn(component['appEventService'], 'subscribe');
       component.ngOnInit();
-      expect(component['appEventService'].subscribe).toHaveBeenCalled()
+      expect(component['appEventService'].subscribe).toHaveBeenCalled();
       await fixture.ngZone.run(async () => {
         const router = TestBed.get(Router);
         await router.navigate(['admin/trips/pending']);

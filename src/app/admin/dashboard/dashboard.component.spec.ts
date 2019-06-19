@@ -72,7 +72,7 @@ describe('DashboardComponent', () => {
     component.setDateFilter('from', 'from', '2019-05-03');
 
     expect(routesUsage).toBeCalledTimes(1);
-    expect(component.dateFilters.from).toEqual({from: '2019-05-03'})
+    expect(component.dateFilters.from).toEqual({from: '2019-05-03'});
   });
 
   describe('getRouteRatings', () => {
@@ -105,5 +105,5 @@ describe('DashboardComponent', () => {
       expect(component.mostRatedRoutes).toEqual(res.data.slice(0, 3));
       expect(component.leastRatedRoutes).toEqual(res.data.slice(0, 3));
     });
-  })
+  });
 });

@@ -100,7 +100,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
       end = start + normalizeBtnGroupSize;
     }
     return numArray.slice(start, end);
-  };
+  }
 
   /* Private fields */
 
@@ -111,7 +111,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
       this.currPage = page;
       this.pageChange.emit(page);
     }
-  };
+  }
 
   private goto = (page, direction: Direction) => {
     if (this.btnGroup.includes(page)) {
@@ -120,7 +120,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
       const val = <Direction>`${direction}-ellipse`;
       this.changePage(null, val);
     }
-  };
+  }
 
   private gotoNextBtnGroup = () => {
     const validGroup = this.shouldHideBtn('next-ellipse');
@@ -129,7 +129,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
     }
     this.btnGroup = this.calcNextBtnGroup(this.btnGroup, this.totalPages);
     this.updatePageInfo(this.btnGroup[0]);
-  };
+  }
 
   private gotoPrevBtnGroup = () => {
     const validGroup = this.shouldHideBtn('prev-ellipse');
@@ -139,7 +139,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
     this.btnGroup = this.calcPrevBtnGroup(this.btnGroup);
     const lastIndex = this.btnGroup.length - 1;
     this.updatePageInfo(this.btnGroup[lastIndex]);
-  };
+  }
 
   private calcPrevBtnGroup = (btnGroup: Array<number>) => {
     const numberGrp = [...btnGroup];
@@ -152,7 +152,7 @@ export class AppPaginationComponent implements OnInit, OnChanges {
     return numberGrp.map((val) => {
       return val - decrement;
     });
-  };
+  }
 
   private calcNextBtnGroup = (btnGroup: Array<number>, totalPages: number) => {
     const numberGrp = [...btnGroup];
@@ -165,5 +165,5 @@ export class AppPaginationComponent implements OnInit, OnChanges {
     return numberGrp.map((val) => {
       return val + increment;
     });
-  };
+  }
 }

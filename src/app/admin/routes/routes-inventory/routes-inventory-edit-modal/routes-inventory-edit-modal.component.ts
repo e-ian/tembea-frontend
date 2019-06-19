@@ -30,7 +30,7 @@ export class RoutesInventoryEditModalComponent implements OnInit {
 
   editRoute(data): void {
     this.loading = true;
-    const { id } = this.data
+    const { id } = this.data;
 
 
     const routeDetails: IRouteInventory = {
@@ -40,17 +40,17 @@ export class RoutesInventoryEditModalComponent implements OnInit {
       capacity: data.capacity,
       batch: data.batch,
       status: data.status
-    }
+    };
     this.routeService.changeRouteStatus(id, routeDetails).subscribe((res) => {
       if (res.success) {
-        this.alert.success(res.message)
-        this.appEventsService.broadcast({name: 'updateRouteInventory'})
-        this.dialogRef.close()
+        this.alert.success(res.message);
+        this.appEventsService.broadcast({name: 'updateRouteInventory'});
+        this.dialogRef.close();
       }
     }, (err: any) => {
-      this.alert.error('Something went wrong')
-      this.dialogRef.close()
-    })
+      this.alert.error('Something went wrong');
+      this.dialogRef.close();
+    });
   }
 }
 

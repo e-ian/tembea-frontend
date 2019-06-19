@@ -20,7 +20,7 @@ export class CustomDropdownComponent implements OnInit {
   }
 
   handleDropdown() {
-    this.handleSelected.emit(this.selectedValue)
+    this.handleSelected.emit(this.selectedValue);
   }
 
 }

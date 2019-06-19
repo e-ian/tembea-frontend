@@ -66,7 +66,7 @@ export class ProviderSelectorComponent implements OnInit {
       return this._filter(value.providerName);
     }
     return this.providers;
-  };
+  }
 
   _filter (value): object[] {
     const filterValue = value.toLowerCase();
@@ -82,7 +82,7 @@ export class ProviderSelectorComponent implements OnInit {
         const { providers } = providersData.data;
         this.providers = providers;
         this.startFiltering();
-      })
+      });
   }
 
   click (option) {

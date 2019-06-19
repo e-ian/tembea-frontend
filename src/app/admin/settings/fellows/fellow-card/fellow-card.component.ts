@@ -40,6 +40,6 @@ export class FellowCardComponent implements OnInit {
 
     dialofRef.componentInstance.removeUser.subscribe(() => {
       this.removeFellow.emit();
-    })
+    });
   }
 }

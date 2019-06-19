@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.offlineEvent = fromEvent(window, 'offline');
 
     this.offlineSubscription = this.offlineEvent.subscribe(() => {
-      this.toastr.error('You seem to be offline.')
+      this.toastr.error('You seem to be offline.');
     });
   }
 

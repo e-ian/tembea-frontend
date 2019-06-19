@@ -7,8 +7,8 @@ describe('RenameRouteBatch', () => {
     { name: 'Yaba', batch: 'V', takeOff: '02:00'},
     { name: 'Nairobi', batch: 'C', takeOff: '03:00'},
     { name: 'Nairobi', batch: 'F', takeOff: '02:00'},
-    { name: 'Nairobi', batch: 'B', takeOff: '02:00'}]
-  const renameRouteBatch = new RenameRouteBatch(routes, null)
+    { name: 'Nairobi', batch: 'B', takeOff: '02:00'}];
+  const renameRouteBatch = new RenameRouteBatch(routes, null);
 
   it('should return the next character', () => {
     expect(renameRouteBatch.nextLetter('A')).toEqual('B');
@@ -22,7 +22,7 @@ describe('RenameRouteBatch', () => {
     expect(renameRouteBatch.incrementChar('FZ')).toEqual('GA');
     expect(renameRouteBatch.incrementChar('')).toEqual('A');
     expect(spy).toBeCalledTimes(5);
-  })
+  });
 
   it('should update route batches sequentially', () => {
     expect(renameRouteBatch.renameRouteBatches()).toEqual(
@@ -32,6 +32,6 @@ describe('RenameRouteBatch', () => {
       { name: 'Nairobi', batch: 'A', takeOff: '03:00'},
       { name: 'Nairobi', batch: 'A', takeOff: '02:00'},
       { name: 'Nairobi', batch: 'B', takeOff: '02:00'}]
-    )
-  })
-})
+    );
+  });
+});

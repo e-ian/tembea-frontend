@@ -48,7 +48,7 @@ export class RouteRequestService {
 
   handleError = () => {
     this.toastr.error('Something did not work right there.');
-  };
+  }
 
   handleResponse = (data, status: 'approve' | 'decline') => {
     if (data.success) {
@@ -56,5 +56,5 @@ export class RouteRequestService {
     } else {
       this.toastr.error(`Could not ${status} request`);
     }
-  };
+  }
 }

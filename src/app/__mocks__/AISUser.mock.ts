@@ -31,4 +31,4 @@ export default {
   slogan: '',
   status: 'active',
   updated_at: '2019-02-12T20:55:39.897Z'
-}
+};

@@ -32,12 +32,12 @@ export class AddProviderModalComponent {
 
   logError(error) {
     if (error && error.status === 404) {
-      this.alert.error('Provider user email entered does not exist')
+      this.alert.error('Provider user email entered does not exist');
     } else if (error && error.status === 409) {
       const { error: { message } } = error;
-      this.alert.error(message)
+      this.alert.error(message);
     } else {
-      this.alert.error('Something went wrong, please try again')
+      this.alert.error('Something went wrong, please try again');
     }
   }
 
@@ -57,6 +57,6 @@ export class AddProviderModalComponent {
           this.logError(error);
           this.loading = false;
         }
-      )
+      );
   }
 }

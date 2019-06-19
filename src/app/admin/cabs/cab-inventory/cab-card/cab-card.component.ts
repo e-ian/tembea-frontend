@@ -1,3 +1,4 @@
+import { createDialogOptions } from './../../../../utils/helpers';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DeleteCabModalComponent } from 'src/app/admin/cabs/cab-inventory/delete-cab-dialog/delete-cab-dialog.component';
@@ -24,33 +25,28 @@ export class CabCardComponent implements OnInit {
   ngOnInit() {}
 
   showCabDeleteModal() {
-    const dialogRef = this.dialog.open(DeleteCabModalComponent, {
-      panelClass: 'delete-cab-modal',
-      data: {
-        cab: {
-          id: this.id,
-          model: this.model,
-          regNumber: this.regNumber,
-          capacity: this.capacity
-        }
-      }
-    });
-
-    dialogRef.componentInstance.refresh.subscribe(() => {
-      this.refreshWindow.emit();
-    })
-  }
-
-  showCabEditModal() {
-    const dialogRef = this.dialog.open(AddCabsModalComponent, {
-      width: '620px', panelClass: 'small-modal-panel-class',
-      data: {
+    const dialogRef = this.dialog.open(DeleteCabModalComponent, createDialogOptions({
+      cab: {
         id: this.id,
         model: this.model,
         regNumber: this.regNumber,
         capacity: this.capacity
       }
+    }, '620px', 'delete-cab-modal'));
+
+    dialogRef.componentInstance.refresh.subscribe(() => {
+      this.refreshWindow.emit();
     });
+  }
+
+  showCabEditModal() {
+    const dialogRef = this.dialog.open(AddCabsModalComponent, createDialogOptions(
+      {
+        id: this.id,
+        model: this.model,
+        regNumber: this.regNumber,
+        capacity: this.capacity
+      }, '620px', 'small-modal-panel-class'));
     dialogRef.afterClosed().subscribe(() => {
       this.hidden = !this.hidden;
     });

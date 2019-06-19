@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
       this.mostUsedRoute = mostUsed;
       this.leastUsedRoute = leastUsed;
 
-    })
+    });
   }
 
   getRouteRatings() {

@@ -18,7 +18,7 @@ describe('NavMenuService', () => {
     let service;
     beforeEach(() => {
       service = new NavMenuService();
-    })
+    });
     it('should show progress bar ', () => {
       const serviceSpy = jest.spyOn(service.progressListener, 'next');
       service.showProgress();
@@ -32,5 +32,5 @@ describe('NavMenuService', () => {
       expect(serviceSpy).toHaveBeenCalled();
       expect(serviceSpy).toHaveBeenCalledWith(false);
     });
-  })
+  });
 });

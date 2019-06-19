@@ -9,7 +9,7 @@ describe('RoutesOverviewComponent', () => {
     Route: 'Nyika',
     RouteBatch: 'A',
     percentageUsage: 30
-  }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RoutesOverviewComponent ],

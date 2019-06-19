@@ -58,9 +58,9 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
     this.activeRouteIndex = index;
     this.activeRouteRequest = route;
     if (route) {
-      this.getRequesterData(route.engagement.fellow.email)
-    };
-  };
+      this.getRequesterData(route.engagement.fellow.email);
+    }
+  }
 
   isRouteActive(idx: number): Boolean {
     return this.activeRouteIndex === idx;
@@ -97,8 +97,8 @@ export class RouteRequestsComponent implements OnInit, OnDestroy {
     this.appEventService.broadcast({
       name: 'updateHeaderTitle',
       content: { badgeSize: val.length, headerTitle: 'Route Requests' }
-    })
-  };
+    });
+  }
 
   private openDialogModal(decline?: boolean) {
     const routesRequests = this.activeRouteRequest;

@@ -32,5 +32,5 @@ describe('RouteRatingsService', () => {
       ratings = res;
     });
     expect(ratings).toEqual(mockRouteRatings);
-  })
+  });
 });

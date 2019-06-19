@@ -25,7 +25,7 @@ describe('FellowsComponent', () => {
           subscribe: () => jest.fn()
         }}
        })
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -66,13 +66,13 @@ describe('FellowsComponent', () => {
 
   describe('ngOnInit', () => {
     it('should get fellows onRoute', () => {
-      component.onOrOffRoute = 'onRoute'
+      component.onOrOffRoute = 'onRoute';
       component.ngOnInit();
       expect(fellowService.getFellows).toHaveBeenCalled();
     });
 
     it('shold get fellows offRoute', () => {
-      component.onOrOffRoute = 'offRoute'
+      component.onOrOffRoute = 'offRoute';
       component.ngOnInit();
       expect(fellowService.getFellows).toHaveBeenCalled();
     });
@@ -94,7 +94,7 @@ describe('FellowsComponent no fellow Array', () => {
           subscribe: () => jest.fn()
         }}
        })
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

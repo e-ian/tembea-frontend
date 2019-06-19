@@ -26,20 +26,20 @@ describe('ExportComponent', () => {
       await service.exportData('routes', 'name,asc,id,asc', {}, 'pdf')
         .subscribe((result) => {
           expect(result).toEqual('');
-        })
+        });
 
       const request = httpMock.expectOne(`${service.exportToPDFUrl}?table=routes&sort=name,asc,id,asc`);
         expect(request.request.method).toEqual('GET');
-    })
+    });
 
     it('should make a get http call when exporting as csv', async () => {
       await service.exportData('routes', 'name,asc,id,asc', {}, 'csv')
         .subscribe((result) => {
           expect(result).toEqual('');
-        })
+        });
 
       const request = httpMock.expectOne(`${service.exportToCSVUrl}?table=routes&sort=name,asc,id,asc`);
         expect(request.request.method).toEqual('GET');
-    })
-  })
+    });
+  });
 });

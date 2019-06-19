@@ -21,7 +21,7 @@ export class DepartmentsService {
   }
 
   add(data: Object): Observable<any> {
-    return this.http.post<any>(this.departmentsUrl, {...data, slackUrl: this.teamUrl})
+    return this.http.post<any>(this.departmentsUrl, {...data, slackUrl: this.teamUrl});
   }
 
   delete(id: number) {
@@ -30,7 +30,7 @@ export class DepartmentsService {
       body: { id, }
     };
 
-    return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/departments`, httpOptions)
+    return this.http.delete(`${environment.tembeaBackEndUrl}/api/v1/departments`, httpOptions);
   }
 
   update(name: string, newName: string, newHeadEmail: string, location: string) {
@@ -40,6 +40,6 @@ export class DepartmentsService {
       newHeadEmail,
       location
     };
-    return this.http.put(`${environment.tembeaBackEndUrl}/api/v1/departments`, content)
+    return this.http.put(`${environment.tembeaBackEndUrl}/api/v1/departments`, content);
   }
 }

@@ -49,15 +49,15 @@ describe('RoutesInventoryService', () => {
   });
 
   it('should make http request to change the route status', () => {
-    const response = { success: true }
+    const response = { success: true };
     service.changeRouteStatus(1, { status: 'Active' }).subscribe(
       data => {
-        expect(data).toEqual(response)
+        expect(data).toEqual(response);
       });
 
       const changeStatusRequest: TestRequest = httpMock.expectOne(
         `${tembeaBackEndUrl}/api/v1/routes/1`
-      )
+      );
 
       expect(changeStatusRequest.request.method).toEqual('PUT');
       changeStatusRequest.flush(response);
@@ -65,17 +65,17 @@ describe('RoutesInventoryService', () => {
   it('should make http request to delete route batch by Id', () => {
     const spy = jest.spyOn(HttpClient.prototype, 'delete');
     spy.mockReturnValue(of(deleteResponseMock));
-    const result = service.deleteRouteBatch(1)
+    const result = service.deleteRouteBatch(1);
     result.subscribe(data => {
         expect(data).toEqual(deleteResponseMock);
     });
     expect(JSON.stringify(result)).toEqual(JSON.stringify(of(deleteResponseMock)));
-  })
+  });
 
   it('should call post method', () => {
-    const toPromise = { toPromise: () => { } }
+    const toPromise = { toPromise: () => { } };
     const postMethod = jest.spyOn(service.http, 'post').mockReturnValue(toPromise);
-    service.createRoute(mockData)
+    service.createRoute(mockData);
     expect(postMethod).toBeCalled();
   });
 });

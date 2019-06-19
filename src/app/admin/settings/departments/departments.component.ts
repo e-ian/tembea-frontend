@@ -68,7 +68,7 @@ export class DepartmentsComponent implements OnInit {
   addDepartment() {
     this.dialog.open(AddDepartmentsModalComponent, {
       data: <IDepartmentsModel>{}
-    })
+    });
   }
 
   editDepartment(department: IDepartmentsModel, name: string) {
@@ -77,7 +77,7 @@ export class DepartmentsComponent implements OnInit {
     departmentDetail.oldName = name;
     this.dialog.open(AddDepartmentsModalComponent, {
       data: departmentDetail,
-    })
+    });
   }
 
   deleteDepartment(departmentId: number, departmentName: string) {
@@ -90,9 +90,9 @@ export class DepartmentsComponent implements OnInit {
         }
       }, (error) => {
         if (error) {
-          return this.alert.error(`😞Sorry! ${departmentName} could not be deleted`)
+          return this.alert.error(`😞Sorry! ${departmentName} could not be deleted`);
         }
-      })
+      });
   }
 
   showDeleteModal(departmentId: number, departmentName: string): void {
@@ -107,6 +107,6 @@ export class DepartmentsComponent implements OnInit {
     });
     dialogRef.componentInstance.executeFunction.subscribe(() => {
       this.deleteDepartment(departmentId, departmentName);
-    })
+    });
   }
 }

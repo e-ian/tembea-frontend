@@ -51,7 +51,7 @@ describe('FellowNavComponent', () => {
     const broadcastPayload = {
       tooltipTitle: event.tab.textLabel,
       badgeSize: component.fellowsCount['On Route']
-    }
+    };
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
   }));

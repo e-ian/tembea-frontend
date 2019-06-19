@@ -67,7 +67,7 @@ describe('AddProviderModalComponent', () => {
     it('should call providerService.add', () => {
       mockProviderService.add.mockReturnValue(of(providerResponseMock));
       component.addProvider();
-      expect(component.providerService.add).toHaveBeenCalledTimes(1)
+      expect(component.providerService.add).toHaveBeenCalledTimes(1);
     });
 
     it('should call alert.success when request succeeds', () => {
@@ -84,7 +84,7 @@ describe('AddProviderModalComponent', () => {
       jest.spyOn(component.alert, 'error');
       component.addProvider();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
-      expect(component.alert.error).toHaveBeenCalledWith(message)
+      expect(component.alert.error).toHaveBeenCalledWith(message);
     });
 
     it('should call alert.error when request fails with 404', () => {
@@ -94,7 +94,7 @@ describe('AddProviderModalComponent', () => {
       jest.spyOn(component.alert, 'error');
       component.addProvider();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
-      expect(component.alert.error).toHaveBeenCalledWith('Provider user email entered does not exist')
+      expect(component.alert.error).toHaveBeenCalledWith('Provider user email entered does not exist');
     });
 
     it('should call alert.error for unknown errors', () => {
@@ -104,7 +104,7 @@ describe('AddProviderModalComponent', () => {
       jest.spyOn(component.alert, 'error');
       component.addProvider();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
-      expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again')
+      expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again');
     });
   });
 });

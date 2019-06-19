@@ -44,7 +44,7 @@ export class CreateRouteHelper {
 
   validateCapacity(value: string, field): string[] {
     if (parseInt(value, 10) < 1) { return [`${field} must be an integer greater than zero`]; }
-    return []
+    return [];
   }
 
   notifyUser(messages: string[], notificationType: string = 'error') {

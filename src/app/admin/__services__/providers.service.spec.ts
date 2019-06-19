@@ -41,8 +41,8 @@ describe('ProvidersService', () => {
       const result = service.getProviders(1, 1);
       result.subscribe(data => {
         expect(data).toEqual({});
-      })
-    })
+      });
+    });
   });
   describe('Update Provider', () => {
     it('should call http client patch on update provider', () => {
@@ -57,7 +57,7 @@ describe('ProvidersService', () => {
       results.subscribe(data => {
         expect(data).toEqual(response);
       });
-    })
+    });
   });
 
   describe('Delete Provider', () => {
@@ -81,7 +81,7 @@ describe('ProvidersService', () => {
         let provider = null;
         jest.spyOn(service, 'add').mockReturnValue(of(providerResponseMock));
         service.add(createProviderMock).subscribe(value => {
-          provider = value
+          provider = value;
         });
         expect(provider).toEqual(providerResponseMock);
       });
@@ -109,7 +109,7 @@ describe('ProvidersService', () => {
       it('should call http client post', () => {
         jest.spyOn(HttpClient.prototype, 'post').mockImplementation(
           () => {
-            return of({expected})
+            return of({expected});
           }
         );
         jest.spyOn(HttpClient.prototype, 'post').mockReturnValue(of({expected}));
@@ -120,7 +120,7 @@ describe('ProvidersService', () => {
         let response = null;
         jest.spyOn(HttpClient.prototype, 'post').mockImplementation(
           () => {
-            return of(expected)
+            return of(expected);
           }
         );
         jest.spyOn(HttpClient.prototype, 'post').mockReturnValue(of({expected}));
@@ -128,7 +128,7 @@ describe('ProvidersService', () => {
           response = data;
         });
         expect(response.expected).toEqual(expected);
-      })
-    })
+      });
+    });
   });
 });

@@ -55,7 +55,7 @@ export class AddCabsModalComponent {
       (error) => {
         this.displayError(error);
       }
-    )
+    );
   }
   editCab(cab: CabModel) {
     const { id } = cab;

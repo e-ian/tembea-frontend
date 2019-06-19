@@ -22,11 +22,11 @@ describe('DeleteCabDialogComponent', () => {
       regNumber: 'KCD 434',
       capacity: 2
     }
-  }
+  };
 
   const mockMatDialog = {
     open: jest.fn()
-  }
+  };
 
   const mockMatDialogRef = {
     close: jest.fn(),
@@ -61,7 +61,7 @@ describe('DeleteCabDialogComponent', () => {
   describe('closeDialog', () => {
     afterEach(() => {
       jest.clearAllMocks();
-    })
+    });
 
     it('it should call dialogRef.close() when closeDialog() is called', () => {
       component.closeDialog();

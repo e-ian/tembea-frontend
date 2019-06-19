@@ -85,7 +85,7 @@ describe('LoginRedirectComponent', () => {
       jest.spyOn(service, 'unAuthorizeUser');
       jest.spyOn(service, 'login').mockReturnValue(throwError(errorMock));
       jest.spyOn(service, 'authorizeUser');
-      jest.spyOn(service, 'setAisToken')
+      jest.spyOn(service, 'setAisToken');
       jest.spyOn(component, 'handleEventError');
       fixture.detectChanges();
 

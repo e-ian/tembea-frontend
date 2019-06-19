@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     const alertMockData = {
       error: jest.fn(),
       success: jest.fn()
-    }
+    };
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
   afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
-  })
+  });
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
