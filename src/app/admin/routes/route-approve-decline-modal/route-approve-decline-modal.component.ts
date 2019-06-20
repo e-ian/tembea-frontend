@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/__services__/auth.service';
 import { IRouteApprovalDeclineInfo, IRouteDetails } from '../../../shared/models/route-approve-decline-info.model';
 import { RouteRequestService } from '../../__services__/route-request.service';
@@ -46,27 +47,30 @@ export class RouteApproveDeclineModalComponent implements OnInit {
   }
 
   approve(values): void {
-    this.loading = true;
+    this.setLoading(true);
     const { routeName, takeOff, capacity, comment } = values;
     const routeDetails: IRouteDetails = { routeName, takeOff, capacity };
     const { data: { routeRequestId }, account: { email } } = this;
     delete this.selectedProvider.user.slackId;
-    this.routeService.approveRouteRequest(routeRequestId, comment, routeDetails, email, this.selectedProvider)
-      .subscribe(() => {
-        this.closeDialog();
-        this.appEventService.broadcast({ name: 'updateRouteRequestStatus' });
-      });
+    this.handleAction(this.routeService.approveRouteRequest(routeRequestId, comment, routeDetails, email, this.selectedProvider));
   }
 
   decline(values): void {
-    this.loading = true;
+    this.setLoading(true);
     const { data: { routeRequestId }, account: { email } } = this;
     const { comment } = values;
-    this.routeService.declineRequest(routeRequestId, comment, email)
-      .subscribe(() => {
-        this.closeDialog();
-        this.appEventService.broadcast({ name: 'updateRouteRequestStatus' });
-      });
+    this.handleAction(this.routeService.declineRequest(routeRequestId, comment, email));
+  }
+
+  handleAction(action: Observable<any>): void {
+    action.subscribe(() => {
+      this.closeDialog();
+      this.appEventService.broadcast({ name: 'updateRouteRequestStatus' });
+    }, () => this.setLoading(false));
+  }
+
+  setLoading(value: boolean): void {
+    this.loading = value;
   }
 
   setAuto(event) {

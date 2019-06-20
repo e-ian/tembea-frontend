@@ -52,6 +52,7 @@ describe('RouteApproveDeclineModalComponent', () => {
     jest.spyOn(routeService, 'declineRequest').mockReturnValue(of({}));
     jest.spyOn(routeService, 'approveRouteRequest').mockReturnValue(of({}));
     jest.spyOn(appEventService, 'broadcast').mockImplementation();
+    jest.spyOn(component, 'setLoading');
   });
 
   afterEach(() => {
@@ -73,13 +74,14 @@ describe('RouteApproveDeclineModalComponent', () => {
   });
 
   describe('decline', () => {
-    it('should change loading to true', () => {
+    it('should toggle loading display on decline', () => {
       // @ts-ignore
       component.account = { email: 'AAA.BBB@CCC.DDD' };
       const appEventService = injector.get(AppEventService);
 
       component.decline({ comment: 'This route is beyond our acceptable limit' });
 
+      expect(component.setLoading).toHaveBeenCalled();
       expect(component.loading).toBe(true);
       expect(routeService.declineRequest).toHaveBeenCalledTimes(1);
       expect(component.dialogRef.close).toHaveBeenCalledTimes(1);
@@ -88,7 +90,7 @@ describe('RouteApproveDeclineModalComponent', () => {
   });
 
   describe('approve', () => {
-    it('should change loading to true', () => {
+    it('should toggle loading display on approval', () => {
       // @ts-ignore
       component.account = { email: 'AAA.BBB@CCC.DDD' };
       component.selectedProvider = {
@@ -102,6 +104,7 @@ describe('RouteApproveDeclineModalComponent', () => {
         comment: ''
       });
 
+      expect(component.setLoading).toHaveBeenCalled();
       expect(component.loading).toBe(true);
       expect(routeService.approveRouteRequest).toHaveBeenCalledTimes(1);
       expect(component.dialogRef.close).toHaveBeenCalledTimes(1);
