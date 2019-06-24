@@ -2,7 +2,6 @@ import { DepartmentsComponent } from './settings/departments/departments.compone
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CabsComponent } from './cabs/cabs.component';
 import { CabInventoryComponent } from './cabs/cab-inventory/cab-inventory.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
@@ -15,7 +14,8 @@ import { AirportTransfersComponent } from './travel/airport-transfers/airport-tr
 import { EmbassyVisitsComponent } from './travel/embassy-visits/embassy-visits.component';
 import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
-import { ProvidersComponent } from './providers/providers.component';
+import { ProviderInventoryComponent } from './providers/provider-inventory/provider-inventory.component';
+import {ProviderNavComponent} from './providers/provider-nav/provider-nav.component';
 
 const routes: Routes = [
   {
@@ -76,25 +76,13 @@ const routes: Routes = [
       },
       {
         path: 'providers',
-        component: ProvidersComponent,
+        component: ProviderInventoryComponent,
         canActivate: [],
         data: { title: 'Providers' }
       },
       {
-        path: 'cabs/pending',
-        component: CabsComponent,
-        canActivate: [],
-        data: { title: 'Pending Cab Requests' }
-      },
-      {
-        path: 'cabs/itinerary',
-        component: CabsComponent,
-        canActivate: [],
-        data: { title: 'All Cabs' }
-      },
-      {
         path: 'providers/:providerName/:providerId',
-        component: CabInventoryComponent,
+        component: ProviderNavComponent,
         canActivate: [],
         data: { title: 'Vehicles' }
       },

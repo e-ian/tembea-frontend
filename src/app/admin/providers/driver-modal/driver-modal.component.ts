@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import {Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { ProviderService} from '../../__services__/providers.service';
 import { AlertService } from '../../../shared/alert.service';
+import {AppEventService} from '../../../shared/app-events.service';
 
 @Component({
   selector: 'app-driver-modal',
@@ -13,9 +14,10 @@ export class DriverModalComponent {
   constructor(
     public dialogRef: MatDialogRef<DriverModalComponent>,
     @Inject( MAT_DIALOG_DATA ) public data: any,
+    private appEventService: AppEventService,
     public providerService: ProviderService,
-    public toastService: AlertService
-  ) { }
+    public toastService: AlertService,
+  ) {}
   loading = false;
 
   static createDriverObject(data) {
@@ -41,6 +43,7 @@ export class DriverModalComponent {
     this.loading = true;
     this.providerService.addDriver(driverObject).subscribe(res => {
       if (res.success) {
+        this.appEventService.broadcast({ name: 'newDriver' });
         this.toastService.success(res.message);
         this.closeDialog();
       }

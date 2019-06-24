@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CabsComponent } from './cabs/cabs.component';
 import { CabInventoryComponent } from './cabs/cab-inventory/cab-inventory.component';
 import { CreateRouteComponent } from './routes/create-route/create-route.component';
 import { RoutesInventoryComponent } from './routes/routes-inventory/routes-inventory.component';
@@ -54,19 +53,22 @@ import { RatingStarsComponent } from './rating-stars/rating-stars.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
 import { RoutesOverviewComponent } from './dashboard/routes-overview/routes-overview.component';
 import { DisplayTripModalComponent } from './trips/display-trip-modal/display-trip-modal.component';
-import { ProvidersComponent } from './providers/providers.component';
+import { ProviderInventoryComponent } from './providers/provider-inventory/provider-inventory.component';
 import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
 import { ProviderModalComponent } from './providers/provider-modal/provider-modal.component';
 import { AddProviderModalComponent } from './providers/add-provider-modal/add-provider-modal.component';
-import { ProviderFilterComponent } from './cabs/cab-inventory/provider-filter/provider-filter.component';
+import { ProviderFilterComponent } from './providers/provider-filter/provider-filter.component';
 import { DriverModalComponent } from './providers/driver-modal/driver-modal.component';
 import { RouteRatingsOverviewComponent } from './dashboard/route-ratings-overview/route-ratings-overview.component';
+import { ProviderNavComponent } from './providers/provider-nav/provider-nav.component';
+import { DriverInventoryComponent } from './drivers/driver-inventory/driver-inventory.component';
+import { DriverCardComponent } from './drivers/driver-card/driver-card.component';
+import { BaseInventoryComponent } from './base-inventory/base-inventory.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     AdminComponent,
-    CabsComponent,
     CabInventoryComponent,
     CreateRouteComponent,
     RoutesInventoryComponent,
@@ -101,13 +103,17 @@ import { RouteRatingsOverviewComponent } from './dashboard/route-ratings-overvie
     FellowNavComponent,
     RoutesOverviewComponent,
     DisplayTripModalComponent,
-    ProvidersComponent,
+    ProviderInventoryComponent,
     ProviderCardComponent,
     ProviderModalComponent,
     AddProviderModalComponent,
     ProviderFilterComponent,
     DriverModalComponent,
-    RouteRatingsOverviewComponent
+    RouteRatingsOverviewComponent,
+    ProviderNavComponent,
+    DriverInventoryComponent,
+    DriverCardComponent,
+    BaseInventoryComponent
   ],
   imports: [
     CommonModule,

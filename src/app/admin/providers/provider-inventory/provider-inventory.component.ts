@@ -1,21 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ProviderService } from '../__services__/providers.service';
-import { IProviderInventory } from '../../shared/models/provider.model';
-import { SearchService } from '../__services__/search.service';
+import { ProviderService } from '../../__services__/providers.service';
+import { IProviderInventory } from '../../../shared/models/provider.model';
+import { SearchService } from '../../__services__/search.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-providers',
-  templateUrl: './providers.component.html',
-  styleUrls: ['../cabs/cab-inventory/cab-inventory.component.scss',
-    '../../auth/login-redirect/login-redirect.component.scss'
+  templateUrl: './provider-inventory.component.html',
+  styleUrls: [
+    '../../cabs/cab-inventory/cab-inventory.component.scss',
+    '../../../auth/login-redirect/login-redirect.component.scss'
   ],
   providers: [SearchService]
 })
-export class ProvidersComponent implements OnInit, OnDestroy {
+export class ProviderInventoryComponent implements OnInit, OnDestroy {
   providers: IProviderInventory[] = [];
   currentOptions = -1;
   pageNo: number;

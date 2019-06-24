@@ -2,17 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { throwError, of } from 'rxjs';
 import { Injector } from '@angular/core';
-import { ProvidersComponent } from './providers.component';
-import { SearchService } from '../__services__/search.service';
-import { AppTestModule } from '../../__tests__/testing.module';
-import providersMock from '../../__mocks__/providers.mock';
+import { ProviderInventoryComponent } from './provider-inventory.component';
+import { SearchService } from '../../__services__/search.service';
+import { AppTestModule } from '../../../__tests__/testing.module';
+import providersMock from '../../../__mocks__/providers.mock';
 import { AppEventService } from 'src/app/shared/app-events.service';
-import { ProviderService } from '../__services__/providers.service';
+import { ProviderService } from '../../__services__/providers.service';
 
 
 describe('ProvidersComponent', () => {
-  let component: ProvidersComponent;
-  let fixture: ComponentFixture<ProvidersComponent>;
+  let component: ProviderInventoryComponent;
+  let fixture: ComponentFixture<ProviderInventoryComponent>;
   let injector: Injector;
   let searchService: any;
   let appEventService: any;
@@ -20,12 +20,12 @@ describe('ProvidersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProvidersComponent],
+      declarations: [ProviderInventoryComponent],
       imports: [AppTestModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
-    fixture = TestBed.createComponent(ProvidersComponent);
+    fixture = TestBed.createComponent(ProviderInventoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     injector = fixture.debugElement.injector;
