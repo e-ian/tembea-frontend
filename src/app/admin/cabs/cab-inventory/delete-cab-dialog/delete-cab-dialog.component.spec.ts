@@ -84,7 +84,7 @@ describe('DeleteCabDialogComponent', () => {
   describe('delete', () => {
     let deleteCabSpy;
     beforeEach(() => {
-      deleteCabSpy = jest.spyOn(CabsInventoryService.prototype, 'deleteCab');
+      deleteCabSpy = jest.spyOn(CabsInventoryService.prototype, 'delete');
     });
 
     afterEach(() => {

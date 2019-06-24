@@ -2,10 +2,10 @@ const getCabsResponseMock = {
     pageMeta: {
       totalPages: 20,
       page: 7,
-      totalResults: 100,
+      totalItems: 100,
       pageSize: 2,
     },
-    cabs: [
+    data: [
       {
         id: 1,
         capacity: 8,
@@ -47,6 +47,28 @@ const getCabsResponseMock = {
           location: 'LOCATION'
         }
     ]
+};
+export const data = {
+  data: {
+    data:
+      [
+        {
+          id: 1,
+          regNumber: 'SMK 319 JK',
+          capacity: '4',
+          model: 'subaru',
+          providerId: 1
+        }
+      ],
+    pageMeta: {
+      itemsPerPage: 20,
+      pageNo: 1,
+      totalItems: 12,
+      totalPages: 1
+    },
+  },
+  message: '1 of 1 page(s).',
+  success: true,
 };
 
 export default getCabsResponseMock;

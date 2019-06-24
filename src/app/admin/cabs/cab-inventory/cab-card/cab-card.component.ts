@@ -32,7 +32,7 @@ export class CabCardComponent implements OnInit {
   ngOnInit() {}
 
   delete(cabId: number) {
-    this.cabService.deleteCab(cabId).subscribe((response: IDeleteCabInventory) => {
+    this.cabService.delete(cabId).subscribe((response: IDeleteCabInventory) => {
       const { success, message } = response;
       if (success) {
         this.alert.success(message);

@@ -27,7 +27,7 @@ describe('CabInventoryService', () => {
       const httpSpy = jest.spyOn(HttpClient.prototype, 'get');
       httpSpy.mockReturnValue(of(getCabsResponse));
       let cabs;
-      const result = service.getCabs(2, 2, 'name,asc,batch,asc', 1);
+      const result = service.get(2, 2, 'name,asc,batch,asc', 1);
       result.subscribe(value => {
         cabs = value;
         expect(cabs).toEqual(getCabsMock.cabs);
@@ -39,7 +39,7 @@ describe('CabInventoryService', () => {
       const httpSpy = jest.spyOn(HttpClient.prototype, 'post');
       httpSpy.mockReturnValue(of(responseMock));
       let cab;
-      const result = service.addCab(createCabMock);
+      const result = service.add(createCabMock);
       result.subscribe(value => {
         cab = value;
         expect(cab).toEqual(responseMock);
@@ -53,7 +53,7 @@ describe('CabInventoryService', () => {
       httpSpy.mockReturnValue(of(responseMock));
       let cab;
       const { id } = updateCabMock;
-      const result = service.updateCab(updateCabMock, id);
+      const result = service.update(updateCabMock, id);
       result.subscribe(value => {
         cab = value;
         expect(cab).toEqual(updateResponse);
@@ -66,7 +66,7 @@ describe('CabInventoryService', () => {
       const httpSpy = jest.spyOn(HttpClient.prototype, 'delete');
       httpSpy.mockReturnValue(of(responseMock));
       let cab;
-      const result = service.deleteCab(1);
+      const result = service.delete(1);
       result.subscribe(value => {
         cab = value;
         expect(cab).toEqual(responseMock);

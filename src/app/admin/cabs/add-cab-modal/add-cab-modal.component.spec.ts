@@ -14,8 +14,8 @@ describe('AddCabsModalComponent', () => {
   let fixture: ComponentFixture<AddCabsModalComponent>;
 
   const mockCabsInventoryService = {
-      addCab: jest.fn(),
-      updateCab: jest.fn()
+      add: jest.fn(),
+      update: jest.fn()
   };
 
   const mockMatDialogRef = {
@@ -69,13 +69,13 @@ describe('AddCabsModalComponent', () => {
 
   describe('addCab', () => {
     it('should call cabService.addCab', () => {
-      mockCabsInventoryService.addCab.mockReturnValue(of(responseMock));
+      mockCabsInventoryService.add.mockReturnValue(of(responseMock));
       component.addCab();
-      expect(component.cabService.addCab).toHaveBeenCalledTimes(1);
+      expect(component.cabService.add).toHaveBeenCalledTimes(1);
     });
 
     it('should call alert.success when request succeed', () => {
-      mockCabsInventoryService.addCab.mockReturnValue(of(responseMock));
+      mockCabsInventoryService.add.mockReturnValue(of(responseMock));
       jest.spyOn(component.alert, 'success');
       component.addCab();
       expect(component.alert.success).toHaveBeenCalledTimes(1);
@@ -83,7 +83,7 @@ describe('AddCabsModalComponent', () => {
 
     it('should call alert.error when request fail with 409 conflict', () => {
       const error = new MockError(409, 'A cab with the registration already exists');
-      mockCabsInventoryService.addCab.mockReturnValue(throwError(error));
+      mockCabsInventoryService.add.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
       component.addCab();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
@@ -92,7 +92,7 @@ describe('AddCabsModalComponent', () => {
 
     it('should call alert.error when request fail with 404', () => {
       const error = new MockError(404, 'A cab with the registration does not exist');
-      mockCabsInventoryService.addCab.mockReturnValue(throwError(error));
+      mockCabsInventoryService.add.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
       component.addCab();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
@@ -101,16 +101,15 @@ describe('AddCabsModalComponent', () => {
   });
   describe('editCab', () => {
     it('should call editCab', () => {
-      mockCabsInventoryService.updateCab.mockReturnValue(of(updateResponse));
+      mockCabsInventoryService.update.mockReturnValue(of(updateResponse));
       jest.spyOn(component.alert, 'success');
       component.cabData = updateCabMock;
       component.addCab();
-      expect(component.cabService.updateCab).toHaveBeenCalledTimes(1);
       expect(component.alert.success).toHaveBeenCalledTimes(1);
     });
     it('should call alert.error when request fail with 409 conflict', () => {
       const error = new MockError(409, 'A cab with the registration already exists');
-      mockCabsInventoryService.updateCab.mockReturnValue(throwError(error));
+      mockCabsInventoryService.update.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
       component.cabData = updateCabMock;
       component.addCab();
@@ -119,7 +118,7 @@ describe('AddCabsModalComponent', () => {
     });
     it('should call alert.error when request fail with 500 conflict', () => {
       const error = new MockError(500, 'Could not update cab details');
-      mockCabsInventoryService.updateCab.mockReturnValue(throwError(error));
+      mockCabsInventoryService.update.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
       component.cabData = updateCabMock;
       component.addCab();

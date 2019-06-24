@@ -1,5 +1,5 @@
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
-import getCabsResponseMock from './__mocks__/get-routes-response.mock';
+import { data } from './__mocks__/get-routes-response.mock';
 import { of} from 'rxjs';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CabInventoryComponent } from './cab-inventory.component';
@@ -8,7 +8,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {AppEventService} from '../../../shared/app-events.service';
+import { AppEventService } from '../../../shared/app-events.service';
+import {BaseInventoryComponent} from '../../base-inventory/base-inventory.component';
 
 
 const appEventService = new AppEventService();
@@ -16,13 +17,10 @@ describe('CabInventoryComponent', () => {
   let component: CabInventoryComponent;
   let fixture: ComponentFixture<CabInventoryComponent>;
 
-  const cabsInventoryMock = {
-    getCabs: () => of(getCabsResponseMock),
+  const activatedRouteMock = {
+    params: {subscribe: jest.fn() }
   };
 
-  const activatedRouteMock = {
-      params: {subscribe: jest.fn() }
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,9 +28,9 @@ describe('CabInventoryComponent', () => {
         CabInventoryComponent
       ],
       providers: [
-        {provide: CabsInventoryService, useValue: cabsInventoryMock},
-        {provide: ActivatedRoute, useValue: activatedRouteMock },
-        { provide: AppEventService, useValue: appEventService}
+        CabsInventoryService,
+        { provide: ActivatedRoute, useValue: activatedRouteMock },
+        { provide: AppEventService, useValue: appEventService }
       ],
       imports: [HttpClientTestingModule, AngularMaterialModule, BrowserAnimationsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -41,8 +39,6 @@ describe('CabInventoryComponent', () => {
     fixture = TestBed.createComponent(CabInventoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    jest.spyOn(cabsInventoryMock, 'getCabs');
 
   });
 
@@ -62,54 +58,42 @@ describe('CabInventoryComponent', () => {
       fixture.detectChanges();
       expect(component.cabs).toEqual([]);
     }));
+    it('should subscribe to events ', ( () => {
+      jest.spyOn(BaseInventoryComponent.prototype, 'getInventory');
+      jest.spyOn(appEventService, 'subscribe');
+      component.ngOnInit();
+      expect(appEventService.subscribe).toBeCalled();
+    }));
+    it('should call getInventory when there is a new cab ', ( () => {
+      jest.spyOn(BaseInventoryComponent.prototype, 'getInventory');
+      const event  = {
+        name: 'newCab',
+        content: {}
+      };
+      component.ngOnInit();
+      appEventService.broadcast(event);
+      expect(BaseInventoryComponent.prototype.getInventory).toBeCalled();
+    }));
+    it('should call getInventory when a cab is updated', ( () => {
+      jest.spyOn(BaseInventoryComponent.prototype, 'getInventory');
+      const event  = {
+        name: 'updateCab',
+        content: {}
+      };
+      component.ngOnInit();
+      appEventService.broadcast(event);
+      expect(BaseInventoryComponent.prototype.getInventory).toBeCalled();
+    }));
   });
 
   describe('setPage', () => {
     it('should update and load page', (() => {
-      jest.spyOn(component, 'getCabsInventory');
-      expect(component.pageNo).toEqual(1);
-
-      component.setPage(20);
-      fixture.detectChanges();
-      expect(component.pageNo).toEqual(20);
-      expect(component.getCabsInventory).toHaveBeenCalled();
+      jest.spyOn(CabsInventoryService.prototype, 'get').mockReturnValue(of(data));
+      jest.spyOn(BaseInventoryComponent.prototype, 'emitData');
+      component.loadData(2, 1, 'name', 1);
+      expect(CabsInventoryService.prototype.get).toHaveBeenCalled();
+      expect(component.totalItems).toEqual(12);
+      expect(BaseInventoryComponent.prototype.emitData).toHaveBeenCalled();
     }));
-  });
-
-  describe('updateCabs', () => {
-    it('should get list of cabs', (() => {
-      const providerInfo = { providerName: test, providerId: 1 };
-      jest.spyOn(component, 'loadCabs').mockImplementation();
-
-      component.updateCabs(providerInfo);
-      fixture.detectChanges();
-      expect(component.loadCabs).toHaveBeenCalled();
-    }));
-  });
-  describe('tabChanged', () => {
-    it('should change to Drivers tab on click', () => {
-      const expected = {'content': {'actionButton': 'Add Driver',
-          'headerTitle': 'undefined Drivers', 'providerId': undefined}, 'name': 'updateHeaderTitle'};
-      const event = {
-        tab: { textLabel: 'Drivers' }
-      };
-      jest.spyOn(appEventService, 'broadcast');
-      component.tabChanged(event);
-      expect(appEventService.broadcast).toHaveBeenCalledWith(expected);
-
-    });
-    it('should change to Vehicles tab on click', () => {
-      const expected = {'content': {'actionButton': 'Add a New Vehicle',
-          'badgeSize': undefined, 'headerTitle': 'undefined Vehicles',
-          'providerId': undefined}, 'name': 'updateHeaderTitle'};
-      const event = {
-        tab: { textLabel: 'Vehicles' }
-      };
-      jest.spyOn(appEventService, 'broadcast');
-      component.tabChanged(event);
-      expect(appEventService.broadcast).toHaveBeenCalledWith(expected);
-
-    });
-
   });
 });

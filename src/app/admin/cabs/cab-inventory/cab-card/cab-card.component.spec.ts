@@ -30,7 +30,7 @@ describe('CabCardComponent', () => {
     error: jest.fn()
   };
   const mockCabsInventoryService = {
-    deleteCab: jest.fn()
+    delete: jest.fn()
   };
 
   beforeEach(async(() => {
@@ -64,22 +64,22 @@ describe('CabCardComponent', () => {
     });
 
     it('should delete a cab successfully', () => {
-      jest.spyOn(mockCabsInventoryService, 'deleteCab').mockReturnValue(of({
+      jest.spyOn(mockCabsInventoryService, 'delete').mockReturnValue(of({
         success: true,
         message: 'Cab deleted successfully'
       }));
       component.delete(3);
-      expect(mockCabsInventoryService.deleteCab).toHaveBeenCalled();
+      expect(mockCabsInventoryService.delete).toHaveBeenCalled();
       expect(alert.success).toBeCalledWith('Cab deleted successfully');
     });
 
     it('should fail to delete a cab', () => {
-      jest.spyOn(mockCabsInventoryService, 'deleteCab').mockReturnValue(of({
+      jest.spyOn(mockCabsInventoryService, 'delete').mockReturnValue(of({
         success: false,
         message: 'Something went wrong'
       }));
       component.delete(3);
-      expect(mockCabsInventoryService.deleteCab).toHaveBeenCalled();
+      expect(mockCabsInventoryService.delete).toHaveBeenCalled();
       expect(alert.error).toBeCalledWith('Something went wrong');
 
     });

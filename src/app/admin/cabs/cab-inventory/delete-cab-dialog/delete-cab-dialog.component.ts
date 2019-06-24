@@ -25,7 +25,7 @@ export class DeleteCabModalComponent {
   }
 
   delete() {
-    this.cabService.deleteCab(this.cab.id).subscribe((response: IDeleteCabInventory) => {
+    this.cabService.delete(this.cab.id).subscribe((response: IDeleteCabInventory) => {
       const { success, message } = response;
       if (success) {
         this.alert.success(message);

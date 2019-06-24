@@ -1,5 +1,6 @@
 import { Deserializable } from './deserializable.model';
 import { IPageMeta } from './page-meta.model';
+import {IProviderRelatedModel} from './base.model';
 
 export class CabInventoryModel implements Deserializable<CabInventoryModel> {
   pageMeta?: IPageMeta;
@@ -30,4 +31,10 @@ export class CabModel implements ICabInventory {
 export interface IDeleteCabInventory {
   success: boolean;
   message: string;
+}
+
+export interface ICabModel extends IProviderRelatedModel {
+  providerId: number;
+  regNumber: string;
+  model?: string;
 }
