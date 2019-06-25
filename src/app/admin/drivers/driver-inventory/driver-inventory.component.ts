@@ -20,6 +20,7 @@ export class DriverInventoryComponent extends BaseInventoryComponent implements 
   createText = 'Add a Driver';
   updateSubscription: any;
   driversSubscription: any;
+  createSubscription: any;
   deleteSubscription: any;
 
   @Input() providerTabRequestType: string;
@@ -38,7 +39,7 @@ export class DriverInventoryComponent extends BaseInventoryComponent implements 
     this.driversSubscription = this.activatedRoute.params.subscribe(
       data => this.updateInventory.call(this, data)
     );
-    this.updateSubscription = this.appEventsService.subscribe(
+    this.createSubscription = this.appEventsService.subscribe(
       'newDriver', () => this.getInventory.call(this)
     );
     this.deleteSubscription = this.appEventsService.subscribe(
@@ -70,6 +71,12 @@ export class DriverInventoryComponent extends BaseInventoryComponent implements 
   ngOnDestroy(): void {
     if (this.deleteSubscription) {
       this.deleteSubscription.unsubscribe();
+    }
+    if (this.createSubscription) {
+      this.createSubscription.unsubscribe();
+    }
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
     }
   }
 }
