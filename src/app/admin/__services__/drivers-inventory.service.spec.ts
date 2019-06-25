@@ -4,12 +4,10 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import getDriversResponseMock from '../../__mocks__/drivers.mock';
-import {BaseInventoryModel} from '../../shared/models/base.model';
 
 describe('DriverInventoryService', () => {
   let injector: TestBed;
   let service: DriversInventoryService;
-  let httpMock: HttpTestingController;
   const getDriversResponse = getDriversResponseMock;
 
   beforeEach(() => {
@@ -19,7 +17,6 @@ describe('DriverInventoryService', () => {
     });
     injector = getTestBed();
     service = injector.get(DriversInventoryService);
-    httpMock = injector.get(HttpClientTestingModule);
   });
 
   describe('getCabs', () => {
@@ -31,6 +28,21 @@ describe('DriverInventoryService', () => {
       result.subscribe(value => {
         drivers = value;
         expect(drivers).toEqual(getDriversResponseMock.drivers);
+      });
+    });
+    it('should edit a driver', () => {
+      const dummyDriver = {
+        driverName: 'james',
+        driverPhoneNo: 213213213,
+        driverNumber: 678923,
+        email: 'james@andla.com'
+      };
+      const updateHttpSpy = jest.spyOn(HttpClient.prototype, 'put');
+      updateHttpSpy.mockReturnValue(of(dummyDriver));
+      const res = service.updateDriver(
+        dummyDriver, 1, 1);
+      res.subscribe(value => {
+        expect(value).toEqual(dummyDriver);
       });
     });
   });

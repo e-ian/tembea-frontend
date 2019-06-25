@@ -65,6 +65,7 @@ import { DriverInventoryComponent } from './drivers/driver-inventory/driver-inve
 import { DriverCardComponent } from './drivers/driver-card/driver-card.component';
 import { BaseInventoryComponent } from './base-inventory/base-inventory.component';
 import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/delete-driver-dialog.component';
+import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/dele
     DriverCardComponent,
     BaseInventoryComponent,
     DeleteDriverDialogComponent,
+    DriverEditModalComponent
   ],
   imports: [
     CommonModule,
@@ -139,8 +141,9 @@ import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/dele
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent,
     DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent,
-    DeleteDriverDialogComponent
+    DeleteDriverDialogComponent,
+    DriverEditModalComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
-export class AdminModule {}
+export class AdminModule { }

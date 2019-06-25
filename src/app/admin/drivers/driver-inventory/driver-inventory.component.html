@@ -8,8 +8,10 @@
       <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
+          [providerId] ="providerId"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
+          [driverNumber]="driver.driverNumber"
           [driverEmail]="driver.email"
           [driverProviderId]="driver.providerId"
           (refreshWindow)="getInventory()"
@@ -26,8 +28,10 @@
       <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
+          [providerId] ="providerId"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
+          [driverNumber]="driver.driverNumber"
           [driverEmail]="driver.email"
           [driverProviderId]="driver.providerId"
           (refreshWindow)="getInventory()"
@@ -43,8 +47,10 @@
       <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
+          [providerId] ="providerId"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
+          [driverNumber]="driver.driverNumber"
           [driverEmail]="driver.email"
           [driverProviderId]="driver.providerId"
           (refreshWindow)="getInventory()"
