@@ -64,6 +64,7 @@ import { ProviderNavComponent } from './providers/provider-nav/provider-nav.comp
 import { DriverInventoryComponent } from './drivers/driver-inventory/driver-inventory.component';
 import { DriverCardComponent } from './drivers/driver-card/driver-card.component';
 import { BaseInventoryComponent } from './base-inventory/base-inventory.component';
+import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/delete-driver-dialog.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { BaseInventoryComponent } from './base-inventory/base-inventory.componen
     ProviderNavComponent,
     DriverInventoryComponent,
     DriverCardComponent,
-    BaseInventoryComponent
+    BaseInventoryComponent,
+    DeleteDriverDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -136,7 +138,8 @@ import { BaseInventoryComponent } from './base-inventory/base-inventory.componen
   ],
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent,
-    DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent
+    DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent,
+    DeleteDriverDialogComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })

@@ -13,7 +13,12 @@ import { BaseInventoryService } from './base-inventory-service';
 })
 
 export class DriversInventoryService extends BaseInventoryService<IDriverModel, DriverInventoryModel> {
+  providersBaseUrl = `${environment.tembeaBackEndUrl}/api/v1/providers`;
   constructor(http: HttpClient) {
     super(`${environment.tembeaBackEndUrl}/api/v1/drivers`, http);
+  }
+
+  deleteDriver(providerId: number, driverId: number): Observable<any> {
+    return this.http.delete(`${this.providersBaseUrl}/${providerId}/drivers/${driverId}`, this.httpOptions);
   }
 }

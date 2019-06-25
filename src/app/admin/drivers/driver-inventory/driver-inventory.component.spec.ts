@@ -51,6 +51,12 @@ describe('DriverInventoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should check for current card with open options menu', () => {
+    component.currentOptions = 1;
+    component.showOptions(1);
+    expect(component.currentOptions).toBe(-1);
+  });
+
   describe('ngOnInit', () => {
     it('should update and load page', (() => {
 

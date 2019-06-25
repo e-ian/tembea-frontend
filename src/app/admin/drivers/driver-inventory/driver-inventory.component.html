@@ -5,13 +5,17 @@
 <div *ngIf="drivers.length > 0">
   <div class="cabs-grid-container xl-width">
     <mat-grid-list cols="4" rowHeight="145px">
-      <mat-grid-tile *ngFor='let driver of drivers; index as ind' >
+      <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
           [driverEmail]="driver.email"
-          (refreshWindow)="getDriversInventory()">
+          [driverProviderId]="driver.providerId"
+          (refreshWindow)="getInventory()"
+          [showMoreIcon]="true"
+          (showOptions)="showOptions(cardIndex)"
+          [hidden]="currentOptions !== cardIndex">
         </app-driver-card>
       </mat-grid-tile>
     </mat-grid-list>
@@ -19,26 +23,34 @@
 
   <div class="cabs-grid-container l-width">
     <mat-grid-list cols="2" rowHeight="145px">
-      <mat-grid-tile *ngFor='let driver of drivers; index as ind' >
+      <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
           [driverEmail]="driver.email"
-          (refreshWindow)="getDriversInventory()">
+          [driverProviderId]="driver.providerId"
+          (refreshWindow)="getInventory()"
+          [showMoreIcon]="true"
+          (showOptions)="showOptions(cardIndex)"
+          [hidden]="currentOptions !== cardIndex">
         </app-driver-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
   <div class="cabs-grid-container sm-width">
     <mat-grid-list cols="1" rowHeight="145px">
-      <mat-grid-tile *ngFor='let driver of drivers; index as ind' >
+      <mat-grid-tile *ngFor='let driver of drivers; index as cardIndex' >
         <app-driver-card
           [id]="driver.id"
           [driverName]="driver.driverName"
           [driverPhoneNo]="driver.driverPhoneNo"
           [driverEmail]="driver.email"
-          (refreshWindow)="getDriversInventory()">
+          [driverProviderId]="driver.providerId"
+          (refreshWindow)="getInventory()"
+          [showMoreIcon]="true"
+          (showOptions)="showOptions(cardIndex)"
+          [hidden]="currentOptions !== cardIndex">
         </app-driver-card>
       </mat-grid-tile>
     </mat-grid-list>

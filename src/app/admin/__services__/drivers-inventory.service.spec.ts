@@ -34,4 +34,19 @@ describe('DriverInventoryService', () => {
       });
     });
   });
+  describe('deleteCab', () => {
+    it('should delete a driver', () => {
+      const responseMock = {
+        success: true,
+        message: 'Driver successfully deleted',
+      };
+
+      const httpSpy = jest.spyOn(HttpClient.prototype, 'delete');
+      httpSpy.mockReturnValue(of(responseMock));
+      const result = service.deleteDriver(1, 1);
+      result.subscribe(response => {
+        expect(response).toEqual(responseMock);
+      });
+    });
+  });
 });

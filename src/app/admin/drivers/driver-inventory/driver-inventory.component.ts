@@ -1,10 +1,9 @@
 import { BaseInventoryComponent } from './../../base-inventory/base-inventory.component';
 import { IDriverModel } from './../../../shared/models/driver.model';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
 import {AppEventService} from '../../../shared/app-events.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {ITEMS_PER_PAGE} from '../../../app.constants';
 import {DriversInventoryService} from '../../__services__/drivers-inventory.service';
 
 @Component({
@@ -15,12 +14,13 @@ import {DriversInventoryService} from '../../__services__/drivers-inventory.serv
     '../../../auth/login-redirect/login-redirect.component.scss'
   ]
 })
-export class DriverInventoryComponent extends BaseInventoryComponent implements OnInit {
+export class DriverInventoryComponent extends BaseInventoryComponent implements OnInit, OnDestroy {
   drivers: IDriverModel[] = [];
   displayText = 'No Drivers yet';
   createText = 'Add a Driver';
   updateSubscription: any;
   driversSubscription: any;
+  deleteSubscription: any;
 
   @Input() providerTabRequestType: string;
   @Output() driverInfoEventEmitter = new EventEmitter();
@@ -41,6 +41,9 @@ export class DriverInventoryComponent extends BaseInventoryComponent implements 
     this.updateSubscription = this.appEventsService.subscribe(
       'newDriver', () => this.getInventory.call(this)
     );
+    this.deleteSubscription = this.appEventsService.subscribe(
+      'driverDeletedEvent', () => this.getInventory.call(this)
+    );
   }
 
   loadData (size, page, sort, providerId): void {
@@ -60,5 +63,11 @@ export class DriverInventoryComponent extends BaseInventoryComponent implements 
         this.isLoading = false;
         this.displayText = `Oops! We're having connection problems.`;
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.deleteSubscription) {
+      this.deleteSubscription.unsubscribe();
+    }
   }
 }
