@@ -79,8 +79,8 @@ export class AuthService {
     return this.router.navigate(['/admin']);
   }
 
-  setAisToken() {
-    this.andelaAuthServiceToken = this.cookieService.get('jwt-token');
+  setAisToken(token) {
+    this.andelaAuthServiceToken = token || this.cookieService.get('jwt-token');
     if (this.andelaAuthServiceToken) {
       return true;
     }

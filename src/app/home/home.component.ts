@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   initializeLogin() {
-    const { andelaAuthServiceUrl, tembeaFrontEndUrl } = environment;
-    window.location.href = `${andelaAuthServiceUrl}=${tembeaFrontEndUrl}/login/redirect`;
+    const { andelaAuthServiceUrl } = environment;
+    window.location.href = `${andelaAuthServiceUrl}=${location.origin}/login/redirect`;
   }
 }

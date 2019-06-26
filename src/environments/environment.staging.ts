@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   tembeaBackEndUrl: 'https://tembea-staging-api.andela.com',
-  tembeaFrontEndUrl: 'https://tembea-staging.andela.com',
   andelaAuthServiceUrl: 'https://api-staging.andela.com/login?redirect_url',
   teamUrl: 'andela-tembea.slack.com',
   googMapsAPIKey: 'AIzaSyDT1bJDksmdUa0221cLtjq36p9GidNa110',
