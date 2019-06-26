@@ -48,7 +48,7 @@
 
 <div *ngIf="tripRequests.length" class="trips-container">
   <div id="contentToExport" class="trips-table custom-table">
-    <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head table-header-hover">
+    <mat-grid-list cols="8" rowHeight="4:1" class="trip-table-head table-header-hover">
       <mat-grid-tile tabindex="0">
         <div class="trip-align-cell"> Requested On </div>
       </mat-grid-tile>
@@ -75,7 +75,7 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="2:1" class="trip-table-body table-row-item"
+    <mat-grid-list *ngFor='let trip of tripRequests' cols="8" rowHeight="4:1" class="trip-table-body table-row-item"
       (click)="viewTripDescription(trip)" tabindex="0">
       <mat-grid-tile>
         <div class="time trip-align-cell">

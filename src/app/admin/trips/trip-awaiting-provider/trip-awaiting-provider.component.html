@@ -18,7 +18,7 @@
 
 <div *ngIf="tripRequests.length > 0" class="trips-container">
   <div class="trips-table custom-table">
-    <mat-grid-list cols="8" rowHeight="2:1" class="trip-table-head table-header-hover">
+    <mat-grid-list cols="8" rowHeight="4:1" class="trip-table-head table-header-hover">
       <mat-grid-tile tabindex="0">
         <div class="trip-align-cell">Pickup Location</div>
       </mat-grid-tile>
@@ -46,7 +46,7 @@
     </mat-grid-list>
 
     <mat-grid-list *ngFor='let trip of tripRequests' class="trip-table-body table-row-item mat-grid-list ng-star-inserted" cols="8"
-      rowHeight="2:1">
+      rowHeight="4:1">
       <mat-grid-tile>
         <div class="trip-align-cell">
           <span>{{ trip.pickup }}</span>

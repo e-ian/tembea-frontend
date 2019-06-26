@@ -108,3 +108,9 @@ select::-ms-expand {
   -ms-word-break: normal;
   word-break: normal;
 }
+
+.mat-grid-tile, .table-row-item, 
+.trip-table-head.mad-grid-tile, .trip-table-head  {
+  padding-top: 4.5px;
+  padding-bottom: 4.5px;
+}

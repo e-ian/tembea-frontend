@@ -16,13 +16,13 @@
 
 
 .mat-ink-bar {
-  color: #3359DB  !important;
+  color: #3359DB;
   min-width: 25px !important;
   background-color: rgb(202, 209, 230)  !important;
 }
 
 .mat-tab-header {
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -62,4 +62,10 @@
     justify-content: start;
   }
   text-align: left;
+}
+
+.mat-grid-tile, .table-row-item, 
+.trip-table-head.mad-grid-tile, .trip-table-head  {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

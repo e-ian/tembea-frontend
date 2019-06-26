@@ -13,7 +13,7 @@
 
 <div *ngIf="tripRequests.length > 0" class="trips-container">
   <div class="trips-table custom-table">
-    <mat-grid-list cols="9" rowHeight="2:1" class="pending-table-head table-header-hover">
+    <mat-grid-list cols="9" rowHeight="4:1" class="pending-table-head table-header-hover">
       <mat-grid-tile tabindex="0">
         <div class="trip-align-cell">Requested On</div>
       </mat-grid-tile>
@@ -43,7 +43,7 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list *ngFor='let trip of tripRequests' class="pending-table-body table-row-item trip-table-body" cols="9" rowHeight="2:1">
+    <mat-grid-list *ngFor='let trip of tripRequests' class="pending-table-body table-row-item trip-table-body" cols="9" rowHeight="4:1">
       <mat-grid-tile>
         <div class="trip-align-cell">
           <span>{{ trip.requestedOn | date: 'dd-MM-yy' }}</span>
