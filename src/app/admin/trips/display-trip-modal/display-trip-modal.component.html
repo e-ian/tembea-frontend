@@ -10,11 +10,14 @@
         <p><span class="bold-text">Rider: </span> {{tripInfo.rider.name}}</p>
       </div>
       <div class="trip-date">
-        <h3 class="trip-date-text">Trip Date</h3>
+        <h3 class="trip-date-text">Provider Details</h3>
         <hr />
+        <p><span class="bold-text">Name: </span> {{ tripInfo.provider.name | convertNullValue: 'NA' | shortenName: { max: 15 } }}</p>
+        <p><span class="bold-text">Driver's Name: </span> {{ tripInfo.driver?.driverName | convertNullValue: 'NA' }}</p>
+        <p><span class="bold-text">Vehicle model: </span> {{ tripInfo.cab?.model | convertNullValue: 'NA' }}</p>
+        <p><span class="bold-text">Vehicle Number: </span> {{ tripInfo.cab?.regNumber | convertNullValue: 'NA' }}</p>
 
-        <p><span class="bold-text">Requested On: </span> {{ tripInfo.requestedOn | date:'dd-MM-yy' }}</p>
-        <p><span class="bold-text">Departing On: </span> {{ tripInfo.departureTime | date:'dd-MM-yy' }}</p>
+        
       </div>
 
     </div>
@@ -24,6 +27,8 @@
         <hr />
         <p><span class="bold-text">Pickup: </span> {{tripInfo.pickup}}</p>
         <p><span class="bold-text">Destination: </span> {{tripInfo.destination}}</p>
+        <p><span class="bold-text">Requested On: </span> {{ tripInfo.requestedOn | date:'dd-MM-yy' }}</p>
+        <p><span class="bold-text">Departing On: </span> {{ tripInfo.departureTime | date:'dd-MM-yy' }}</p>
         <p *ngIf="!!tripInfo.distance"><span class="bold-text">Distance: </span> {{tripInfo.distance}}</p>
       </div>
       <div class="trip-status">

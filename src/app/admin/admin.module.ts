@@ -67,6 +67,7 @@ import { BaseInventoryComponent } from './base-inventory/base-inventory.componen
 import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/delete-driver-dialog.component';
 import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edit-modal.component';
 import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/trip-awaiting-provider.component';
+import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/tr
     BaseInventoryComponent,
     DeleteDriverDialogComponent,
     DriverEditModalComponent,
-    TripAwaitingProviderComponent
+    TripAwaitingProviderComponent,
+    ConvertNullValue
   ],
   imports: [
     CommonModule,
