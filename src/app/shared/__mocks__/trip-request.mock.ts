@@ -20,7 +20,13 @@ export const tripRequestMock: TripRequest = new TripRequest().deserialize({
   'pickup': 'Jomo Kenyatta Airport',
   'rider': user,
   'requester': user,
-  'approvedBy': user
+  'approvedBy': user,
+  'provider': {
+    name: 'Uber Kenya',
+    email: 'uberkenya@uber.com',
+    phoneNumber: '08040404040'
+  },
+  id: 1
 });
 
 export const pastTripMock: TripRequest[] = [

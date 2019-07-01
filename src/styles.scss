@@ -252,6 +252,38 @@ input {
   .confirm-action-button {
     display: none;
   }
+
+  .edit-action-button {
+    border: none;
+    height: 30px;
+    width: 37px;
+  
+    .edit-icon {
+      background-color: #fff;
+      border: #fff;
+      margin: auto;
+      background-image: url("/assets/images/icons/edit-icon.svg");
+      height: 30px;
+      width: 31px;
+      display: inline-block;
+    }
+  }
+  
+  .decline-action-button {
+    border: none;
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+  
+    .decline-icon {
+      background-color: #fff;
+      border: #fff;
+      background-image: url("/assets/images/icons/decline-icon.svg");
+      height: 19px;
+      width: 19px;
+      display: inline-block;
+    }
+  }
 }
 
 .custom-table:hover {
@@ -330,4 +362,13 @@ input {
   .mat-select-trigger {
     margin-top: 20px;
   }
+}
+
+.actions-icon {
+  background-image: url("/assets/images/icons/info-icon.svg");
+  height: 8.9px;
+  width: 10px;
+  margin-left: 4px;
+  margin-top: 3px;
+  justify-content: center;
 }

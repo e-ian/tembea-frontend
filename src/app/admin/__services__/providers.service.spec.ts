@@ -43,6 +43,14 @@ describe('ProvidersService', () => {
         expect(data).toEqual({});
       });
     });
+
+    it('return all the providers', () => {
+      jest.spyOn(HttpClient.prototype, 'get').mockReturnValue(of({}));
+      const result = service.getProviders();
+      result.subscribe(data => {
+        expect(data).toEqual({});
+      });
+    });
   });
   describe('getViableProviders', () => {
     beforeEach(() => {

@@ -128,12 +128,10 @@ describe('TripApproveDeclineModalComponent', () => {
 
   describe('clickedProviders', () => {
     it('should disable inputs, set providerId and patch form value ',  () => {
-      const event = {
-        providerUserId: 1
-      };
+      const event = { providerUserId: 1};
       component.approveForm = new NgForm([], []);
       component.clickedProviders(event);
-      expect(component.selectedProviderId).toEqual(event.providerUserId);
+      expect(component.providerId).toEqual(event.providerUserId);
       expect(component.disableOtherInput).toEqual(true);
       expect(component.disableOtherInput).toBeTruthy();
     });

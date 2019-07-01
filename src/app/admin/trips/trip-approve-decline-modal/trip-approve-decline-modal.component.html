@@ -8,7 +8,7 @@
     <h1 class="heading-one">Confirm {{data.requesterFirstName | titlecase}}'s Trip</h1>
     <p class="message">Assign a Provider</p>
     <input required [(ngModel)]="providerName" (change)="clearFields($event)" class="form-input" type="text"
-       placeholder="Choose a provider" aria-label="Provider" matInput [matAutocomplete]="auto">
+       placeholder="Choose a provider" aria-label="Provider" matInput [matAutocomplete]="auto" name="providerName">
     <app-select-provider optionValue="name" [approveForm]="approveForm" (clickedProviders)="clickedProviders($event)"
       (emitAutoComplete)="setAuto($event)">
     </app-select-provider>

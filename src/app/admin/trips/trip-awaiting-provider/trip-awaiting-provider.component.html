@@ -6,12 +6,8 @@
 <div *ngIf="tripRequests.length > 0">
   <div class="buttons-wrapper flex">
     <button class="search-wrapper"></button>
-    <app-export-view
-      [tableName]="'awaitingProvider'"
-      class="flex-right"
-      (click)="setFilterParams()"
-      [filterParams]="filterParams"
-      >
+    <app-export-view [tableName]="'awaitingProvider'" class="flex-right" (click)="setFilterParams()"
+      [filterParams]="filterParams">
     </app-export-view>
   </div>
 </div>
@@ -40,8 +36,8 @@
       <mat-grid-tile>
         <div class="trip-align-cell">Approval Date</div>
       </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="actions-icon trip-align-cell">Actions</div>
+      <mat-grid-tile>Actions
+        <div class="actions-icon trip-align-cell"></div>
       </mat-grid-tile>
     </mat-grid-list>
 
@@ -69,7 +65,7 @@
         <div class="trip-align-cell">
           {{ trip.provider.name }}
         </div>
-    </mat-grid-tile>
+      </mat-grid-tile>
       <mat-grid-tile>
         <div class="trip-align-cell">
           {{ trip.provider.phoneNumber }}
@@ -86,8 +82,17 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
-        <div class="trip-align-cell">
-          <!-- Action widgets will go in here -->
+        <div class="flex">
+          <button class='edit-action-button' (click)="openUpdateProviderModal(trip)">
+            <span class="edit-icon tooltip">
+              <span class="show-on-right">Edit<i></i></span>
+            </span>
+          </button>
+          <button class='decline-action-button'>
+            <span class="decline-icon tooltip">
+              <span class="show-on-left">Delete Trip<i></i></span>
+            </span>
+          </button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

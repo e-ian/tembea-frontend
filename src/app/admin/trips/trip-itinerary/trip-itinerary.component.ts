@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { TripRequest } from 'src/app/shared/models/trip-request.model';
 import { ITEMS_PER_PAGE } from 'src/app/app.constants';
 import { AppEventService } from '../../../shared/app-events.service';
 import { AlertService } from '../../../shared/alert.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { DisplayTripModalComponent } from '../display-trip-modal/display-trip-modal.component';
+import { ProviderService } from '../../__services__/providers.service';
 
 
 
@@ -46,9 +47,10 @@ export class TripItineraryComponent implements OnInit {
 
   constructor(
     private tripRequestService: TripRequestService,
-    private appEventService: AppEventService,
+    public appEventService: AppEventService,
     private alertService: AlertService,
     public dialog: MatDialog,
+    public providerService: ProviderService
   ) {
     this.pageSize = ITEMS_PER_PAGE;
     this.page = 1;

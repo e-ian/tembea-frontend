@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -86,6 +86,8 @@ import { RiderListComponent } from './dashboard/rider-list/rider-list.component'
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
 import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/travel-analytics-view.component';
+import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
+import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-modal/update-trip-provider-modal.component';
 
 @NgModule({
   declarations: [
@@ -152,8 +154,9 @@ import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/
     ProviderSelectorComponent,
     RiderListComponent,
     RiderCardComponent,
+    TravelAnalyticsViewComponent,
     RouteTripsComponent,
-    TravelAnalyticsViewComponent
+    UpdateTripProviderModalComponent
   ],
   imports: [
     CommonModule,
@@ -173,7 +176,8 @@ import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/
     }),
     AgmDirectionModule,
     MatProgressBarModule,
-    MatRadioModule
+    MatRadioModule,
+    ReactiveFormsModule,
   ],
   exports: [
     RatingStarsComponent,
@@ -189,7 +193,8 @@ import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
-    ProviderSelectorComponent
+    ProviderSelectorComponent,
+    UpdateTripProviderModalComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })

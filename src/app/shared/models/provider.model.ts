@@ -1,8 +1,16 @@
+export interface IProviderUser {
+  name: string;
+  email: string;
+  slackId: string;
+  phoneNo?: string;
+}
+
 export interface IProviderInventory {
   id?: number;
   name?: string;
-  user?: string;
   email?: string;
+  providerUserId?: number;
+  user?: IProviderUser;
 }
 
 export class ProviderModel implements IProviderInventory {
@@ -11,5 +19,5 @@ export class ProviderModel implements IProviderInventory {
     public email?: string,
     public isDirectMessage?: boolean,
     public channelId?: string,
-  ) {}
+  ) { }
 }

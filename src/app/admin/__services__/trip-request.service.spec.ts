@@ -4,10 +4,11 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment';
 import { TripRequestService } from './trip-request.service';
 import { tripRequestMock } from './__mocks__/trip-request.mock';
-import {DepartmentsModel} from 'src/app/shared/models/departments.model';
-import {department} from 'src/app/shared/__mocks__/department.mock';
+import { DepartmentsModel } from 'src/app/shared/models/departments.model';
+import { department } from 'src/app/shared/__mocks__/department.mock';
 import { AlertService } from 'src/app/shared/alert.service';
 import { AppTestModule } from '../../__tests__/testing.module';
+import { of } from 'rxjs';
 
 describe('Trip Request Service', () => {
   let service: TripRequestService;
@@ -59,7 +60,7 @@ describe('Trip Request Service', () => {
   });
 
   it('should get all department', (done) => {
-    const departmentMock: DepartmentsModel = {department};
+    const departmentMock: DepartmentsModel = { department };
 
     service.getDepartments()
       .subscribe(result => {
@@ -125,16 +126,12 @@ describe('Trip Request Service', () => {
 
   describe('confirmRequest', () => {
     const values = {
-      isAssignProvider: true,
-      selectedProviderId : 16,
+      providerId: 16,
       comment: 'This trip is confirm'
     };
     const mockResponse = {
       success: true,
       message: 'This trip request has been confirmed',
-      data: {
-        tripId: 1
-      }
     };
     const { teamUrl: slackUrl } = environment;
     it('should handle confirm trip request', (done) => {
@@ -180,9 +177,21 @@ describe('Trip Request Service', () => {
     it('should confirm the trip request', () => {
       service.handleResponse({ success: true }, 'confirm');
       expect(toastr.success).toHaveBeenCalledTimes(1);
-      expect(toastr.success).toHaveBeenCalledWith('Trip request confirmd!');
+      expect(toastr.success).toHaveBeenCalledWith('Trip request confirmed!');
     });
+
+    it('should not confirm the trip request', () => {
+      service.handleResponse({ success: false }, 'confirm');
+      expect(toastr.error).toHaveBeenCalledTimes(1);
+      expect(toastr.error).toHaveBeenCalledWith('Could not confirm request');
+    });
+
     it('should decline the trip request', () => {
+      service.handleResponse({ success: true }, 'decline');
+      expect(toastr.success).toHaveBeenCalledTimes(1);
+      expect(toastr.success).toHaveBeenCalledWith('Trip request declined!');
+    });
+    it('should not decline the trip request', () => {
       service.handleResponse({ success: false }, 'decline');
       expect(toastr.error).toHaveBeenCalledTimes(1);
       expect(toastr.error).toHaveBeenCalledWith('Could not decline request');

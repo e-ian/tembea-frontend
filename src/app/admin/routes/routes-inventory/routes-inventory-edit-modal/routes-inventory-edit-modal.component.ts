@@ -4,6 +4,7 @@ import { IRouteInventory } from 'src/app/shared/models/route-inventory.model';
 import { RoutesInventoryService } from 'src/app/admin/__services__/routes-inventory.service';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { AlertService } from 'src/app/shared/alert.service';
+import { UpdatePageContentService } from 'src/app/shared/update-page-content.service';
 
 @Component({
   templateUrl: './routes-inventory-edit-modal.component.html',
@@ -17,7 +18,7 @@ export class RoutesInventoryEditModalComponent implements OnInit {
     public alert: AlertService,
     @Inject(MAT_DIALOG_DATA) public data: IRouteInventory,
     public routeService: RoutesInventoryService,
-    private appEventsService: AppEventService
+    private updatePage: UpdatePageContentService
   ) { }
 
   ngOnInit() {
@@ -43,8 +44,7 @@ export class RoutesInventoryEditModalComponent implements OnInit {
     };
     this.routeService.changeRouteStatus(id, routeDetails).subscribe((res) => {
       if (res.success) {
-        this.alert.success(res.message);
-        this.appEventsService.broadcast({name: 'updateRouteInventory'});
+        this.updatePage.triggerSuccessUpdateActions('updateRouteInventory', res.message);
         this.dialogRef.close();
       }
     }, (err: any) => {

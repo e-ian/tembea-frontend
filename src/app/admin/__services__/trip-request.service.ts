@@ -67,12 +67,11 @@ export class TripRequestService {
   }
 
   confirmRequest(tripId: number, values: any, ): Observable<any> {
-    const isAssignProvider = true;
     const queryParam = 'confirm';
     const { teamUrl: slackUrl } = environment;
-    const { comment, selectedProviderId } = values;
+    const { comment, providerId } = values;
     return this.http.put(`${this.tripUrl}/${tripId}?action=${queryParam}`, {
-      comment, slackUrl, isAssignProvider, selectedProviderId
+      comment, slackUrl, providerId
     })
       .pipe(tap((data) => this.handleResponse(data, 'confirm'), this.handleError));
   }
@@ -92,7 +91,7 @@ export class TripRequestService {
 
   handleResponse = (data, status: 'confirm' | 'decline') => {
     if (data.success) {
-      this.toastr.success(`Trip request ${status}d!`);
+      this.toastr.success(`Trip request ${status}${status === 'confirm' ? 'ed' : 'd'}!`);
     } else {
       this.toastr.error(`Could not ${status} request`);
     }

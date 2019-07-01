@@ -18,9 +18,12 @@ export class ProviderService {
     private http: HttpClient,
   ) { }
 
-  getProviders(size: number, page: number): Observable<any> {
-    return this.http
-      .get<any>(`${this.providersUrl}?size=${size}&page=${page}`);
+  getProviders(size?: number, page?: number): Observable<any> {
+    let getProvidersUrl = this.providersUrl;
+    if (size && page) {
+      getProvidersUrl = `${getProvidersUrl}?size=${size}&page=${page}`;
+    }
+    return this.http.get<any>(getProvidersUrl);
   }
 
   getViableProviders(): Observable<any> {
