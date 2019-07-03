@@ -11,9 +11,6 @@ import 'rxjs/add/operator/map';
 })
 
 export class CabsInventoryService extends BaseInventoryService<ICabModel, CabInventoryModel> {
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
   constructor(http: HttpClient) {
     super(`${environment.tembeaBackEndUrl}/api/v1/cabs`, http);
   }

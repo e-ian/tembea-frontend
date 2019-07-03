@@ -1,11 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+import { environment } from './../../../environments/environment';
 import {IResponseModel} from '../../shared/models/driver.model';
 
 export abstract class BaseInventoryService<T, U> {
+  teamUrl = environment.teamUrl;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    body: { slackUrl: this.teamUrl }
   };
   protected constructor(
     private readonly baseUrl: string,
