@@ -6,6 +6,7 @@ import { AngularMaterialModule } from '../../../angular-material.module';
 import { EmptyPageComponent } from '../../empty-page/empty-page.component';
 import { AppPaginationComponent } from '../../layouts/app-pagination/app-pagination.component';
 import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
+import { ShortenTextPipe } from '../../__pipes__/shorten-text.pipe';
 
 describe('TripAwaitingProviderComponent Unit test', () => {
   beforeEach(async () => {
@@ -15,7 +16,8 @@ describe('TripAwaitingProviderComponent Unit test', () => {
         ExportComponent,
         EmptyPageComponent,
         AppPaginationComponent,
-        ShortenNamePipe
+        ShortenNamePipe,
+        ShortenTextPipe
       ],
       imports: [
         AppTestModule,

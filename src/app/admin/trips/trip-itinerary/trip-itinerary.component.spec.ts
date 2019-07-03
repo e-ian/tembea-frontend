@@ -12,6 +12,7 @@ import { tripRequestMock } from '../../../shared/__mocks__/trip-request.mock';
 import { department } from '../../../shared/__mocks__/department.mock';
 import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from '../../../shared/app-events.service';
+import { ShortenTextPipe } from '../../__pipes__/shorten-text.pipe';
 
 const mockMatDialog = {
   open: jest.fn(),
@@ -40,7 +41,7 @@ describe('TripItineraryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TripItineraryComponent, ShortenNamePipe, EmptyPageComponent],
+      declarations: [TripItineraryComponent, ShortenNamePipe, EmptyPageComponent, ShortenTextPipe],
       imports: [HttpClientTestingModule, AppTestModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
@@ -167,6 +168,15 @@ describe('TripItineraryComponent', () => {
           requestedOn: '2022-12-21', departureTime: '2023-12-21'
         }
       });
+    });
+  });
+
+  describe('checkTripRequestType', () => {
+    it('should check trip\'s request type', () => {
+      component.tripRequestType = 'declinedTrips';
+
+      const isDeclinedTrips = component.checkTripRequestType('declinedTrips');
+      expect(isDeclinedTrips).toBe(true);
     });
   });
 

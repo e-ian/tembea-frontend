@@ -7,6 +7,7 @@ import { TripItineraryComponent } from '../trip-itinerary/trip-itinerary.compone
 import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
 import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from 'src/app/shared/app-events.service';
+import { ShortenTextPipe } from '../../__pipes__/shorten-text.pipe';
 
 
 describe('TripNavComponent', () => {
@@ -17,7 +18,7 @@ describe('TripNavComponent', () => {
   };
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [ TripNavComponent, ShortenNamePipe, TripItineraryComponent ],
+      declarations: [ TripNavComponent, ShortenNamePipe, TripItineraryComponent, ShortenTextPipe ],
       imports: [HttpClientTestingModule, AppTestModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [

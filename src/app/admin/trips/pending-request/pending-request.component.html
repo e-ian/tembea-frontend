@@ -60,12 +60,12 @@
       </mat-grid-tile>
       <mat-grid-tile class="">
         <div class="trip-align-cell">
-            {{ trip.pickup}}
+            {{ trip.pickup | shortenText }}
         </div>
       </mat-grid-tile>
       <mat-grid-tile class="">
         <div class="trip-align-cell">
-          {{ trip.destination}}
+          {{ trip.destination | shortenText }}
         </div>
       </mat-grid-tile>
       <mat-grid-tile>

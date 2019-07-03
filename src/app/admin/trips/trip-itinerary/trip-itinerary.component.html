@@ -97,10 +97,10 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
-        <div class="trip-align-cell">{{trip.pickup | shortenName: { max: 10 } }}</div>
+        <div class="trip-align-cell">{{trip.pickup | shortenText: 10 }}</div>
       </mat-grid-tile>
       <mat-grid-tile>
-        <div class="trip-align-cell">{{trip.destination | shortenName: { max: 10 } }}</div>
+        <div class="trip-align-cell">{{trip.destination | shortenText: 10 }}</div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="trip-align-cell">{{trip.provider.name | shortenName: { max: 10 } }}</div>
@@ -109,19 +109,19 @@
         <div class="trip-align-cell">{{trip.requester.name | shortenName: { max: 10 } }}</div>
       </mat-grid-tile>
       <mat-grid-tile>
-        <div class="trip-align-cell">{{trip.department}} </div>
+        <div class="trip-align-cell">{{trip.department}}</div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="trip-align-cell">{{trip.rider.name | shortenName: { max: 10 } }}</div>
       </mat-grid-tile>
       <mat-grid-tile>
-        <div *ngIf="tripRequestType !== 'declinedTrips'" class="trip-align-cell">
-          {{trip.approvedBy.name | shortenName: { max: 10 } }}
+        <div *ngIf="!checkTripRequestType('declinedTrips')" class="trip-align-cell">
+          {{trip.approvedBy.name | shortenName: { max: 5 } }}
           &nbsp;/&nbsp;
-          {{trip.confirmedBy.name | shortenName: { max: 10 } }}
+          {{trip.confirmedBy.name | shortenName: { max: 5 } }}
         </div>
-        <div *ngIf="tripRequestType === 'declinedTrips' && trip.decliner" class="trip-align-cell">
-          {{trip.decliner.name | shortenName: { max: 10 } }}
+        <div *ngIf="checkTripRequestType('declinedTrips') && trip.decliner" class="trip-align-cell">
+          {{trip.decliner.name | shortenName: { max: 5 } }}
         </div>
       </mat-grid-tile>
     </mat-grid-list>

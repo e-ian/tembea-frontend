@@ -149,4 +149,8 @@ export class TripItineraryComponent implements OnInit {
       }
     });
   }
+
+  checkTripRequestType(tripRequestType: string): boolean {
+    return this.tripRequestType === tripRequestType;
+  }
 }

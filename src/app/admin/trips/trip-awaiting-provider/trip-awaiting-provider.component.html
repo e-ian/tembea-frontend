@@ -49,7 +49,7 @@
       rowHeight="4:1">
       <mat-grid-tile>
         <div class="trip-align-cell">
-          <span>{{ trip.pickup }}</span>
+          <span>{{ trip.pickup | shortenText }}</span>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
@@ -69,7 +69,7 @@
         <div class="trip-align-cell">
           {{ trip.provider.name }}
         </div>
-      </mat-grid-tile>
+    </mat-grid-tile>
       <mat-grid-tile>
         <div class="trip-align-cell">
           {{ trip.provider.phoneNumber }}

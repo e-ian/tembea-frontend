@@ -68,6 +68,7 @@ import { DeleteDriverDialogComponent } from './drivers/delete-driver-dialog/dele
 import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edit-modal.component';
 import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/trip-awaiting-provider.component';
 import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
+import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
     DeleteDriverDialogComponent,
     DriverEditModalComponent,
     TripAwaitingProviderComponent,
-    ConvertNullValue
+    ConvertNullValue,
+    ShortenTextPipe
   ],
   imports: [
     CommonModule,

@@ -93,10 +93,10 @@
           </div>
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <div class="trip-align-cell"> {{trip.pickup}} </div>
+          <div class="trip-align-cell"> {{trip.pickup | shortenText }} </div>
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
-          <div class="trip-align-cell"> {{trip.destination}} </div>
+          <div class="trip-align-cell"> {{ trip.destination | shortenText }} </div>
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
           <div class="trip-align-cell"> {{trip.requester.name | shortenName: { max: 10 } }} </div>
@@ -109,9 +109,9 @@
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
           <div class="trip-align-cell">
-            {{trip.approvedBy.name | shortenName: { max: 10 } }}
+            {{trip.approvedBy.name | shortenName: { max: 5 } }}
             &nbsp;/&nbsp;
-            {{trip.confirmedBy.name | shortenName: { max: 10 } }}
+            {{trip.confirmedBy.name | shortenName: { max: 5 } }}
           </div>
         </mat-grid-tile>
         <mat-grid-tile tabindex="0">
