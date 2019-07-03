@@ -200,3 +200,18 @@ mat-grid-tile {
   }
 }
 
+/* fix browser magnification at 110% */
+@media (min-width: 1270px) and (max-width: 1384px){
+  .cabs-grid-container {
+    display: block;
+  }
+  app-cab-card {
+    margin-left: 0.125rem;
+  }
+  .sm-width {
+    display: none;
+  }
+  .xl-width {
+    display: none;
+  }
+}
