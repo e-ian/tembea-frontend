@@ -26,6 +26,7 @@ export class CabCardComponent implements OnInit {
   @Input() model: string;
   @Input() regNumber: string;
   @Input() capacity: number;
+  @Input() providerId: number;
   @Input() hidden: boolean;
   @Input() showMoreIcon: boolean;
 
@@ -56,7 +57,8 @@ export class CabCardComponent implements OnInit {
         id: this.id,
         model: this.model,
         regNumber: this.regNumber,
-        capacity: this.capacity
+        capacity: this.capacity,
+        providerId: this.providerId,
       }, '620px', 'small-modal-panel-class'));
     dialogRef.afterClosed().subscribe(() => {
       this.hidden = !this.hidden;

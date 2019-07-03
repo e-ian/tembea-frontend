@@ -58,9 +58,9 @@ export class AddCabsModalComponent {
     );
   }
   editCab(cab: CabModel) {
-    const { id } = cab;
+    const { id, ...cabData } = cab;
     this.loading = true;
-    this.cabService.update( cab, id).subscribe(
+    this.cabService.update(cabData, id).subscribe(
       responseData => this.response(responseData, 'updateCab'),
       error => {
         this.displayError(error);

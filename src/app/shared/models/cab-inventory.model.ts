@@ -37,4 +37,5 @@ export interface ICabModel extends IProviderRelatedModel {
   providerId: number;
   regNumber: string;
   model?: string;
+  capacity: number;
 }
