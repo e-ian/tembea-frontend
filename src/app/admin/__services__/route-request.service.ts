@@ -24,20 +24,19 @@ export class RouteRequestService {
       );
   }
 
-  declineRequest(id: number, comment: string, reviewerEmail: string): Observable<any> {
+  declineRequest(id: number, comment: string): Observable<any> {
     const newOpsStatus = 'decline';
     const { teamUrl } = environment;
     return this.http.put(`${this.routesUrl}/requests/status/${id}`, {
-      comment, reviewerEmail, newOpsStatus, teamUrl,
+      comment, newOpsStatus, teamUrl,
     })
       .pipe(tap((data) => this.handleResponse(data, 'decline'), this.handleError));
   }
 
-  approveRouteRequest(id: number, comment: string, routeDetails: IRouteDetails, email: string, provider: object): Observable<any> {
+  approveRouteRequest(id: number, comment: string, routeDetails: IRouteDetails, provider: object): Observable<any> {
     return this.http.put(`${this.routesUrl}/requests/status/${id}`, {
       newOpsStatus: 'approve',
       comment: comment,
-      reviewerEmail: email,
       teamUrl: environment.teamUrl,
       routeName: routeDetails.routeName,
       takeOff: routeDetails.takeOff,

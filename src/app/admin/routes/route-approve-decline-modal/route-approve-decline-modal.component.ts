@@ -16,11 +16,9 @@ export class RouteApproveDeclineModalComponent implements OnInit {
   public values: any;
   public comment: string;
   public routeName: string;
-  public capacity: number;
   public takeOff: string;
   public providerName: string;
   public loading: boolean;
-  private account: any;
   public disableOtherInput = false;
   public selectedProviderOption: any;
   public selectedProvider: any;
@@ -39,7 +37,6 @@ export class RouteApproveDeclineModalComponent implements OnInit {
 
   ngOnInit() {
     this.loading = false;
-    this.account = this.authService.getCurrentUser();
   }
 
   closeDialog(): void {
@@ -48,18 +45,18 @@ export class RouteApproveDeclineModalComponent implements OnInit {
 
   approve(values): void {
     this.setLoading(true);
-    const { routeName, takeOff, capacity, comment } = values;
-    const routeDetails: IRouteDetails = { routeName, takeOff, capacity };
-    const { data: { routeRequestId }, account: { email } } = this;
+    const { routeName, takeOff, comment } = values;
+    const routeDetails: IRouteDetails = { routeName, takeOff };
+    const { data: { routeRequestId } } = this;
     delete this.selectedProvider.user.slackId;
-    this.handleAction(this.routeService.approveRouteRequest(routeRequestId, comment, routeDetails, email, this.selectedProvider));
+    this.handleAction(this.routeService.approveRouteRequest(routeRequestId, comment, routeDetails, this.selectedProvider));
   }
 
   decline(values): void {
     this.setLoading(true);
-    const { data: { routeRequestId }, account: { email } } = this;
+    const { data: { routeRequestId } } = this;
     const { comment } = values;
-    this.handleAction(this.routeService.declineRequest(routeRequestId, comment, email));
+    this.handleAction(this.routeService.declineRequest(routeRequestId, comment));
   }
 
   handleAction(action: Observable<any>): void {

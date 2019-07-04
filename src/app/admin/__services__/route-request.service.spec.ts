@@ -49,7 +49,6 @@ describe('RoutesService', () => {
       jest.spyOn(service, 'handleResponse').mockImplementation();
 
       const comment = 'some comment';
-      const reviewerEmail = 'test@email.com';
       const { teamUrl } = environment;
 
       const mockResponse = {
@@ -58,7 +57,7 @@ describe('RoutesService', () => {
         data: { id: 1 }
       };
 
-      service.declineRequest(1, comment, reviewerEmail)
+      service.declineRequest(1, comment)
         .subscribe((result) => {
           expect(result).toEqual(mockResponse);
           expect(service.handleResponse).toHaveBeenCalledTimes(1);
@@ -68,16 +67,15 @@ describe('RoutesService', () => {
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ comment, reviewerEmail, newOpsStatus: 'decline', teamUrl });
+      expect(request.request.body).toEqual({ comment, newOpsStatus: 'decline', teamUrl });
       request.flush(mockResponse);
     });
     it('should tap and decline request error', (done) => {
 
       const comment = 'some comment';
-      const reviewerEmail = 'test@email.com';
       const { teamUrl } = environment;
 
-      service.declineRequest(1, comment, reviewerEmail)
+      service.declineRequest(1, comment)
         .subscribe(null, (result) => {
           expect(result.status).toEqual(400);
           expect(result.statusText).toEqual('Bad Request');
@@ -87,7 +85,7 @@ describe('RoutesService', () => {
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ comment, reviewerEmail, newOpsStatus: 'decline', teamUrl });
+      expect(request.request.body).toEqual({ comment, newOpsStatus: 'decline', teamUrl });
       request.flush('Server error', {
         status: 400,
         statusText: 'Bad Request'
@@ -98,14 +96,12 @@ describe('RoutesService', () => {
   describe('approveRouteRequest', () => {
     const routeDetails = {};
     const comment = 'some comment';
-    const reviewerEmail = 'some@email.com';
     const { teamUrl } = environment;
     const provider = { id: 1, name: 'Andela Kenya', providerUserId: 15};
     const updatedRouteDetails = {
       comment: 'some comment',
       newOpsStatus: 'approve',
       provider: { id: 1, name: 'Andela Kenya', providerUserId: 15 },
-      reviewerEmail: 'some@email.com',
       routeName: 'Some route name',
       takeOff: '2:30',
       teamUrl: 'andela-tembea.slack.com'
@@ -126,7 +122,7 @@ describe('RoutesService', () => {
     });
 
     it('should call handleApproveRouteResponse', (done) => {
-      service.approveRouteRequest(1, comment, routeDetails, reviewerEmail, provider)
+      service.approveRouteRequest(1, comment, routeDetails, provider)
         .subscribe((result) => {
           expect(service.handleResponse).toHaveBeenCalledTimes(1);
           expect(result.provider).toHaveBeenCalledWith(result, 'approve');
@@ -135,7 +131,7 @@ describe('RoutesService', () => {
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
+      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, teamUrl, newOpsStatus: 'approve' });
 
       request.flush(mockResponse);
 
@@ -143,7 +139,7 @@ describe('RoutesService', () => {
       done();
     });
     it('should tap and approve request error', (done) => {
-      service.approveRouteRequest(1, comment, routeDetails, reviewerEmail, provider)
+      service.approveRouteRequest(1, comment, routeDetails, provider)
         .subscribe(null, (result) => {
           expect(result.status).toEqual(400);
           expect(result.statusText).toEqual('Bad Request');
@@ -153,7 +149,7 @@ describe('RoutesService', () => {
 
       const request = httpMock.expectOne(`${service.routesUrl}/requests/status/1`);
       expect(request.request.method).toEqual('PUT');
-      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, reviewerEmail, teamUrl, newOpsStatus: 'approve' });
+      expect(request.request.body).toEqual({ ...updatedRouteDetails, comment, teamUrl, newOpsStatus: 'approve' });
       request.flush('Server error', {
         status: 400,
         statusText: 'Bad Request'

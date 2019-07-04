@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Injector } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -76,7 +76,6 @@ describe('RouteApproveDeclineModalComponent', () => {
   describe('decline', () => {
     it('should toggle loading display on decline', () => {
       // @ts-ignore
-      component.account = { email: 'AAA.BBB@CCC.DDD' };
       const appEventService = injector.get(AppEventService);
 
       component.decline({ comment: 'This route is beyond our acceptable limit' });
@@ -92,7 +91,6 @@ describe('RouteApproveDeclineModalComponent', () => {
   describe('approve', () => {
     it('should toggle loading display on approval', () => {
       // @ts-ignore
-      component.account = { email: 'AAA.BBB@CCC.DDD' };
       component.selectedProvider = {
         id: 1, name: 'Andela Kenya', providerUserId: 1, user: { slackId: 'NONE'}
       };
@@ -135,6 +133,15 @@ describe('RouteApproveDeclineModalComponent', () => {
     it('test set', () => {
       component.setAuto(event);
       expect(component.auto).toEqual(event);
+    });
+  });
+
+  describe('handleAction', () => {
+    it('should terminate loading state when service error occur', () => {
+      jest.spyOn(routeService, 'declineRequest').mockImplementation(() => throwError({}));
+      component.handleAction(routeService.declineRequest());
+      expect(component.setLoading).toBeCalledWith(false);
+      expect(component.loading).toBeFalsy();
     });
   });
 });
