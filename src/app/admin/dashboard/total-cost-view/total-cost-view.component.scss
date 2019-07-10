@@ -1,0 +1,26 @@
+.mat-card {
+    height: 120px;
+    width: 100%px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
+    padding: 25px 0 0 30px;
+    margin-top: 5px;
+  }
+  
+.mat-card-title {
+	height: 21px;
+	color: #333E44;
+	font-family: "DIN Pro";
+	font-size: 16px;
+    line-height: 21px;
+    font-weight: normal;
+    margin-bottom: 23px;
+}
+.mat-card-content {
+    font-family: "DIN Pro";
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: 0.88px;
+    color: #808FA3;
+}

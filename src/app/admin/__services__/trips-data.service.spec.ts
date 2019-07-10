@@ -1,12 +1,12 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TripRatingsService } from './trip-ratings.service';
+import { TripsDataService } from './trips-data.service';
 import { HttpClient } from '@angular/common/http';
 
 
 describe('TripRatingsService', () => {
   let injector: TestBed;
-  let service: TripRatingsService;
+  let service: TripsDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('TripRatingsService', () => {
       providers: []
     });
     injector = getTestBed();
-    service = injector.get(TripRatingsService);
+    service = injector.get(TripsDataService);
 
   });
 

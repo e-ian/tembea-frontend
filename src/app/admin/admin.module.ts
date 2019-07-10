@@ -72,6 +72,7 @@ import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/tr
 import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
 import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
 import { AverageTripRatingsComponent } from './dashboard/average-trip-ratings/average-trip-ratings.component';
+import { TotalCostViewComponent } from './dashboard/total-cost-view/total-cost-view.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { AverageTripRatingsComponent } from './dashboard/average-trip-ratings/av
     TripAwaitingProviderComponent,
     ConvertNullValue,
     ShortenTextPipe,
-    AverageTripRatingsComponent
+    AverageTripRatingsComponent,
+    TotalCostViewComponent
   ],
   imports: [
     CommonModule,

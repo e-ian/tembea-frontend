@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { RouteUsageService } from '../__services__/route-usage.service';
 import routeUsageMock from '../__services__/__mocks__/routeUsageMock';
 import { RouteRatingsService } from '../__services__/route-ratings.service';
+import { TripsDataService } from '../__services__/trips-data.service';
 import { RouteRatingsOverviewComponent } from './route-ratings-overview/route-ratings-overview.component';
 import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
 import { mockRouteRatings } from './route-ratings-overview/ratingsMockData';
@@ -13,8 +14,11 @@ import { RoutesOverviewComponent } from './routes-overview/routes-overview.compo
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { AverageTripRatingsComponent } from './average-trip-ratings/average-trip-ratings.component';
-import { TripRatingsService } from '../__services__/trip-ratings.service';
 import { tripsMock } from 'src/app/__mocks__/trips.mock';
+import { TotalCostViewComponent } from './total-cost-view/total-cost-view.component';
+
+
+
 
 
 export const routeRatingServiceMock = {
@@ -31,17 +35,20 @@ describe('DashboardComponent', () => {
   const service = {
     getRouteUsage: jest.fn().mockReturnValue(of(true)),
   };
+  const tripDataService = {
+    getTripData:  jest.fn().mockReturnValue(of(tripsMock)),
+  };
+
 
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent],
+        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent ],
       imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
       providers: [{ provide: RouteUsageService, useValue: service },
       { provide: RouteRatingsService, useValue: routeRatingServiceMock },
-      { provide: TripRatingsService, useValue: averageTripRatingServiceMock }
-      ]
+      {provide: TripsDataService, useValue: tripDataService} ]
     })
       .compileComponents();
   })
@@ -122,16 +129,22 @@ describe('DashboardComponent', () => {
       getRouteRatingsSpy = jest.spyOn(component, 'getRouteRatings');
     });
 
-    it('should call getRouteRating on ngOnInit', () => {
-      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
-      jest.spyOn(component, 'tripAverageRating');
-      component.ngOnInit();
-      expect(component.tripAverageRating).toHaveBeenCalled();
-    });
-
     it('Should call the average rating of zero upon calling the calculateAverage method', () => {
       component.calculateAverage([]);
       expect(component.averageRatings).toBeLessThanOrEqual(0);
+      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
+    });
+
+    it('should call getTripsData on ngOnInit', () => {
+      jest.spyOn(component, 'getTripsData');
+      component.ngOnInit();
+      expect(component.getTripsData).toHaveBeenCalled();
+    });
+
+    it('should call getTripsData on setDateFilter', () => {
+      jest.spyOn(component, 'getTripsData');
+      component.setDateFilter('from', 'from', '2019-05-03');
+      expect(component.getTripsData).toHaveBeenCalled();
     });
   });
 });

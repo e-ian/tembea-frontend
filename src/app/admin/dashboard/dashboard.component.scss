@@ -15,6 +15,7 @@
     line-height: 18px;
     margin-bottom: 27px;
 }
+
 .top-filter{
     display: grid;
     margin-bottom: 30px;
@@ -22,16 +23,41 @@
     font-weight: 500;
     grid-template-columns: repeat(4, 250px);
   }
+
 .date-picker {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
 }
+
 .background {
   padding: 10px 0;
 }
+
 .dashboard-top-container {
-min-height: 200px ;
+    min-height: 200px ;
+    display: flex;
+    flex-direction: row;
+}
+
+.trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    p {
+        margin: 0px;
+    }
+}
+
+.left-pane {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+}
+.right-pane {
+    width: 60%;
+}
+.trip-analytics {
+    width: 50%;
 }
 
 .trip-header {

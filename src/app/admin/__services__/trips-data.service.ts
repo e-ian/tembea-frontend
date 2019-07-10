@@ -3,12 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { filterDateParameters } from 'src/app/utils/helpers';
-import { ITripRatingModel } from 'src/app/shared/models/trip-ratings.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TripRatingsService {
+export class TripsDataService {
 
   constructor(private http: HttpClient) { }
 

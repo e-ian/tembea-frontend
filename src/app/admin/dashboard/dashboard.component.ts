@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { RouteUsageService } from '../__services__/route-usage.service';
 import { RouteRatingsService } from '../__services__/route-ratings.service';
-import { TripRatingsService } from '../__services__/trip-ratings.service';
-import * as moment from 'moment';
-import { ITripRatingModel } from 'src/app/shared/models/trip-ratings.model';
+import { TripsDataService } from '../__services__/trips-data.service';
+import { ITripsDataModel } from '../../shared/models/trips-data.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,21 +26,24 @@ export class DashboardComponent implements OnInit {
   averageRatings: number;
   minDate: any;
   startingDate: any;
+  tripsData: Array<ITripsDataModel> = [];
+  totalCost: number;
 
   constructor(
     private routeUsageService: RouteUsageService,
     private ratingsService: RouteRatingsService,
-    private tripRatingsService: TripRatingsService
+    private tripService: TripsDataService
   ) { }
 
   ngOnInit() {
     const date = new Date;
     const currentDate = moment(date).format('YYYY-MM-DD');
-    this.dateFilters = { from: {}, to: {}, startDate: { from: currentDate }, endDate: { to: currentDate } };
+    this.dateFilters = {from: {}, to: {}, startDate: {from: currentDate}, endDate: {to: currentDate}};
     this.getRoutesUsage();
     this.getRouteRatings();
-    this.tripAverageRating();
-  }
+    this.getTripsData();
+    this.dateFilters = {from: {}, to: {}, startDate: {from: ''}, endDate: {to: ''}};
+   }
 
 
   setDateFilter(field: string, range: 'from' | 'to', date: string) {
@@ -48,9 +51,9 @@ export class DashboardComponent implements OnInit {
     this.dateFilters[field] = { ...fieldObject, [range]: date };
     this.getRoutesUsage();
     this.getRouteRatings();
-    this.tripAverageRating();
     this.startingDate = this.dateFilters.startDate.from ? moment(this.dateFilters.startDate.from).format('YYYY-MM-DD') : '';
     this.minDate = this.startingDate;
+    this.getTripsData();
   }
 
   getRoutesUsage() {
@@ -74,24 +77,32 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  tripAverageRating() {
-    if (this.dateFilters.from && this.dateFilters.to) {
-      this.tripRatingsService.getTripData(this.dateFilters).subscribe(
-        rating => {
-          this.calculateAverage(rating.data);
-        }
-      );
-    }
-  }
-
-  calculateAverage(rating: ITripRatingModel[]) {
-    const avgTotal = rating.reduce((acc, el) => {
+  calculateAverage(tripData: ITripsDataModel[]) {
+    const avgTotal = tripData.reduce((acc, el) => {
       return acc + +el.averageRating;
     }, 0);
-    const widthInPercentage = +((avgTotal / rating.length) * 100).toFixed(1);
-    if (rating.length === 0) {
+    const widthInPercentage = +((avgTotal / tripData.length) * 100).toFixed(1);
+    if (tripData.length === 0) {
       return this.averageRatings = 0;
     }
     this.averageRatings = widthInPercentage / 5;
   }
+  getTripsData() {
+    if (this.dateFilters.from && this.dateFilters.to) {
+      this.tripService.getTripData(this.dateFilters).subscribe(res => {
+        const { data } = res;
+        this.tripsData = data;
+        this.totalCost = this.getTotalCost(data);
+        this.calculateAverage(data);
+      });
+    }
+  }
+
+  getTotalCost(tripData: Array<ITripsDataModel>) {
+    const totalCost = tripData.reduce((acc, el) => {
+      return acc + +el.totalCost;
+    }, 0);
+    return totalCost;
+  }
+
 }
