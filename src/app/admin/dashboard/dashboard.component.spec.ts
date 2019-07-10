@@ -7,15 +7,22 @@ import routeUsageMock from '../__services__/__mocks__/routeUsageMock';
 import { RouteRatingsService } from '../__services__/route-ratings.service';
 import { RouteRatingsOverviewComponent } from './route-ratings-overview/route-ratings-overview.component';
 import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
-import { mockRouteRatings} from './route-ratings-overview/ratingsMockData';
+import { mockRouteRatings } from './route-ratings-overview/ratingsMockData';
 import { DashboardComponent } from './dashboard.component';
 import { RoutesOverviewComponent } from './routes-overview/routes-overview.component';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
+import { AverageTripRatingsComponent } from './average-trip-ratings/average-trip-ratings.component';
+import { TripRatingsService } from '../__services__/trip-ratings.service';
+import { tripsMock } from 'src/app/__mocks__/trips.mock';
 
 
 export const routeRatingServiceMock = {
   getRouteAverages: jest.fn(),
+};
+
+export const averageTripRatingServiceMock = {
+  getTripData: jest.fn().mockReturnValue(of(tripsMock)),
 };
 
 describe('DashboardComponent', () => {
@@ -28,13 +35,15 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent ],
-      imports: [ AngularMaterialModule, FormsModule, MatNativeDateModule ],
+      declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
+        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent],
+      imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
       providers: [{ provide: RouteUsageService, useValue: service },
-        { provide: RouteRatingsService , useValue: routeRatingServiceMock } ]
+      { provide: RouteRatingsService, useValue: routeRatingServiceMock },
+      { provide: TripRatingsService, useValue: averageTripRatingServiceMock }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   })
   );
 
@@ -66,13 +75,13 @@ describe('DashboardComponent', () => {
   it('should set date filters and call getRoutesUsage()', () => {
 
     const routesUsage = jest.spyOn(component, 'getRoutesUsage')
-    .mockImplementation(jest.fn());
-    jest.spyOn(component , 'getRouteRatings').mockImplementationOnce(jest.fn);
+      .mockImplementation(jest.fn());
+    jest.spyOn(component, 'getRouteRatings').mockImplementationOnce(jest.fn);
 
     component.setDateFilter('from', 'from', '2019-05-03');
 
     expect(routesUsage).toBeCalledTimes(1);
-    expect(component.dateFilters.from).toEqual({from: '2019-05-03'});
+    expect(component.dateFilters.from).toEqual({ from: '2019-05-03' });
   });
 
   describe('getRouteRatings', () => {
@@ -97,13 +106,32 @@ describe('DashboardComponent', () => {
       const res = {
         success: true,
         message: 'Ratings fetched successfully',
-          data: mockRouteRatings
+        data: mockRouteRatings
       };
       jest.spyOn(routeRatingServiceMock, 'getRouteAverages').mockReturnValue(of(res));
       component.getRouteRatings();
       expect(routeRatingServiceMock.getRouteAverages).toHaveBeenCalled();
       expect(component.mostRatedRoutes).toEqual(res.data.slice(0, 3));
       expect(component.leastRatedRoutes).toEqual(res.data.slice(0, 3));
+    });
+  });
+
+  describe('get trip data', () => {
+    let getRouteRatingsSpy;
+    beforeEach(() => {
+      getRouteRatingsSpy = jest.spyOn(component, 'getRouteRatings');
+    });
+
+    it('should call getRouteRating on ngOnInit', () => {
+      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
+      jest.spyOn(component, 'tripAverageRating');
+      component.ngOnInit();
+      expect(component.tripAverageRating).toHaveBeenCalled();
+    });
+
+    it('Should call the average rating of zero upon calling the calculateAverage method', () => {
+      component.calculateAverage([]);
+      expect(component.averageRatings).toBeLessThanOrEqual(0);
     });
   });
 });

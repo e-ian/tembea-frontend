@@ -33,6 +33,30 @@
 .dashboard-top-container {
 min-height: 200px ;
 }
-.dashboard-middle-container {
 
+.trip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  p {
+      margin: 0px;
+  }
+}
+
+.left-pane {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+}
+
+.trip-analytics {
+  width: 200px;
+}
+
+.total-daily {
+  margin-right: 5px;
+  .card {
+  height: 270px;
+  width: 200px;
+  }
 }

@@ -71,6 +71,7 @@ import { DriverEditModalComponent } from './drivers/driver-edit-modal/driver-edi
 import { TripAwaitingProviderComponent } from './trips/trip-awaiting-provider/trip-awaiting-provider.component';
 import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
 import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
+import { AverageTripRatingsComponent } from './dashboard/average-trip-ratings/average-trip-ratings.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
     DriverEditModalComponent,
     TripAwaitingProviderComponent,
     ConvertNullValue,
-    ShortenTextPipe
+    ShortenTextPipe,
+    AverageTripRatingsComponent
   ],
   imports: [
     CommonModule,
@@ -146,6 +148,9 @@ import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
     AgmDirectionModule,
     MatProgressBarModule,
     MatRadioModule
+  ],
+  exports: [
+    RatingStarsComponent,
   ],
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent,

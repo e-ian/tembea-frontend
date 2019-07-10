@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { filterDateParameters } from 'src/app/utils/helpers';
 
 
 
@@ -14,8 +15,9 @@ export class RouteRatingsService implements OnInit {
   }
 
   getRouteAverages(dateFilter): Observable<any> {
-    const fromStr = dateFilter.startDate ? `from=${dateFilter.startDate.from}` : null;
-    const toStr = dateFilter.endDate ?  `to=${dateFilter.endDate.to}` : null;
-    return  this.http.get(`${environment.tembeaBackEndUrl}/api/v1/routes/ratings?${fromStr}&${toStr}`);
+    const { startDate, endDate } = filterDateParameters(dateFilter);
+    const fromStr = startDate ? `from=${startDate}` : null;
+    const toStr = endDate ? `to=${endDate}` : null;
+    return this.http.get(`${environment.tembeaBackEndUrl}/api/v1/routes/ratings?${fromStr}&${toStr}`);
   }
 }
