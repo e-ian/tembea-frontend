@@ -152,7 +152,11 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - checkout_code
+      - approve_deployment:
+          type: approval
+      - checkout_code:
+          requires:
+            - approve_deployment
       - test_and_report:
           requires:
             - checkout_code
@@ -160,11 +164,6 @@ workflows:
           requires:
             - checkout_code
             - test_and_report
-          <<: *filters
-      - approve_deployment:
-          type: approval
-          requires:
-            - build_artifacts
           <<: *filters
       - docker_and_deploy:
           requires:
