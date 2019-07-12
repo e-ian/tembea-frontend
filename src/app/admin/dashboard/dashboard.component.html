@@ -8,7 +8,7 @@
             (selectedDateChange)="setDateFilter('startDate', 'from', $event)" [maxDate]="maxDate"></app-date-picker>
 
           <app-date-picker
-            (selectedDateChange)="setDateFilter('endDate', 'to', $event)" [maxDate]="maxDate"></app-date-picker>
+            (selectedDateChange)="setDateFilter('endDate', 'to', $event)" [minDate]="minDate" [maxDate]="maxDate"></app-date-picker>
       </div>
     </div>
     <div fxLayout="column">

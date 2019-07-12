@@ -17,7 +17,7 @@ export class DatePickerComponent implements OnInit {
   selectedDateChange: EventEmitter<string> = new EventEmitter();
   model = { selectedDate: null };
   @Input() maxDate;
-
+  @Input() minDate;
   constructor() {
   }
 

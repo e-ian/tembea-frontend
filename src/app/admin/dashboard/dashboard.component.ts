@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   leastRatedRoutes = [];
   maxDate = new Date();
   averageRatings: number;
+  minDate: any;
+  startingDate: any;
 
   constructor(
     private routeUsageService: RouteUsageService,
@@ -47,6 +49,8 @@ export class DashboardComponent implements OnInit {
     this.getRoutesUsage();
     this.getRouteRatings();
     this.tripAverageRating();
+    this.startingDate = this.dateFilters.startDate.from ? moment(this.dateFilters.startDate.from).format('YYYY-MM-DD') : '';
+    this.minDate = this.startingDate;
   }
 
   getRoutesUsage() {
