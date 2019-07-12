@@ -1,10 +1,10 @@
 <div>
   <div fxLayoutGap="13.5px" fxLayout.lt-sm="column wrap" class="date-picker">
     <app-date-picker
-      (selectedDateChange)="setDateFilter('startDate', 'from', $event)"></app-date-picker>
+      (selectedDateChange)="setDateFilter('startDate', 'from', $event)" [maxDate]="maxDate"></app-date-picker>
 
     <app-date-picker
-      (selectedDateChange)="setDateFilter('endDate', 'to', $event)"></app-date-picker>
+      (selectedDateChange)="setDateFilter('endDate', 'to', $event)" [maxDate]="maxDate"></app-date-picker>
   </div>
   <div fxLayout="column">
     <div class="dashboard-top-container">

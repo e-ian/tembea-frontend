@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   leastUsedRoute: Object = {};
   mostRatedRoutes = [];
   leastRatedRoutes = [];
+  maxDate = new Date();
 
   constructor(
     private routeUsageService: RouteUsageService,
