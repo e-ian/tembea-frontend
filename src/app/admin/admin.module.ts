@@ -35,7 +35,9 @@ import {
   MatFormFieldModule,
   MatNativeDateModule,
   MatInputModule,
-  MatButtonModule, MatProgressBarModule
+  MatButtonModule,
+  MatProgressBarModule,
+  MatRadioModule,
 } from '@angular/material';
 import { CustomDropdownComponent } from './layouts/custom-dropdown/custom-dropdown.component';
 import { ExportComponent } from './export-component/export.component';
@@ -142,7 +144,8 @@ import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
       libraries: ['places']
     }),
     AgmDirectionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatRadioModule
   ],
   entryComponents: [
     DeleteFellowModalComponent, DeleteCabModalComponent,

@@ -325,3 +325,12 @@ input {
   width: 50%;
   margin-bottom: 20px;
 }
+
+.add-provider-modal {
+  .mat-select-trigger {
+  padding-left: 30px;
+  }
+  .mat-select-placeholder{
+    color: #000;
+  }
+}

@@ -9,5 +9,7 @@ export class ProviderModel implements IProviderInventory {
   constructor(
     public name?: string,
     public email?: string,
+    public isDirectMessage?: boolean,
+    public channelId?: string,
   ) {}
 }

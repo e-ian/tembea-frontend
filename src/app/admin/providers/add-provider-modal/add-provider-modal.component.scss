@@ -1,0 +1,27 @@
+.mat-form-field-infix {
+  border-bottom: none;
+}
+
+.channels-dropdown {
+  display: block;
+  position: relative;
+  margin-top: 10px;
+  max-width: 200px;
+}
+
+.channels-dropdown .mat-radio-button {
+  position: absolute;
+  pointer-events: none;
+}
+
+.channels-dropdown .mat-select{
+  min-width: 200px;
+}
+
+@media (min-width: 600px) {
+  .channels-dropdown {
+    display: inline-block;
+    margin-left: 30px;
+    margin-top: 0px;
+  }
+}

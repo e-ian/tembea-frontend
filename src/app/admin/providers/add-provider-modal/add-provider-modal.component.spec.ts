@@ -7,6 +7,8 @@ import {AlertService} from '../../../shared/alert.service';
 import { of, throwError } from 'rxjs';
 import { providerResponseMock} from './__mocks__/add-provider.mocks';
 import {MockError} from '../../cabs/add-cab-modal/__mocks__/add-cabs-mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SlackService } from '../../__services__/slack.service';
 
 describe('AddProviderModalComponent', () => {
   let component: AddProviderModalComponent;
@@ -14,6 +16,13 @@ describe('AddProviderModalComponent', () => {
 
   const mockProviderService = {
     add: jest.fn()
+  };
+
+  const mockSlackService = {
+    getChannels: jest.fn().mockReturnValue(of({
+      success: true,
+      data: []
+    }))
   };
 
   const mockMatDialogRef = {
@@ -32,8 +41,10 @@ describe('AddProviderModalComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: ProviderService, useValue: mockProviderService },
-        { provide: AlertService, useValue: mockAlert}
-      ]
+        { provide: AlertService, useValue: mockAlert},
+        { provide: SlackService, useValue: mockSlackService },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
@@ -42,17 +53,6 @@ describe('AddProviderModalComponent', () => {
     fixture = TestBed.createComponent(AddProviderModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
-  });
-
-  describe('initial load', () => {
-    it('should create component', () => {
-      expect(component).toBeTruthy();
-    });
   });
 
   describe('closeDialog', () => {
@@ -66,14 +66,10 @@ describe('AddProviderModalComponent', () => {
   describe('addProvider', () => {
     it('should call providerService.add', () => {
       mockProviderService.add.mockReturnValue(of(providerResponseMock));
+      jest.spyOn(component.alert, 'success').mockReturnValue();
+
       component.addProvider();
       expect(component.providerService.add).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call alert.success when request succeeds', () => {
-      mockProviderService.add.mockReturnValue(of(providerResponseMock));
-      jest.spyOn(component.alert, 'success');
-      component.addProvider();
       expect(component.alert.success).toHaveBeenCalledTimes(1);
     });
 
@@ -82,6 +78,7 @@ describe('AddProviderModalComponent', () => {
       const error = new MockError(409, message);
       mockProviderService.add.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
+
       component.addProvider();
       expect(component.alert.error).toHaveBeenCalledTimes(1);
       expect(component.alert.error).toHaveBeenCalledWith(message);
@@ -92,8 +89,8 @@ describe('AddProviderModalComponent', () => {
       const error = new MockError(404, message);
       mockProviderService.add.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
+
       component.addProvider();
-      expect(component.alert.error).toHaveBeenCalledTimes(1);
       expect(component.alert.error).toHaveBeenCalledWith('Provider user email entered does not exist');
     });
 
@@ -103,8 +100,19 @@ describe('AddProviderModalComponent', () => {
       mockProviderService.add.mockReturnValue(throwError(error));
       jest.spyOn(component.alert, 'error');
       component.addProvider();
-      expect(component.alert.error).toHaveBeenCalledTimes(1);
       expect(component.alert.error).toHaveBeenCalledWith('Something went wrong, please try again');
+    });
+  });
+  describe('toggleNotification', () => {
+    it('toggles notification preference for direct message', () => {
+      component.toggleNotification('isDirectMessage');
+      expect(component.isDirectMessage).toBeTruthy();
+      expect(component.channelId).toBeNull();
+    });
+    it('toggles notification preference for channel', () => {
+      component.toggleNotification('ABCDE123');
+      expect(component.isDirectMessage).toBeFalsy();
+      expect(component.channelId).toEqual('ABCDE123');
     });
   });
 });

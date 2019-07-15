@@ -50,6 +50,33 @@
         </div>
       </div>
 
+      <div class="single-field">
+        <div class="field single">
+          <div class="input-group">
+            <label for="name">Receive notification via:</label>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="isDirectMessage"
+                [checked]="isDirectMessage"
+                (change)="toggleNotification($event.value)">
+                Direct Message
+              </mat-radio-button>
+              <div class="channels-dropdown">
+                <mat-radio-button [checked]="!isDirectMessage"></mat-radio-button>
+                <mat-select disableRipple placeholder="Channel"
+                  (selectionChange)="toggleNotification($event.value)"
+                  [(value)]="channelId">
+                  <mat-option *ngFor="let channel of channels"
+                    [value]="channel.id"
+                    [title]="channel.description">
+                    {{ channel.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
       <button
         type="submit"
         [disabled]="loading || addForm.invalid">
