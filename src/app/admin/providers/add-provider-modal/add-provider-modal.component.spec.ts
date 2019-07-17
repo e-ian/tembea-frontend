@@ -105,14 +105,13 @@ describe('AddProviderModalComponent', () => {
   });
   describe('toggleNotification', () => {
     it('toggles notification preference for direct message', () => {
-      component.toggleNotification('isDirectMessage');
+      component.toggleNotification('direct_message');
       expect(component.isDirectMessage).toBeTruthy();
       expect(component.channelId).toBeNull();
     });
     it('toggles notification preference for channel', () => {
       component.toggleNotification('ABCDE123');
       expect(component.isDirectMessage).toBeFalsy();
-      expect(component.channelId).toEqual('ABCDE123');
     });
   });
 });

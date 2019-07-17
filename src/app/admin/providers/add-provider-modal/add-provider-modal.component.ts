@@ -1,11 +1,11 @@
 import { Component, Output, EventEmitter, OnInit, } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { ProviderModel } from 'src/app/shared/models/provider.model';
-import { ProviderService } from 'src/app/admin/__services__/providers.service';
-import { AlertService } from 'src/app/shared/alert.service';
-import { AppEventService } from 'src/app/shared/app-events.service';
+import { ProviderModel } from '../../../shared/models/provider.model';
+import { ProviderService } from '../../__services__/providers.service';
+import { AlertService } from '../../../shared/alert.service';
+import { AppEventService } from '../../../shared/app-events.service';
 import { SlackService } from '../../__services__/slack.service';
-import { IChannel } from 'src/app/shared/models/channel.model';
+import { IChannel } from '../../../shared/models/channel.model';
 
 @Component({
   templateUrl: './add-provider-modal.component.html',
@@ -54,12 +54,12 @@ export class AddProviderModalComponent implements OnInit {
   }
 
   addProvider(): void {
+    if (!this.isDirectMessage && !this.channelId) {
+      return this.alert.error('Please select a channel');
+    }
+
     this.loading = true;
-    const providerData = {
-      ...this.providerData,
-      isDirectMessage: this.isDirectMessage,
-      channelId: this.channelId,
-    };
+    const providerData = this.getProviderData();
     this.providerService.add(providerData).subscribe(
       (responseData) => {
         if (responseData.success) {
@@ -76,6 +76,14 @@ export class AddProviderModalComponent implements OnInit {
     );
   }
 
+  getProviderData() {
+    return {
+      ...this.providerData,
+      isDirectMessage: this.isDirectMessage,
+      channelId: this.channelId,
+    };
+  }
+
   loadChannels() {
     this.slackService.getChannels().subscribe((response) => {
       if (response.success) {
@@ -85,12 +93,11 @@ export class AddProviderModalComponent implements OnInit {
   }
 
   toggleNotification(value: string) {
-    if (value === 'isDirectMessage') {
+    if (value === 'direct_message') {
       this.isDirectMessage = true;
       this.channelId = null;
     } else {
       this.isDirectMessage = false;
-      this.channelId = value;
     }
   }
 }

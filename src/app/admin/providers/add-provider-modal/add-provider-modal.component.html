@@ -54,25 +54,31 @@
         <div class="field single">
           <div class="input-group">
             <label for="name">Receive notification via:</label>
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="isDirectMessage"
-                [checked]="isDirectMessage"
-                (change)="toggleNotification($event.value)">
+            <mat-radio-group
+              aria-label="Select an option"
+              (change)="toggleNotification($event.value)">
+              <mat-radio-button
+                value="direct_message"
+                [checked]="isDirectMessage === true">
                 Direct Message
               </mat-radio-button>
-              <div class="channels-dropdown">
-                <mat-radio-button [checked]="!isDirectMessage"></mat-radio-button>
-                <mat-select disableRipple placeholder="Channel"
-                  (selectionChange)="toggleNotification($event.value)"
-                  [(value)]="channelId">
-                  <mat-option *ngFor="let channel of channels"
-                    [value]="channel.id"
-                    [title]="channel.description">
-                    {{ channel.name }}
-                  </mat-option>
-                </mat-select>
-              </div>
+              <mat-radio-button
+                value="channel"
+                [checked]="isDirectMessage === false">
+                Channel
+              </mat-radio-button>
             </mat-radio-group>
+            <mat-select
+              class="channels-dropdown"
+              *ngIf="!isDirectMessage" disableRipple placeholder="Select a channel"
+              (selectionChange)="toggleNotification($event.value)"
+              [(value)]="channelId">
+              <mat-option *ngFor="let channel of channels"
+                [value]="channel.id"
+                [title]="channel.description">
+                {{ channel.name }}
+              </mat-option>
+            </mat-select>
           </div>
         </div>
       </div>
