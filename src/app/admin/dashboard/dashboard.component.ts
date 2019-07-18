@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
     this.averageRatings = widthInPercentage / 5;
   }
   getTripsData() {
-    if (this.dateFilters.from && this.dateFilters.to) {
+    if (this.dateFilters.startDate.from && this.dateFilters.endDate.to) {
       this.tripService.getTripData(this.dateFilters).subscribe(res => {
         const { data } = res;
         this.tripsData = data;
