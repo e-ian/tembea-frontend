@@ -21,6 +21,17 @@
         </div>
         <div class="right-pane"></div>
       </div>
+      <div class="dashboard-middle-container">
+          <div fxLayout="column">
+            <div>
+              <h3 class="routes-title">TRAVEL OVERVIEW</h3>
+            </div>
+          </div>
+          <div class="airport-transfers">
+            <app-travel-analytics-view [rating]="airportRatings" [totalCount]="totalAirportTrips" title="Airport Transfers" >
+            </app-travel-analytics-view>
+          </div>
+      </div>
       <div class="background">
         <div fxLayout="column wrap" fxLayoutGap="5px" fxLayoutAlign="start start" class="card-position">
           <div>

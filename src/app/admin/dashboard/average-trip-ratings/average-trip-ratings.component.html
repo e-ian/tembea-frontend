@@ -3,13 +3,8 @@
         <mat-card-title class="title">{{ title }}</mat-card-title>
       <mat-card-content>
         <div class="ratings">
-          <div>
-              <div class="stars-outer">
-                  <div class="stars-inner" [style.width.%]="avgRatings"></div>
-              </div>
-          </div>
+          <app-rating-stars [rating]="avgRatings" [starSize]=25></app-rating-stars>
         </div>
       </mat-card-content>
     </mat-card>
 </div>
-

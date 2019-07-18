@@ -21,6 +21,7 @@ import { RiderService } from './rider-list/rider.service';
 import {RiderListComponent} from './rider-list/rider-list.component';
 import {RiderCardComponent} from './rider-list/rider-card/rider-card.component';
 import {Observable} from 'rxjs';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 
 
@@ -57,6 +58,7 @@ describe('DashboardComponent', () => {
         RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent,
         TotalCostViewComponent, RiderListComponent, RiderCardComponent ],
       imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: RouteUsageService, useValue: service },
       { provide: RouteRatingsService, useValue: routeRatingServiceMock },
       {provide: TripsDataService, useValue: tripDataService},
@@ -136,16 +138,6 @@ describe('DashboardComponent', () => {
   });
 
   describe('get trip data', () => {
-    let getRouteRatingsSpy;
-    beforeEach(() => {
-      getRouteRatingsSpy = jest.spyOn(component, 'getRouteRatings');
-    });
-
-    it('Should call the average rating of zero upon calling the calculateAverage method', () => {
-      component.calculateAverage([]);
-      expect(component.averageRatings).toBeLessThanOrEqual(0);
-      getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
-    });
 
     it('should call getTripsData on ngOnInit', () => {
       jest.spyOn(component, 'getTripsData');
@@ -165,6 +157,21 @@ describe('DashboardComponent', () => {
           result = data;
         });
         expect(result).toEqual(riders);
+    });
+  });
+
+  describe('Airport Transfers', () => {
+
+    it('should call getAirportTransfers on ngOnInit', () => {
+      jest.spyOn(component, 'getAirportTransfers');
+      component.ngOnInit();
+      expect(component.getAirportTransfers).toHaveBeenCalled();
+    });
+
+    it('should call getTripsData on setDateFilter', () => {
+      jest.spyOn(component, 'getAirportTransfers');
+      component.setDateFilter('from', 'from', '2019-05-03');
+      expect(component.getAirportTransfers).toHaveBeenCalled();
     });
   });
 });

@@ -1,4 +1,5 @@
-<span class="stars-container">
-  <img *ngFor="let i of starsArr" src="../../../assets/icons/star_gold.svg" alt="star" />
-  <img *ngFor="let i of noStars" src="../../../assets/icons/star_gray.svg" alt="star" />
-</span>
+<div>
+    <div class="stars-outer" [style.font-size.px]="starSize">
+        <div class="stars-inner" [style.width.%]="rating"></div>
+    </div>
+</div>

@@ -5,7 +5,11 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './average-trip-ratings.component.html',
   styleUrls: ['./average-trip-ratings.component.scss']
 })
-export class AverageTripRatingsComponent {
+export class AverageTripRatingsComponent implements OnInit {
   title = 'Average Trip Rating';
-  @Input() avgRatings: number;
+  @Input() avgRatings;
+
+  ngOnInit() {
+  }
 }
+

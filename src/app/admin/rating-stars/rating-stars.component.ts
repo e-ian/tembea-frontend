@@ -5,15 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './rating-stars.component.html',
   styleUrls: ['./rating-stars.component.scss']
 })
-export class RatingStarsComponent implements OnInit {
+export class RatingStarsComponent  {
   @Input() rating: number;
-  starsArr: any;
-  noStars: any;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.starsArr = new Array(this.rating ? this.rating : 0);
-    this.noStars = new Array(5 - this.rating);
-  }
+  @Input() starSize: number;
 }

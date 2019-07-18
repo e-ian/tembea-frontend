@@ -13,10 +13,11 @@ export class TripsDataService {
 
 
 
-  getTripData(dateFilter): Observable<any> {
+  getTripData(dateFilter, tripType= ''): Observable<any> {
+    const queryParams = `${tripType ? `?tripType=${tripType}` : ''}`;
     const { startDate, endDate } = filterDateParameters(dateFilter);
     const data: object = { startDate, endDate };
-    const results = this.http.post(`${environment.tembeaBackEndUrl}/api/v1/departments/trips`, { ...data });
+    const results = this.http.post(`${environment.tembeaBackEndUrl}/api/v1/departments/trips${queryParams}`, { ...data });
     return results;
   }
 }

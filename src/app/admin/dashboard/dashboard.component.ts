@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
   tripsData: Array<ITripsDataModel> = [];
   totalCost: number;
   riders$: Observable<IRider[]> = this.riderService.getRiders();
+  airportRatings: number;
+  totalAirportTrips: number;
 
   constructor(
     private routeUsageService: RouteUsageService,
@@ -47,6 +49,7 @@ export class DashboardComponent implements OnInit {
     this.getRoutesUsage();
     this.getRouteRatings();
     this.getTripsData();
+    this.getAirportTransfers();
     this.dateFilters = {from: {}, to: {}, startDate: {from: ''}, endDate: {to: ''}};
    }
 
@@ -59,6 +62,7 @@ export class DashboardComponent implements OnInit {
     this.startingDate = this.dateFilters.startDate.from ? moment(this.dateFilters.startDate.from).format('YYYY-MM-DD') : '';
     this.minDate = this.startingDate;
     this.getTripsData();
+    this.getAirportTransfers();
   }
 
   getRoutesUsage() {
@@ -82,32 +86,34 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  calculateAverage(tripData: ITripsDataModel[]) {
-    const avgTotal = tripData.reduce((acc, el) => {
-      return acc + +el.averageRating;
-    }, 0);
-    const widthInPercentage = +((avgTotal / tripData.length) * 100).toFixed(1);
-    if (tripData.length === 0) {
-      return this.averageRatings = 0;
-    }
-    this.averageRatings = widthInPercentage / 5;
+  callTripService(tripType= '') {
+    return this.tripService.getTripData(this.dateFilters, tripType);
   }
+
+  totalTripsCount(tripsData: Array<ITripsDataModel>): number {
+    const totalVisits = tripsData.reduce((prev, next) => prev + Number(next.totalTrips), 0);
+    return totalVisits;
+  }
+
   getTripsData() {
     if (this.dateFilters.startDate.from && this.dateFilters.endDate.to) {
-      this.tripService.getTripData(this.dateFilters).subscribe(res => {
-        const { data } = res;
-        this.tripsData = data;
-        this.totalCost = this.getTotalCost(data);
-        this.calculateAverage(data);
+      this.callTripService().subscribe(res => {
+        const { data: { trips, finalCost, finalAverageRating} } = res;
+        this.tripsData = trips;
+        this.totalCost = finalCost;
+        this.averageRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
       });
     }
   }
 
-  getTotalCost(tripData: Array<ITripsDataModel>) {
-    const totalCost = tripData.reduce((acc, el) => {
-      return acc + +el.totalCost;
-    }, 0);
-    return totalCost;
+  getAirportTransfers() {
+    if (this.dateFilters.startDate.from && this.dateFilters.endDate.to) {
+      this.callTripService('Airport Transfer').subscribe(res => {
+        const { data: { finalAverageRating, trips} } = res;
+        this.airportRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
+        this.totalAirportTrips = this.totalTripsCount(trips);
+      });
+    }
   }
 
 }
