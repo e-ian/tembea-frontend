@@ -44,6 +44,22 @@ describe('ProvidersService', () => {
       });
     });
   });
+  describe('getViableProviders', () => {
+    beforeEach(() => {
+      jest.spyOn(HttpClient.prototype, 'get');
+    });
+    it('should call HttpClient.getProviders', () => {
+      service.getViableProviders();
+      expect(HttpClient.prototype.get).toBeCalled();
+    });
+    it('return all the providers', () => {
+      jest.spyOn(HttpClient.prototype, 'get').mockReturnValue(of({}));
+      const result = service.getViableProviders();
+      result.subscribe(data => {
+        expect(data).toEqual({});
+      });
+    });
+  });
   describe('Update Provider', () => {
     it('should call http client patch on update provider', () => {
       jest.spyOn(HttpClient.prototype, 'patch').mockReturnValue(of({}));

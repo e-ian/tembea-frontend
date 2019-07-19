@@ -71,16 +71,22 @@
           </div>
         </div>
         <div class="label-input-wrapper">
-          <label for="vehicle">Vehicle</label>
-          <em *ngIf="vehicle?.invalid
-            && (vehicle?.touched || mouseoverCreateButton)"
+          <label for="providerName">Select a Provider</label>
+          <em *ngIf="!selectedProvider
+            && (capacity?.touched || mouseoverCreateButton)"
           >Required</em>
-          <input
+          <input required [(ngModel)]="providerName"
+            class="plate-input"
             type="text"
-            [(ngModel)]="model.vehicle"
-            name="vehicle"
-            placeholder="Vehicle registration number"
-            required #vehicle="ngModel">
+            name="providerName"
+            aria-label="Provider"
+            matInput [matAutocomplete]="auto"
+          >
+          <app-select-provider
+            optionValue="name" [approveForm]="createRouteForm"
+            (clickedProviders)="getSelected($event)"
+            (emitAutoComplete)="setAuto($event)">
+          </app-select-provider>
         </div>
         <div
           class="button-wrapper"

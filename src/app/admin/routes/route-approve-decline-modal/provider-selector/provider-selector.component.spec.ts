@@ -144,12 +144,15 @@ describe('getProvidersInventory', () => {
     providerService = injector.get(ProviderService);
     fixture.detectChanges();
   });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   it('should return all providers data', () => {
-    const { data: { providers } } = providerMock;
-    jest.spyOn(providerService, 'getProviders').mockReturnValue(of(providerMock));
+    const providerDetails = { data: [{ id: 1, name: 'police', providerUserId: 1, user: { id: 1, name: 'Ada' } }] };
+    jest.spyOn(providerService, 'getViableProviders').mockReturnValue(of(providerDetails));
     jest.spyOn(component, 'startFiltering');
     component.getProvidersInventory();
-    expect(providerService.getProviders).toHaveBeenCalledTimes(1);
-    expect(component.providers).toEqual(providers);
+    expect(providerService.getViableProviders).toHaveBeenCalledTimes(1);
+    expect(component.providers).toEqual(providerDetails.data);
   });
 });

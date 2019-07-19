@@ -20,9 +20,10 @@ export class CreateRouteHelper {
     return newValue;
   }
 
-  createNewRouteRequestObject(formValues, destinationFormInput, coordinates) {
+  createNewRouteRequestObject(formValues, destinationFormInput, coordinates, provider) {
     const requestObject = { ...formValues };
     requestObject.destination = { address: destinationFormInput, coordinates };
+    requestObject.provider = provider;
     return requestObject;
   }
 

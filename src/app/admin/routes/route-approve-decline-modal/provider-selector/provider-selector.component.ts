@@ -77,10 +77,9 @@ export class ProviderSelectorComponent implements OnInit {
   }
 
   getProvidersInventory() {
-    this.providerService.getProviders(1000, 1).subscribe(
+    this.providerService.getViableProviders().subscribe(
       providersData => {
-        const { providers } = providersData.data;
-        this.providers = providers;
+        this.providers = providersData.data;
         this.startFiltering();
       });
   }

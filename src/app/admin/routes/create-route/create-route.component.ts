@@ -1,19 +1,20 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { GoogleMapsService } from '../../../shared/googlemaps.service';
 import { Location } from '../../../shared/location.model';
 import { CreateRouteHelper } from './create-route.helper';
 import { RoutesInventoryService } from '../../__services__/routes-inventory.service';
-import {NavMenuService} from '../../__services__/nav-menu.service';
+import { NavMenuService } from '../../__services__/nav-menu.service';
+import { NgForm } from '@angular/forms';
 
 class RouteModel {
   constructor(public routeName?: string,
     public takeOffTime?: string,
     public capacity?: number,
-    public vehicle?: string,
     public marker?: string,
+    public provider?: any,
     public destinationInputField?: string) { }
+
 }
 
 @Component({
@@ -29,9 +30,12 @@ export class CreateRouteComponent implements AfterViewInit {
   origin = { lat: this.lat, lng: this.lng };
   destination: Location = { lat: this.lat, lng: this.lng };
   destinationCoordinates: Location;
-
+  providers: any;
+  selectedProvider: string;
   model: RouteModel;
+  auto = null;
 
+  @ViewChild('createRouteForm') createRouteForm: NgForm;
   @ViewChild('destinationFormInput') destinationInputElement: ElementRef;
 
   mouseoverCreateButton;
@@ -44,12 +48,19 @@ export class CreateRouteComponent implements AfterViewInit {
   ) {
     this.model = new RouteModel();
     this.model.capacity = 1;
-
   }
 
   ngAfterViewInit() {
     this.googleMapsService
       .loadGoogleMaps(this.destinationInputElement.nativeElement);
+  }
+
+  getSelected(provider) {
+    this.selectedProvider = provider;
+  }
+
+  setAuto(event) {
+    this.auto = event;
   }
 
   async showRouteDirectionOnClick() {
@@ -98,14 +109,13 @@ export class CreateRouteComponent implements AfterViewInit {
       );
     }
     const routeRequest = this.createRouteHelper.createNewRouteRequestObject(
-      this.model, this.model.destinationInputField, this.destinationCoordinates
+      this.model, this.model.destinationInputField, this.destinationCoordinates, this.selectedProvider
     );
 
     const errors = this.createRouteHelper.validateFormEntries(routeRequest);
     if (errors.length) {
       return this.createRouteHelper.notifyUser(errors);
     }
-
     return this.sendRequestToServer(routeRequest);
   }
 

@@ -185,6 +185,17 @@ describe('CreateRouteComponent', () => {
     expect(routeService).toHaveBeenCalledWith('formValues');
     expect(notifyUser).toHaveBeenCalledWith(['An error occurred.']);
   });
+
+  it('should set auto', () => {
+    component.setAuto('uber');
+    expect(component.auto).toEqual('uber');
+  });
+
+  it('should set providers to selected option', () => {
+    const provider = { id: 1, name: 'uberKenya', providerUserId: 1 };
+    component.getSelected(provider);
+    expect(component.selectedProvider).toEqual(provider);
+  });
 });
 
 describe('CreateRoute Helper Component', () => {

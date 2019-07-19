@@ -41,14 +41,7 @@ const toastr: Toastr = window['toastr'];
     HomeComponent,
     UnauthorizedLoginComponent,
     LoginRedirectComponent,
-    RouteApproveDeclineModalComponent,
-    ConfirmModalComponent,
-    RoutesInventoryEditModalComponent,
-    AddDepartmentsModalComponent,
-    TripApproveDeclineModalComponent,
-    AddCabsModalComponent,
     PageNotFoundComponent,
-    ProviderSelectorComponent
   ],
   imports: [
     FormsModule,
@@ -70,13 +63,6 @@ const toastr: Toastr = window['toastr'];
   ],
   entryComponents: [
     UnauthorizedLoginComponent,
-    ConfirmModalComponent,
-    RouteApproveDeclineModalComponent,
-    RoutesInventoryEditModalComponent,
-    AddDepartmentsModalComponent,
-    TripApproveDeclineModalComponent,
-    AddCabsModalComponent,
-    ProviderSelectorComponent
   ],
   bootstrap: [AppComponent]
 })

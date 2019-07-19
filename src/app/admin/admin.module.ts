@@ -23,6 +23,11 @@ import { ShortenNamePipe } from './__pipes__/shorten-name.pipe';
 import { GoogleMapsService } from '../shared/googlemaps.service';
 import { CreateRouteHelper } from './routes/create-route/create-route.helper';
 import { AppPaginationComponent } from './layouts/app-pagination/app-pagination.component';
+import { ProviderSelectorComponent } from './routes/route-approve-decline-modal/provider-selector/provider-selector.component';
+import { AddCabsModalComponent } from './cabs/add-cab-modal/add-cab-modal.component';
+import { AddDepartmentsModalComponent } from './settings/departments/add-departments-modal/add-departments-modal.component';
+import { ConfirmModalComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { RouteApproveDeclineModalComponent } from './routes/route-approve-decline-modal/route-approve-decline-modal.component';
 
 import { environment } from '../../environments/environment';
 import { DepartmentsComponent } from './settings/departments/departments.component';
@@ -73,6 +78,10 @@ import { ConvertNullValue } from './__pipes__/convert-nullValue.pipe';
 import { ShortenTextPipe } from './__pipes__/shorten-text.pipe';
 import { AverageTripRatingsComponent } from './dashboard/average-trip-ratings/average-trip-ratings.component';
 import { TotalCostViewComponent } from './dashboard/total-cost-view/total-cost-view.component';
+import {
+  RoutesInventoryEditModalComponent
+  } from './routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
+import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +138,14 @@ import { TotalCostViewComponent } from './dashboard/total-cost-view/total-cost-v
     ConvertNullValue,
     ShortenTextPipe,
     AverageTripRatingsComponent,
-    TotalCostViewComponent
+    TotalCostViewComponent,
+    RouteApproveDeclineModalComponent,
+    ConfirmModalComponent,
+    RoutesInventoryEditModalComponent,
+    AddDepartmentsModalComponent,
+    TripApproveDeclineModalComponent,
+    AddCabsModalComponent,
+    ProviderSelectorComponent
   ],
   imports: [
     CommonModule,
@@ -158,7 +174,14 @@ import { TotalCostViewComponent } from './dashboard/total-cost-view/total-cost-v
     DeleteFellowModalComponent, DeleteCabModalComponent,
     DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent,
     DeleteDriverDialogComponent,
-    DriverEditModalComponent
+    DriverEditModalComponent,
+    RouteApproveDeclineModalComponent,
+    ConfirmModalComponent,
+    RoutesInventoryEditModalComponent,
+    AddDepartmentsModalComponent,
+    TripApproveDeclineModalComponent,
+    AddCabsModalComponent,
+    ProviderSelectorComponent
   ],
   providers: [AlertService, GoogleMapsService, CreateRouteHelper]
 })
