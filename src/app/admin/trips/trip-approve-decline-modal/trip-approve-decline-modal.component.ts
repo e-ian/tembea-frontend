@@ -4,6 +4,7 @@ import {NgForm} from '@angular/forms';
 import {AuthService} from 'src/app/auth/__services__/auth.service';
 import {TripRequestService} from '../../__services__/trip-request.service';
 import {AppEventService} from 'src/app/shared/app-events.service';
+import {AlertService} from '../../../shared/alert.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class TripApproveDeclineModalComponent implements OnInit {
   public rowHeight: any = '3:1';
   public disableOtherInput = false;
   public providerName: string;
-
+  public invalidProviderSelected: boolean;
   public selectedCabOption = {driverName: '', driverPhoneNo: '', regNumber: ''};
   auto = null;
   @ViewChild('approveForm') approveForm: NgForm;
@@ -31,6 +32,7 @@ export class TripApproveDeclineModalComponent implements OnInit {
     public authService: AuthService,
     private tripRequestService: TripRequestService,
     private appEventService: AppEventService,
+    private alert: AlertService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
 
@@ -81,7 +83,13 @@ export class TripApproveDeclineModalComponent implements OnInit {
 
   clickedProviders(event) {
     this.providerId = event.providerUserId;
+    this.invalidProviderSelected = false;
     this.disableOtherInput = true;
     this.approveForm.form.patchValue(event);
+  }
+
+  handleInvalidProvider() {
+    this.invalidProviderSelected = true;
+    return this.alert.error('Provider selected doesnt exist');
   }
 }

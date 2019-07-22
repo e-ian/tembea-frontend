@@ -10,6 +10,7 @@ import { AppEventService } from '../../../shared/app-events.service';
 import { TripApproveDeclineModalComponent } from './trip-approve-decline-modal.component';
 import { AngularMaterialModule } from '../../../angular-material.module';
 import {ProviderSelectorComponent} from '../../routes/route-approve-decline-modal/provider-selector/provider-selector.component';
+import { AlertService } from '../../../shared/alert.service';
 
 
 describe('TripApproveDeclineModalComponent', () => {
@@ -26,6 +27,7 @@ describe('TripApproveDeclineModalComponent', () => {
       declarations: [TripApproveDeclineModalComponent, ProviderSelectorComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockMatDialogData },
+        AlertService
 
       ]
     })
@@ -134,6 +136,12 @@ describe('TripApproveDeclineModalComponent', () => {
       expect(component.providerId).toEqual(event.providerUserId);
       expect(component.disableOtherInput).toEqual(true);
       expect(component.disableOtherInput).toBeTruthy();
+    });
+
+    it('should toast error if select provider doesnt exist', () => {
+      jest.spyOn(AlertService.prototype, 'error');
+      component.handleInvalidProvider();
+      expect(AlertService.prototype.error).toHaveBeenCalled();
     });
   });
 });

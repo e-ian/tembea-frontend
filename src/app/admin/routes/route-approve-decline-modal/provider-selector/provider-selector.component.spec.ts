@@ -103,6 +103,7 @@ describe('ProviderSelectorComponent', () => {
     });
     it('should filter when provider name entered exists', () => {
       jest.spyOn(component, '_filter').mockReturnValue([]);
+      component.providers = [{name: 'Sub'}];
       const value = {providerName: 'Sub'};
       component.keyWordFilter(value);
       expect(component._filter).toBeCalledTimes(1);
@@ -111,6 +112,12 @@ describe('ProviderSelectorComponent', () => {
       const value = {providerName: ''};
       component.keyWordFilter(value);
       expect(component.disableOtherInput).toBe(false);
+    });
+    it('should emit an event if provider doesnt exist', () => {
+      jest.spyOn(component.invalidProviderClicked, 'emit');
+      component.providers = [{name: 'Motors'}, {name: 'Motors'}];
+      component.keyWordFilter({providerName: 'Invalid' });
+      expect(component.invalidProviderClicked.emit).toHaveBeenCalled();
     });
   });
 });

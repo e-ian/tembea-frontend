@@ -26,6 +26,7 @@ export class ProviderSelectorComponent implements OnInit {
   @Input() optionValue: string;
   @Output() emitAutoComplete = new EventEmitter();
   @Output() clickedProviders = new EventEmitter();
+  @Output() invalidProviderClicked = new EventEmitter();
   @ViewChild('auto') auto: MatAutocomplete;
 
   constructor(
@@ -63,6 +64,10 @@ export class ProviderSelectorComponent implements OnInit {
       this.disableOtherInput = false;
     }
     if (value.providerName) {
+      const [provider] = this.providers.filter((p: IProviderInventory) => {
+        return p.name === value.providerName;
+      });
+      if (!provider) { this.invalidProviderClicked.emit(); }
       return this._filter(value.providerName);
     }
     return this.providers;
