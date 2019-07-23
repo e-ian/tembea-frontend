@@ -35,11 +35,11 @@ describe('FellowNavComponent', () => {
 
   const event = {
     index: 1,
-    tripRequestType: 'onOrOffRoute',
+    tripRequestType: 'onRoute',
     tab: {
       textLabel: 'On Route'
     },
-    onRoute: 'On Route',
+    onRoute: true,
     totalItems: 4
   };
 
@@ -47,10 +47,14 @@ describe('FellowNavComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should be broadcast updateHeaderTitle event', async(() => {
+    component.fellowsOnRouteCount({
+      onRoute: 'on Route',
+      totalItems: 4
+    });
     component.fellowsCount = { 'On Route': 2, 'Off Route': 4 };
     const broadcastPayload = {
-      tooltipTitle: event.tab.textLabel,
-      badgeSize: component.fellowsCount['On Route']
+      badgeSize: 4,
+      tooltipTitle: 'on Route'
     };
     component.getSelectedTab(event);
     expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });

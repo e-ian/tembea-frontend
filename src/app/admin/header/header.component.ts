@@ -104,7 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         panelClass: 'small-modal-panel-class',
         data: {
           displayText: `logout, ${firstName}`,
-          confirmText: 'logout'
+          confirmText: 'Logout'
         }
       });
       dialogRef.componentInstance.executeFunction.subscribe(() => {

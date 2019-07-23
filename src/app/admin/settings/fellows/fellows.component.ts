@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { FellowsService } from '../../__services__/fellows.service';
 import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
-
+import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-fellows',
   templateUrl: './fellows.component.html',
@@ -12,9 +12,10 @@ import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
   ]
 })
 export class FellowsComponent implements OnInit {
-  @Input() onOrOffRoute: string;
+  @Input() onRoute: boolean;
   @Input() showRemoveIcon: boolean;
   @Input() showAddIcon: boolean;
+  @Input() activeTab: Observable<boolean>;
   @Output() fellowsOnRouteEventEmitter = new EventEmitter();
   isLoading: boolean;
   fellows: ISerializedFellowDetail[];
@@ -22,8 +23,6 @@ export class FellowsComponent implements OnInit {
   pageSize: number;
   pageNumber: number;
   displayText = 'No fellows currently on routes';
-  onRoute: boolean;
-
   constructor(
     private appEventService: AppEventService,
     private fellowService: FellowsService
@@ -31,12 +30,17 @@ export class FellowsComponent implements OnInit {
     this.pageNumber = 1;
     this.pageSize = 9;
   }
+  ngOnInit() {
+    this.activeTab.subscribe(e => {
+      if (e === this.onRoute) { this.loadFellows(this.onRoute); }
+    });
+  }
 
   loadFellows(onRoute) {
     this.isLoading = true;
     this.fellowService.getFellows(onRoute, this.pageSize, this.pageNumber).subscribe(
       data => {
-        const { fellows, pageMeta } = data;
+        const { data: { fellows, pageMeta } } = data;
         if (!Array.isArray(fellows)) {
           this.isLoading = false;
           return (this.displayText = 'Something went wrong');
@@ -70,24 +74,8 @@ export class FellowsComponent implements OnInit {
       endDate: fellow.placement && fellow.placement.next_available_date
     };
   }
-
   setPage(page: number): void {
     this.pageNumber = page;
-    this.loadFellows(this.onRoute);
-  }
-
-  ngOnInit() {
-    switch (this.onOrOffRoute) {
-      case 'offRoute':
-        this.onRoute = false;
-        break;
-      case 'onRoute':
-        this.onRoute = true;
-        break;
-      default:
-        this.onRoute = true;
-        break;
-    }
     this.loadFellows(this.onRoute);
   }
 }

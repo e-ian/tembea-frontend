@@ -3,16 +3,18 @@
   (selectedTabChange)="getSelectedTab($event)">
   <mat-tab label="On Route"><br>
     <app-fellows
-      [onOrOffRoute]="'onRoute'"
+      [onRoute]=true
       [showRemoveIcon]="true"
+      [activeTab]="selected"
       (fellowsOnRouteEventEmitter)="fellowsOnRouteCount($event)">
     </app-fellows>
   </mat-tab>
 
   <mat-tab label="Off Route"><br>
     <app-fellows
-      [onOrOffRoute]="'offRoute'"
+      [onRoute]=false
       [showAddIcon]="true"
+      [activeTab]="selected"
       (fellowsOnRouteEventEmitter)="fellowsOnRouteCount($event)">
     </app-fellows>
   </mat-tab>
