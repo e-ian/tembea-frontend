@@ -11,7 +11,7 @@ import RenameRouteBatch from './routes-inventory.helper';
 import { RoutesInventoryEditModalComponent } from './routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { AppEventService } from 'src/app/shared/app-events.service';
 import { CreateRouteHelper } from '../create-route/create-route.helper';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { SearchService } from '../../__services__/search.service';
 import { getDialogProps } from 'src/app/utils/generic-helpers';
 
@@ -31,11 +31,11 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   sort: string;
   totalItems: number;
   lastRoute;
-  updateSubscription: any;
   duplicate = true;
   isLoading: boolean;
   displayText = 'No Routes Found.';
   searchTerm$ = new Subject<string>();
+  subscriptions = new Array<Subscription>();
 
   constructor(
     public routeService: RoutesInventoryService,
@@ -54,9 +54,10 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getRoutesInventory();
-    this.updateSubscription = this.appEventsService.subscribe('updateRouteInventory', () => {
+    const updateSubscription = this.appEventsService.subscribe('updateRouteInventory', () => {
       this.getRoutesInventory();
     });
+    this.subscriptions.push(updateSubscription);
   }
 
   getRoutesInventory = () => {
@@ -99,25 +100,23 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
     return renamedBatches;
   }
 
-  copyRoute(route: any) {
-    const { id } = route;
-    return this.sendRequestToServer(id);
+  copyRouteBatch(routeId: number) {
+    return this.sendRequestToServer(routeId);
   }
 
-  showDialog(displayText: string, func: any, value: any) {
+  showDialog(displayText: string, func: Function, value: any) {
     const dialogRef = this.dialog.open(ConfirmModalComponent, getDialogProps(displayText));
-    dialogRef.componentInstance.executeFunction.subscribe(() => {
-      func(value);
-    });
+    const sub = dialogRef.componentInstance.executeFunction.subscribe(() => func.call(this, value));
+    this.subscriptions.push(sub);
   }
 
-  showCopyConfirmModal(route: any) {
-    this.showDialog('copy this route', this.copyRoute, route);
+  showCopyConfirmModal(routeBatch: any) {
+    this.showDialog('copy this route', this.copyRouteBatch, routeBatch.id);
   }
 
-  async sendRequestToServer(data) {
+  async sendRequestToServer(routeBatchId) {
     try {
-      const response = await this.routeService.createRoute(data, this.duplicate);
+      const response = await this.routeService.createRoute(routeBatchId, this.duplicate);
       this.createRouteHelper.notifyUser([response.message], 'success');
       this.router.navigate(['/admin/routes/inventory']);
       this.getRoutesInventory();
@@ -180,8 +179,6 @@ export class RoutesInventoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
-import { throwError } from 'rxjs';
+import { throwError, Subscription } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutesInventoryComponent } from './routes-inventory.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -188,7 +188,7 @@ describe('RoutesInventoryComponent', () => {
     it('should duplicate a route when copy is successful', () => {
       const sendRequestToServer = jest.spyOn(component, 'sendRequestToServer');
 
-      component.copyRoute(routeObject);
+      component.copyRouteBatch(routeObject.id);
 
       expect(sendRequestToServer).toHaveBeenCalledWith(routeObject.id);
     });
@@ -353,12 +353,12 @@ describe('RoutesInventoryComponent', () => {
 
   describe('ngOnDestroy', () => {
     it('should unsubscribe from subscriptions on ngOnDestroy', () => {
-      component.updateSubscription = {
-        unsubscribe: jest.fn()
-      };
+      const testSub = new Subscription();
+      jest.spyOn(testSub, 'unsubscribe');
+      component.subscriptions.push(testSub);
       component.ngOnDestroy();
 
-      expect(component.updateSubscription.unsubscribe).toBeCalledTimes(1);
+      expect(testSub.unsubscribe).toBeCalledTimes(1);
     });
   });
 });
