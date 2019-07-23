@@ -35,7 +35,9 @@
         </mat-grid-list>
         <mat-grid-list *ngFor='let route of routes; index as ind' cols="8" rowHeight="3:1" class="table-row-item">
             <mat-grid-tile class="route-name">
-              <div class="route-name-align">{{ route.name }}</div>
+              <div class="route-name-align" matTooltipPosition="below" matTooltip="{{ route.name }}">
+                {{ route.name | shortenName: { max: 10 } }}<span *ngIf="route.name.length > 10;">...</span>
+              </div>
             </mat-grid-tile>
             <mat-grid-tile>{{ route.batch }}</mat-grid-tile>
             <mat-grid-tile>{{ route.takeOff }}</mat-grid-tile>

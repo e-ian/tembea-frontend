@@ -23,6 +23,7 @@ import { CookieService } from '../../../auth/__services__/ngx-cookie-service.ser
 import { mockCookieService } from '../../../shared/__mocks__/mockData';
 import { ClockService } from '../../../auth/__services__/clock.service';
 import { AppEventService } from '../../../shared/app-events.service';
+import { ShortenNamePipe } from '../../__pipes__/shorten-name.pipe';
 
 describe('RoutesInventoryComponent', () => {
   let component: RoutesInventoryComponent;
@@ -83,7 +84,8 @@ describe('RoutesInventoryComponent', () => {
         EmptyPageComponent,
         ConfirmModalComponent,
         AppPaginationComponent,
-        ExportComponent
+        ExportComponent,
+        ShortenNamePipe
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },

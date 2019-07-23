@@ -18,6 +18,7 @@ import {
   MatProgressBarModule,
   MatDatepickerModule,
   MatRadioModule,
+  MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -43,6 +44,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatAutocompleteModule,
     MatProgressBarModule,
     MatRadioModule,
+    MatTooltipModule,
   ],
   exports: [
     MatToolbarModule,
@@ -63,7 +65,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatAutocompleteModule,
     MatProgressBarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTooltipModule
   ]
 })
 export class AngularMaterialModule {}
