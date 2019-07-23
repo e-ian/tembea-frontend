@@ -31,6 +31,7 @@ export class CreateRouteComponent implements AfterViewInit {
   destination: Location = { lat: this.lat, lng: this.lng };
   destinationCoordinates: Location;
   providers: any;
+  providerName: string;
   selectedProvider: string;
   model: RouteModel;
   auto = null;
