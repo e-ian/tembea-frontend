@@ -29,19 +29,20 @@
           <div class="most-ratings-usage" >
             <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center" >
               <app-routes-overview usage="Most" [data]="mostUsedRoute" ></app-routes-overview>
-              <app-route-ratings-overview class="card-position" [title]="'Most Rated Routes'" [ratings]="mostRatedRoutes" ></app-route-ratings-overview>
+              <app-route-ratings-overview class="card-position" [title]="'Most Rated Routes'" [ratings]="mostRatedRoutes" >
+              </app-route-ratings-overview>
+              <app-rider-list title="Most Frequent Riders" [riders$]="riders$" ></app-rider-list>
             </div>
           </div>
 
           <div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
               <app-routes-overview usage="Least" [data]="leastUsedRoute"></app-routes-overview>
-              <app-route-ratings-overview class="card-position" [title]="'Least Rated Routes'" [ratings]="leastRatedRoutes" ></app-route-ratings-overview>
+              <app-route-ratings-overview class="card-position" [title]="'Least Rated Routes'" [ratings]="leastRatedRoutes" >
+              </app-route-ratings-overview>
+              <app-rider-list [riders$]="riders$" title="Least Frequent Riders"></app-rider-list>
             </div>
           </div>
-
-
-
         </div>
       </div>
     </div>

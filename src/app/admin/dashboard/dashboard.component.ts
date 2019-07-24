@@ -4,6 +4,9 @@ import { RouteUsageService } from '../__services__/route-usage.service';
 import { RouteRatingsService } from '../__services__/route-ratings.service';
 import { TripsDataService } from '../__services__/trips-data.service';
 import { ITripsDataModel } from '../../shared/models/trips-data.model';
+import { RiderService } from './rider-list/rider.service';
+import { IRider } from '../../shared/models/rider.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,11 +31,13 @@ export class DashboardComponent implements OnInit {
   startingDate: any;
   tripsData: Array<ITripsDataModel> = [];
   totalCost: number;
+  riders$: Observable<IRider[]> = this.riderService.getRiders();
 
   constructor(
     private routeUsageService: RouteUsageService,
     private ratingsService: RouteRatingsService,
-    private tripService: TripsDataService
+    private tripService: TripsDataService,
+    private riderService: RiderService
   ) { }
 
   ngOnInit() {

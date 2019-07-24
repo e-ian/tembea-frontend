@@ -82,6 +82,8 @@ import {
   RoutesInventoryEditModalComponent
   } from './routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
+import { RiderListComponent } from './dashboard/rider-list/rider-list.component';
+import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
 
 @NgModule({
   declarations: [
@@ -145,7 +147,9 @@ import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-m
     AddDepartmentsModalComponent,
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
-    ProviderSelectorComponent
+    ProviderSelectorComponent,
+    RiderListComponent,
+    RiderCardComponent
   ],
   imports: [
     CommonModule,

@@ -16,6 +16,11 @@ import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { AverageTripRatingsComponent } from './average-trip-ratings/average-trip-ratings.component';
 import { tripsMock } from 'src/app/__mocks__/trips.mock';
 import { TotalCostViewComponent } from './total-cost-view/total-cost-view.component';
+import { riders } from './rider-list/mock.data';
+import { RiderService } from './rider-list/rider.service';
+import {RiderListComponent} from './rider-list/rider-list.component';
+import {RiderCardComponent} from './rider-list/rider-card/rider-card.component';
+import {Observable} from 'rxjs';
 
 
 
@@ -28,6 +33,11 @@ export const routeRatingServiceMock = {
 export const averageTripRatingServiceMock = {
   getTripData: jest.fn().mockReturnValue(of(tripsMock)),
 };
+
+export const riderServiceMock = {
+  getRiders: jest.fn().mockReturnValue(of(riders))
+};
+
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -44,11 +54,13 @@ describe('DashboardComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent ],
+        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent,
+        TotalCostViewComponent, RiderListComponent, RiderCardComponent ],
       imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
       providers: [{ provide: RouteUsageService, useValue: service },
       { provide: RouteRatingsService, useValue: routeRatingServiceMock },
-      {provide: TripsDataService, useValue: tripDataService} ]
+      {provide: TripsDataService, useValue: tripDataService},
+      { provide: RiderService, useValue: riderServiceMock } ]
     })
       .compileComponents();
   })
@@ -145,6 +157,14 @@ describe('DashboardComponent', () => {
       jest.spyOn(component, 'getTripsData');
       component.setDateFilter('from', 'from', '2019-05-03');
       expect(component.getTripsData).toHaveBeenCalled();
+    });
+
+    it('should set riders list', () => {
+        let result;
+        component.riders$.subscribe(data => {
+          result = data;
+        });
+        expect(result).toEqual(riders);
     });
   });
 });
