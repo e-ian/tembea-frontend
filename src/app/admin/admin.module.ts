@@ -86,7 +86,6 @@ import { RiderListComponent } from './dashboard/rider-list/rider-list.component'
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
 import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/travel-analytics-view.component';
-import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-modal/update-trip-provider-modal.component';
 
 @NgModule({
@@ -160,7 +159,7 @@ import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-m
     UpdateTripProviderModalComponent
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     HttpClientModule,
     AdminRoutingModule,
     FormsModule,

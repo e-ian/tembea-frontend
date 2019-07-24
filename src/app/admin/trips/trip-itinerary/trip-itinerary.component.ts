@@ -24,7 +24,7 @@ export class TripItineraryComponent implements OnInit {
 
   @Input() tripRequestType: string;
 
-  tripType: string;
+  @Input() tripType: string;
   tripRequests: TripRequest[] = [];
   departmentsRequest: any = [];
   page: number;
@@ -42,7 +42,6 @@ export class TripItineraryComponent implements OnInit {
   state = 'Approved/Confirmed';
   @Output()
   tripTotalEventEmitter = new EventEmitter();
-
   noCab = false;
 
   constructor(
@@ -56,7 +55,6 @@ export class TripItineraryComponent implements OnInit {
     this.page = 1;
     this.tripType = 'Regular Trip';
   }
-
   ngOnInit() {
     switch (this.tripRequestType) {
       case 'declinedTrips':
@@ -66,8 +64,8 @@ export class TripItineraryComponent implements OnInit {
       case 'pastTrips':
         this.status = null;
         break;
-      case 'upcomingTrips':
-        this.status = 'Confirmed';
+      case 'pending':
+        this.status = 'Pending';
         break;
       case 'awaitingProvider':
         this.noCab = true;
@@ -109,7 +107,7 @@ export class TripItineraryComponent implements OnInit {
         }
         this.tripRequests = newTrips;
         this.totalItems = newTrips.length;
-        if (this.tripRequestType === 'all') {
+        if (this.tripRequestType === 'all' || this.tripRequestType === 'confirmed') {
           this.appEventService.broadcast({
             name: 'updateHeaderTitle',
             content: { badgeSize: pageInfo.totalResults, tooltipTitle: 'All Trips' }

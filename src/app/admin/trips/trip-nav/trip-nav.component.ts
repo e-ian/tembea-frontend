@@ -15,14 +15,12 @@ export class TripNavComponent implements OnInit {
 
   ngOnInit() {
   }
+
   getSelectedTab(event) {
     let broadcastPayload = {};
     switch (event.tab.textLabel) {
       case 'Past Trips':
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.pastTrips.totalItems };
-        break;
-      case 'All Trips':
-        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems };
         break;
       case 'Declined Trips':
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.declinedTrips.totalItems };
@@ -32,6 +30,12 @@ export class TripNavComponent implements OnInit {
         break;
       case 'Awaiting Provider':
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.awaitingProvider.totalItems };
+        break;
+      case 'Confirmed':
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.confirmed.totalItems };
+        break;
+      case 'Pending':
+        broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.pending.totalItems };
         break;
       default:
         broadcastPayload = { tooltipTitle: event.tab.textLabel, badgeSize: this.data.all.totalItems };

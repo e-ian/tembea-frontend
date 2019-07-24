@@ -1,13 +1,13 @@
 .mat-tab-label {
   min-width: 25px !important;
-  padding: 5px;
+  padding: 0 25px !important;
   font-size: 14px;
   font-weight: 500;
 }
 
 
 .mat-tab-label.mat-tab-label-active {
-  min-width: 25px !important;
+  min-width: 15px !important;
   padding: 5px;
   font-size: 14px;
   color: #3359DB;

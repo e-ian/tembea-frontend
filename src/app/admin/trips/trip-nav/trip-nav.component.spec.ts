@@ -53,6 +53,18 @@ describe('TripNavComponent', () => {
       component.getSelectedTab(event);
       expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
     });
+    it('should send a Confirmed trips broadcast message', () => {
+      component.data = { confirmed: { totalItems: 4 } };
+      const broadcastPayload = { tooltipTitle: 'Confirmed', badgeSize: component.data.confirmed.totalItems };
+      component.getSelectedTab({ tripRequestType: 'confirmed', tab: { textLabel: 'Confirmed' } });
+      expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
+    });
+    it('should send a Pending trips broadcast message', () => {
+      component.data = { pending: { totalItems: 4 } };
+      const broadcastPayload = { tooltipTitle: 'Pending', badgeSize: component.data.pending.totalItems };
+      component.getSelectedTab({ tripRequestType: 'pending', tab: { textLabel: 'Pending' } });
+      expect(appEventsMock.broadcast).toHaveBeenCalledWith({ name: 'updateHeaderTitle', content: broadcastPayload });
+    });
     it('should send a All Trips broadcast message', () => {
       component.data = { all: { totalItems: 4 } };
       event.tab.textLabel = 'All Trips';

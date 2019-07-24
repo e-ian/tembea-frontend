@@ -98,7 +98,14 @@ describe('TripItineraryComponent', () => {
         name: 'updateHeaderTitle',
         content: { 'badgeSize': 12, 'tooltipTitle': 'All Trips' }
       });
-
+    });
+    it('should broadcast an event in past trips', () => {
+      component.tripRequestType = 'all';
+      component.ngOnInit();
+      expect(appEventsMock.broadcast).toHaveBeenCalledWith({
+        name: 'updateHeaderTitle',
+        content: { 'badgeSize': 12, 'tooltipTitle': 'All Trips' }
+      });
     });
   });
 
@@ -114,6 +121,15 @@ describe('TripItineraryComponent', () => {
   describe('pastTrips', () => {
     it('should get pastTrips and department', () => {
       component.tripRequestType = 'pastTrips';
+      component.ngOnInit();
+      expect(tripRequestService.query).toHaveBeenCalled();
+      expect(tripRequestService.getDepartments).toHaveBeenCalled();
+    });
+  });
+
+  describe('Pending', () => {
+    it('should get Pending and department', () => {
+      component.tripRequestType = 'pending';
       component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
       expect(tripRequestService.getDepartments).toHaveBeenCalled();

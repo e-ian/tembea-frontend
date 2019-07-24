@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TripItineraryComponent } from '../../trips/trip-itinerary/trip-itinerary.component';
+import { TripNavComponent } from '../../trips/trip-nav/trip-nav.component';
 
 @Component({
   selector: 'app-airport-transfers',
@@ -10,6 +10,5 @@ import { TripItineraryComponent } from '../../trips/trip-itinerary/trip-itinerar
     './airport-transfers.component.scss'
   ]
 })
-export class AirportTransfersComponent extends TripItineraryComponent {
-  tripType = 'Airport Transfer';
+export class AirportTransfersComponent extends TripNavComponent {
 }

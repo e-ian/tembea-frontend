@@ -78,15 +78,18 @@ describe('PendingRequestComponent Unit Test', () => {
       const pageInfo = {
         totalResults: 12,
       };
+      jest.spyOn(component, 'loadAll');
       jest.spyOn(tripRequestService, 'query')
         .mockReturnValue(of({ trips: [trips], pageInfo }));
       component.pageSize = 100;
       component.page = 1;
 
       component.ngOnInit();
+      fixture.detectChanges();
 
       expect(tripRequestService.query).toHaveBeenCalledWith({ page: 1, size: 100, status: 'Approved' });
       expect(appEventService.broadcast).toHaveBeenCalled();
+      expect(component.loadAll).toHaveBeenCalled();
     });
   });
 
