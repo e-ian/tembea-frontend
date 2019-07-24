@@ -22,3 +22,89 @@ export const tripRequestMock: TripRequest = new TripRequest().deserialize({
   'requester': user,
   'approvedBy': user
 });
+
+export const pastTripMock: TripRequest[] = [
+  new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.COMPLETED,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '2019-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+}),
+new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.OPSDECLINE,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '2019-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+}),
+new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.MANAGERDECLINE,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '2019-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+}),
+new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.CANCELLED,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '2019-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+}),
+new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.APPROVED,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '3019-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+}),
+new TripRequest().deserialize({
+  'name': 'From Jomo Kenyatta Airport to Andela Nairobi on 22/12/2019 22:00',
+  'status': TripStatus.APPROVED,
+  'arrivalTime': null,
+  'type': 'Regular Trip',
+  'departureTime': '2018-12-22T21:00:00.000Z',
+  'requestedOn': '2019-02-26T09:07:52.185Z',
+  'department': 'Finance-demo-update',
+  'destination': 'Andela Nairobi',
+  'pickup': 'Jomo Kenyatta Airport',
+  'rider': user,
+  'requester': user,
+  'approvedBy': user
+})];

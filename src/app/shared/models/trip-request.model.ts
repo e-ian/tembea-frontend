@@ -6,6 +6,10 @@ export enum TripStatus {
   APPROVED = 'Approved',
   PENDING = 'Pending',
   CONFIRMED = 'Confirmed',
+  OPSDECLINE = 'DeclinedByOps',
+  MANAGERDECLINE = 'DeclinedByManager',
+  CANCELLED = 'Cancelled',
+  COMPLETED = 'Completed'
 }
 
 export interface IProvider {

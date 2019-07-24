@@ -9,6 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { TripRequestService } from '../../__services__/trip-request.service';
 import { tripRequestMock } from '../../../shared/__mocks__/trip-request.mock';
+import { pastTripMock } from '../../../shared/__mocks__/trip-request.mock';
 import { department } from '../../../shared/__mocks__/department.mock';
 import { AppTestModule } from '../../../__tests__/testing.module';
 import { AppEventService } from '../../../shared/app-events.service';
@@ -208,6 +209,12 @@ describe('TripItineraryComponent', () => {
       component.tripRequestType = 'awaitingProvider';
       component.ngOnInit();
       expect(tripRequestService.query).toHaveBeenCalled();
+    });
+  });
+  describe('Get Past Trips', () => {
+    it('return only valid past trips', () => {
+      const pastTrips = component.getPastTrips(pastTripMock);
+      expect(pastTrips.length).toEqual(2);
     });
   });
 });

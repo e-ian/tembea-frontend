@@ -62,7 +62,7 @@ export class TripItineraryComponent implements OnInit {
         this.status = 'DeclinedByOps';
         break;
       case 'pastTrips':
-        this.status = 'Completed';
+        this.status = null;
         break;
       case 'upcomingTrips':
         this.status = 'Confirmed';
@@ -88,13 +88,25 @@ export class TripItineraryComponent implements OnInit {
       .subscribe(departmentsData => this.departmentsRequest = departmentsData);
   }
 
+  getPastTrips(trips: TripRequest[]): TripRequest[] {
+    const removeStatus = ['Cancelled', 'DeclinedByOps', 'DeclinedByManager'];
+    return trips.filter((trip) => {
+      return ((moment(trip.departureTime) < moment()) && !removeStatus.some(v => v === trip.status)) || (trip.status === 'Completed');
+    });
+  }
+
   getTrips(status = 'Confirmed') {
+    const tripStatus = this.tripRequestType === 'pastTrips' ? null : status;
     const { page, pageSize: size, departmentName: department, dateFilters } = this;
-    this.tripRequestService.query({ page, size, status, department, type: this.tripType, dateFilters, noCab: this.noCab })
+    this.tripRequestService.query({ page, size, status: tripStatus, department, type: this.tripType, dateFilters, noCab: this.noCab })
       .subscribe(tripData => {
         const { pageInfo, trips } = tripData;
-        this.tripRequests = trips;
-        this.totalItems = pageInfo.totalResults;
+        let newTrips = trips;
+        if (this.tripRequestType === 'pastTrips') {
+          newTrips = this.getPastTrips(trips);
+        }
+        this.tripRequests = newTrips;
+        this.totalItems = newTrips.length;
         if (this.tripRequestType === 'all') {
           this.appEventService.broadcast({
             name: 'updateHeaderTitle',
