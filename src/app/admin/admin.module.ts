@@ -84,6 +84,7 @@ import {
 import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 import { RiderListComponent } from './dashboard/rider-list/rider-list.component';
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
+import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,8 @@ import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card
     AddCabsModalComponent,
     ProviderSelectorComponent,
     RiderListComponent,
-    RiderCardComponent
+    RiderCardComponent,
+    RouteTripsComponent
   ],
   imports: [
     CommonModule,

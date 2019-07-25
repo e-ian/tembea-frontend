@@ -16,6 +16,7 @@ import { FellowComponent } from './settings/fellows/fellow/fellow.component';
 import { FellowNavComponent } from './settings/fellows/fellow-nav/fellow-nav.component';
 import { ProviderInventoryComponent } from './providers/provider-inventory/provider-inventory.component';
 import {ProviderNavComponent} from './providers/provider-nav/provider-nav.component';
+import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,12 @@ const routes: Routes = [
         data: { title: 'Routes Inventory' }
       },
       {
+        path: 'routes/route-trips',
+        component: RouteTripsComponent,
+        canActivate: [],
+        data: { title: 'Routes Analysis' }
+      },
+      {
         path: 'trips/pending',
         component: PendingRequestComponent,
         resolve: {
@@ -62,6 +69,7 @@ const routes: Routes = [
         canActivate: [],
         data: { title: 'All Trips' }
       },
+
       {
         path: 'travel/embassy-visits',
         component: EmbassyVisitsComponent,

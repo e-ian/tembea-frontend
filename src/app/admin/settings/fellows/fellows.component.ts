@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AppEventService } from 'src/app/shared/app-events.service';
 import { FellowsService } from '../../__services__/fellows.service';
 import { ISerializedFellowDetail } from 'src/app/shared/models/fellows.model';
 import {Observable} from 'rxjs/Observable';
@@ -24,7 +23,6 @@ export class FellowsComponent implements OnInit {
   pageNumber: number;
   displayText = 'No fellows currently on routes';
   constructor(
-    private appEventService: AppEventService,
     private fellowService: FellowsService
   ) {
     this.pageNumber = 1;
