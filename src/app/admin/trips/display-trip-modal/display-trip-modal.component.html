@@ -17,7 +17,7 @@
         <p><span class="bold-text">Vehicle model: </span> {{ tripInfo.cab?.model | convertNullValue: 'NA' }}</p>
         <p><span class="bold-text">Vehicle Number: </span> {{ tripInfo.cab?.regNumber | convertNullValue: 'NA' }}</p>
 
-        
+
       </div>
 
     </div>
@@ -35,7 +35,7 @@
         <h3 class="trip-status-text">Trip Status</h3>
         <hr />
         <p><span class="bold-text">Status: </span> {{tripInfo.status}}</p>
-        <p *ngIf="!!tripInfo.operationsComment"><span class="bold-text">Reason for Decline(Ops): 
+        <p *ngIf="tripInfo.status === 'DeclinedByOps'"><span class="bold-text">Reason for Decline(Ops):
          </span> {{tripInfo.operationsComment}}</p>
       </div>
     </div>

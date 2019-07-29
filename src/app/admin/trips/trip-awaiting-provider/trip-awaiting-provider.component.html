@@ -6,7 +6,7 @@
 <div *ngIf="tripRequests.length > 0">
   <div class="buttons-wrapper flex">
     <button class="search-wrapper"></button>
-    <app-export-view 
+    <app-export-view
       [tableName]="'awaitingProvider'"
       class="flex-right"
       (click)="setFilterParams()"
@@ -46,7 +46,7 @@
     </mat-grid-list>
 
     <mat-grid-list *ngFor='let trip of tripRequests' class="trip-table-body table-row-item mat-grid-list ng-star-inserted" cols="8"
-      rowHeight="4:1">
+      rowHeight="4:1"  (click)="viewTripDescription(trip)" tabindex="0">
       <mat-grid-tile>
         <div class="trip-align-cell">
           <span>{{ trip.pickup | shortenText }}</span>
@@ -54,7 +54,7 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="time trip-align-cell">
-          <span class="time-departure-date">{{ trip.departureTime | date: 'dd-MM-yyyy' }} 
+          <span class="time-departure-date">{{ trip.departureTime | date: 'dd-MM-yyyy' }}
             <br />
             <span class="trip-departure-time">by {{ trip.departureTime | date: 'shortTime' }}</span>
           </span>
