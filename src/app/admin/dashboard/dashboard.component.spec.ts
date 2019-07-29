@@ -25,8 +25,6 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 
 
-
-
 export const routeRatingServiceMock = {
   getRouteAverages: jest.fn(),
 };
@@ -56,7 +54,8 @@ describe('DashboardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
         RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent,
-        TotalCostViewComponent, RiderListComponent, RiderCardComponent ],
+        TotalCostViewComponent, RiderListComponent, RiderCardComponent,
+        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent],
       imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: RouteUsageService, useValue: service },
@@ -71,7 +70,6 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-
   });
 
   afterEach(() => {
@@ -172,6 +170,21 @@ describe('DashboardComponent', () => {
       jest.spyOn(component, 'getAirportTransfers');
       component.setDateFilter('from', 'from', '2019-05-03');
       expect(component.getAirportTransfers).toHaveBeenCalled();
+    });
+  });
+
+  describe('Embassy Visits', () => {
+
+    it('should call getEmbassyVisits on ngOnInit', () => {
+      jest.spyOn(component, 'getEmbassyVisits');
+      component.ngOnInit();
+      expect(component.getEmbassyVisits).toHaveBeenCalled();
+    });
+
+    it('should call getTripsData on setDateFilter', () => {
+      jest.spyOn(component, 'getEmbassyVisits');
+      component.setDateFilter('from', 'from', '2019-05-03');
+      expect(component.getEmbassyVisits).toHaveBeenCalled();
     });
   });
 });

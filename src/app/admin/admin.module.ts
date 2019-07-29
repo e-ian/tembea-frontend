@@ -152,6 +152,7 @@ import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-m
     TripApproveDeclineModalComponent,
     AddCabsModalComponent,
     ProviderSelectorComponent,
+    RouteTripsComponent,
     RiderListComponent,
     RiderCardComponent,
     TravelAnalyticsViewComponent,

@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   mostRatedRoutes = [];
   leastRatedRoutes = [];
   maxDate = new Date();
-  averageRatings: number;
+  averageRatings = 0;
   minDate: any;
   startingDate: any;
   tripsData: Array<ITripsDataModel> = [];
@@ -34,8 +34,11 @@ export class DashboardComponent implements OnInit {
   riders$: Observable<IRider[]> = this.riderService.getRiders();
   airportRatings: number;
   totalAirportTrips: number;
+  averageEmbassyRatings: any;
+  EmbassyVisits: number;
 
   constructor(
+
     private routeUsageService: RouteUsageService,
     private ratingsService: RouteRatingsService,
     private tripService: TripsDataService,
@@ -50,6 +53,7 @@ export class DashboardComponent implements OnInit {
     this.getRouteRatings();
     this.getTripsData();
     this.getAirportTransfers();
+    this.getEmbassyVisits();
     this.dateFilters = {from: {}, to: {}, startDate: {from: ''}, endDate: {to: ''}};
    }
 
@@ -63,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.minDate = this.startingDate;
     this.getTripsData();
     this.getAirportTransfers();
+    this.getEmbassyVisits();
   }
 
   getRoutesUsage() {
@@ -114,6 +119,16 @@ export class DashboardComponent implements OnInit {
         this.totalAirportTrips = this.totalTripsCount(trips);
       });
     }
+  }
+  getEmbassyVisits() {
+    if (this.dateFilters.startDate.from && this.dateFilters.endDate.to) {
+      this.tripService.getTripData(this.dateFilters, 'Embassy Visit').subscribe(res => {
+        const { data: { trips, finalAverageRating } } = res;
+        this.averageEmbassyRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
+        this.EmbassyVisits = this.totalTripsCount(trips);
+      });
+    }
+
   }
 
 }
