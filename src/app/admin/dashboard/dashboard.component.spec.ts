@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material';
 import { of } from 'rxjs/observable/of';
@@ -20,10 +20,13 @@ import { tripsMock, travelMock, departmentsMock } from 'src/app/__mocks__/trips.
 import { TotalCostViewComponent } from './total-cost-view/total-cost-view.component';
 import { riders } from './rider-list/mock.data';
 import { RiderService } from './rider-list/rider.service';
-import {RiderListComponent} from './rider-list/rider-list.component';
-import {RiderCardComponent} from './rider-list/rider-card/rider-card.component';
+import { RiderListComponent } from './rider-list/rider-list.component';
 import { TripPieChartComponent } from './trip-pie-chart/trip-pie-chart.component';
 import { DepartmentsService } from '../__services__/departments.service';
+import { RiderCardComponent } from './rider-list/rider-card/rider-card.component';
+import { Observable } from 'rxjs';
+import { TripBarChartComponent } from './trip-bar-chart/trip-bar-chart.component';
+
 
 
 export const routeRatingServiceMock = {
@@ -46,7 +49,7 @@ describe('DashboardComponent', () => {
     getRouteUsage: jest.fn().mockReturnValue(of(routeUsageMock)),
   };
   const tripDataService = {
-    getTripData:  jest.fn().mockReturnValue(of(tripsMock)),
+    getTripData: jest.fn().mockReturnValue(of(tripsMock)),
     getTravelData: jest.fn().mockReturnValue(of(tripsMock))
   };
   const departmentServiceMock = {
@@ -70,6 +73,7 @@ describe('DashboardComponent', () => {
         AverageTripRatingsComponent,
         TotalCostViewComponent,
         TripPieChartComponent,
+        TripBarChartComponent
       ],
       imports: [
         HttpClientTestingModule,
@@ -80,8 +84,8 @@ describe('DashboardComponent', () => {
       providers: [
         { provide: RouteUsageService, useValue: service },
         { provide: RouteRatingsService, useValue: routeRatingServiceMock },
-        { provide: TripsDataService, useValue: tripDataService  },
-        { provide: DepartmentsService, useValue: departmentServiceMock  },
+        { provide: TripsDataService, useValue: tripDataService },
+        { provide: DepartmentsService, useValue: departmentServiceMock },
         { provide: RiderService, useValue: riderServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -174,11 +178,11 @@ describe('DashboardComponent', () => {
     });
 
     it('should set riders list', () => {
-        let result;
-        component.riders$.subscribe(data => {
-          result = data;
-        });
-        expect(result).toEqual(riders);
+      let result;
+      component.riders$.subscribe(data => {
+        result = data;
+      });
+      expect(result).toEqual(riders);
     });
   });
 
@@ -259,6 +263,37 @@ describe('DashboardComponent', () => {
       expect(component.tripsDataSet.labels).toEqual([
         'Week 1', 'TDD', 'People', 'Finance', 'Technology', 'Technical'
       ]);
+    });
+
+
+
+    describe('Trip plot bar chart', () => {
+      it('should call plotBarChart', () => {
+        component.plotBarChart([{
+          averageRating: '2.00',
+          departmentId: 1,
+          departmentName: 'TDD',
+          totalCost: '23',
+          totalTrips: '1'
+        }]);
+        expect(component.tripData.tripsCost).toEqual([23]);
+        expect(component.tripData.trip[1].data).toEqual([1]);
+      });
+
+      it('should limit chart labels to 6 (Trips)', () => {
+        component.dateFilters.startDate.from = '2019-02-02';
+        component.dateFilters.endDate.to = '2019-02-02';
+        component.tripData.trip[1].data = [0, 0, 0];
+        component.tripData.tripsCost = [0, 0, 0];
+        component.tripData.departmentNames = [
+          'People', 'Finance', 'Technology', 'Technical', 'Launchpad', 'Success', 'Operations'
+        ];
+
+        component.plotBarChart(travelMock.data);
+        expect(component.tripData.departmentNames).toEqual([
+          'TDD', 'People', 'Finance', 'Technology', 'Technical',
+        ]);
+      });
     });
   });
 });

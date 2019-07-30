@@ -28,7 +28,14 @@
           <app-total-cost-view [totalCost]="totalCost"></app-total-cost-view>
         </div>
       </div>
-      <div class="right-pane"></div>
+      <div class="right-pane">
+        <app-trip-bar-chart
+            [labels]="departments"
+            [data]="tripData.trip"
+            [dept]="tripData.departmentNames"
+            [tripCost]="tripData.tripsCost"
+            ></app-trip-bar-chart>
+      </div>
     </div>
     <div class="dashboard-middle-container">
       <div fxLayout="column">

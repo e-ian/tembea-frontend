@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './rating-stars.component.html',
   styleUrls: ['./rating-stars.component.scss']
 })
-export class RatingStarsComponent  {
+export class RatingStarsComponent {
   @Input() rating: number;
   @Input() starSize: number;
 }

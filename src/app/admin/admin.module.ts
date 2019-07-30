@@ -81,7 +81,7 @@ import { AverageTripRatingsComponent } from './dashboard/average-trip-ratings/av
 import { TotalCostViewComponent } from './dashboard/total-cost-view/total-cost-view.component';
 import {
   RoutesInventoryEditModalComponent
-  } from './routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
+} from './routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 import { RiderListComponent } from './dashboard/rider-list/rider-list.component';
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
@@ -89,9 +89,8 @@ import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/
 import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-modal/update-trip-provider-modal.component';
 import { TripPieChartComponent } from './dashboard/trip-pie-chart/trip-pie-chart.component';
 import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
-
 import { TripsLineChartComponent } from './dashboard/trips-line-chart/trips-line-chart.component';
-
+import { TripBarChartComponent } from './dashboard/trip-bar-chart/trip-bar-chart.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -162,9 +161,12 @@ import { TripsLineChartComponent } from './dashboard/trips-line-chart/trips-line
     UpdateTripProviderModalComponent,
     TripPieChartComponent,
     TripsLineChartComponent,
+    RouteTripsComponent,
+    UpdateTripProviderModalComponent,
+    TripBarChartComponent,
   ],
   imports: [
-  CommonModule,
+    CommonModule,
     HttpClientModule,
     AdminRoutingModule,
     FormsModule,
@@ -184,16 +186,17 @@ import { TripsLineChartComponent } from './dashboard/trips-line-chart/trips-line
     MatProgressBarModule,
     MatRadioModule,
     ReactiveFormsModule,
+    ChartsModule,
   ],
   exports: [
     RatingStarsComponent,
   ],
   entryComponents: [
+    RouteApproveDeclineModalComponent,
     DeleteFellowModalComponent, DeleteCabModalComponent,
     DisplayTripModalComponent, ProviderModalComponent, AddProviderModalComponent, DriverModalComponent,
     DeleteDriverDialogComponent,
     DriverEditModalComponent,
-    RouteApproveDeclineModalComponent,
     ConfirmModalComponent,
     RoutesInventoryEditModalComponent,
     AddDepartmentsModalComponent,

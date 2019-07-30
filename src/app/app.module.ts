@@ -18,12 +18,14 @@ import { AngularMaterialModule } from './angular-material.module';
 import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
 import { ChartsModule } from 'ng2-charts';
 import { AlertService } from './shared/alert.service';
+import {
+  RoutesInventoryEditModalComponent
+} from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { errorHandlerFactory } from './shared/bugsnag.service';
-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { ProviderSelectorComponent } from './admin/routes/route-approve-decline-modal/provider-selector/provider-selector.component';
 
 const toastr: Toastr = window['toastr'];
 
@@ -60,4 +62,4 @@ const toastr: Toastr = window['toastr'];
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

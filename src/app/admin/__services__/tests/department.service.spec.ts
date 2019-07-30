@@ -69,7 +69,7 @@ describe('DepartmentsService', () => {
       const spy = jest.spyOn(HttpClient.prototype, 'post');
       spy.mockReturnValue(of({ success: true }));
       const result = service.add(department);
-      result.subscribe( data => {
+      result.subscribe(data => {
         expect(data.success).toEqual(true);
       });
     });

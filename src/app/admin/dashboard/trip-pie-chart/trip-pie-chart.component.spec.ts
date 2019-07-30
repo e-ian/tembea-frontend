@@ -3,7 +3,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { TripPieChartComponent } from './trip-pie-chart.component';
-import { ChartsModule } from 'ng2-charts';
 
 describe('TripPieChartComponent', () => {
   let component: TripPieChartComponent;
@@ -12,10 +11,10 @@ describe('TripPieChartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TripPieChartComponent],
-      imports: [AngularMaterialModule, ChartsModule],
+      imports: [AngularMaterialModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -21,7 +21,7 @@ export class DepartmentsService {
   }
 
   add(data: Object): Observable<any> {
-    return this.http.post<any>(this.departmentsUrl, {...data, slackUrl: this.teamUrl});
+    return this.http.post<any>(this.departmentsUrl, { ...data, slackUrl: this.teamUrl });
   }
 
   delete(id: number) {
@@ -42,5 +42,4 @@ export class DepartmentsService {
     };
     return this.http.put(`${environment.tembeaBackEndUrl}/api/v1/departments`, content);
   }
-
 }
