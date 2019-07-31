@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmModalComponent } from './admin/confirmation-dialog/confirmation-dialog.component';
 import { ClockService } from './auth/__services__/clock.service';
 import { ActiveTimeDirective } from './active-time.directive';
 import { HomeComponent } from './home/home.component';
@@ -17,19 +16,13 @@ import { LoginRedirectComponent } from './auth/login-redirect/login-redirect.com
 import { AuthService } from './auth/__services__/auth.service';
 import { AngularMaterialModule } from './angular-material.module';
 import { JwtHttpInterceptor } from './shared/jwt-http.interceptor';
-import { RouteApproveDeclineModalComponent } from './admin/routes/route-approve-decline-modal/route-approve-decline-modal.component';
-
+import { ChartsModule } from 'ng2-charts';
 import { AlertService } from './shared/alert.service';
-import { RoutesInventoryEditModalComponent
-} from './admin/routes/routes-inventory/routes-inventory-edit-modal/routes-inventory-edit-modal.component';
 import { errorHandlerFactory } from './shared/bugsnag.service';
-import { AddDepartmentsModalComponent } from './admin/settings/departments/add-departments-modal/add-departments-modal.component';
-import { TripApproveDeclineModalComponent } from './admin/trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AddCabsModalComponent } from './admin/cabs/add-cab-modal/add-cab-modal.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {ProviderSelectorComponent} from './admin/routes/route-approve-decline-modal/provider-selector/provider-selector.component';
 
 
 const toastr: Toastr = window['toastr'];
@@ -50,6 +43,7 @@ const toastr: Toastr = window['toastr'];
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
+    ChartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

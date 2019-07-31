@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
-
 import { TotalCostViewComponent } from './total-cost-view.component';
 
 describe('TotalCostViewComponent', () => {
@@ -9,8 +8,8 @@ describe('TotalCostViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TotalCostViewComponent ],
-      imports: [AngularMaterialModule ]
+      declarations: [TotalCostViewComponent],
+      imports: [AngularMaterialModule]
     })
     .compileComponents();
   }));

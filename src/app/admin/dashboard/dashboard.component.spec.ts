@@ -22,8 +22,8 @@ import {RiderListComponent} from './rider-list/rider-list.component';
 import {RiderCardComponent} from './rider-list/rider-card/rider-card.component';
 import {Observable} from 'rxjs';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-
-
+import { TripPieChartComponent } from './trip-pie-chart/trip-pie-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 export const routeRatingServiceMock = {
   getRouteAverages: jest.fn(),
@@ -46,6 +46,7 @@ describe('DashboardComponent', () => {
   };
   const tripDataService = {
     getTripData:  jest.fn().mockReturnValue(of(tripsMock)),
+    getTravelData: jest.fn().mockReturnValue(of(tripsMock))
   };
 
 
@@ -55,7 +56,7 @@ describe('DashboardComponent', () => {
       declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
         RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent,
         TotalCostViewComponent, RiderListComponent, RiderCardComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent],
+        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent, TripPieChartComponent],
       imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: RouteUsageService, useValue: service },
@@ -159,7 +160,6 @@ describe('DashboardComponent', () => {
   });
 
   describe('Airport Transfers', () => {
-
     it('should call getAirportTransfers on ngOnInit', () => {
       jest.spyOn(component, 'getAirportTransfers');
       component.ngOnInit();
@@ -174,7 +174,6 @@ describe('DashboardComponent', () => {
   });
 
   describe('Embassy Visits', () => {
-
     it('should call getEmbassyVisits on ngOnInit', () => {
       jest.spyOn(component, 'getEmbassyVisits');
       component.ngOnInit();
@@ -185,6 +184,20 @@ describe('DashboardComponent', () => {
       jest.spyOn(component, 'getEmbassyVisits');
       component.setDateFilter('from', 'from', '2019-05-03');
       expect(component.getEmbassyVisits).toHaveBeenCalled();
+    });
+  });
+
+  describe('Get Travel Data', () => {
+    it('should call getTripsAnalysis on ngOnInit', () => {
+      jest.spyOn(component, 'getTripsAnalysis');
+      component.ngOnInit();
+      expect(component.getTripsAnalysis).toHaveBeenCalled();
+    });
+
+    it('should set travelTripCount and normalTripCount to number of returned trips', () => {
+      component.getTripsAnalysis();
+      expect(component.travelTripCount).toEqual(6);
+      expect(component.normalTripCount).toEqual(6);
     });
   });
 });

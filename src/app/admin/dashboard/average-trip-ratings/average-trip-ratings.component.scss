@@ -1,5 +1,5 @@
 .trip-ratings-container {
-  height: 101px;
+  height: 117px;
   width: 198px;
   display: flex;
   flex-direction: column;
@@ -16,4 +16,8 @@
   font-weight: normal;
   margin-bottom: 35px;
   text-align: left;
+}
+
+.mat-card {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
 }

@@ -8,12 +8,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TotalCostViewComponent implements OnInit {
 
   @Input() totalCost: number;
-  @Input() title: String = 'Total Trip Cost';
-
+  title: String = 'Total Trip Cost';
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

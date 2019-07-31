@@ -84,9 +84,12 @@ import {
 import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 import { RiderListComponent } from './dashboard/rider-list/rider-list.component';
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
-import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/travel-analytics-view.component';
 import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-modal/update-trip-provider-modal.component';
+import { TripPieChartComponent } from './dashboard/trip-pie-chart/trip-pie-chart.component';
+import { ChartsModule } from 'ng2-charts';
+import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
+
 
 @NgModule({
   declarations: [
@@ -155,8 +158,8 @@ import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-m
     RiderListComponent,
     RiderCardComponent,
     TravelAnalyticsViewComponent,
-    RouteTripsComponent,
-    UpdateTripProviderModalComponent
+    UpdateTripProviderModalComponent,
+    TripPieChartComponent,
   ],
   imports: [
   CommonModule,
@@ -170,6 +173,7 @@ import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-m
     FlexLayoutModule,
     MatInputModule,
     MatButtonModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googMapsAPIKey,
       libraries: ['places']

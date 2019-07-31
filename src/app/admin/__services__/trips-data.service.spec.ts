@@ -3,7 +3,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TripsDataService } from './trips-data.service';
 import { HttpClient } from '@angular/common/http';
 
-
+const datePickerObject = {
+  startDate: { from: '2018-10-12' },
+  endDate: { to: '2018-12-24' }
+};
 describe('TripRatingsService', () => {
   let injector: TestBed;
   let service: TripsDataService;
@@ -20,7 +23,13 @@ describe('TripRatingsService', () => {
 
   it('should call the get the Trip Data', () => {
     jest.spyOn(HttpClient.prototype, 'post');
-    service.getTripData({ startDate: { from: '2018-10-12' }, endDate: { to: '2018-12-24' } });
+    service.getTripData(datePickerObject);
+    expect(HttpClient.prototype.post).toHaveBeenCalled();
+  });
+
+  it('should call the get the Travel Data', () => {
+    jest.spyOn(HttpClient.prototype, 'post');
+    service.getTravelData(datePickerObject);
     expect(HttpClient.prototype.post).toHaveBeenCalled();
   });
 });

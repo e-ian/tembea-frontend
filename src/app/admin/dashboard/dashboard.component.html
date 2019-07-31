@@ -14,6 +14,10 @@
     <div fxLayout="column">
       <div class="dashboard-top-container">
         <div class="left-pane">
+          <app-trip-pie-chart
+            [normalTripCount]="normalTripCount"
+            [travelTripCount]="travelTripCount">
+          </app-trip-pie-chart>
           <div class="trip-analytics">
             <app-average-trip-ratings [avgRatings]="averageRatings"></app-average-trip-ratings>
             <app-total-cost-view [totalCost]="totalCost"></app-total-cost-view>

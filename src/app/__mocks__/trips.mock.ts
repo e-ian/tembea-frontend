@@ -29,6 +29,5 @@ export const tripsMock = {
   finalCost: 300,
   finalAverageRating: 1.67,
   count: 3
-
 }
 };

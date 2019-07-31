@@ -1,13 +1,14 @@
 .mat-card {
-    height: 101px;
+    height: 116px;
     width: 198px;
     border-radius: 4px;
     background-color: #FFFFFF;
     padding-left: 30px;
-    margin-top: 5px;
+    margin-top: 6px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
   }
   
 .mat-card-title {

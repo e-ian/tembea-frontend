@@ -22,6 +22,9 @@ export class DatePickerComponent implements OnInit {
   }
 
   ngOnInit() {
+    const date = moment();
+    this.model.selectedDate = date.format('DD MMMM, YYYY');
+    this.selectedDateChange.emit(date.format(this.dateFormat));
   }
 
   update(event: MatDatepickerInputEvent<Date>) {

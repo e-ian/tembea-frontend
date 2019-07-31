@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit {
   totalAirportTrips: number;
   averageEmbassyRatings: any;
   EmbassyVisits: number;
+  normalTripCount: number;
+  travelTripCount: number;
 
   constructor(
 
@@ -43,7 +45,7 @@ export class DashboardComponent implements OnInit {
     private ratingsService: RouteRatingsService,
     private tripService: TripsDataService,
     private riderService: RiderService
-  ) { }
+  ) {}
 
   ngOnInit() {
     const date = new Date;
@@ -54,6 +56,7 @@ export class DashboardComponent implements OnInit {
     this.getTripsData();
     this.getAirportTransfers();
     this.getEmbassyVisits();
+    this.getTripsAnalysis();
     this.dateFilters = {from: {}, to: {}, startDate: {from: ''}, endDate: {to: ''}};
    }
 
@@ -68,6 +71,7 @@ export class DashboardComponent implements OnInit {
     this.getTripsData();
     this.getAirportTransfers();
     this.getEmbassyVisits();
+    this.getTripsAnalysis();
   }
 
   getRoutesUsage() {
@@ -77,7 +81,6 @@ export class DashboardComponent implements OnInit {
       const leastUsed = leastUsedBatch.emptyRecord ? { ...leastUsedBatch.emptyRecord } : { ...leastUsedBatch };
       this.mostUsedRoute = mostUsed;
       this.leastUsedRoute = leastUsed;
-
     });
   }
 
@@ -103,9 +106,9 @@ export class DashboardComponent implements OnInit {
   getTripsData() {
     if (this.dateFilters.startDate.from && this.dateFilters.endDate.to) {
       this.callTripService().subscribe(res => {
-        const { data: { trips, finalCost, finalAverageRating} } = res;
+        const { data: { trips, finalCost, finalAverageRating, count} } = res;
         this.tripsData = trips;
-        this.totalCost = finalCost;
+        this.totalCost = finalCost || 0;
         this.averageRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
       });
     }
@@ -128,7 +131,18 @@ export class DashboardComponent implements OnInit {
         this.EmbassyVisits = this.totalTripsCount(trips);
       });
     }
-
   }
 
+  getTripsAnalysis() {
+    if (this.dateFilters.from && this.dateFilters.to) {
+      this.tripService.getTravelData(this.dateFilters).subscribe(res => {
+        const { data: { trips } } = res;
+        this.travelTripCount = this.totalTripsCount(trips);
+      });
+      this.tripService.getTripData(this.dateFilters, 'Regular Trip').subscribe(res => {
+        const { data: { trips } } = res;
+        this.normalTripCount = this.totalTripsCount(trips);
+      });
+    }
+  }
 }
