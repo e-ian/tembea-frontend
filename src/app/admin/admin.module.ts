@@ -84,6 +84,7 @@ import {
 import { TripApproveDeclineModalComponent } from './trips/trip-approve-decline-modal/trip-approve-decline-modal.component';
 import { RiderListComponent } from './dashboard/rider-list/rider-list.component';
 import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card.component';
+import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/travel-analytics-view.component';
 
 @NgModule({
@@ -151,6 +152,7 @@ import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/
     ProviderSelectorComponent,
     RiderListComponent,
     RiderCardComponent,
+    RouteTripsComponent,
     TravelAnalyticsViewComponent
   ],
   imports: [
