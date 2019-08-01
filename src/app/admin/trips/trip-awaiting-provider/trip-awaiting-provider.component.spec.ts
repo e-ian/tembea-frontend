@@ -19,11 +19,14 @@ import { UpdateTripProviderModalComponent } from '../update-trip-provider-modal/
 import { tripRequestMock } from 'src/app/shared/__mocks__/trip-request.mock';
 import { providerServiceMock } from 'src/app/admin/__services__/__mocks__/providers.mock';
 import { providersMock } from 'src/app/__mocks__/trips-providers.mock';
+import { DisplayTripModalComponent } from '../display-trip-modal/display-trip-modal.component';
+import { TripItineraryComponent } from '../trip-itinerary/trip-itinerary.component';
 
 
 describe('TripAwaitingProviderComponent Unit test', () => {
   let component: TripAwaitingProviderComponent;
   let fixture: ComponentFixture<TripAwaitingProviderComponent>;
+  let mockElement;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -52,7 +55,9 @@ describe('TripAwaitingProviderComponent Unit test', () => {
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [UpdateTripProviderModalComponent]
+          entryComponents: [
+            UpdateTripProviderModalComponent
+          ]
         }
       })
       .compileComponents();
@@ -64,6 +69,16 @@ describe('TripAwaitingProviderComponent Unit test', () => {
     // ensure the component template body is rendered
     component.tripRequests = [tripRequestMock];
     fixture.detectChanges();
+
+    mockElement =  {
+      list: ['edit-icon', 'confirm-icon'],
+      classList: {
+        contains: (value) => {
+          if (mockElement.list.includes(value)) {return true; }
+          return false;
+        }
+      }
+    };
   });
 
   afterEach(() => {
@@ -96,5 +111,31 @@ describe('TripAwaitingProviderComponent Unit test', () => {
     }}));
     component.ngOnInit();
     expect(component.providerService.getViableProviders).toBeCalled();
+  });
+
+  it('should test for an action button click status', () => {
+    component.tripTableActionButtons = ['edit-icon'];
+    const actionBtnClicked = component.isActionButton(mockElement);
+    expect(actionBtnClicked).toEqual(true);
+  });
+
+  it('should test for an action button click status', () => {
+    component.tripTableActionButtons = ['decline-icon'];
+    const actionBtnClicked = component.isActionButton(mockElement);
+    expect(actionBtnClicked).toEqual(false);
+  });
+
+  it('should display trip description modal', () => {
+    jest.spyOn(component, 'isActionButton').mockReturnValue(false);
+    jest.spyOn(TripItineraryComponent.prototype, 'viewTripDescription').mockReturnValue();
+    component.viewTripDetails({}, {});
+    expect(TripItineraryComponent.prototype.viewTripDescription).toBeCalled();
+  });
+
+  it('should not display trip description modal', () => {
+    jest.spyOn(component, 'isActionButton').mockReturnValue(true);
+    jest.spyOn(TripItineraryComponent.prototype, 'viewTripDescription').mockReturnValue();
+    component.viewTripDetails({}, {});
+    expect(TripItineraryComponent.prototype.viewTripDescription).toHaveBeenCalledTimes(0);
   });
 });

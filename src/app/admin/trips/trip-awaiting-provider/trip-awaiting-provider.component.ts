@@ -21,12 +21,14 @@ export class TripAwaitingProviderComponent extends TripItineraryComponent implem
   tripProviders: IProviderInventory[] = [];
   updateTripSubscription: Subscription;
 
+  tripTableActionButtons = ['edit-icon', 'decline-icon'];
+
   ngOnInit() {
     super.ngOnInit();
     this.providerService.getViableProviders()
       .subscribe(({ data }) => {
         this.tripProviders = data;
-    });
+      });
     this.updateTripSubscription = this.appEventService.subscribe('updateTripInventory', () => {
       this.getTrips();
     });
@@ -50,6 +52,22 @@ export class TripAwaitingProviderComponent extends TripItineraryComponent implem
         }
       }
     });
+  }
+
+  isActionButton(elem: HTMLElement) {
+    for (let i = 0; i < this.tripTableActionButtons.length; i++) {
+      const btnClass = this.tripTableActionButtons[i];
+      if (elem.classList.contains(btnClass)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  viewTripDetails(trip: any, elem) {
+    if (!this.isActionButton(elem)) {
+      super.viewTripDescription(trip);
+    }
   }
 
   ngOnDestroy() {
