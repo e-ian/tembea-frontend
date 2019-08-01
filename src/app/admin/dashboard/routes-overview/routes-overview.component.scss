@@ -5,6 +5,7 @@
 	background-color: #FFFFFF;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
     padding: 25px 35px 36px 32px;
+  margin-right: 5px;
 }
 
 .mat-card-title {
@@ -49,4 +50,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (min-width: 1900px) {
+.mat-card {
+  width: 240px;
+}
 }
