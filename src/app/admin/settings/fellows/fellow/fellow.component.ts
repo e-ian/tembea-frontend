@@ -26,7 +26,7 @@ export class FellowComponent implements OnInit {
   totalItems: number;
   sort: string;
   isLoading: boolean;
-  displayText = 'This fellow has no Routes yet 😒';
+  displayText = 'This engineer has no Routes yet 😒';
   routeBatchId: any;
 
   constructor(
@@ -83,7 +83,7 @@ export class FellowComponent implements OnInit {
     } catch (err) {
       this.userName = '';
       this.isLoading = false;
-      this.displayText = 'This fellow has no Routes yet 😒';
+      this.displayText = 'This engineer has no Routes yet 😒';
     }
   }
 

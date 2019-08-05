@@ -36,10 +36,10 @@
             <span *ngIf="headerTitle.includes('Trips')">There is currently {{badgeSize}} trip in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle.includes('Vehicles')">This provider currently has {{badgeSize}} vehicle</span>
             <span *ngIf="headerTitle === 'Providers'">There is currently {{badgeSize}} provider in display</span>
-            <span *ngIf="headerTitle === 'Fellows'">There is currently {{badgeSize}} Fellow {{tooltipTitle}}</span>
+            <span *ngIf="headerTitle === 'Engineers'">There is currently {{badgeSize}} Engineer {{tooltipTitle}}</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There has been {{badgeSize}} airport transfer so far</span>
             <span *ngIf="headerTitle === 'Embassy Visits'">There has been {{badgeSize}} embassy visit so far</span>
-            <span *ngIf="headerTitle.includes('Trip History')">This fellow has taken {{badgeSize}} trip so far</span>
+            <span *ngIf="headerTitle.includes('Trip History')">This engineer has taken {{badgeSize}} trip so far</span>
             <span *ngIf="headerTitle === 'Pending Trips'">There is currently {{badgeSize}} pending trip</span>
           </ng-template>
           <ng-template #moreThanOne>
@@ -48,10 +48,10 @@
             <span *ngIf="headerTitle.includes('Trips')">There are currently {{badgeSize}} trips in {{tooltipTitle}}</span>
             <span *ngIf="headerTitle.includes('Vehicles')">This provider currently has {{badgeSize}} vehicles</span>
             <span *ngIf="headerTitle === 'Providers'">There are currently {{badgeSize}} {{headerTitle}} in display</span>
-            <span *ngIf="headerTitle === 'Fellows'">There are currently {{badgeSize}} Fellows {{tooltipTitle}}</span>
+            <span *ngIf="headerTitle === 'Engineers'">There are currently {{badgeSize}} Engineers {{tooltipTitle}}</span>
             <span *ngIf="headerTitle === 'Airport Transfers'">There have been {{badgeSize}} airport transfers so far</span>
             <span *ngIf="headerTitle === 'Embassy Visits'">There have been {{badgeSize}} embassy visits so far</span>
-            <span *ngIf="headerTitle.includes('Trip History')">This fellow has taken {{badgeSize}} trips so far</span>
+            <span *ngIf="headerTitle.includes('Trip History')">This engineer has taken {{badgeSize}} trips so far</span>
             <span *ngIf="headerTitle === 'Pending Trips'">There are currently {{badgeSize}} pending trips</span>
           </ng-template>
           </span>

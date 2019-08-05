@@ -98,13 +98,13 @@ const routes: Routes = [
         path: 'settings/fellows',
         component: FellowNavComponent,
         canActivate: [],
-        data: { title: 'Fellows' }
+        data: { title: 'Engineers' }
       },
       {
         path: 'settings/fellows/fellow/:id',
         component: FellowComponent,
         canActivate: [],
-        data: { title: 'Fellow Trips' }
+        data: { title: 'Engineer Trips' }
       },
       {
         path: 'settings/departments',

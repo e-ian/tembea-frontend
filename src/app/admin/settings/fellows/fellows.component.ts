@@ -21,7 +21,7 @@ export class FellowsComponent implements OnInit {
   totalItems: number;
   pageSize: number;
   pageNumber: number;
-  displayText = 'No fellows currently on routes';
+  displayText = 'No engineers currently on routes';
   constructor(
     private fellowService: FellowsService
   ) {

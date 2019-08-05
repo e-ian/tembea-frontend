@@ -26,7 +26,7 @@
   },
   {
     "name": "Settings", "iconActive": "settings", "iconInActive": "settings-inactive", "link": "settings", "pages": [
-    { "name": "Fellows", "link": "settings/fellows", "id": "fellows-settings" },
+    { "name": "Engineers", "link": "settings/fellows", "id": "fellows-settings" },
     { "name": "Departments", "link": "settings/departments", "id": "department-settings" }
   ]
   }
