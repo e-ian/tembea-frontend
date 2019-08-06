@@ -4,7 +4,7 @@
     <app-empty-page [text]="'No route records yet.'"></app-empty-page>
     <div class="bottom-image"></div>
   </div>
-  
+
   <div *ngIf="routeTrips.length > 0" class="route-trips-container">
     <div class="route-trips-table custom-table">
       <mat-grid-list cols="7" rowHeight="4:1" class="trip-table-head table-header-hover">
@@ -30,7 +30,7 @@
           <div class="trip-align-cell">Avg Rating</div>
         </mat-grid-tile>
       </mat-grid-list>
-      
+
       <mat-grid-list *ngFor="let routeTrip of routeTrips" cols="7" rowHeight="4:1" class="table-row-item">
         <mat-grid-tile>
           <div class="time trip-align-cell">
@@ -54,7 +54,9 @@
         </mat-grid-tile>
         <mat-grid-tile>
           <div class="trip-align-cell">
-            {{ routeTrip.batch.cabDetails.regNumber }}
+            <span *ngIf="routeTrip.batch.cabDetails">
+              {{ routeTrip.batch.cabDetails.regNumber }}
+            </span>
           </div>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -70,9 +72,9 @@
       </mat-grid-list>
     </div>
   </div>
-  
+
   <div class="pagination">
-    <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems" 
+    <app-pagination *ngIf='totalItems > pageSize' [totalItems]="totalItems"
       (pageChange)="setPage($event)"
       [pageSize]="pageSize">
     </app-pagination>
