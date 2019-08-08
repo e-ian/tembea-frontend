@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -87,9 +88,9 @@ import { RiderCardComponent } from './dashboard/rider-list/rider-card/rider-card
 import { TravelAnalyticsViewComponent } from './dashboard/travel-analytics-view/travel-analytics-view.component';
 import { UpdateTripProviderModalComponent } from './trips/update-trip-provider-modal/update-trip-provider-modal.component';
 import { TripPieChartComponent } from './dashboard/trip-pie-chart/trip-pie-chart.component';
-import { ChartsModule } from 'ng2-charts';
 import { RouteTripsComponent } from './routes/route-trips/route-trips.component';
 
+import { TripsLineChartComponent } from './dashboard/trips-line-chart/trips-line-chart.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +161,7 @@ import { RouteTripsComponent } from './routes/route-trips/route-trips.component'
     TravelAnalyticsViewComponent,
     UpdateTripProviderModalComponent,
     TripPieChartComponent,
+    TripsLineChartComponent,
   ],
   imports: [
   CommonModule,
@@ -200,6 +202,7 @@ import { RouteTripsComponent } from './routes/route-trips/route-trips.component'
     ProviderSelectorComponent,
     UpdateTripProviderModalComponent
   ],
-  providers: [AlertService, GoogleMapsService, CreateRouteHelper]
+  providers: [AlertService, GoogleMapsService, CreateRouteHelper],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule { }

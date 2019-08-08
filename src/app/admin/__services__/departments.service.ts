@@ -42,4 +42,5 @@ export class DepartmentsService {
     };
     return this.http.put(`${environment.tembeaBackEndUrl}/api/v1/departments`, content);
   }
+
 }

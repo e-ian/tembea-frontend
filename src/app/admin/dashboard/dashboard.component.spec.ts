@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material';
 import { of } from 'rxjs/observable/of';
@@ -14,19 +16,18 @@ import { RoutesOverviewComponent } from './routes-overview/routes-overview.compo
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { AverageTripRatingsComponent } from './average-trip-ratings/average-trip-ratings.component';
-import { tripsMock } from 'src/app/__mocks__/trips.mock';
+import { tripsMock, travelMock, departmentsMock } from 'src/app/__mocks__/trips.mock';
 import { TotalCostViewComponent } from './total-cost-view/total-cost-view.component';
 import { riders } from './rider-list/mock.data';
 import { RiderService } from './rider-list/rider.service';
 import {RiderListComponent} from './rider-list/rider-list.component';
 import {RiderCardComponent} from './rider-list/rider-card/rider-card.component';
-import {Observable} from 'rxjs';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
 import { TripPieChartComponent } from './trip-pie-chart/trip-pie-chart.component';
-import { ChartsModule } from 'ng2-charts';
+import { DepartmentsService } from '../__services__/departments.service';
+
 
 export const routeRatingServiceMock = {
-  getRouteAverages: jest.fn(),
+  getRouteAverages: jest.fn().mockReturnValue(of(tripsMock)),
 };
 
 export const averageTripRatingServiceMock = {
@@ -42,27 +43,48 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   const service = {
-    getRouteUsage: jest.fn().mockReturnValue(of(true)),
+    getRouteUsage: jest.fn().mockReturnValue(of(routeUsageMock)),
   };
   const tripDataService = {
     getTripData:  jest.fn().mockReturnValue(of(tripsMock)),
     getTravelData: jest.fn().mockReturnValue(of(tripsMock))
+  };
+  const departmentServiceMock = {
+    get: jest.fn().mockReturnValue(of(departmentsMock)),
   };
 
 
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent, RoutesOverviewComponent, DatePickerComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent,
-        TotalCostViewComponent, RiderListComponent, RiderCardComponent,
-        RouteRatingsOverviewComponent, RatingStarsComponent, AverageTripRatingsComponent, TotalCostViewComponent, TripPieChartComponent],
-      imports: [AngularMaterialModule, FormsModule, MatNativeDateModule],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: RouteUsageService, useValue: service },
-      { provide: RouteRatingsService, useValue: routeRatingServiceMock },
-      {provide: TripsDataService, useValue: tripDataService},
-      { provide: RiderService, useValue: riderServiceMock } ]
+      declarations: [
+        DashboardComponent,
+        RoutesOverviewComponent,
+        DatePickerComponent,
+        RouteRatingsOverviewComponent,
+        RatingStarsComponent,
+        AverageTripRatingsComponent,
+        TotalCostViewComponent,
+        RiderListComponent,
+        RiderCardComponent,
+        AverageTripRatingsComponent,
+        TotalCostViewComponent,
+        TripPieChartComponent,
+      ],
+      imports: [
+        HttpClientTestingModule,
+        AngularMaterialModule,
+        FormsModule,
+        MatNativeDateModule,
+      ],
+      providers: [
+        { provide: RouteUsageService, useValue: service },
+        { provide: RouteRatingsService, useValue: routeRatingServiceMock },
+        { provide: TripsDataService, useValue: tripDataService  },
+        { provide: DepartmentsService, useValue: departmentServiceMock  },
+        { provide: RiderService, useValue: riderServiceMock },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   })
@@ -112,8 +134,10 @@ describe('DashboardComponent', () => {
 
     it('should call getRouteRating on ngOnInit', () => {
       getRouteRatingsSpy.mockImplementationOnce(() => jest.fn());
+      jest.spyOn(component, 'getDepartments');
       component.ngOnInit();
       expect(component.getRouteRatings).toHaveBeenCalled();
+      expect(component.getDepartments).toHaveBeenCalled();
     });
 
     it('should call getRouteRatings on setDateFilter', () => {
@@ -137,7 +161,6 @@ describe('DashboardComponent', () => {
   });
 
   describe('get trip data', () => {
-
     it('should call getTripsData on ngOnInit', () => {
       jest.spyOn(component, 'getTripsData');
       component.ngOnInit();
@@ -198,6 +221,44 @@ describe('DashboardComponent', () => {
       component.getTripsAnalysis();
       expect(component.travelTripCount).toEqual(6);
       expect(component.normalTripCount).toEqual(6);
+    });
+  });
+
+  describe('Travel Analytics', () => {
+    it('should load initial data/departments when component is initialized', () => {
+      jest.spyOn(component, 'getWeekOfMonth').mockReturnValue('Week 1');
+      component.getDepartments();
+      expect(component.tripsDataSet.labels).toEqual(['Week 1', 'TDD', 'People', 'Finance']);
+      expect(component.tripsDataSet.travel[0].data).toEqual([0, 0, 0, 0]);
+      expect(component.tripsDataSet.travel[0].tripsCost).toEqual([0, 0, 0, 0]);
+    });
+    it('should get the week of the month', () => {
+      expect(component.getWeekOfMonth('2019-08-14')).toEqual('Week 2');
+    });
+    it('should populate chartData with travel trips', () => {
+      component.dateFilters.startDate.from = '2019-02-02';
+      component.dateFilters.endDate.to = '2019-02-02';
+      component.tripsDataSet.travel[0].data = [0, 0, 0];
+      component.tripsDataSet.travel[0].tripsCost = [0, 0, 0];
+      component.tripsDataSet.labels = ['Week 1', 'People', 'Finance'];
+
+      component.plotTravelTripsAnalytics(travelMock.data, 0);
+      expect(component.tripsDataSet.travel[0].data).toEqual([0, 2, 0]);
+      expect(component.tripsDataSet.travel[0].tripsCost).toEqual([0, 80, 0]);
+    });
+    it('should limit chart labels to 6', () => {
+      component.dateFilters.startDate.from = '2019-02-02';
+      component.dateFilters.endDate.to = '2019-02-02';
+      component.tripsDataSet.travel[0].data = [0, 0, 0];
+      component.tripsDataSet.travel[0].tripsCost = [0, 0, 0];
+      component.tripsDataSet.labels = [
+        'Week 1', 'People', 'Finance', 'Technology', 'Technical', 'Launchpad'
+      ];
+
+      component.plotTravelTripsAnalytics(travelMock.data, 0);
+      expect(component.tripsDataSet.labels).toEqual([
+        'Week 1', 'TDD', 'People', 'Finance', 'Technology', 'Technical'
+      ]);
     });
   });
 });

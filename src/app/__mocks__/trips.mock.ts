@@ -1,5 +1,5 @@
 export const tripsMock = {
-  'data': {
+  data: {
     trips: [
       {
         'totalTrips': 3,
@@ -25,9 +25,32 @@ export const tripsMock = {
         'averageRating': 0,
         'department': 'Operations'
       }
+    ],
+    finalCost: 300,
+    finalAverageRating: 1.67,
+    count: 3
+  }
+};
+
+export const travelMock = {
+  data: [
+    {
+      departmentId: 1,
+      departmentName: 'TDD',
+      totalTrips: '2',
+      averageRating: '3.50',
+      totalCost: '80'
+    }
   ],
   finalCost: 300,
   finalAverageRating: 1.67,
   count: 3
-}
+};
+
+export const departmentsMock = {
+  departments: [
+    { name: 'TDD' },
+    { name: 'People' },
+    { name: 'Finance' },
+  ],
 };

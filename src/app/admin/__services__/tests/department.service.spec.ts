@@ -6,6 +6,8 @@ import { getDepartmentsMock } from '../../routes/routes-inventory/__mocks__/get-
 import { DepartmentsModel } from 'src/app/shared/models/departments.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { departmentsMock } from 'src/app/__mocks__/trips.mock';
+
 describe('DepartmentsService', () => {
   let service: DepartmentsService;
   let httpMock: HttpTestingController;
@@ -99,5 +101,4 @@ describe('DepartmentsService', () => {
       expect(JSON.stringify(result)).toEqual(JSON.stringify(of(updateResponseMock)));
     });
   });
-
 });

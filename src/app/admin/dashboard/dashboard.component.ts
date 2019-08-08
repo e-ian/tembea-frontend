@@ -7,6 +7,7 @@ import { ITripsDataModel } from '../../shared/models/trips-data.model';
 import { RiderService } from './rider-list/rider.service';
 import { IRider } from '../../shared/models/rider.model';
 import { Observable } from 'rxjs/Observable';
+import { DepartmentsService } from '../__services__/departments.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,14 +39,30 @@ export class DashboardComponent implements OnInit {
   EmbassyVisits: number;
   normalTripCount: number;
   travelTripCount: number;
+  departments: string[] = [];
+  tripsDataSet: { labels: string[], travel: any[] } = {
+    labels: [],
+    travel: [
+      {
+        data: [],
+        label: 'Airport Transfers',
+        tripsCost: [],
+      },
+      {
+        data: [],
+        label: 'Embassy Visits',
+        tripsCost: [],
+      },
+    ],
+  };
 
   constructor(
-
     private routeUsageService: RouteUsageService,
     private ratingsService: RouteRatingsService,
     private tripService: TripsDataService,
-    private riderService: RiderService
-  ) {}
+    private riderService: RiderService,
+    private departmentsService: DepartmentsService,
+  ) { }
 
   ngOnInit() {
     const date = new Date;
@@ -58,6 +75,7 @@ export class DashboardComponent implements OnInit {
     this.getEmbassyVisits();
     this.getTripsAnalysis();
     this.dateFilters = {from: {}, to: {}, startDate: {from: ''}, endDate: {to: ''}};
+    this.getDepartments();
    }
 
 
@@ -120,6 +138,7 @@ export class DashboardComponent implements OnInit {
         const { data: { finalAverageRating, trips} } = res;
         this.airportRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
         this.totalAirportTrips = this.totalTripsCount(trips);
+        this.plotTravelTripsAnalytics(trips, 0);
       });
     }
   }
@@ -129,6 +148,7 @@ export class DashboardComponent implements OnInit {
         const { data: { trips, finalAverageRating } } = res;
         this.averageEmbassyRatings = finalAverageRating * 20; // convert to percentage then divide by 5 for the 5 stars
         this.EmbassyVisits = this.totalTripsCount(trips);
+        this.plotTravelTripsAnalytics(trips, 1);
       });
     }
   }
@@ -145,4 +165,53 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
+  getDepartments() {
+    this.departmentsService.get(5, 1).subscribe(res => {
+      const weekOfMonth = this.getWeekOfMonth(this.dateFilters.startDate.from);
+      const departments = res.departments.map(department => department.name);
+
+      this.tripsDataSet.labels = [weekOfMonth, ...departments];
+      const labelsLength = this.tripsDataSet.labels.length;
+      const zeroData = new Array(labelsLength).fill(0);
+      this.tripsDataSet.travel[0].data = [...zeroData];
+      this.tripsDataSet.travel[0].tripsCost = [...zeroData];
+      this.tripsDataSet.travel[1].data = [...zeroData];
+      this.tripsDataSet.travel[1].tripsCost = [...zeroData];
+    });
+  }
+
+  getWeekOfMonth(date: string) {
+    const selectedDate = moment(date);
+    const weekOfMonth = `Week ${Math.ceil(selectedDate.date() / 7)}`;
+    return weekOfMonth;
+  }
+
+  plotTravelTripsAnalytics(trips, dataIndex: number) {
+    const onlyUnique = (value, index, self) => self.indexOf(value) === index;
+    let labels = [...this.tripsDataSet.labels];
+    trips.map(trip => {
+      if (labels.indexOf(trip.departmentName) === -1) {
+        this.departments.push(trip.departmentName);
+        const [weekOfMonth, ...dataLabels] = labels;
+        labels = [weekOfMonth, ...this.departments, ...dataLabels].filter(onlyUnique);
+      }
+
+      const index = labels.indexOf(trip.departmentName);
+      const newTravelData = [...this.tripsDataSet.travel[dataIndex].data];
+      const newTravelCost = [...this.tripsDataSet.travel[dataIndex].tripsCost];
+
+      newTravelData[index] = parseInt(trip.totalTrips, 0);
+      newTravelCost[index] = parseInt(trip.totalCost || 0, 0);
+
+      this.tripsDataSet.travel[dataIndex].data = [...newTravelData];
+      this.tripsDataSet.travel[dataIndex].tripsCost = [...newTravelCost];
+    });
+
+    if (labels.length > 6) {
+      labels.length = 6;
+    }
+    this.tripsDataSet.labels = labels;
+  }
+
 }

@@ -1,7 +1,9 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 import { TripsDataService } from './trips-data.service';
 import { HttpClient } from '@angular/common/http';
+import { travelMock } from 'src/app/__mocks__/trips.mock';
 
 const datePickerObject = {
   startDate: { from: '2018-10-12' },
@@ -32,4 +34,20 @@ describe('TripRatingsService', () => {
     service.getTravelData(datePickerObject);
     expect(HttpClient.prototype.post).toHaveBeenCalled();
   });
+
+  it('should fetch a completed travel trips by department', () => {
+    const httpSpy = jest.spyOn(HttpClient.prototype, 'post');
+    httpSpy.mockReturnValue(of(travelMock));
+    const dateFilter = {
+      startDate: { from: '' },
+      endDate: { to: '' },
+    };
+
+    const result = service.getTravelData(dateFilter, ['TDD']);
+    expect(httpSpy).toHaveBeenCalled();
+    result.subscribe(data => {
+      expect(data).toEqual(travelMock);
+    });
+  });
+
 });
