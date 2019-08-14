@@ -9,7 +9,7 @@
     "build": "ng build",
     "build:staging": "ng build -c=staging",
     "build:prod": "ng build --prod",
-    "test": "ng test --runInBand -w=1",
+    "test": "ng test --runInBand",
     "pretest": "npm run lint",
     "lint": "ng lint --exclude 'src/**/*.json'",
     "e2e": "ng e2e",

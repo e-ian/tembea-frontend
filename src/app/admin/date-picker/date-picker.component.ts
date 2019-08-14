@@ -18,11 +18,12 @@ export class DatePickerComponent implements OnInit {
   model = { selectedDate: null };
   @Input() maxDate;
   @Input() minDate;
+  @Input() previous: boolean;
   constructor() {
   }
 
   ngOnInit() {
-    const date = moment();
+    const date = this.previous ? moment() : moment().subtract(7, 'days');
     this.model.selectedDate = date.format('DD MMMM, YYYY');
     this.selectedDateChange.emit(date.format(this.dateFormat));
   }

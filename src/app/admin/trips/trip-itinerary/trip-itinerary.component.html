@@ -4,16 +4,18 @@
     <div class="filter-item">
       <span>From</span>
       <div class="selector">
-        <app-date-picker [placeholder]="'Departure Date'"
-          (selectedDateChange)="setDateFilter('departureTime', 'after', $event)"></app-date-picker>
+        <app-date-picker [placeholder]="'Departure Date'" [previous]="false"
+          (selectedDateChange)="setDateFilter('departureTime', 'after', $event)">
+        </app-date-picker>
       </div>
     </div>
 
     <div class="filter-item">
       <span>To</span>
       <div class="selector">
-        <app-date-picker [placeholder]="'Departure Date'"
-          (selectedDateChange)="setDateFilter('departureTime', 'before', $event)"></app-date-picker>
+        <app-date-picker [placeholder]="'Departure Date'" [previous]="true"
+          (selectedDateChange)="setDateFilter('departureTime', 'before', $event)">
+        </app-date-picker>
       </div>
 
     </div>
@@ -34,7 +36,7 @@
   </div>
 </div>
 
-<div *ngIf="!tripRequests.length">
+<div *ngIf="!tripRequests.length && !loading">
   <app-empty-page [text]="'No trips yet.'"></app-empty-page>
   <div class="bottom-image"></div>
 </div>

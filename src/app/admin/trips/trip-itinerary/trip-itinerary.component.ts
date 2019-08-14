@@ -40,6 +40,7 @@ export class TripItineraryComponent implements OnInit {
   filterParams: any;
   passedParams = {};
   state = 'Approved/Confirmed';
+  loading: boolean;
   @Output()
   tripTotalEventEmitter = new EventEmitter();
   noCab = false;
@@ -96,6 +97,7 @@ export class TripItineraryComponent implements OnInit {
   }
 
   getTrips(status = 'Confirmed') {
+    this.loading = true;
     const tripStatus = this.tripRequestType === 'pastTrips' ? null : status;
     const { page, pageSize: size, departmentName: department, dateFilters } = this;
     this.tripRequestService.query({ page, size, status: tripStatus, department, type: this.tripType, dateFilters, noCab: this.noCab })
@@ -114,6 +116,7 @@ export class TripItineraryComponent implements OnInit {
           });
         }
         this.tripTotalEventEmitter.emit({ totalItems: this.totalItems, tripRequestType: this.tripRequestType });
+        this.loading = false;
       }, () => {
         this.alertService.error('Error occured while retrieving data');
       });
