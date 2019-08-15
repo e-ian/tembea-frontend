@@ -12,6 +12,7 @@ import { mockToastr } from '../../../shared/__mocks__/mockData';
 import { RouteInventoryModel } from '../../../shared/models/route-inventory.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { MatDialog } from '@angular/material';
 
 
 describe('SearchService', () => {
@@ -33,7 +34,8 @@ describe('SearchService', () => {
         { provide: CookieService, useValue: new SpyObject(CookieService) },
         { provide: ClockService, useValue: new SpyObject(ClockService) },
         { provide: Router, useValue: new SpyObject(Router) },
-        { provide: AlertService, useValue: mockToastr }
+        { provide: AlertService, useValue: mockToastr },
+        { provide: MatDialog, useValue: { closeAll: jest.fn() } }
       ]
     });
 

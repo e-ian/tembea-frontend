@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material';
 
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../shared/models/user.model';
@@ -28,7 +29,8 @@ export class AuthService {
     public cookieService: CookieService,
     private clock: ClockService,
     private router: Router,
-    public toastr: AlertService
+    public toastr: AlertService,
+    public dialog: MatDialog
   ) {}
 
   getCurrentUser(): IUser {
@@ -65,6 +67,7 @@ export class AuthService {
     this.cookieService.delete('tembea_token', '/');
     this.isAuthenticated = false;
     this.clockSubscription.unsubscribe();
+    this.dialog.closeAll();
   }
 
   authorizeUser(response: any) {

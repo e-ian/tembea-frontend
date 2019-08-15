@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { AlertService } from '../../../shared/alert.service';
 import { SpyObject } from '../../../__mocks__/SpyObject';
 import { mockToastr } from '../../../shared/__mocks__/mockData';
+import { MatDialog } from '@angular/material';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -31,7 +32,8 @@ describe('AuthService', () => {
         { provide: CookieService, useValue: new SpyObject(CookieService) },
         { provide: ClockService,  useValue: new SpyObject(ClockService) },
         { provide: Router,  useValue: new SpyObject(Router) },
-        { provide: AlertService, useValue: mockToastr }
+        { provide: AlertService, useValue: mockToastr },
+        { provide: MatDialog, useValue: { closeAll: jest.fn() }}
       ]
     });
 
