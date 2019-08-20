@@ -4,7 +4,7 @@
   </mat-card-title>
   <mat-card-content  class="center">
     <div>
-      <p id="route_name">{{data.Route}} {{data.RouteBatch}}</p>
+      <p id="route_name">{{ data.Route | shortenText: 7 }} {{data.RouteBatch}}</p>
       <p id="route_use">
         {{data.percentageUsage}}% used
       </p>

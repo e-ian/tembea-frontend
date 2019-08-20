@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { RoutesOverviewComponent } from './routes-overview.component';
+import { ShortenTextPipe } from '../../__pipes__/shorten-text.pipe';
 
 describe('RoutesOverviewComponent', () => {
   let component: RoutesOverviewComponent;
@@ -12,7 +13,7 @@ describe('RoutesOverviewComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoutesOverviewComponent ],
+      declarations: [ RoutesOverviewComponent, ShortenTextPipe ],
       imports: [AngularMaterialModule ]
     })
     .compileComponents();

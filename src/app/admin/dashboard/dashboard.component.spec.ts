@@ -26,6 +26,7 @@ import { DepartmentsService } from '../__services__/departments.service';
 import { RiderCardComponent } from './rider-list/rider-card/rider-card.component';
 import { Observable } from 'rxjs';
 import { TripBarChartComponent } from './trip-bar-chart/trip-bar-chart.component';
+import { ShortenTextPipe } from '../__pipes__/shorten-text.pipe';
 
 
 
@@ -73,7 +74,8 @@ describe('DashboardComponent', () => {
         AverageTripRatingsComponent,
         TotalCostViewComponent,
         TripPieChartComponent,
-        TripBarChartComponent
+        TripBarChartComponent,
+        ShortenTextPipe
       ],
       imports: [
         HttpClientTestingModule,
