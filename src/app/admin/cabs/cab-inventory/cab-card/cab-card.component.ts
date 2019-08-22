@@ -58,7 +58,6 @@ export class CabCardComponent implements OnInit {
         model: this.model,
         regNumber: this.regNumber,
         capacity: this.capacity,
-        providerId: this.providerId,
       }, '620px', 'small-modal-panel-class'));
     dialogRef.afterClosed().subscribe(() => {
       this.hidden = !this.hidden;
